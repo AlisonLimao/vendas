@@ -95,22 +95,26 @@
         <small>Estoques locais em circulação</small>
       </div>
     </div>
-    <a class="btn btn-sell" data-deep-link="vender" data-ga-origin="cta_topo_vender" href="#">Quero vender</a>
+    <nav class="topnav" aria-label="Navegação principal">
+      <a href="#section-vitrine">Explorar</a>
+      <a href="como-funciona.html">Como funciona</a>
+    </nav>
+    <a class="btn btn-sell" data-deep-link="vender" data-ga-origin="cta_topo_vender" href="#">Anunciar</a>
   </header>
 
   <main>
     <section class="hero">
       <div class="hero-copy">
-        <h1>Estoques de quem produz, com preço de produtor</h1>
-        <p>Cada anúncio mostra quem vende e a disponibilidade confirmada pelo próprio fornecedor. Você negocia direto pelo Telegram — sem cadastro neste site e sem taxa de plataforma.</p>
+        <h1>Encontre produtos para atacado direto de quem anuncia</h1>
+        <p>Pesquise o que você precisa ou navegue pela vitrine. Veja quem vende, o preço e a disponibilidade antes de chamar no Telegram.</p>
         <ul class="trust-row" aria-label="Por que confiar">
           <li>✓ Anunciante identificado</li>
-          <li>✓ Disponibilidade confirmada pelo fornecedor</li>
-          <li>✓ Negociação direta pelo Telegram</li>
-          <li>✓ Sem taxa de plataforma</li>
+          <li>✓ Disponibilidade atualizada</li>
+          <li>✓ Negociação direta</li>
+          <li>✓ Sem taxa</li>
         </ul>
         <div class="searchbar">
-          <input id="search" type="search" placeholder="Buscar produto (ex.: blusa de inverno)"
+          <input id="search" type="search" placeholder="O que você procura? Ex.: blusa de inverno"
                  autocomplete="off" aria-label="Buscar produto">
         </div>
         <div id="categories" class="chips" aria-label="Categorias"></div>
@@ -129,19 +133,31 @@
       <button id="clear-search" class="btn btn-ghost" hidden>Limpar busca</button>
     </section>
 
-    <section id="section-pronta">
+    <section id="section-pronta" hidden>
       <h2>⚡ Pronta entrega</h2>
       <div class="grid" data-slot="pronta"></div>
     </section>
 
-    <section id="section-novidades">
-      <h2>Novidades</h2>
+    <section id="section-novidades" hidden>
+      <h2>Acabou de chegar</h2>
       <div class="grid" id="grid-recent"></div>
     </section>
 
+    <section id="section-vitrine">
+      <h2>Explore a vitrine</h2>
+      <div class="grid" id="grid-all"></div>
+      <div class="load-more-row">
+        <button id="load-more" class="btn btn-ghost" hidden>Carregar mais</button>
+      </div>
+    </section>
+
     <section id="section-empty" hidden>
-      <h2>Nenhuma oferta por aqui ainda…</h2>
-      <p>O catálogo está vazio agora. Volte em breve — ou peça o que você procura:</p>
+      <h2>A vitrine está sendo atualizada</h2>
+      <p>Enquanto novos modelos entram, você pode dizer ao VDV o que está procurando — ou anunciar seus produtos.</p>
+      <div class="empty-actions">
+        <a class="btn btn-primary" data-deep-link="procura" data-ga-origin="cta_empty_procura" href="#">Criar uma Procura</a>
+        <a class="btn btn-ghost" data-deep-link="vender" data-ga-origin="cta_empty_vender" href="#">Quero anunciar um produto</a>
+      </div>
     </section>
 
     <section class="cta-procura">
@@ -149,11 +165,44 @@
         <h2>Não encontrou o que procura?</h2>
         <p>Crie uma <strong>Procura</strong> pelo bot: descreva o que você quer e os fornecedores respondem.</p>
       </div>
-      <a class="btn btn-primary" data-deep-link="procura" data-ga-origin="cta_home_procura" href="#">Quero criar uma Procura</a>
+      <a class="btn btn-primary" data-deep-link="procura" data-ga-origin="cta_home_procura" href="#">Criar uma Procura</a>
+    </section>
+
+    <section class="cta-seller">
+      <div>
+        <h2>Quer seus produtos aqui?</h2>
+        <p>Mostre seus modelos para quem já está procurando mercadoria — anuncie pelo Telegram e apareça nesta vitrine, 24 horas por dia.</p>
+      </div>
+      <a class="btn btn-sell" data-deep-link="vender" data-ga-origin="cta_home_vender" href="#">Anunciar no VDV</a>
+    </section>
+
+    <section class="how-summary">
+      <h2>Como funciona</h2>
+      <ol class="how-steps">
+        <li>
+          <span class="how-num">1</span>
+          <div><strong>Encontre</strong><p>Pesquise ou navegue pela vitrine.</p></div>
+        </li>
+        <li>
+          <span class="how-num">2</span>
+          <div><strong>Confira</strong><p>Veja anunciante, preço e disponibilidade.</p></div>
+        </li>
+        <li>
+          <span class="how-num">3</span>
+          <div><strong>Converse</strong><p>Abra o Telegram e negocie direto.</p></div>
+        </li>
+      </ol>
+      <p class="how-more"><a href="como-funciona.html">Ver o passo a passo completo</a></p>
     </section>
   </main>
 
   <footer>
+    <ul class="footer-trust" aria-label="Compromissos do VDV">
+      <li>Privacidade respeitada</li>
+      <li>Sem cadastro no site</li>
+      <li>Negociação direta</li>
+      <li>Sem taxa de plataforma</li>
+    </ul>
     <p><strong>VDV — Vitrine de Vendas</strong> · catálogo público sincronizado do bot <a data-deep-link="home" data-ga-origin="rodape_bot" href="#">@vitrine_vendasbot</a>.</p>
     <p><a href="como-funciona.html">Como funciona</a> · <a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos</a></p>
     <p>Sem taxa de plataforma: a negociação é direta entre você e o fornecedor, pelo Telegram. Analytics e cookies opcionais só são ativados com consentimento.</p>

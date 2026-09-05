@@ -10,6 +10,11 @@
 
   var FRESH_DAYS = 7; // aviso de frescura a partir de 7 dias (decisão 31/08)
   var DEFAULT_BOT = "vitrine_vendasbot";
+  var EXPLORE_PAGE = 8; // página inicial da grade "Explore a vitrine"
+  // Faixas editoriais só entram quando há catálogo suficiente pra não
+  // duplicar card na tela (Home 2.0 — vitrine comprador-first).
+  var PRONTA_STRIP_MIN = 2;  // faixa "Pronta entrega" com >= 2 itens prontos
+  var RECENT_STRIP_MIN = 5;  // faixa "Acabou de chegar" com >= 5 produtos
   var AVAILABILITY_LABELS = {
     pronta_entrega: "Pronta entrega",
     em_producao: "Em produção",
@@ -47,9 +52,10 @@
   }
 
   function availabilityBadge(p) {
-    return AVAILABILITY_LABELS[p.availability]
-      ? "<span class=\"badge\">" + esc(AVAILABILITY_LABELS[p.availability]) + "</span> "
-      : "";
+    if (!AVAILABILITY_LABELS[p.availability]) return "";
+    var isReady = p.availability === "pronta_entrega";
+    return '<span class="badge' + (isReady ? " badge-ok" : "") + '">' +
+      esc(AVAILABILITY_LABELS[p.availability]) + "</span> ";
   }
 
   function freshnessBadge(p) {
@@ -133,10 +139,11 @@
       '<img loading="lazy" src="' + esc(prefix + p.image) + '" alt="' + esc(p.title) + '">' +
       '<div class="card-body">' +
       '<p class="card-title">' + esc(p.title) + "</p>" +
-      '<p class="card-meta">' + esc(p.category.name) + " · " + esc(p.city) + "/" + esc(p.state) + "</p>" +
-      (p.seller_name ? '<p class="card-seller">Vendido por ' + esc(p.seller_name) + "</p>" : "") +
+      (p.seller_name ? '<p class="card-seller">' + esc(p.seller_name) + "</p>" : "") +
+      '<p class="card-meta">' + esc(p.city) + "/" + esc(p.state) + "</p>" +
       '<p class="card-price">' + fmtPrice(p) + "</p>" +
-      "<div>" + saleBadge(p) + freshnessBadge(p) + "</div>" +
+      '<p class="card-flags">' + availabilityBadge(p) + saleBadge(p) + freshnessBadge(p) + "</p>" +
+      '<p class="card-more">Ver detalhes <span aria-hidden="true">→</span></p>' +
       "</div>";
     return a;
   }
@@ -152,13 +159,34 @@
     var status = $("status");
     var sectionRecent = $("section-novidades");
     var sectionPronta = $("section-pronta");
+    var sectionVitrine = $("section-vitrine");
     var sectionEmpty = $("section-empty");
     var results = $("results");
 
     status.textContent = "";
-    fill($("grid-recent"), products.slice(0, 8));
+
+    // Faixas editoriais: só quando o catálogo sustenta (sem duplicar card).
     var pronta = products.filter(function (p) { return p.availability === "pronta_entrega"; });
-    fill(sectionPronta.querySelector("[data-slot]"), pronta.slice(0, 4));
+    var showProntaStrip = pronta.length >= PRONTA_STRIP_MIN;
+    var showRecentStrip = products.length >= RECENT_STRIP_MIN;
+    sectionPronta.hidden = !showProntaStrip;
+    if (showProntaStrip) fill(sectionPronta.querySelector("[data-slot]"), pronta.slice(0, 4));
+    sectionRecent.hidden = !showRecentStrip;
+    if (showRecentStrip) fill($("grid-recent"), products.slice(0, 4));
+
+    // Grade principal: a vitrine inteira, paginada client-side.
+    var shown = Math.min(EXPLORE_PAGE, products.length);
+    var loadBtn = $("load-more");
+    function renderExplore() {
+      fill($("grid-all"), products.slice(0, shown));
+      loadBtn.hidden = shown >= products.length;
+      if (shown >= products.length) loadBtn.parentElement.hidden = true;
+    }
+    renderExplore();
+    loadBtn.addEventListener("click", function () {
+      shown = Math.min(shown + EXPLORE_PAGE, products.length);
+      renderExplore();
+    });
 
     var activeCat = "";
     var input = $("search");
@@ -185,15 +213,20 @@
       }
     });
 
+    function setBrowseVisibility(searching) {
+      sectionPronta.hidden = searching || !showProntaStrip;
+      sectionRecent.hidden = searching || !showRecentStrip;
+      sectionVitrine.hidden = searching || products.length === 0;
+      sectionEmpty.hidden = searching || products.length > 0;
+    }
+
     function renderSearch() {
       var q = input.value.replace(/\s+/g, " ").trim().toLowerCase();
       var cat = activeCat;
       var searching = q !== "" || cat !== "";
       results.hidden = !searching;
       clearBtn.hidden = !searching;
-      sectionPronta.hidden = searching || pronta.length === 0;
-      sectionRecent.hidden = searching || products.length === 0;
-      sectionEmpty.hidden = products.length > 0;
+      setBrowseVisibility(searching);
       if (!searching) return;
       var found = products.filter(function (p) {
         if (cat && p.category.slug !== cat) return false;
@@ -217,13 +250,13 @@
       });
       results.hidden = true;
       clearBtn.hidden = true;
-      sectionPronta.hidden = pronta.length === 0;
-      sectionRecent.hidden = products.length === 0;
+      setBrowseVisibility(false);
     });
 
     if (products.length === 0) {
       sectionPronta.hidden = true;
       sectionRecent.hidden = true;
+      sectionVitrine.hidden = true;
       sectionEmpty.hidden = false;
     }
   }
@@ -385,7 +418,7 @@
         var s = $("status");
         if (s) s.textContent =
           "Não foi possível carregar o catálogo agora. Recarregue a página em alguns instantes.";
-        ["section-novidades", "section-pronta"].forEach(function (id) {
+        ["section-novidades", "section-pronta", "section-vitrine"].forEach(function (id) {
           var el = $(id);
           if (el) el.hidden = true;
         });

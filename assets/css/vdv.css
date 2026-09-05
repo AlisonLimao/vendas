@@ -67,11 +67,22 @@ h1, h2 { font-weight: 700; letter-spacing: -0.02em; }
 }
 .brand strong { display: block; font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; }
 .brand small { color: var(--vdv-text-muted); font-size: .78rem; }
+.topnav { display: flex; align-items: center; gap: 1.1rem; margin-left: auto; }
+.topnav a {
+  color: var(--vdv-text-muted); text-decoration: none;
+  font-size: .9rem; font-weight: 600;
+}
+.topnav a:hover { color: var(--vdv-primary); }
+.topbar .btn-sell { margin-left: 0; }
 
 main { max-width: 72rem; margin: 0 auto; padding: 1rem; }
 
 h1 { font-size: 1.5rem; margin: .25rem 0; }
 h2 { font-size: 1.15rem; margin: 1.5rem 0 .75rem; }
+
+/* Respiro de vitrine (Home 2.0): seções separadas, títulos editoriais. */
+main > section { margin-top: 2.5rem; }
+main > section:first-of-type { margin-top: .5rem; }
 
 /* -------------------------------------------------------------------- hero */
 .hero {
@@ -132,6 +143,8 @@ h2 { font-size: 1.15rem; margin: 1.5rem 0 .75rem; }
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 }
 
+/* Card de vitrine (Home 2.0): foto 4:5 dominante, anunciante em evidência,
+ * dados objetivos, chamada de ação — sem bordas pesadas nem excesso de info. */
 .card {
   background: var(--vdv-surface); border: 1px solid var(--vdv-border);
   border-radius: var(--radius-lg); overflow: hidden;
@@ -141,13 +154,20 @@ h2 { font-size: 1.15rem; margin: 1.5rem 0 .75rem; }
 }
 .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); }
 .card img {
-  width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block;
+  width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block;
   background: var(--vdv-bg);
 }
-.card-body { padding: .7rem .8rem .85rem; display: flex; flex-direction: column; gap: .3rem; flex: 1; }
-.card-title { font-size: .92rem; font-weight: 600; margin: 0; line-height: 1.3; }
-.card-meta { font-size: .78rem; color: var(--vdv-text-muted); }
-.card-seller { font-size: .76rem; font-weight: 600; color: var(--vdv-text-muted); margin: 0; }
+.card-body { padding: .8rem .85rem .9rem; display: flex; flex-direction: column; gap: .3rem; flex: 1; }
+.card-title { font-size: .95rem; font-weight: 600; margin: 0; line-height: 1.3; }
+.card-seller { font-size: .82rem; font-weight: 700; color: var(--vdv-accent); margin: 0; }
+.card-meta { font-size: .78rem; color: var(--vdv-text-muted); margin: 0; }
+.card-price { font-size: 1.08rem; font-weight: 700; color: var(--vdv-primary); margin: .15rem 0 0; font-variant-numeric: tabular-nums; }
+.card-flags { display: flex; flex-wrap: wrap; gap: .3rem; align-items: center; margin: 0; }
+.card-more {
+  margin: .45rem 0 0; padding-top: .45rem; border-top: 1px solid var(--vdv-border);
+  font-size: .8rem; font-weight: 600; color: var(--vdv-accent);
+}
+.load-more-row { display: flex; justify-content: center; margin-top: 1.4rem; }
 
 /* ------------------------------------------------- páginas institucionais */
 .prose { max-width: 44rem; }
@@ -157,16 +177,18 @@ h2 { font-size: 1.15rem; margin: 1.5rem 0 .75rem; }
 .prose ol, .prose ul { padding-left: 1.2rem; margin: .5rem 0; }
 .prose li { margin: .45rem 0; }
 .prose .btn-primary { margin-top: 1.25rem; }
-.card-price { font-size: 1.08rem; font-weight: 700; color: var(--vdv-primary); margin-top: auto; font-variant-numeric: tabular-nums; }
+.card-price { margin-top: auto; }
 .badge {
   display: inline-block; border-radius: 6px; padding: .12rem .5rem;
   font-size: .72rem; font-weight: 600;
   background: rgba(37, 99, 235, .1); color: var(--vdv-accent);
 }
+.badge-ok { background: rgba(22, 138, 69, .12); color: #15803d; }
 .badge-warn { background: #fef3c7; color: #92400e; }
 .badge-sale { background: #fce7f3; color: #9d174d; }
 @media (prefers-color-scheme: dark) {
   .badge { background: rgba(37, 99, 235, .2); color: #93b4f8; }
+  .badge-ok { background: rgba(34, 197, 94, .18); color: #4ade80; }
   .badge-warn { background: rgba(245, 158, 11, .18); color: #fcd34d; }
   .badge-sale { background: rgba(219, 39, 119, .2); color: #f9a8d4; }
 }
@@ -201,6 +223,58 @@ h2 { font-size: 1.15rem; margin: 1.5rem 0 .75rem; }
 }
 .cta-procura h2 { margin: 0 0 .25rem; }
 .cta-procura p { margin: 0; color: var(--vdv-text-muted); }
+
+/* Seção do fornecedor (Home 2.0): a segunda camada, discreta e no fim. */
+.cta-seller {
+  margin: 2.25rem 0; padding: 1.4rem;
+  border: 1px solid rgba(245, 158, 11, .45);
+  background: rgba(245, 158, 11, .06);
+  border-radius: var(--radius-lg);
+  display: flex; flex-direction: column; gap: .75rem;
+}
+.cta-seller h2 { margin: 0 0 .25rem; }
+.cta-seller p { margin: 0; color: var(--vdv-text-muted); }
+@media (prefers-color-scheme: dark) {
+  .cta-seller { background: rgba(245, 158, 11, .1); border-color: rgba(245, 158, 11, .35); }
+}
+
+/* Estado vazio positivo (Home 2.0): vazio vira ação. */
+.empty-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
+.empty-actions .btn-primary { background: var(--vdv-primary); border-color: var(--vdv-primary); color: #fff; }
+
+/* Resumo de "Como funciona" na home (Home 2.0): 3 passos compactos. */
+.how-steps {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; gap: 1rem;
+  grid-template-columns: 1fr;
+}
+.how-steps li {
+  display: flex; gap: .8rem; align-items: flex-start;
+  background: var(--vdv-surface); border: 1px solid var(--vdv-border);
+  border-radius: var(--radius-lg); padding: 1rem 1.1rem;
+}
+.how-num {
+  flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+  width: 2rem; height: 2rem; border-radius: 999px;
+  background: var(--vdv-primary); color: #fff; font-weight: 800; font-size: .9rem;
+}
+.how-steps strong { display: block; font-size: .98rem; }
+.how-steps p { margin: .15rem 0 0; color: var(--vdv-text-muted); font-size: .88rem; }
+.how-more { margin: 1rem 0 0; font-size: .92rem; }
+.how-more a { color: var(--vdv-accent); font-weight: 600; text-decoration: none; }
+.how-more a:hover { text-decoration: underline; }
+
+/* Selos textuais do rodapé (Home 2.0): confiança como informação. */
+.footer-trust {
+  list-style: none; padding: 0; margin: 0 0 1rem;
+  display: flex; flex-wrap: wrap; gap: .4rem .9rem;
+  font-weight: 600; color: var(--vdv-text-muted); font-size: .82rem;
+}
+.footer-trust li { display: inline-flex; align-items: center; gap: .35rem; }
+.footer-trust li::before { content: "✓"; color: #15803d; font-weight: 800; }
+@media (prefers-color-scheme: dark) {
+  .footer-trust li::before { color: #4ade80; }
+}
 
 /* ------------------------------------------------------------------ footer */
 footer {
@@ -262,6 +336,7 @@ footer p { margin: .3rem 0; }
 @media (max-width: 560px) {
   .brand small { display: none; }
   .topbar .btn { padding: .45rem .85rem; font-size: .85rem; }
+  .topnav { display: none; }
 }
 
 @media (min-width: 720px) {
@@ -271,5 +346,7 @@ footer p { margin: .3rem 0; }
   .hero-banner img { max-width: 26rem; }
   .hero-copy h1 { font-size: 2.1rem; }
   .cta-procura { flex-direction: row; align-items: center; justify-content: space-between; }
+  .cta-seller { flex-direction: row; align-items: center; justify-content: space-between; }
+  .how-steps { grid-template-columns: repeat(3, 1fr); }
   .prod-photo { max-width: 26rem; }
 }
