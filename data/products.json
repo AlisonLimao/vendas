@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T00:19:41Z",
+  "generated_at": "2026-09-06T00:11:40Z",
   "bot_username": "vitrine_vendasbot",
   "total": 2,
   "products": [
@@ -16,7 +16,7 @@
       "sale_type": "atacado",
       "availability": "pronta_entrega",
       "quantity": 1,
-      "days_since_confirmation": 3,
+      "days_since_confirmation": 4,
       "seller_name": "Alison limão",
       "city": "Monte Sião",
       "state": "MG",
@@ -45,7 +45,7 @@
       "sale_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 50,
-      "days_since_confirmation": 7,
+      "days_since_confirmation": 8,
       "seller_name": "Daguel tricot",
       "city": "Monte Sião",
       "state": "MG",
