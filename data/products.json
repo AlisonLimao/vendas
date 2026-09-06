@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T00:43:08Z",
+  "generated_at": "2026-09-06T01:11:22Z",
   "bot_username": "vitrine_vendasbot",
   "total": 2,
   "products": [
@@ -30,6 +30,10 @@
       "whatsapp": {
         "nome": "Contato autorizado",
         "link": "https://wa.me/5535991038206?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20neste%20an%C3%BAncio%3A%20%F0%9F%8F%8D%EF%B8%8F%20HONDA%20CG%20160%20%E2%80%94%20%C3%80%20VENDA"
+      },
+      "telegram_contact": {
+        "nome": "Alison limão",
+        "link": "https://t.me/Alison29silva"
       }
     },
     {
