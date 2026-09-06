@@ -349,11 +349,15 @@
       '<p class="prod-desc">' + esc(product.description) + "</p>" +
       // Canais de contato (VDV-20260905-05): os dois no MESMO tamanho padrão,
       // lado a lado, com as cores/logos oficiais dos canais — identifica pelo
-      // ícone antes de ler. Telegram = deep link do bot (Fatia 24, VDV-20260904-01);
-      // WhatsApp = link wa.me gerado no export (número só dentro do href).
+      // ícone antes de ler. Telegram: chat DIRETO do anunciante (t.me gerado no
+      // export, username só dentro do href — VDV-20260905-06); sem username,
+      // cai para o deep link do bot. WhatsApp = link wa.me gerado no export.
       '<div class="contact-channels">' +
       '<a class="btn-channel tg" href="' +
-      esc(deepLink("interesse", product)) + '" data-ga-origin="produto_tenho_interesse">' +
+      esc(product.telegram_contact && product.telegram_contact.link
+        ? product.telegram_contact.link
+        : deepLink("interesse", product)) +
+      '" data-ga-origin="' + (product.telegram_contact ? "produto_telegram_direto" : "produto_tenho_interesse") + '">' +
       ICON_TELEGRAM + "<span>Falar no Telegram</span></a>" +
       (product.whatsapp && product.whatsapp.link
         ? '<a class="btn-channel wa" target="_blank" rel="noopener" href="' +
@@ -384,11 +388,11 @@
       });
     });
 
-    var cta = main.querySelector('[data-ga-origin="produto_tenho_interesse"]');
+    var cta = main.querySelector('.btn-channel.tg');
     if (cta) {
       cta.addEventListener("click", function () {
         track("clique_telegram", {
-          origem: "produto_tenho_interesse",
+          origem: cta.getAttribute("data-ga-origin") || "produto_tenho_interesse",
           event_category: "telegram",
           event_label: product.id,
           transport_type: "beacon"
