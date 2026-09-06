@@ -311,12 +311,32 @@ footer p { margin: .3rem 0; }
 .prod-facts li { margin: .22rem 0; }
 .prod-desc { white-space: pre-wrap; }
 .prod-seller { font-size: .9rem; color: var(--vdv-text-muted); margin: .25rem 0 0; }
+/* Canais de contato (VDV-20260905-05): os dois botões de contato (Telegram /
+ * WhatsApp) no MESMO tamanho padrão, lado a lado, com as cores e logos oficiais
+ * dos canais — o visitante identifica o canal pela marca antes de ler. */
+.contact-channels {
+  display: grid; gap: .6rem; margin-top: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+}
+.btn-channel {
+  display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+  min-height: 3.2rem; padding: .8rem .9rem;
+  border-radius: 999px; text-decoration: none; text-align: center;
+  font-weight: 700; font-size: .98rem; line-height: 1.2;
+  color: #fff; border: 0; cursor: pointer;
+  transition: filter .15s;
+}
+.btn-channel:hover { filter: brightness(1.08); }
+.btn-channel svg { width: 1.3rem; height: 1.3rem; flex: 0 0 auto; fill: currentColor; }
+/* Cores oficiais das marcas (identificação imediata do canal). */
+.btn-channel.tg { background: #229ed9; }
+.btn-channel.wa { background: #25d366; }
+
 .share-row { margin: .75rem 0 0; }
-.share-row .btn { display: inline-block; }
+.share-row .btn { display: inline-flex; align-items: center; gap: .45rem; }
+.share-row .btn svg { width: 1.05rem; height: 1.05rem; fill: currentColor; }
 /* Fatia 24 (VDV-20260904-01) — CTA do WhatsApp comercial do anunciante. */
-.wa-contact { margin: .6rem 0 0; }
-.wa-contact .btn { display: inline-block; }
-.wa-note { display: block; margin-top: .35rem; font-size: .8rem; color: var(--vdv-text-muted); }
+.wa-note { display: block; margin-top: .45rem; font-size: .8rem; color: var(--vdv-text-muted); }
 .prod-more { font-size: .95rem; margin: 1rem 0 0; }
 .prod-more a { color: var(--vdv-accent); font-weight: 700; text-decoration: none; }
 .prod-more a:hover { text-decoration: underline; }
