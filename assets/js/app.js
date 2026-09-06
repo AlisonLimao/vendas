@@ -44,9 +44,15 @@
     return inteira + "," + parts[1];
   }
 
+  // VDV-20260906-01: campo renomeado de sale_type para offer_type no
+  // exportador. Fallback legacy enquanto o JSON publicado anterior existir.
+  function offerType(p) {
+    return p.offer_type || p.sale_type || "atacado";
+  }
+
   function fmtPrice(p) {
     var out = "R$ " + fmtMoney(p.price);
-    if (p.sale_type === "peca_unica") return out + ' <small>(peça única)</small>';
+    if (offerType(p) === "peca_unica") return out + ' <small>(peça única)</small>';
     if (p.minimum_order > 1) out += ' <small>(pedido mín. ' + p.minimum_order + " un)</small>";
     return out;
   }
@@ -66,7 +72,7 @@
   }
 
   function saleBadge(p) {
-    return p.sale_type === "peca_unica"
+    return offerType(p) === "peca_unica"
       ? '<span class="badge badge-sale">🏷️ PEÇA ÚNICA</span>'
       : "";
   }
@@ -120,7 +126,7 @@
 
   function fmtPriceText(p) {
     var out = "R$ " + fmtMoney(p.price);
-    if (p.sale_type === "peca_unica") return out + " (peça única)";
+    if (offerType(p) === "peca_unica") return out + " (peça única)";
     if (p.minimum_order > 1) out += " (pedido mín. " + p.minimum_order + " un)";
     return out;
   }
@@ -302,7 +308,7 @@
 
     status.hidden = true;
     document.title = product.title + " — VDV, Vitrine de Vendas";
-    var isPecaUnica = product.sale_type === "peca_unica";
+    var isPecaUnica = offerType(product) === "peca_unica";
     setOg("og:title", product.title + " — " +
       (isPecaUnica ? "peça única" : "atacado") + " em " + product.city + "/" + product.state);
     setOg("og:description", product.description.slice(0, 160));
