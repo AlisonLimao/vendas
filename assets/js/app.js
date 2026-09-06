@@ -85,8 +85,16 @@
 
   function deepLink(kind, product) {
     var bot = window.__VDV_BOT__ || DEFAULT_BOT;
-    var map = { procura: "procura", vender: "vender", home: "" };
-    var param = product ? "produto_" + product.id : map[kind] || "";
+    // VDV-20260905-03: kind "denuncia" — com produto vira payload
+    // denuncia_<uuid> (botão na página do produto), sem produto vira
+    // "denuncia" (link do rodapé).
+    var map = { procura: "procura", vender: "vender", home: "", denuncia: "denuncia" };
+    var param;
+    if (product) {
+      param = (kind === "denuncia" ? "denuncia_" : "produto_") + product.id;
+    } else {
+      param = map[kind] || "";
+    }
     return "https://t.me/" + bot + (param ? "?start=" + param : "");
   }
 
@@ -345,7 +353,9 @@
       '<p class="share-row"><a class="btn btn-ghost" target="_blank" rel="noopener" href="' +
       esc(whatsappShareUrl(product)) + '" id="share-wa">Compartilhar no WhatsApp</a></p>' +
       '<p class="prod-seller">A negociação acontece direto no bot, sem cadastro neste site.</p>' +
-      '<p class="prod-more">Gostou? <a href="' + prefix + 'index.html">Veja mais produtos na nossa vitrine</a></p>';
+      '<p class="prod-more">Gostou? <a href="' + prefix + 'index.html">Veja mais produtos na nossa vitrine</a></p>' +
+      // VDV-20260905-03 — canal de denúncia (payload denuncia_<uuid> no bot).
+      '<p class="prod-report"><a href="#" id="report-link">🚩 Denunciar este anúncio</a></p>';
 
     // Troca da foto principal ao tocar a miniatura (galeria — VDV-20260903-03).
     var mainPhoto = main.querySelector("#prod-photo-main");
@@ -392,6 +402,21 @@
         track("contato_whatsapp", {
           produto_id: product.id,
           event_category: "contato",
+          event_label: product.id,
+          transport_type: "beacon"
+        });
+      });
+    }
+
+    // VDV-20260905-03: link de denúncia do anúncio — binding manual (o
+    // renderStaticLinks roda antes do innerHTML dinâmico).
+    var report = main.querySelector("#report-link");
+    if (report) {
+      report.href = deepLink("denuncia", product);
+      report.addEventListener("click", function () {
+        track("produto_denuncia", {
+          produto_id: product.id,
+          event_category: "moderacao",
           event_label: product.id,
           transport_type: "beacon"
         });

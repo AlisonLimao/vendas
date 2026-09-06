@@ -320,6 +320,11 @@ footer p { margin: .3rem 0; }
 .prod-more { font-size: .95rem; margin: 1rem 0 0; }
 .prod-more a { color: var(--vdv-accent); font-weight: 700; text-decoration: none; }
 .prod-more a:hover { text-decoration: underline; }
+/* VDV-20260905-03 — link de denúncia: discreto, sem destaque de CTA. */
+.prod-report { font-size: .85rem; margin: .75rem 0 0; color: var(--vdv-text-muted); }
+.prod-report a { color: var(--vdv-text-muted); text-decoration: none; }
+.prod-report a:hover { color: var(--vdv-text); text-decoration: underline; }
+footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
 .prod-trust {
   margin: 1.5rem 0 0; padding: .9rem 1rem;
   border-left: 3px solid var(--vdv-primary); border-radius: 0 var(--radius) var(--radius) 0;
