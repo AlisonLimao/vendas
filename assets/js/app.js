@@ -156,7 +156,8 @@
       '<div class="card-body">' +
       '<p class="card-title">' + esc(p.title) + "</p>" +
       (p.seller_name ? '<p class="card-seller">' + esc(p.seller_name) + "</p>" : "") +
-      '<p class="card-meta">' + esc(p.city) + "/" + esc(p.state) + "</p>" +
+      '<p class="card-meta">' + (p.category && p.category.name ? esc(p.category.name) + " · " : "") +
+      esc(p.city) + "/" + esc(p.state) + "</p>" +
       '<p class="card-price">' + fmtPrice(p) + "</p>" +
       '<p class="card-flags">' + availabilityBadge(p) + saleBadge(p) + freshnessBadge(p) + "</p>" +
       '<p class="card-more">Ver detalhes <span aria-hidden="true">→</span></p>' +
