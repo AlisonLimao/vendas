@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T12:49:17Z",
+  "generated_at": "2026-09-06T12:53:48Z",
   "bot_username": "vitrine_vendasbot",
   "total": 2,
   "products": [
@@ -8,15 +8,15 @@
       "title": "🏍️ HONDA CG 160 — À VENDA",
       "description": "Ano: 2021\nModelo: 2022\nQuilometragem: 17.800 km\nPreço: R$ 17.000\nSegundo proprietário no documento. Segundo o vendedor, quem efetivamente utilizou a moto foi ele; o proprietário anterior apenas a retirou da loja.\nAcompanha:\n• Manual\n• Chave reserva\n• Alarme",
       "category": {
-        "slug": "veiculos",
-        "name": "Veículos"
+        "slug": "motos",
+        "name": "Motos"
       },
       "price": "17000.00",
       "minimum_order": 1,
       "offer_type": "atacado",
       "availability": "pronta_entrega",
       "quantity": 1,
-      "days_since_confirmation": 4,
+      "days_since_confirmation": 0,
       "seller_name": "Alison limão",
       "city": "Monte Sião",
       "state": "MG",
