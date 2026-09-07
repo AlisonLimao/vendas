@@ -30,9 +30,15 @@
     <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://wa.me/?text=Venha%20ver%20a%20vitrine%20de%20Sarah%20Tric%C3%B4%20no%20VDV%3A%20https%3A//alisonlimao.github.io/vendas/fornecedor/sarah-trico/">Compartilhar no WhatsApp</a>
     <a class="btn" target="_blank" rel="noopener" href="https://t.me/vitrine_vendasbot?start=vitrine">Monte sua vitrine também no VDV</a>
   </p>
+  <div class="chips" id="cat-filter" role="group" aria-label="Filtrar por categoria">
+    <button type="button" class="chip" data-cat="" aria-pressed="true">Todos</button>
+    <button type="button" class="chip" data-cat="blusa" aria-pressed="false">Blusa</button>
+    <button type="button" class="chip" data-cat="vestido" aria-pressed="false">Vestido</button>
+    <button type="button" class="chip" data-cat="conjunto" aria-pressed="false">Conjunto</button>
+  </div>
   <section>
-    <div class="grid">
-    <a class="card" href="../../produto/70f4ec48-4393-469e-86e8-173a21e2ee61/">
+    <div class="grid" id="supplier-grid">
+    <a class="card" data-cat="blusa" href="../../produto/70f4ec48-4393-469e-86e8-173a21e2ee61/">
       <img src="../../assets/products/70f4ec48-4393-469e-86e8-173a21e2ee61.jpg" alt="Cropped Feminino em Modal Jacquard Poá" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Cropped Feminino em Modal Jacquard Poá</h3>
@@ -40,7 +46,7 @@
         <p class="card-price">R$ 31,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/f5d80257-ab75-4132-9af1-bd392ed62e3a/">
+    <a class="card" data-cat="blusa" href="../../produto/f5d80257-ab75-4132-9af1-bd392ed62e3a/">
       <img src="../../assets/products/f5d80257-ab75-4132-9af1-bd392ed62e3a.jpg" alt="Blusa Feminina em Modal Listrada com Gola Polo" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Blusa Feminina em Modal Listrada com Gola Polo</h3>
@@ -48,7 +54,7 @@
         <p class="card-price">R$ 41,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/5b39fb3e-01e7-4666-9228-9bc00fd66e56/">
+    <a class="card" data-cat="blusa" href="../../produto/5b39fb3e-01e7-4666-9228-9bc00fd66e56/">
       <img src="../../assets/products/5b39fb3e-01e7-4666-9228-9bc00fd66e56.jpg" alt="Blusa Feminina em Modal Trabalhado com Gola Polo" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Blusa Feminina em Modal Trabalhado com Gola Polo</h3>
@@ -56,7 +62,7 @@
         <p class="card-price">R$ 41,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/979b6dcb-903f-41e0-9704-b923e18b336b/">
+    <a class="card" data-cat="blusa" href="../../produto/979b6dcb-903f-41e0-9704-b923e18b336b/">
       <img src="../../assets/products/979b6dcb-903f-41e0-9704-b923e18b336b.jpg" alt="Regata Feminina em Modal Trabalhado Canelado com Decote V" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Regata Feminina em Modal Trabalhado Canelado com Decote V</h3>
@@ -64,7 +70,7 @@
         <p class="card-price">R$ 31,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/5023d667-e6c3-432b-bdb9-6a51d9d954fa/">
+    <a class="card" data-cat="blusa" href="../../produto/5023d667-e6c3-432b-bdb9-6a51d9d954fa/">
       <img src="../../assets/products/5023d667-e6c3-432b-bdb9-6a51d9d954fa.jpg" alt="Blusa Feminina em Modal Jacquard Poá" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Blusa Feminina em Modal Jacquard Poá</h3>
@@ -72,7 +78,7 @@
         <p class="card-price">R$ 41,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/76c53387-ee34-4fb2-bca3-88439d641654/">
+    <a class="card" data-cat="blusa" href="../../produto/76c53387-ee34-4fb2-bca3-88439d641654/">
       <img src="../../assets/products/76c53387-ee34-4fb2-bca3-88439d641654.jpg" alt="Regata Feminina em Modal Listrada" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Regata Feminina em Modal Listrada</h3>
@@ -80,7 +86,7 @@
         <p class="card-price">R$ 31,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/b2dbef70-37bb-4cad-b545-d6001745180e/">
+    <a class="card" data-cat="blusa" href="../../produto/b2dbef70-37bb-4cad-b545-d6001745180e/">
       <img src="../../assets/products/b2dbef70-37bb-4cad-b545-d6001745180e.jpg" alt="Blusa Feminina em Modal Jacquard Poá" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Blusa Feminina em Modal Jacquard Poá</h3>
@@ -88,7 +94,7 @@
         <p class="card-price">R$ 41,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/ab9045b7-6044-4016-9c60-95b80073f2ea/">
+    <a class="card" data-cat="blusa" href="../../produto/ab9045b7-6044-4016-9c60-95b80073f2ea/">
       <img src="../../assets/products/ab9045b7-6044-4016-9c60-95b80073f2ea.jpg" alt="Blusa Feminina em Modal Lisa com Detalhe Listrado nos Ombros" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Blusa Feminina em Modal Lisa com Detalhe Listrado nos Ombros</h3>
@@ -96,7 +102,7 @@
         <p class="card-price">R$ 41,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/f626206f-b2b0-41be-a480-2e087f36f8c4/">
+    <a class="card" data-cat="blusa" href="../../produto/f626206f-b2b0-41be-a480-2e087f36f8c4/">
       <img src="../../assets/products/f626206f-b2b0-41be-a480-2e087f36f8c4.jpg" alt="Regata Feminina em Modal Trabalhado com Tranças e Relevos" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Regata Feminina em Modal Trabalhado com Tranças e Relevos</h3>
@@ -104,7 +110,7 @@
         <p class="card-price">R$ 31,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/b856a39e-70c4-44ff-855e-62c17fdc6981/">
+    <a class="card" data-cat="blusa" href="../../produto/b856a39e-70c4-44ff-855e-62c17fdc6981/">
       <img src="../../assets/products/b856a39e-70c4-44ff-855e-62c17fdc6981.jpg" alt="Regata Feminina em Modal Listrada Multicolor com Decote V" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Regata Feminina em Modal Listrada Multicolor com Decote V</h3>
@@ -112,7 +118,7 @@
         <p class="card-price">R$ 31,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/52e774b3-2cdb-4b28-9ecf-6423dab52547/">
+    <a class="card" data-cat="blusa" href="../../produto/52e774b3-2cdb-4b28-9ecf-6423dab52547/">
       <img src="../../assets/products/52e774b3-2cdb-4b28-9ecf-6423dab52547.jpg" alt="Blusa Feminina em Modal Bicolor Geométrica" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Blusa Feminina em Modal Bicolor Geométrica</h3>
@@ -120,7 +126,7 @@
         <p class="card-price">R$ 41,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/cb3643b1-78da-4cf4-aa8e-51861ea72f44/">
+    <a class="card" data-cat="blusa" href="../../produto/cb3643b1-78da-4cf4-aa8e-51861ea72f44/">
       <img src="../../assets/products/cb3643b1-78da-4cf4-aa8e-51861ea72f44.jpg" alt="Blusa Feminina em Modal Listrada Multicolor" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Blusa Feminina em Modal Listrada Multicolor</h3>
@@ -128,7 +134,7 @@
         <p class="card-price">R$ 41,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/8ef218ac-e46b-483e-869a-3b1876b36c91/">
+    <a class="card" data-cat="blusa" href="../../produto/8ef218ac-e46b-483e-869a-3b1876b36c91/">
       <img src="../../assets/products/8ef218ac-e46b-483e-869a-3b1876b36c91.jpg" alt="Blusa Feminina em Modal Listrada" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Blusa Feminina em Modal Listrada</h3>
@@ -136,7 +142,7 @@
         <p class="card-price">R$ 41,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/af1623e8-a94d-429c-aee7-d4ec976d3109/">
+    <a class="card" data-cat="blusa" href="../../produto/af1623e8-a94d-429c-aee7-d4ec976d3109/">
       <img src="../../assets/products/af1623e8-a94d-429c-aee7-d4ec976d3109.jpg" alt="Blusa Feminina em Modal Trabalhado com Tranças e Pontos Vazados" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Blusa Feminina em Modal Trabalhado com Tranças e Pontos Vazados</h3>
@@ -144,7 +150,7 @@
         <p class="card-price">R$ 41,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/7f2b1711-ab4d-418b-b439-334638be72ea/">
+    <a class="card" data-cat="blusa" href="../../produto/7f2b1711-ab4d-418b-b439-334638be72ea/">
       <img src="../../assets/products/7f2b1711-ab4d-418b-b439-334638be72ea.jpg" alt="Blusa Feminina em Modal Listrada com Decote V e Botões" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Blusa Feminina em Modal Listrada com Decote V e Botões</h3>
@@ -152,7 +158,7 @@
         <p class="card-price">R$ 41,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/9cf95eef-d0de-4f0c-aae3-558b90f2c7ed/">
+    <a class="card" data-cat="blusa" href="../../produto/9cf95eef-d0de-4f0c-aae3-558b90f2c7ed/">
       <img src="../../assets/products/9cf95eef-d0de-4f0c-aae3-558b90f2c7ed.jpg" alt="Blusa Feminina em Modal Trabalhado com Tranças e Relevos" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Blusa Feminina em Modal Trabalhado com Tranças e Relevos</h3>
@@ -160,7 +166,7 @@
         <p class="card-price">R$ 41,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/ca545589-f399-4e6b-a731-7f23be9c9f60/">
+    <a class="card" data-cat="blusa" href="../../produto/ca545589-f399-4e6b-a731-7f23be9c9f60/">
       <img src="../../assets/products/ca545589-f399-4e6b-a731-7f23be9c9f60.jpg" alt="Blusa Feminina em Modal Listrada com Gola Polo" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Blusa Feminina em Modal Listrada com Gola Polo</h3>
@@ -168,7 +174,7 @@
         <p class="card-price">R$ 41,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/62d97044-ca8e-4308-93ec-c90ec92b1f38/">
+    <a class="card" data-cat="blusa" href="../../produto/62d97044-ca8e-4308-93ec-c90ec92b1f38/">
       <img src="../../assets/products/62d97044-ca8e-4308-93ec-c90ec92b1f38.jpg" alt="Blusa Feminina em Modal Listrada" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Blusa Feminina em Modal Listrada</h3>
@@ -176,7 +182,7 @@
         <p class="card-price">R$ 41,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/076e6574-11d7-46c0-ae33-2e783710f4f5/">
+    <a class="card" data-cat="blusa" href="../../produto/076e6574-11d7-46c0-ae33-2e783710f4f5/">
       <img src="../../assets/products/076e6574-11d7-46c0-ae33-2e783710f4f5.jpg" alt="Blusa Feminina em Modal Jacquard Argyle" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Blusa Feminina em Modal Jacquard Argyle</h3>
@@ -184,7 +190,7 @@
         <p class="card-price">R$ 41,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/e7c24080-4de3-4117-9621-b67099e14e1a/">
+    <a class="card" data-cat="conjunto" href="../../produto/e7c24080-4de3-4117-9621-b67099e14e1a/">
       <img src="../../assets/products/e7c24080-4de3-4117-9621-b67099e14e1a.jpg" alt="Conjunto Feminino em Tricô Acrílico – Regata e Short" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Conjunto Feminino em Tricô Acrílico – Regata e Short</h3>
@@ -192,7 +198,7 @@
         <p class="card-price">R$ 69,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/7d97b507-44ca-4ed7-889e-0e6284c46644/">
+    <a class="card" data-cat="vestido" href="../../produto/7d97b507-44ca-4ed7-889e-0e6284c46644/">
       <img src="../../assets/products/7d97b507-44ca-4ed7-889e-0e6284c46644.jpg" alt="Vestido Longo de Tricô Vazado com Decote V" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Vestido Longo de Tricô Vazado com Decote V</h3>
@@ -200,7 +206,7 @@
         <p class="card-price">R$ 85,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/615283d7-5961-4308-8310-732d2863aa1e/">
+    <a class="card" data-cat="vestido" href="../../produto/615283d7-5961-4308-8310-732d2863aa1e/">
       <img src="../../assets/products/615283d7-5961-4308-8310-732d2863aa1e.jpg" alt="Vestido Longo de Alças com Decote V Rendado" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Vestido Longo de Alças com Decote V Rendado</h3>
@@ -208,7 +214,7 @@
         <p class="card-price">R$ 85,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/7e23232c-1b55-40d7-a9e5-1b0efdb973f9/">
+    <a class="card" data-cat="vestido" href="../../produto/7e23232c-1b55-40d7-a9e5-1b0efdb973f9/">
       <img src="../../assets/products/7e23232c-1b55-40d7-a9e5-1b0efdb973f9.jpg" alt="Vestido Longo Tricô Vazado com Recortes Laterais" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Vestido Longo Tricô Vazado com Recortes Laterais</h3>
@@ -216,7 +222,7 @@
         <p class="card-price">R$ 85,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/37af510b-2728-4643-916a-7cca3d8d0735/">
+    <a class="card" data-cat="vestido" href="../../produto/37af510b-2728-4643-916a-7cca3d8d0735/">
       <img src="../../assets/products/37af510b-2728-4643-916a-7cca3d8d0735.jpg" alt="Vestido Longo de Tricô Vazado Frente Única com Recortes Laterais" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Vestido Longo de Tricô Vazado Frente Única com Recortes Laterais</h3>
@@ -224,7 +230,7 @@
         <p class="card-price">R$ 85,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb/">
+    <a class="card" data-cat="vestido" href="../../produto/b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb/">
       <img src="../../assets/products/b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb.jpg" alt="Vestido Longo Feminino em Tricô Vazado Frente Única" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Vestido Longo Feminino em Tricô Vazado Frente Única</h3>
@@ -232,7 +238,7 @@
         <p class="card-price">R$ 85,90</p>
       </div>
     </a>
-    <a class="card" href="../../produto/541ff4f4-36ff-4257-985b-8813494c480e/">
+    <a class="card" data-cat="vestido" href="../../produto/541ff4f4-36ff-4257-985b-8813494c480e/">
       <img src="../../assets/products/541ff4f4-36ff-4257-985b-8813494c480e.jpg" alt="Vestido Longo de Tricô Vazado com Alças Finas" loading="lazy">
       <div class="card-body">
         <h3 class="card-title">Vestido Longo de Tricô Vazado com Alças Finas</h3>
@@ -250,5 +256,41 @@
 <footer>
   <p>VDV — Vitrine de Vendas · negociação direta pelo Telegram.</p>
 </footer>
+<script>
+(function () {
+  var bar = document.getElementById("cat-filter");
+  var grid = document.getElementById("supplier-grid");
+  if (!bar || !grid) return;
+  var chips = bar.querySelectorAll("button.chip");
+  function apply() {
+    var sel = [];
+    chips.forEach(function (c) {
+      if (c.getAttribute("data-cat") && c.getAttribute("aria-pressed") === "true") {
+        sel.push(c.getAttribute("data-cat"));
+      }
+    });
+    var all = sel.length === 0;
+    grid.querySelectorAll("a.card").forEach(function (card) {
+      card.hidden = !all && sel.indexOf(card.getAttribute("data-cat")) === -1;
+    });
+  }
+  bar.addEventListener("click", function (ev) {
+    var chip = ev.target.closest("button.chip");
+    if (!chip) return;
+    var cat = chip.getAttribute("data-cat");
+    if (cat === "") {
+      chips.forEach(function (c) { c.setAttribute("aria-pressed", String(c === chip)); });
+    } else {
+      chip.setAttribute("aria-pressed", chip.getAttribute("aria-pressed") === "true" ? "false" : "true");
+      var any = false;
+      chips.forEach(function (c) {
+        if (c.getAttribute("data-cat") && c.getAttribute("aria-pressed") === "true") any = true;
+      });
+      bar.querySelector('button.chip[data-cat=""]').setAttribute("aria-pressed", String(!any));
+    }
+    apply();
+  });
+})();
+</script>
 </body>
 </html>
