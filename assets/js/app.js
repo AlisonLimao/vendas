@@ -50,6 +50,22 @@
     return p.offer_type || p.sale_type || "atacado";
   }
 
+  // Fatia 26 (VDV-20260907-03): publicação assistida — o dono da oferta é o
+  // vendedor exibido e quem recebe a negociação. Fallback legacy p/ JSON antigo.
+  function publicationMode(p) {
+    return p.publication_mode || "own_offer";
+  }
+
+  function isAssisted(p) {
+    return publicationMode(p) === "assisted_for_third_party";
+  }
+
+  function assistedBadge(p) {
+    return isAssisted(p)
+      ? '<span class="badge badge-assisted">🤝 Cadastro assistido</span>'
+      : "";
+  }
+
   function fmtPrice(p) {
     var out = "R$ " + fmtMoney(p.price);
     if (offerType(p) === "peca_unica") return out + ' <small>(peça única)</small>';
@@ -165,7 +181,7 @@
       '<p class="card-meta">' + (p.category && p.category.name ? esc(p.category.name) + " · " : "") +
       esc(p.city) + "/" + esc(p.state) + "</p>" +
       '<p class="card-price">' + fmtPrice(p) + "</p>" +
-      '<p class="card-flags">' + availabilityBadge(p) + saleBadge(p) + freshnessBadge(p) + "</p>" +
+      '<p class="card-flags">' + availabilityBadge(p) + saleBadge(p) + assistedBadge(p) + freshnessBadge(p) + "</p>" +
       '<p class="card-more">Ver detalhes <span aria-hidden="true">→</span></p>' +
       "</div>";
     return a;
@@ -309,8 +325,12 @@
     status.hidden = true;
     document.title = product.title + " — VDV, Vitrine de Vendas";
     var isPecaUnica = offerType(product) === "peca_unica";
+    var ownerSuffix = (isAssisted(product) && product.offer_owner_name)
+      ? " · oferta de " + product.offer_owner_name
+      : "";
     setOg("og:title", product.title + " — " +
-      (isPecaUnica ? "peça única" : "atacado") + " em " + product.city + "/" + product.state);
+      (isPecaUnica ? "peça única" : "atacado") + " em " + product.city + "/" +
+      product.state + ownerSuffix);
     setOg("og:description", product.description.slice(0, 160));
     var ogImg = document.querySelector('meta[property="og:image"]');
     if (!ogImg) {
@@ -338,6 +358,40 @@
         }).join("") +
         "</div>"
       : "";
+    // Fatia 26: modo assistido com contato comercial do dono → canal único do
+    // dono (href pronto no export, valor cru só dentro do href). Sem contato,
+    // cai no deep link do bot (nunca mostra canal do publicador como se fosse
+    // do dono).
+    var assisted = isAssisted(product);
+    var cc = (assisted && product.commercial_contact && product.commercial_contact.link)
+      ? product.commercial_contact
+      : null;
+    var ownerLabel = (cc && cc.nome) || "o responsável pela oferta";
+    var channelsHtml;
+    if (cc && cc.tipo === "whatsapp") {
+      channelsHtml =
+        '<a class="btn-channel wa" target="_blank" rel="noopener" href="' +
+        esc(cc.link) + '" data-wa-contact>' +
+        ICON_WHATSAPP + "<span>Falar com " + esc(ownerLabel) + " no WhatsApp</span></a>";
+    } else if (cc) {
+      channelsHtml =
+        '<a class="btn-channel tg" href="' +
+        esc(cc.link) + '" data-ga-origin="produto_telegram_direto">' +
+        ICON_TELEGRAM + "<span>Falar com " + esc(ownerLabel) + " no Telegram</span></a>";
+    } else {
+      channelsHtml =
+        '<a class="btn-channel tg" href="' +
+        esc(product.telegram_contact && product.telegram_contact.link
+          ? product.telegram_contact.link
+          : deepLink("interesse", product)) +
+        '" data-ga-origin="' + (product.telegram_contact ? "produto_telegram_direto" : "produto_tenho_interesse") + '">' +
+        ICON_TELEGRAM + "<span>Falar no Telegram</span></a>" +
+        (product.whatsapp && product.whatsapp.link
+          ? '<a class="btn-channel wa" target="_blank" rel="noopener" href="' +
+            esc(product.whatsapp.link) + '" data-wa-contact>' +
+            ICON_WHATSAPP + "<span>Falar no WhatsApp</span></a>"
+          : "");
+    }
     main.innerHTML =
       '<div class="prod-gallery">' +
       '<img class="prod-photo" id="prod-photo-main" loading="lazy" width="640" height="640" src="' +
@@ -347,8 +401,13 @@
       '<h1 class="prod-title">' + esc(product.title) + "</h1>" +
       '<p class="prod-price">' + fmtPrice(product) + "</p>" +
       '<ul class="prod-facts">' +
-      "<li>🏪 Vendido por <strong>" + esc(product.seller_name) + "</strong> · " +
-      esc(product.city) + "/" + esc(product.state) + "</li>" +
+      (isAssisted(product)
+        ? "<li>🤝 Oferta de <strong>" +
+          esc(product.offer_owner_name || product.seller_name) +
+          "</strong> · Cadastro assistido no VDV · " +
+          esc(product.city) + "/" + esc(product.state) + "</li>"
+        : "<li>🏪 Vendido por <strong>" + esc(product.seller_name) + "</strong> · " +
+          esc(product.city) + "/" + esc(product.state) + "</li>") +
       "<li>📦 " + esc(AVAILABILITY_LABELS[product.availability] || "Disponível") + qty + "</li>" +
       moLi +
       "<li>🗓️ " + esc(freshText(product)) + "</li>" +
@@ -359,20 +418,9 @@
       // ícone antes de ler. Telegram: chat DIRETO do anunciante (t.me gerado no
       // export, username só dentro do href — VDV-20260905-06); sem username,
       // cai para o deep link do bot. WhatsApp = link wa.me gerado no export.
-      '<div class="contact-channels">' +
-      '<a class="btn-channel tg" href="' +
-      esc(product.telegram_contact && product.telegram_contact.link
-        ? product.telegram_contact.link
-        : deepLink("interesse", product)) +
-      '" data-ga-origin="' + (product.telegram_contact ? "produto_telegram_direto" : "produto_tenho_interesse") + '">' +
-      ICON_TELEGRAM + "<span>Falar no Telegram</span></a>" +
-      (product.whatsapp && product.whatsapp.link
-        ? '<a class="btn-channel wa" target="_blank" rel="noopener" href="' +
-          esc(product.whatsapp.link) + '" data-wa-contact>' +
-          ICON_WHATSAPP + "<span>Falar no WhatsApp</span></a>"
-        : "") +
-      "</div>" +
-      '<span class="wa-note">Escolha o canal para falar sobre este anúncio — o contato é direto com o anunciante.</span>' +
+      '<div class="contact-channels">' + channelsHtml + "</div>" +
+      '<span class="wa-note">Escolha o canal para falar sobre este anúncio — o contato é direto com ' +
+      (assisted ? "o responsável pela oferta." : "o anunciante.") + "</span>" +
       '<p class="share-row"><a class="btn btn-ghost" target="_blank" rel="noopener" href="' +
       esc(whatsappShareUrl(product)) + '" id="share-wa">' +
       ICON_WHATSAPP + "<span>Compartilhar no WhatsApp</span></a></p>" +
