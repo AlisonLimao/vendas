@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-07T18:49:12Z",
+  "generated_at": "2026-09-07T18:54:25Z",
   "bot_username": "vitrine_vendasbot",
   "total": 3,
   "products": [
     {
       "id": "541ff4f4-36ff-4257-985b-8813494c480e",
-      "title": "Vestido Longo de Tricô Vazado Decote V",
+      "title": "Vestido Longo de Tricô Vazado com Alças Finas",
       "description": "Vestido longo feminino em tricô vazado, com decote V, modelagem alongada e diferentes estruturas de pontos rendados ao longo da peça.\nPossui forro, trazendo mais conforto e segurança no uso.\npara Pagamento no Pix por R$ 79,90.\nCondições de pagamento:\nCartão: R$ 85,90\nPix: R$ 79,90\nconsulte cores pelo nosso whatsapp ou telegram",
       "category": {
         "slug": "vestido",
@@ -30,7 +30,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Vestido%20Longo%20de%20Tric%C3%B4%20Vazado%20Decote%20V"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Vestido%20Longo%20de%20Tric%C3%B4%20Vazado%20com%20Al%C3%A7as%20Finas"
       }
     },
     {
