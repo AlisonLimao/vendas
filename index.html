@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VDV — Vitrine de Vendas</title>
-  <meta name="description" content="Catálogo público de estoques de fornecedores locais, com anunciante identificado e disponibilidade confirmada. Negocie direto pelo Telegram — sem taxa de plataforma.">
+  <meta name="description" content="Oferta e procura de malharia no mesmo lugar: encontre estoques de fornecedores locais com anunciante identificado, ou publique o que você está procurando. Negocie direto pelo Telegram — sem taxa de plataforma.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://alisonlimao.github.io/vendas/">
   <meta property="og:type" content="website">
@@ -105,7 +105,14 @@
   <main>
     <section class="hero">
       <div class="hero-copy">
-        <h1>Encontre produtos para atacado.</h1>
+        <!-- VDV-20260907-01 — reposicionamento: oferta E procura no mesmo nível
+             (antes: "Encontre produtos para atacado" — posicionamento de catálogo). -->
+        <h1>Oferta e procura de malharia, no mesmo lugar.</h1>
+        <p class="hero-sub">Encontre produtos disponíveis ou publique o que você está procurando.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#section-vitrine">Explorar ofertas</a>
+          <a class="btn btn-ghost" data-deep-link="procura" data-ga-origin="cta_hero_procura" href="#">Criar uma Procura</a>
+        </div>
         <div class="searchbar">
           <input id="search" type="search" placeholder="O que você procura? Ex.: blusa de inverno"
                  autocomplete="off" aria-label="Buscar produto">
@@ -120,6 +127,10 @@
     </section>
 
     <p id="status" class="status" role="status"></p>
+
+    <!-- VDV-20260907-01 — faixa que equaliza oferta e demanda: fala com quem
+         tem produto/capacidade em termos de demanda, não de exposição. -->
+    <p class="hero-strip"><strong>Tem produto ou capacidade para fornecer?</strong> Veja o que estão procurando — compradores já estão dizendo o que precisam no VDV.</p>
 
     <section id="results" hidden>
       <h2 id="results-title">Resultado da busca</h2>
@@ -177,8 +188,10 @@
 
     <section class="cta-seller">
       <div>
-        <h2>Quer seus produtos aqui?</h2>
-        <p>Mostre seus modelos para quem já está procurando mercadoria — anuncie pelo Telegram e apareça nesta vitrine, 24 horas por dia.</p>
+        <!-- VDV-20260907-01 — sai a promessa de exposição ("apareça 24h"),
+             entra a promessa de demanda (interesse real já declarado). -->
+        <h2>Tem produto? Veja onde existe interesse.</h2>
+        <p>Anuncie seus modelos ou responda Procuras de compradores que já estão dizendo o que precisam.</p>
       </div>
       <a class="btn btn-sell" data-deep-link="vender" data-ga-origin="cta_home_vender" href="#">Anunciar no VDV</a>
     </section>

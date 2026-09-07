@@ -92,6 +92,12 @@ main > section:first-of-type { margin-top: .5rem; }
   padding: .75rem 0 0;
 }
 .hero-copy h1 { font-size: 1.6rem; line-height: 1.2; margin: 0 0 .6rem; }
+/* VDV-20260907-01 — reposicionamento: subtítulo + par de CTAs (oferta/procura)
+ * logo no hero, e faixa que equaliza oferta e demanda logo abaixo. */
+.hero-sub { margin: -.35rem 0 .8rem; color: var(--vdv-text-muted); font-size: .98rem; max-width: 40rem; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin: 0 0 .35rem; }
+.hero-strip { margin: -.15rem 0 .35rem; color: var(--vdv-text-muted); font-size: .92rem; max-width: 46rem; }
+.hero-strip strong { color: var(--vdv-text); }
 .trust-row {
   display: flex; flex-wrap: wrap; gap: .45rem .5rem;
   margin: 0 0 .25rem; padding: 0; list-style: none;
