@@ -1,8 +1,70 @@
 {
-  "generated_at": "2026-09-07T21:58:19Z",
+  "generated_at": "2026-09-07T22:10:15Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 22,
+  "total": 24,
   "products": [
+    {
+      "id": "5023d667-e6c3-432b-bdb9-6a51d9d954fa",
+      "title": "Blusa Feminina em Modal Jacquard Poá",
+      "description": "Blusa feminina em modal jacquard. Possui manga curta, gola redonda e acabamento azul contrastante na gola, mangas e barra. O jacquard forma o desenho diretamente na malha, criando um visual marcante e moderno. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/5023d667-e6c3-432b-bdb9-6a51d9d954fa.jpg",
+      "images": [
+        "assets/products/5023d667-e6c3-432b-bdb9-6a51d9d954fa.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Blusa%20Feminina%20em%20Modal%20Jacquard%20Po%C3%A1"
+      }
+    },
+    {
+      "id": "76c53387-ee34-4fb2-bca3-88439d641654",
+      "title": "Regata Feminina em Modal Listrada",
+      "description": "Regata feminina em modal. Possui gola redonda, acabamento rosa contrastante na gola, cavas e barra, criando um visual moderno e delicado. Modelagem versátil e fácil de combinar com jeans, alfaiataria e peças casuais. Preço: R$ 31,90. No Pix: R$ 28,00 — 12,23% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "31.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/76c53387-ee34-4fb2-bca3-88439d641654.jpg",
+      "images": [
+        "assets/products/76c53387-ee34-4fb2-bca3-88439d641654.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Regata%20Feminina%20em%20Modal%20Listrada"
+      }
+    },
     {
       "id": "b2dbef70-37bb-4cad-b545-d6001745180e",
       "title": "Blusa Feminina em Modal Jacquard Poá",
