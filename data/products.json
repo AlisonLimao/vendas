@@ -1,8 +1,39 @@
 {
-  "generated_at": "2026-09-07T21:24:37Z",
+  "generated_at": "2026-09-07T21:30:28Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 20,
+  "total": 21,
   "products": [
+    {
+      "id": "ab9045b7-6044-4016-9c60-95b80073f2ea",
+      "title": "Blusa Feminina em Modal Lisa com Detalhe Listrado nos Ombros",
+      "description": "Blusa feminina em modal, manga curta e gola redonda, com visual liso  e detalhe de listras contrastantes nos ombros. Possui acabamento canelado na gola e nas mangas, com modelagem versátil e moderna para combinações casuais ou mais arrumadas. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/ab9045b7-6044-4016-9c60-95b80073f2ea.jpg",
+      "images": [
+        "assets/products/ab9045b7-6044-4016-9c60-95b80073f2ea.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Blusa%20Feminina%20em%20Modal%20Lisa%20com%20Detalhe%20Listrado%20nos%20Ombros"
+      }
+    },
     {
       "id": "f626206f-b2b0-41be-a480-2e087f36f8c4",
       "title": "Regata Feminina em Modal Trabalhado com Tranças e Relevos",
