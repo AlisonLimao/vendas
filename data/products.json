@@ -1,8 +1,70 @@
 {
-  "generated_at": "2026-09-07T22:14:10Z",
+  "generated_at": "2026-09-07T22:22:12Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 25,
+  "total": 27,
   "products": [
+    {
+      "id": "f5d80257-ab75-4132-9af1-bd392ed62e3a",
+      "title": "Blusa Feminina em Modal Listrada com Gola Polo",
+      "description": "Blusa feminina em modal, com listras horizontais, manga curta e gola polo em rosa. Possui acabamento rosa contrastante nas mangas e na barra, criando um visual moderno, delicado e fácil de combinar. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/f5d80257-ab75-4132-9af1-bd392ed62e3a.jpg",
+      "images": [
+        "assets/products/f5d80257-ab75-4132-9af1-bd392ed62e3a.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Blusa%20Feminina%20em%20Modal%20Listrada%20com%20Gola%20Polo"
+      }
+    },
+    {
+      "id": "5b39fb3e-01e7-4666-9228-9bc00fd66e56",
+      "title": "Blusa Feminina em Modal Trabalhado com Gola Polo",
+      "description": "Blusa feminina em modal, manga curta e gola polo, com trabalho vazado em desenhos geométricos tipo espinha/chevron por toda a frente. Possui acabamento canelado nas mangas e na barra, com visual leve, delicado e sofisticado. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/5b39fb3e-01e7-4666-9228-9bc00fd66e56.jpg",
+      "images": [
+        "assets/products/5b39fb3e-01e7-4666-9228-9bc00fd66e56.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Blusa%20Feminina%20em%20Modal%20Trabalhado%20com%20Gola%20Polo"
+      }
+    },
     {
       "id": "979b6dcb-903f-41e0-9704-b923e18b336b",
       "title": "Regata Feminina em Modal Trabalhado Canelado com Decote V",
