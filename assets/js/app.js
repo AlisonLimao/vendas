@@ -406,6 +406,15 @@
       moLi +
       "<li>🗓️ " + esc(freshText(product)) + "</li>" +
       "</ul>" +
+      // Fatia 27 (VDV-20260907-05) — segunda forma de navegação: a vitrine do
+      // fornecedor ("Gostei dessa peça da Sarah. O que mais ela tem?"). Some
+      // quando o anúncio não tem fornecedor resolvido (legado sem backfill).
+      (product.supplier_slug
+        ? '<p class="prod-more"><a href="' + prefix + 'fornecedor/' +
+          esc(product.supplier_slug) + '/">Ver todos os produtos de ' +
+          esc(product.offer_owner_name || product.seller_name || "este anunciante") +
+          " &rarr;</a></p>"
+        : "") +
       '<p class="prod-desc">' + esc(product.description) + "</p>" +
       // Canais de contato (VDV-20260905-05): os dois no MESMO tamanho padrão,
       // lado a lado, com as cores/logos oficiais dos canais — identifica pelo
