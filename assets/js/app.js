@@ -207,6 +207,33 @@
     sectionRecent.hidden = !showRecentStrip;
     if (showRecentStrip) fill($("grid-recent"), products.slice(0, 4));
 
+    // VDV-20260907-06 — seção "Vitrines do VDV": um chip por fornecedor
+    // (dedup por supplier_slug, primeiro display vence — mesmo critério do
+    // exportador). Some quando nenhum produto tem fornecedor resolvido.
+    var sectionVitrines = $("section-vitrines");
+    var seenSuppliers = {};
+    var suppliers = [];
+    products.forEach(function (p) {
+      if (!p.supplier_slug || seenSuppliers[p.supplier_slug]) return;
+      seenSuppliers[p.supplier_slug] = true;
+      suppliers.push({ slug: p.supplier_slug, name: p.offer_owner_name || p.seller_name });
+    });
+    sectionVitrines.hidden = suppliers.length === 0;
+    if (suppliers.length) {
+      var chips = $("chips-vitrines");
+      chips.innerHTML = "";
+      suppliers.forEach(function (s) {
+        var a = document.createElement("a");
+        a.className = "chip";
+        a.href = "fornecedor/" + encodeURIComponent(s.slug) + "/";
+        a.textContent = s.name;
+        a.addEventListener("click", function () {
+          track("abrir_vitrine", { fornecedor_slug: s.slug, event_category: "navegacao" });
+        });
+        chips.appendChild(a);
+      });
+    }
+
     // Grade principal: a vitrine inteira, paginada client-side.
     var shown = Math.min(EXPLORE_PAGE, products.length);
     var loadBtn = $("load-more");
