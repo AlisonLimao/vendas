@@ -1,8 +1,38 @@
 {
-  "generated_at": "2026-09-07T19:12:10Z",
+  "generated_at": "2026-09-07T19:15:29Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 5,
+  "total": 6,
   "products": [
+    {
+      "id": "7e23232c-1b55-40d7-a9e5-1b0efdb973f9",
+      "title": "Vestido Longo Tricô Vazado com Recortes Laterais",
+      "description": "Vestido longo feminino em tricô vazado, com alças largas, decote quadrado, recortes laterais na cintura e fenda lateral. O trabalho em pontos geométricos valoriza a peça e traz um visual moderno e elegante. Possui forro, oferecendo mais conforto e segurança no uso. Preço: R$ 85,90. No Pix: R$ 79,90 — 6,98% de desconto",
+      "category": {
+        "slug": "vestido",
+        "name": "Vestido"
+      },
+      "price": "85.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/7e23232c-1b55-40d7-a9e5-1b0efdb973f9.jpg",
+      "images": [
+        "assets/products/7e23232c-1b55-40d7-a9e5-1b0efdb973f9.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Vestido%20Longo%20Tric%C3%B4%20Vazado%20com%20Recortes%20Laterais"
+      }
+    },
     {
       "id": "37af510b-2728-4643-916a-7cca3d8d0735",
       "title": "Vestido Longo de Tricô Vazado Frente Única com Recortes Laterais",
