@@ -193,6 +193,9 @@ main > section:first-of-type { margin-top: .5rem; }
   font-size: .8rem; font-weight: 600; color: var(--vdv-accent);
 }
 .load-more-row { display: flex; justify-content: center; margin-top: 1.4rem; }
+/* VDV-20260907-10 — filtro por categoria na página do fornecedor: o [hidden]
+ * nativo perde para o display flex do card — garantir ocultação. */
+.card[hidden] { display: none !important; }
 
 /* VDV-20260907-08 (dobra 2) — rodízio "Em exposição agora" com 4 cards:
  * 2×2 no celular, fileira de 4 no desktop — a seção sempre encaixa na tela.
