@@ -1,8 +1,38 @@
 {
-  "generated_at": "2026-09-07T19:22:49Z",
+  "generated_at": "2026-09-07T19:28:11Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 7,
+  "total": 8,
   "products": [
+    {
+      "id": "7d97b507-44ca-4ed7-889e-0e6284c46644",
+      "title": "Vestido Longo de Tricô Vazado com Decote V",
+      "description": "Vestido longo feminino em tricô vazado, com decote V, alças largas e diferentes desenhos rendados distribuídos ao longo da peça. A combinação de pontos cria textura e um visual elegante, leve e sofisticado. Possui forro para mais conforto e segurança no uso. Preço: R$ 85,90. No Pix: R$ 79,90 — 6,98% de desconto.",
+      "category": {
+        "slug": "vestido",
+        "name": "Vestido"
+      },
+      "price": "85.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/7d97b507-44ca-4ed7-889e-0e6284c46644.jpg",
+      "images": [
+        "assets/products/7d97b507-44ca-4ed7-889e-0e6284c46644.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Vestido%20Longo%20de%20Tric%C3%B4%20Vazado%20com%20Decote%20V"
+      }
+    },
     {
       "id": "615283d7-5961-4308-8310-732d2863aa1e",
       "title": "Vestido Longo de Alças com Decote V Rendado",
