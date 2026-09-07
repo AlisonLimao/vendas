@@ -1,8 +1,39 @@
 {
-  "generated_at": "2026-09-07T21:04:24Z",
+  "generated_at": "2026-09-07T21:09:03Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 14,
+  "total": 15,
   "products": [
+    {
+      "id": "af1623e8-a94d-429c-aee7-d4ec976d3109",
+      "title": "Blusa Feminina em Modal Trabalhado com Tranças e Pontos Vazados",
+      "description": "Blusa feminina em modal, manga curta e gola redonda, com trabalho em tranças, relevos e pontos vazados na parte frontal. O desenho vertical valoriza a peça e cria um visual delicado e sofisticado, com acabamento canelado na gola, mangas e barra. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/af1623e8-a94d-429c-aee7-d4ec976d3109.jpg",
+      "images": [
+        "assets/products/af1623e8-a94d-429c-aee7-d4ec976d3109.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Blusa%20Feminina%20em%20Modal%20Trabalhado%20com%20Tran%C3%A7as%20e%20Pontos%20Vazados"
+      }
+    },
     {
       "id": "7f2b1711-ab4d-418b-b439-334638be72ea",
       "title": "Blusa Feminina em Modal Listrada com Decote V e Botões",
