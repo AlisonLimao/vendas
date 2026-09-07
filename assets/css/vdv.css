@@ -194,6 +194,18 @@ main > section:first-of-type { margin-top: .5rem; }
 }
 .load-more-row { display: flex; justify-content: center; margin-top: 1.4rem; }
 
+/* VDV-20260907-08 — rodízio "Em exposição agora": fade-in leve do card que
+ * entra no lugar do anterior. Troca segue acontecendo sem animação quando
+ * o visitante pede movimento reduzido. */
+.card-entering { animation: vdv-card-in .45s ease both; }
+@keyframes vdv-card-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-entering { animation: none; }
+}
+
 /* ------------------------------------------------- páginas institucionais */
 .prose { max-width: 44rem; }
 .prose h1 { font-size: 1.55rem; margin: .5rem 0 .75rem; }

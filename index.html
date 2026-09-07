@@ -84,7 +84,7 @@
       });
     });
   </script>
-  <link rel="stylesheet" href="assets/css/vdv.css?v=20260905-5">
+  <link rel="stylesheet" href="assets/css/vdv.css?v=20260907-8">
 </head>
 <body data-page="home">
   <header class="topbar">
@@ -146,6 +146,14 @@
     <section id="section-novidades" hidden>
       <h2>Acabou de chegar</h2>
       <div class="grid" id="grid-recent"></div>
+    </section>
+
+    <!-- VDV-20260907-08 — rodízio: vitrine "viva" enquanto a página está
+         aberta. 1 card troca a cada 4s girando pelo catálogo inteiro
+         (app.js); "Acabou de chegar" permanece fixo. -->
+    <section id="section-exposicao" hidden>
+      <h2>Em exposição agora</h2>
+      <div class="grid" id="grid-exposicao"></div>
     </section>
 
     <!-- VDV-20260907-06 — gancho de crescimento: as vitrines (fornecedores)
@@ -236,7 +244,7 @@
     <p><a href="#" id="open_preferences_center">Preferências de cookies</a></p>
   </footer>
 
-  <script src="assets/js/app.js?v=20260905-5"></script>
+  <script src="assets/js/app.js?v=20260907-8"></script>
   <noscript>
     Gerenciamento de consentimento de cookies por <a href="https://www.termsfeed.com/">TermsFeed</a>.
   </noscript>

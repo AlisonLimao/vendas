@@ -11,6 +11,10 @@
   var FRESH_DAYS = 7; // aviso de frescura a partir de 7 dias (decisão 31/08)
   var DEFAULT_BOT = "vitrine_vendasbot";
   var EXPLORE_PAGE = 8; // página inicial da grade "Explore a vitrine"
+  // VDV-20260907-08 — rodízio "Em exposição agora": 8 cards girando, 1 troca
+  // a cada 4s (wrap-around pelo catálogo inteiro) enquanto a página está aberta.
+  var EXPOSICAO_SIZE = 8;
+  var EXPOSICAO_STEP_MS = 4000;
   // Faixas editoriais só entram quando há catálogo suficiente pra não
   // duplicar card na tela (Home 2.0 — vitrine comprador-first).
   var PRONTA_STRIP_MIN = 2;  // faixa "Pronta entrega" com >= 2 itens prontos
@@ -207,6 +211,38 @@
     sectionRecent.hidden = !showRecentStrip;
     if (showRecentStrip) fill($("grid-recent"), products.slice(0, 4));
 
+    // VDV-20260907-08 — seção giratória "Em exposição agora": 8 slots fixos;
+    // a cada tick troca 1 card (posição rotativa) pelo próximo produto do
+    // catálogo (wrap-around). Só aparece com catálogo maior que a página da
+    // grade "Explore" — abaixo disso tudo já está visível logo adiante.
+    var sectionExposicao = $("section-exposicao");
+    var showExposicao = products.length > EXPLORE_PAGE;
+    sectionExposicao.hidden = !showExposicao;
+    if (showExposicao) {
+      var expoGrid = $("grid-exposicao");
+      var expoSlots = [];
+      for (var ei = 0; ei < Math.min(EXPOSICAO_SIZE, products.length); ei++) {
+        var slotEl = cardEl(products[ei]);
+        expoGrid.appendChild(slotEl);
+        expoSlots.push(slotEl);
+      }
+      var expoCursor = EXPOSICAO_SIZE; // próximo índice do catálogo a entrar
+      var expoPos = 0;                 // próximo slot a ser substituído
+      setInterval(function () {
+        // Pausa: aba em segundo plano (economia/bateria) ou seção oculta
+        // pelo modo busca — o timer continua mas nada troca.
+        if (document.hidden || sectionExposicao.hidden) return;
+        var p = products[expoCursor % products.length];
+        expoCursor += 1;
+        var pos = expoPos % expoSlots.length;
+        expoPos += 1;
+        var fresh = cardEl(p);
+        fresh.classList.add("card-entering");
+        expoSlots[pos].replaceWith(fresh);
+        expoSlots[pos] = fresh;
+      }, EXPOSICAO_STEP_MS);
+    }
+
     // VDV-20260907-06 — seção "Vitrines do VDV": um chip por fornecedor
     // (dedup por supplier_slug, primeiro display vence — mesmo critério do
     // exportador). Some quando nenhum produto tem fornecedor resolvido.
@@ -235,18 +271,33 @@
     }
 
     // Grade principal: a vitrine inteira, paginada client-side.
+    // VDV-20260907-08 — rolagem infinita: quando o fim da grade entra na
+    // viewport, a próxima página carrega sozinha (IntersectionObserver).
+    // O botão "Carregar mais" permanece como fallback para navegadores
+    // sem suporte a observer — só é escondido no modo infinito.
     var shown = Math.min(EXPLORE_PAGE, products.length);
     var loadBtn = $("load-more");
+    var infiniteScroll = "IntersectionObserver" in window;
     function renderExplore() {
       fill($("grid-all"), products.slice(0, shown));
-      loadBtn.hidden = shown >= products.length;
-      if (shown >= products.length) loadBtn.parentElement.hidden = true;
+      var exhausted = shown >= products.length;
+      loadBtn.hidden = infiniteScroll || exhausted;
+      if (exhausted) loadBtn.parentElement.hidden = true;
     }
     renderExplore();
     loadBtn.addEventListener("click", function () {
       shown = Math.min(shown + EXPLORE_PAGE, products.length);
       renderExplore();
     });
+    if (infiniteScroll) {
+      loadBtn.hidden = true;
+      var io = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting || shown >= products.length) return;
+        shown = Math.min(shown + EXPLORE_PAGE, products.length);
+        renderExplore();
+      }, { rootMargin: "400px" });
+      io.observe(loadBtn.parentElement);
+    }
 
     var activeCat = "";
     var input = $("search");
@@ -276,6 +327,7 @@
     function setBrowseVisibility(searching) {
       sectionPronta.hidden = searching || !showProntaStrip;
       sectionRecent.hidden = searching || !showRecentStrip;
+      sectionExposicao.hidden = searching || !showExposicao;
       sectionVitrine.hidden = searching || products.length === 0;
       sectionEmpty.hidden = searching || products.length > 0;
     }
