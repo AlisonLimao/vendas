@@ -1,8 +1,70 @@
 {
-  "generated_at": "2026-09-07T21:09:03Z",
+  "generated_at": "2026-09-07T21:15:46Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 15,
+  "total": 17,
   "products": [
+    {
+      "id": "cb3643b1-78da-4cf4-aa8e-51861ea72f44",
+      "title": "Blusa Feminina em Modal Listrada Multicolor",
+      "description": "Blusa feminina em modal. Possui manga curta, gola redonda e acabamento canelado nas mangas e na barra. O mix de cores deixa a peça leve, moderna e fácil de combinar em produções casuais. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/cb3643b1-78da-4cf4-aa8e-51861ea72f44.jpg",
+      "images": [
+        "assets/products/cb3643b1-78da-4cf4-aa8e-51861ea72f44.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Blusa%20Feminina%20em%20Modal%20Listrada%20Multicolor"
+      }
+    },
+    {
+      "id": "8ef218ac-e46b-483e-869a-3b1876b36c91",
+      "title": "Blusa Feminina em Modal Listrada",
+      "description": "Blusa feminina em modal, com listras horizontais finas, manga curta e gola redonda. Possui acabamento canelado na gola, mangas e barra, com visual delicado, moderno e fácil de combinar em produções casuais ou mais arrumadas. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/8ef218ac-e46b-483e-869a-3b1876b36c91.jpg",
+      "images": [
+        "assets/products/8ef218ac-e46b-483e-869a-3b1876b36c91.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Blusa%20Feminina%20em%20Modal%20Listrada"
+      }
+    },
     {
       "id": "af1623e8-a94d-429c-aee7-d4ec976d3109",
       "title": "Blusa Feminina em Modal Trabalhado com Tranças e Pontos Vazados",
