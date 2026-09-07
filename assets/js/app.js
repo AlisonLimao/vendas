@@ -222,20 +222,22 @@
     sectionExposicao.hidden = !showExposicao;
     if (showExposicao) {
       var expoGrid = $("grid-exposicao");
+      // VDV-20260907-09 — rodízio igualitário por anunciante: fila por turnos
+      // (fair_rotation.js), cada anunciante 1× a cada N ticks independente do
+      // tamanho do catálogo; ordem sorteada a cada visita.
+      var rotation = window.VDVFairRotation.createRotation(products);
       var expoSlots = [];
       for (var ei = 0; ei < Math.min(EXPOSICAO_SIZE, products.length); ei++) {
-        var slotEl = cardEl(products[ei]);
+        var slotEl = cardEl(rotation.next());
         expoGrid.appendChild(slotEl);
         expoSlots.push(slotEl);
       }
-      var expoCursor = EXPOSICAO_SIZE; // próximo índice do catálogo a entrar
-      var expoPos = 0;                 // próximo slot a ser substituído
+      var expoPos = 0; // próximo slot a ser substituído
       setInterval(function () {
         // Pausa: aba em segundo plano (economia/bateria) ou seção oculta
         // pelo modo busca — o timer continua mas nada troca.
         if (document.hidden || sectionExposicao.hidden) return;
-        var p = products[expoCursor % products.length];
-        expoCursor += 1;
+        var p = rotation.next();
         var pos = expoPos % expoSlots.length;
         expoPos += 1;
         var leaving = expoSlots[pos];
