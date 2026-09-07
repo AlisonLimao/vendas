@@ -281,7 +281,8 @@
     if (cat === "") {
       chips.forEach(function (c) { c.setAttribute("aria-pressed", String(c === chip)); });
     } else {
-      chip.setAttribute("aria-pressed", chip.getAttribute("aria-pressed") === "true" ? "false" : "true");
+      chip.setAttribute("aria-pressed",
+        chip.getAttribute("aria-pressed") === "true" ? "false" : "true");
       var any = false;
       chips.forEach(function (c) {
         if (c.getAttribute("data-cat") && c.getAttribute("aria-pressed") === "true") any = true;
