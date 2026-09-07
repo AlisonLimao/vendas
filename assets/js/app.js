@@ -60,12 +60,6 @@
     return publicationMode(p) === "assisted_for_third_party";
   }
 
-  function assistedBadge(p) {
-    return isAssisted(p)
-      ? '<span class="badge badge-assisted">🤝 Cadastro assistido</span>'
-      : "";
-  }
-
   function fmtPrice(p) {
     var out = "R$ " + fmtMoney(p.price);
     if (offerType(p) === "peca_unica") return out + ' <small>(peça única)</small>';
@@ -181,7 +175,7 @@
       '<p class="card-meta">' + (p.category && p.category.name ? esc(p.category.name) + " · " : "") +
       esc(p.city) + "/" + esc(p.state) + "</p>" +
       '<p class="card-price">' + fmtPrice(p) + "</p>" +
-      '<p class="card-flags">' + availabilityBadge(p) + saleBadge(p) + assistedBadge(p) + freshnessBadge(p) + "</p>" +
+      '<p class="card-flags">' + availabilityBadge(p) + saleBadge(p) + freshnessBadge(p) + "</p>" +
       '<p class="card-more">Ver detalhes <span aria-hidden="true">→</span></p>' +
       "</div>";
     return a;
@@ -404,7 +398,7 @@
       (isAssisted(product)
         ? "<li>🤝 Oferta de <strong>" +
           esc(product.offer_owner_name || product.seller_name) +
-          "</strong> · Cadastro assistido no VDV · " +
+          "</strong> · " +
           esc(product.city) + "/" + esc(product.state) + "</li>"
         : "<li>🏪 Vendido por <strong>" + esc(product.seller_name) + "</strong> · " +
           esc(product.city) + "/" + esc(product.state) + "</li>") +
