@@ -1,8 +1,101 @@
 {
-  "generated_at": "2026-09-07T21:15:46Z",
+  "generated_at": "2026-09-07T21:24:37Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 17,
+  "total": 20,
   "products": [
+    {
+      "id": "f626206f-b2b0-41be-a480-2e087f36f8c4",
+      "title": "Regata Feminina em Modal Trabalhado com Tranças e Relevos",
+      "description": "Regata feminina em modal, com gola redonda e trabalho elaborado em pontos texturizados, tranças e pequenos relevos distribuídos pela parte frontal. O desenho vertical valoriza a peça e traz um visual delicado e sofisticado, com acabamento canelado na gola e na barra. Preço: R$ 31,90. No Pix: R$ 28,00 — 12,23% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "31.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/f626206f-b2b0-41be-a480-2e087f36f8c4.jpg",
+      "images": [
+        "assets/products/f626206f-b2b0-41be-a480-2e087f36f8c4.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Regata%20Feminina%20em%20Modal%20Trabalhado%20com%20Tran%C3%A7as%20e%20Relevos"
+      }
+    },
+    {
+      "id": "b856a39e-70c4-44ff-855e-62c17fdc6981",
+      "title": "Regata Feminina em Modal Listrada Multicolor com Decote V",
+      "description": "Regata feminina em modal. Possui alças largas, decote V e acabamento canelado na barra. O mix de cores deixa a peça leve, moderna e fácil de combinar em produções casuais. Preço: R$ 31,90. No Pix: R$ 28,00 — 12,23% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "31.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/b856a39e-70c4-44ff-855e-62c17fdc6981.jpg",
+      "images": [
+        "assets/products/b856a39e-70c4-44ff-855e-62c17fdc6981.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Regata%20Feminina%20em%20Modal%20Listrada%20Multicolor%20com%20Decote%20V"
+      }
+    },
+    {
+      "id": "52e774b3-2cdb-4b28-9ecf-6423dab52547",
+      "title": "Blusa Feminina em Modal Bicolor Geométrica",
+      "description": "Blusa feminina em modal, manga curta e gola redonda, com desenho geométrico bicolor em rosa e marrom. O contraste entre as cores cria um visual moderno e marcante, com acabamento canelado na gola, mangas e barra. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/52e774b3-2cdb-4b28-9ecf-6423dab52547.jpg",
+      "images": [
+        "assets/products/52e774b3-2cdb-4b28-9ecf-6423dab52547.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Blusa%20Feminina%20em%20Modal%20Bicolor%20Geom%C3%A9trica"
+      }
+    },
     {
       "id": "cb3643b1-78da-4cf4-aa8e-51861ea72f44",
       "title": "Blusa Feminina em Modal Listrada Multicolor",
