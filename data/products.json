@@ -1,8 +1,68 @@
 {
-  "generated_at": "2026-09-07T19:37:42Z",
+  "generated_at": "2026-09-07T19:52:16Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 9,
+  "total": 11,
   "products": [
+    {
+      "id": "62d97044-ca8e-4308-93ec-c90ec92b1f38",
+      "title": "Blusa Feminina em Modal Listrada",
+      "description": "Blusa feminina em modal, com listras horizontais, manga curta e gola redonda. Possui modelagem clássica, toque visual clean e acabamento contrastante na gola e nas mangas, criando uma peça versátil para combinações casuais ou mais arrumadas. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram. Fornecedor",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/62d97044-ca8e-4308-93ec-c90ec92b1f38.jpg",
+      "images": [
+        "assets/products/62d97044-ca8e-4308-93ec-c90ec92b1f38.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Blusa%20Feminina%20em%20Modal%20Listrada"
+      }
+    },
+    {
+      "id": "076e6574-11d7-46c0-ae33-2e783710f4f5",
+      "title": "Blusa Feminina em Modal Jacquard Argyle",
+      "description": "Blusa feminina em modal jacquard, com desenho argyle, manga curta, gola redonda e acabamentos canelados na gola, mangas e barra. O jacquard cria o desenho diretamente na malha, trazendo um acabamento mais elaborado e sofisticado à peça. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram. Fornecedor.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/076e6574-11d7-46c0-ae33-2e783710f4f5.jpg",
+      "images": [
+        "assets/products/076e6574-11d7-46c0-ae33-2e783710f4f5.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Blusa%20Feminina%20em%20Modal%20Jacquard%20Argyle"
+      }
+    },
     {
       "id": "e7c24080-4de3-4117-9621-b67099e14e1a",
       "title": "Conjunto Feminino em Tricô Acrílico – Regata e Short",
