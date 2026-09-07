@@ -1,8 +1,38 @@
 {
-  "generated_at": "2026-09-07T19:01:38Z",
+  "generated_at": "2026-09-07T19:05:53Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 3,
+  "total": 4,
   "products": [
+    {
+      "id": "b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb",
+      "title": "Vestido Longo Feminino em Tricô Vazado Frente Única",
+      "description": "Vestido longo feminino em tricô vazado, com modelagem frente única, decote profundo e diferentes estruturas de pontos trabalhados ao longo da peça.\nPossui forro, trazendo mais conforto e segurança no uso.\nPreço: R$ 85,90\nPix: R$ 79,90 — 6,98% de desconto\nPedido mínimo: 6 peças.\nConsulte as cores disponíveis pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "vestido",
+        "name": "Vestido"
+      },
+      "price": "85.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb.jpg",
+      "images": [
+        "assets/products/b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Vestido%20Longo%20Feminino%20em%20Tric%C3%B4%20Vazado%20Frente%20%C3%9Anica"
+      }
+    },
     {
       "id": "541ff4f4-36ff-4257-985b-8813494c480e",
       "title": "Vestido Longo de Tricô Vazado com Alças Finas",
