@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T23:16:32Z",
+  "generated_at": "2026-09-07T23:30:46Z",
   "bot_username": "vitrine_vendasbot",
   "total": 28,
   "products": [
@@ -861,7 +861,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 50,
-      "days_since_confirmation": 9,
+      "days_since_confirmation": 10,
       "seller_name": "Daguel tricot",
       "city": "Monte Sião",
       "state": "MG",
