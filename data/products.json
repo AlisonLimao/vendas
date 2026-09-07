@@ -1,8 +1,39 @@
 {
-  "generated_at": "2026-09-07T19:52:16Z",
+  "generated_at": "2026-09-07T19:57:51Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 11,
+  "total": 12,
   "products": [
+    {
+      "id": "ca545589-f399-4e6b-a731-7f23be9c9f60",
+      "title": "Blusa Feminina em Modal Listrada com Gola Polo",
+      "description": "Blusa feminina em modal com listras largas, manga curta e gola polo com decote em V. Possui acabamento canelado nas mangas e na barra, com visual moderno e elegante, fácil de combinar com jeans, alfaiataria e peças casuais. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/ca545589-f399-4e6b-a731-7f23be9c9f60.jpg",
+      "images": [
+        "assets/products/ca545589-f399-4e6b-a731-7f23be9c9f60.jpg",
+        "assets/products/ca545589-f399-4e6b-a731-7f23be9c9f60-2.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Blusa%20Feminina%20em%20Modal%20Listrada%20com%20Gola%20Polo"
+      }
+    },
     {
       "id": "62d97044-ca8e-4308-93ec-c90ec92b1f38",
       "title": "Blusa Feminina em Modal Listrada",
