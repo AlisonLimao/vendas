@@ -11,10 +11,12 @@
   var FRESH_DAYS = 7; // aviso de frescura a partir de 7 dias (decisão 31/08)
   var DEFAULT_BOT = "vitrine_vendasbot";
   var EXPLORE_PAGE = 8; // página inicial da grade "Explore a vitrine"
-  // VDV-20260907-08 — rodízio "Em exposição agora": 8 cards girando, 1 troca
-  // a cada 4s (wrap-around pelo catálogo inteiro) enquanto a página está aberta.
-  var EXPOSICAO_SIZE = 8;
+  // VDV-20260907-08 — rodízio "Em exposição agora": 4 cards girando (2×2 no
+  // celular, fileira de 4 no desktop), 1 troca animada a cada 4s (wrap-around
+  // pelo catálogo inteiro) enquanto a página está aberta.
+  var EXPOSICAO_SIZE = 4;
   var EXPOSICAO_STEP_MS = 4000;
+  var EXPOSICAO_EXIT_MS = 450; // duração da animação de saída (vdv-card-out)
   // Faixas editoriais só entram quando há catálogo suficiente pra não
   // duplicar card na tela (Home 2.0 — vitrine comprador-first).
   var PRONTA_STRIP_MIN = 2;  // faixa "Pronta entrega" com >= 2 itens prontos
@@ -236,10 +238,16 @@
         expoCursor += 1;
         var pos = expoPos % expoSlots.length;
         expoPos += 1;
-        var fresh = cardEl(p);
-        fresh.classList.add("card-entering");
-        expoSlots[pos].replaceWith(fresh);
-        expoSlots[pos] = fresh;
+        var leaving = expoSlots[pos];
+        // Troca em 2 tempos: o antigo anima a saída ocupando o próprio
+        // espaço (a grade não pula), então o novo entra no lugar dele.
+        leaving.classList.add("card-leaving");
+        setTimeout(function () {
+          var fresh = cardEl(p);
+          fresh.classList.add("card-entering");
+          leaving.replaceWith(fresh);
+          expoSlots[pos] = fresh;
+        }, EXPOSICAO_EXIT_MS);
       }, EXPOSICAO_STEP_MS);
     }
 
