@@ -1,8 +1,41 @@
 {
-  "generated_at": "2026-09-07T19:28:11Z",
+  "generated_at": "2026-09-07T19:37:42Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 8,
+  "total": 9,
   "products": [
+    {
+      "id": "e7c24080-4de3-4117-9621-b67099e14e1a",
+      "title": "Conjunto Feminino em Tricô Acrílico – Regata e Short",
+      "description": "Conjunto feminino em tricô acrílico composto por regata de alças largas e short com cordão para ajuste na cintura. O trabalho bicolor em verde e branco cria um desenho geométrico moderno, com acabamento canelado nas barras. Modelagem confortável e leve, ideal para produções casuais e de verão. Preço: R$ 69,90. No Pix: R$ 65,90 — 5,72% de desconto.",
+      "category": {
+        "slug": "conjunto",
+        "name": "Conjunto"
+      },
+      "price": "69.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/e7c24080-4de3-4117-9621-b67099e14e1a.jpg",
+      "images": [
+        "assets/products/e7c24080-4de3-4117-9621-b67099e14e1a.jpg",
+        "assets/products/e7c24080-4de3-4117-9621-b67099e14e1a-2.jpg",
+        "assets/products/e7c24080-4de3-4117-9621-b67099e14e1a-3.jpg",
+        "assets/products/e7c24080-4de3-4117-9621-b67099e14e1a-4.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Conjunto%20Feminino%20em%20Tric%C3%B4%20Acr%C3%ADlico%20%E2%80%93%20Regata%20e%20Short"
+      }
+    },
     {
       "id": "7d97b507-44ca-4ed7-889e-0e6284c46644",
       "title": "Vestido Longo de Tricô Vazado com Decote V",
