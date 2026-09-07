@@ -1,8 +1,39 @@
 {
-  "generated_at": "2026-09-07T20:58:46Z",
+  "generated_at": "2026-09-07T21:04:24Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 13,
+  "total": 14,
   "products": [
+    {
+      "id": "7f2b1711-ab4d-418b-b439-334638be72ea",
+      "title": "Blusa Feminina em Modal Listrada com Decote V e Botões",
+      "description": "Blusa feminina em modal com listras horizontais, manga curta, decote V e detalhe frontal com três botões. Possui acabamento canelado nas mangas e na barra, com visual marcante e modelagem versátil. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/7f2b1711-ab4d-418b-b439-334638be72ea.jpg",
+      "images": [
+        "assets/products/7f2b1711-ab4d-418b-b439-334638be72ea.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%2C%20vim%20pelo%20VDV%20e%20tenho%20interesse%20no%20an%C3%BAncio%3A%20Blusa%20Feminina%20em%20Modal%20Listrada%20com%20Decote%20V%20e%20Bot%C3%B5es"
+      }
+    },
     {
       "id": "9cf95eef-d0de-4f0c-aae3-558b90f2c7ed",
       "title": "Blusa Feminina em Modal Trabalhado com Tranças e Relevos",
