@@ -19,7 +19,6 @@
   var EXPOSICAO_EXIT_MS = 450; // duração da animação de saída (vdv-card-out)
   // Faixas editoriais só entram quando há catálogo suficiente pra não
   // duplicar card na tela (Home 2.0 — vitrine comprador-first).
-  var PRONTA_STRIP_MIN = 2;  // faixa "Pronta entrega" com >= 2 itens prontos
   var RECENT_STRIP_MIN = 5;  // faixa "Acabou de chegar" com >= 5 produtos
   var AVAILABILITY_LABELS = {
     pronta_entrega: "Pronta entrega",
@@ -197,7 +196,6 @@
     var products = catalog.products || [];
     var status = $("status");
     var sectionRecent = $("section-novidades");
-    var sectionPronta = $("section-pronta");
     var sectionVitrine = $("section-vitrine");
     var sectionEmpty = $("section-empty");
     var results = $("results");
@@ -205,11 +203,11 @@
     status.textContent = "";
 
     // Faixas editoriais: só quando o catálogo sustenta (sem duplicar card).
-    var pronta = products.filter(function (p) { return p.availability === "pronta_entrega"; });
-    var showProntaStrip = pronta.length >= PRONTA_STRIP_MIN;
+    // VDV-20260907-14: a faixa fixa "⚡ Pronta entrega" saiu do topo — pronta
+    // entrega é disponibilidade escolhida pelo anunciante, não faixa editorial;
+    // o visitante filtra pelo chip em "Explore a vitrine".
+    var hasPronta = products.some(function (p) { return p.availability === "pronta_entrega"; });
     var showRecentStrip = products.length >= RECENT_STRIP_MIN;
-    sectionPronta.hidden = !showProntaStrip;
-    if (showProntaStrip) fill(sectionPronta.querySelector("[data-slot]"), pronta.slice(0, 4));
     sectionRecent.hidden = !showRecentStrip;
     if (showRecentStrip) fill($("grid-recent"), products.slice(0, 4));
 
@@ -310,10 +308,30 @@
     }
 
     var activeCat = "";
+    // VDV-20260907-14 — filtro de disponibilidade: o chip "⚡ Pronta entrega"
+    // deixa a escolha com o visitante (era faixa fixa no topo da Home). Vive na
+    // mesma fileira de chips de categoria e coexiste com eles (semântica E).
+    var AVAIL_FILTER = { value: "pronta_entrega", label: "⚡ Pronta entrega" };
+    var activeAvail = "";
     var input = $("search");
     var clearBtn = $("clear-search");
     var catBox = $("categories");
     var seen = {};
+
+    if (hasPronta) {
+      var availChip = document.createElement("button");
+      availChip.type = "button";
+      availChip.className = "chip";
+      availChip.setAttribute("aria-pressed", "false");
+      availChip.setAttribute("data-avail", AVAIL_FILTER.value);
+      availChip.textContent = AVAIL_FILTER.label;
+      availChip.addEventListener("click", function () {
+        activeAvail = activeAvail === AVAIL_FILTER.value ? "" : AVAIL_FILTER.value;
+        availChip.setAttribute("aria-pressed", String(activeAvail === AVAIL_FILTER.value));
+        renderSearch();
+      });
+      catBox.appendChild(availChip);
+    }
     products.forEach(function (p) {
       if (!seen[p.category.slug]) {
         seen[p.category.slug] = true;
@@ -335,7 +353,6 @@
     });
 
     function setBrowseVisibility(searching) {
-      sectionPronta.hidden = searching || !showProntaStrip;
       sectionRecent.hidden = searching || !showRecentStrip;
       sectionExposicao.hidden = searching || !showExposicao;
       sectionVitrine.hidden = searching || products.length === 0;
@@ -345,12 +362,14 @@
     function renderSearch() {
       var q = input.value.replace(/\s+/g, " ").trim().toLowerCase();
       var cat = activeCat;
-      var searching = q !== "" || cat !== "";
+      var avail = activeAvail;
+      var searching = q !== "" || cat !== "" || avail !== "";
       results.hidden = !searching;
       clearBtn.hidden = !searching;
       setBrowseVisibility(searching);
       if (!searching) return;
       var found = products.filter(function (p) {
+        if (avail && p.availability !== "pronta_entrega") return false;
         if (cat && p.category.slug !== cat) return false;
         if (!q) return true;
         var hay = (p.title + " " + p.description + " " + p.category.name + " " +
@@ -367,6 +386,7 @@
     clearBtn.addEventListener("click", function () {
       input.value = "";
       activeCat = "";
+      activeAvail = "";
       Array.prototype.forEach.call(catBox.children, function (c) {
         c.setAttribute("aria-pressed", "false");
       });
@@ -376,7 +396,6 @@
     });
 
     if (products.length === 0) {
-      sectionPronta.hidden = true;
       sectionRecent.hidden = true;
       sectionVitrine.hidden = true;
       sectionEmpty.hidden = false;
@@ -607,7 +626,7 @@
         var s = $("status");
         if (s) s.textContent =
           "Não foi possível carregar o catálogo agora. Recarregue a página em alguns instantes.";
-        ["section-novidades", "section-pronta", "section-vitrine"].forEach(function (id) {
+        ["section-novidades", "section-vitrine"].forEach(function (id) {
           var el = $(id);
           if (el) el.hidden = true;
         });
