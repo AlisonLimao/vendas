@@ -1,8 +1,70 @@
 {
-  "generated_at": "2026-09-07T23:54:03Z",
+  "generated_at": "2026-09-08T00:07:51Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 28,
+  "total": 30,
   "products": [
+    {
+      "id": "d49dee1e-27fa-4b23-9ed0-9f887a55b1fb",
+      "title": "Calça Feminina em Modal Canelado Reta",
+      "description": "Calça feminina em modal canelado, com cintura alta, cós largo e modelagem reta. A textura vertical alonga visualmente a peça e traz um caimento elegante, confortável e versátil, ideal para produções casuais ou mais arrumadas. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "calca",
+        "name": "Calça"
+      },
+      "price": "30.00",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "pronta_entrega",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Ana maria",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/d49dee1e-27fa-4b23-9ed0-9f887a55b1fb.jpg",
+      "images": [
+        "assets/products/d49dee1e-27fa-4b23-9ed0-9f887a55b1fb.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Ana maria",
+      "authorization_confirmed": true,
+      "supplier_slug": "ana-maria-65dc1758",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Ana maria",
+        "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Cal%C3%A7a%20Feminina%20em%20Modal%20Canelado%20Reta%22%0APre%C3%A7o%3A%20R%24%2030%2C00%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/d49dee1e-27fa-4b23-9ed0-9f887a55b1fb/"
+      }
+    },
+    {
+      "id": "6955d7a9-add8-4767-a9f8-189eead8c6ab",
+      "title": "Regata Feminina em Modal Canelado com Decote Quadrado e Botões",
+      "description": "Regata feminina em modal canelado, com alças largas, decote quadrado e detalhe frontal com botões. A textura vertical valoriza a modelagem e cria um visual elegante, feminino e versátil, fácil de combinar com jeans, alfaiataria e peças casuais.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "15.00",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "pronta_entrega",
+      "quantity": 10,
+      "days_since_confirmation": 0,
+      "seller_name": "Ana Maria",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/6955d7a9-add8-4767-a9f8-189eead8c6ab.jpg",
+      "images": [
+        "assets/products/6955d7a9-add8-4767-a9f8-189eead8c6ab.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Ana Maria",
+      "authorization_confirmed": true,
+      "supplier_slug": "ana-maria-65dc1758",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Ana Maria",
+        "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Modal%20Canelado%20com%20Decote%20Quadrado%20e%20Bot%C3%B5es%22%0APre%C3%A7o%3A%20R%24%2015%2C00%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/6955d7a9-add8-4767-a9f8-189eead8c6ab/"
+      }
+    },
     {
       "id": "70f4ec48-4393-469e-86e8-173a21e2ee61",
       "title": "Cropped Feminino em Modal Jacquard Poá",

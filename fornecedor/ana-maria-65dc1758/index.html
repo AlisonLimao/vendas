@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ana maria — produtos em Monte Sião/MG · VDV</title>
+<meta name="description" content="Todos os anúncios ativos de Ana maria em Monte Sião/MG na vitrine VDV — negocie direto pelo Telegram.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VDV — Vitrine de Vendas">
+<meta property="og:title" content="Ana maria — produtos em Monte Sião/MG · VDV">
+<meta property="og:description" content="2 produto(s) disponíveis de Ana maria em Monte Sião/MG — negocie direto pelo Telegram.">
+<meta property="og:image" content="https://alisonlimao.github.io/vendas/assets/vdv-banner-share-1200x630.jpg">
+<meta property="og:url" content="https://alisonlimao.github.io/vendas/fornecedor/ana-maria-65dc1758/">
+<link rel="canonical" href="https://alisonlimao.github.io/vendas/fornecedor/ana-maria-65dc1758/">
+<link rel="stylesheet" href="../../assets/css/vdv.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../">
+    <span class="logo">VDV</span>
+    <strong>Vitrine de Vendas</strong>
+  </a>
+  <nav class="topnav"><a href="../../como-funciona.html">Como funciona</a></nav>
+</header>
+<main>
+  <a class="back-link" href="../../">&larr; Voltar para a vitrine</a>
+  <h1>Ana maria</h1>
+  <p class="card-meta">Monte Sião/MG · 2 produto(s) disponível(is)</p>
+  <p class="share-row">
+    <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://wa.me/?text=Venha%20ver%20a%20vitrine%20de%20Ana%20maria%20no%20VDV%3A%20https%3A//alisonlimao.github.io/vendas/fornecedor/ana-maria-65dc1758/">Compartilhar no WhatsApp</a>
+    <a class="btn" target="_blank" rel="noopener" href="https://t.me/vitrine_vendasbot?start=vitrine">Monte sua vitrine também no VDV</a>
+  </p>
+  <div class="chips" id="cat-filter" role="group" aria-label="Filtrar por categoria">
+    <button type="button" class="chip" data-cat="" aria-pressed="true">Todos</button>
+    <button type="button" class="chip" data-cat="blusa" aria-pressed="false">Blusa</button>
+    <button type="button" class="chip" data-cat="calca" aria-pressed="false">Calça</button>
+  </div>
+  <section>
+    <div class="grid" id="supplier-grid">
+    <a class="card" data-cat="calca" href="../../produto/d49dee1e-27fa-4b23-9ed0-9f887a55b1fb/">
+      <img src="../../assets/products/d49dee1e-27fa-4b23-9ed0-9f887a55b1fb.jpg" alt="Calça Feminina em Modal Canelado Reta" loading="lazy">
+      <div class="card-body">
+        <h3 class="card-title">Calça Feminina em Modal Canelado Reta</h3>
+        <p class="card-meta">Pronta entrega</p>
+        <p class="card-price">R$ 30,00</p>
+      </div>
+    </a>
+    <a class="card" data-cat="blusa" href="../../produto/6955d7a9-add8-4767-a9f8-189eead8c6ab/">
+      <img src="../../assets/products/6955d7a9-add8-4767-a9f8-189eead8c6ab.jpg" alt="Regata Feminina em Modal Canelado com Decote Quadrado e Botões" loading="lazy">
+      <div class="card-body">
+        <h3 class="card-title">Regata Feminina em Modal Canelado com Decote Quadrado e Botões</h3>
+        <p class="card-meta">Pronta entrega</p>
+        <p class="card-price">R$ 15,00</p>
+      </div>
+    </a>
+    </div>
+  </section>
+  <section class="other-vitrines">
+    <p class="card-meta">Outras vitrines do VDV</p>
+    <p><a href="../../fornecedor/sarah-trico/">Sarah Tricô</a> · <a href="../../fornecedor/alison-limao/">Alison limão</a> · <a href="../../fornecedor/daguel-tricot/">Daguel tricot</a></p>
+  </section>
+</main>
+<footer>
+  <p>VDV — Vitrine de Vendas · negociação direta pelo Telegram.</p>
+</footer>
+<script>
+(function () {
+  var bar = document.getElementById("cat-filter");
+  var grid = document.getElementById("supplier-grid");
+  if (!bar || !grid) return;
+  var chips = bar.querySelectorAll("button.chip");
+  function apply() {
+    var sel = [];
+    chips.forEach(function (c) {
+      if (c.getAttribute("data-cat") && c.getAttribute("aria-pressed") === "true") {
+        sel.push(c.getAttribute("data-cat"));
+      }
+    });
+    var all = sel.length === 0;
+    grid.querySelectorAll("a.card").forEach(function (card) {
+      card.hidden = !all && sel.indexOf(card.getAttribute("data-cat")) === -1;
+    });
+  }
+  bar.addEventListener("click", function (ev) {
+    var chip = ev.target.closest("button.chip");
+    if (!chip) return;
+    var cat = chip.getAttribute("data-cat");
+    if (cat === "") {
+      chips.forEach(function (c) { c.setAttribute("aria-pressed", String(c === chip)); });
+    } else {
+      chip.setAttribute("aria-pressed",
+        chip.getAttribute("aria-pressed") === "true" ? "false" : "true");
+      var any = false;
+      chips.forEach(function (c) {
+        if (c.getAttribute("data-cat") && c.getAttribute("aria-pressed") === "true") any = true;
+      });
+      bar.querySelector('button.chip[data-cat=""]').setAttribute("aria-pressed", String(!any));
+    }
+    apply();
+  });
+})();
+</script>
+</body>
+</html>
