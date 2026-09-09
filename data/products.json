@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-08T13:09:57Z",
+  "generated_at": "2026-09-09T01:17:17Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 30,
+  "total": 25,
   "products": [
     {
       "id": "d49dee1e-27fa-4b23-9ed0-9f887a55b1fb",
@@ -16,7 +16,7 @@
       "offer_type": "atacado",
       "availability": "pronta_entrega",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Ana maria",
       "city": "Monte Sião",
       "state": "MG",
@@ -31,7 +31,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Ana maria",
-        "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Cal%C3%A7a%20Feminina%20em%20Modal%20Canelado%20Reta%22%0APre%C3%A7o%3A%20R%24%2030%2C00%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/d49dee1e-27fa-4b23-9ed0-9f887a55b1fb/"
+        "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Cal%C3%A7a%20Feminina%20em%20Modal%20Canelado%20Reta%22%0APre%C3%A7o%3A%20R%24%2030%2C00%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/d49dee1e-27fa-4b23-9ed0-9f887a55b1fb/"
       }
     },
     {
@@ -47,7 +47,7 @@
       "offer_type": "atacado",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
@@ -62,7 +62,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Ana Maria",
-        "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Modal%20Canelado%20com%20Decote%20Quadrado%20e%20Bot%C3%B5es%22%0APre%C3%A7o%3A%20R%24%2015%2C00%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/6955d7a9-add8-4767-a9f8-189eead8c6ab/"
+        "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Modal%20Canelado%20com%20Decote%20Quadrado%20e%20Bot%C3%B5es%22%0APre%C3%A7o%3A%20R%24%2015%2C00%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/6955d7a9-add8-4767-a9f8-189eead8c6ab/"
       }
     },
     {
@@ -78,7 +78,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -93,7 +93,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Cropped%20Feminino%20em%20Modal%20Jacquard%20Po%C3%A1%22%0APre%C3%A7o%3A%20R%24%2031%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/70f4ec48-4393-469e-86e8-173a21e2ee61/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Cropped%20Feminino%20em%20Modal%20Jacquard%20Po%C3%A1%22%0APre%C3%A7o%3A%20R%24%2031%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/70f4ec48-4393-469e-86e8-173a21e2ee61/"
       }
     },
     {
@@ -109,7 +109,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -124,100 +124,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Listrada%20com%20Gola%20Polo%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/f5d80257-ab75-4132-9af1-bd392ed62e3a/"
-      }
-    },
-    {
-      "id": "5b39fb3e-01e7-4666-9228-9bc00fd66e56",
-      "title": "Blusa Feminina em Modal Trabalhado com Gola Polo",
-      "description": "Blusa feminina em modal, manga curta e gola polo, com trabalho vazado em desenhos geométricos tipo espinha/chevron por toda a frente. Possui acabamento canelado nas mangas e na barra, com visual leve, delicado e sofisticado. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
-      "category": {
-        "slug": "blusa",
-        "name": "Blusa"
-      },
-      "price": "41.90",
-      "minimum_order": 6,
-      "offer_type": "atacado",
-      "availability": "sob_pedido",
-      "quantity": 20,
-      "days_since_confirmation": 0,
-      "seller_name": "Sarah Tricô",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/5b39fb3e-01e7-4666-9228-9bc00fd66e56.jpg",
-      "images": [
-        "assets/products/5b39fb3e-01e7-4666-9228-9bc00fd66e56.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "offer_owner_name": "Sarah Tricô",
-      "authorization_confirmed": true,
-      "supplier_slug": "sarah-trico",
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Trabalhado%20com%20Gola%20Polo%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/5b39fb3e-01e7-4666-9228-9bc00fd66e56/"
-      }
-    },
-    {
-      "id": "979b6dcb-903f-41e0-9704-b923e18b336b",
-      "title": "Regata Feminina em Modal Trabalhado Canelado com Decote V",
-      "description": "Regata feminina em modal, com decote V, alças largas e trabalho canelado com detalhes vazados na região do decote. A estrutura vertical valoriza a modelagem e cria um visual delicado, moderno e sofisticado. Preço: R$ 31,90. No Pix: R$ 28,00 — 12,23% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
-      "category": {
-        "slug": "blusa",
-        "name": "Blusa"
-      },
-      "price": "31.90",
-      "minimum_order": 6,
-      "offer_type": "atacado",
-      "availability": "sob_pedido",
-      "quantity": 20,
-      "days_since_confirmation": 0,
-      "seller_name": "Sarah Tricô",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/979b6dcb-903f-41e0-9704-b923e18b336b.jpg",
-      "images": [
-        "assets/products/979b6dcb-903f-41e0-9704-b923e18b336b.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "offer_owner_name": "Sarah Tricô",
-      "authorization_confirmed": true,
-      "supplier_slug": "sarah-trico",
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Modal%20Trabalhado%20Canelado%20com%20Decote%20V%22%0APre%C3%A7o%3A%20R%24%2031%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/979b6dcb-903f-41e0-9704-b923e18b336b/"
-      }
-    },
-    {
-      "id": "5023d667-e6c3-432b-bdb9-6a51d9d954fa",
-      "title": "Blusa Feminina em Modal Jacquard Poá",
-      "description": "Blusa feminina em modal jacquard. Possui manga curta, gola redonda e acabamento azul contrastante na gola, mangas e barra. O jacquard forma o desenho diretamente na malha, criando um visual marcante e moderno. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
-      "category": {
-        "slug": "blusa",
-        "name": "Blusa"
-      },
-      "price": "41.90",
-      "minimum_order": 6,
-      "offer_type": "atacado",
-      "availability": "sob_pedido",
-      "quantity": 20,
-      "days_since_confirmation": 0,
-      "seller_name": "Sarah Tricô",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/5023d667-e6c3-432b-bdb9-6a51d9d954fa.jpg",
-      "images": [
-        "assets/products/5023d667-e6c3-432b-bdb9-6a51d9d954fa.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "offer_owner_name": "Sarah Tricô",
-      "authorization_confirmed": true,
-      "supplier_slug": "sarah-trico",
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Jacquard%20Po%C3%A1%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/5023d667-e6c3-432b-bdb9-6a51d9d954fa/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Listrada%20com%20Gola%20Polo%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/f5d80257-ab75-4132-9af1-bd392ed62e3a/"
       }
     },
     {
@@ -233,7 +140,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -248,7 +155,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Modal%20Listrada%22%0APre%C3%A7o%3A%20R%24%2031%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/76c53387-ee34-4fb2-bca3-88439d641654/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Modal%20Listrada%22%0APre%C3%A7o%3A%20R%24%2031%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/76c53387-ee34-4fb2-bca3-88439d641654/"
       }
     },
     {
@@ -264,7 +171,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -279,69 +186,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Jacquard%20Po%C3%A1%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/b2dbef70-37bb-4cad-b545-d6001745180e/"
-      }
-    },
-    {
-      "id": "ab9045b7-6044-4016-9c60-95b80073f2ea",
-      "title": "Blusa Feminina em Modal Lisa com Detalhe Listrado nos Ombros",
-      "description": "Blusa feminina em modal, manga curta e gola redonda, com visual liso  e detalhe de listras contrastantes nos ombros. Possui acabamento canelado na gola e nas mangas, com modelagem versátil e moderna para combinações casuais ou mais arrumadas. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
-      "category": {
-        "slug": "blusa",
-        "name": "Blusa"
-      },
-      "price": "41.90",
-      "minimum_order": 6,
-      "offer_type": "atacado",
-      "availability": "sob_pedido",
-      "quantity": 20,
-      "days_since_confirmation": 0,
-      "seller_name": "Sarah Tricô",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/ab9045b7-6044-4016-9c60-95b80073f2ea.jpg",
-      "images": [
-        "assets/products/ab9045b7-6044-4016-9c60-95b80073f2ea.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "offer_owner_name": "Sarah Tricô",
-      "authorization_confirmed": true,
-      "supplier_slug": "sarah-trico",
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Lisa%20com%20Detalhe%20Listrado%20nos%20Ombros%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/ab9045b7-6044-4016-9c60-95b80073f2ea/"
-      }
-    },
-    {
-      "id": "f626206f-b2b0-41be-a480-2e087f36f8c4",
-      "title": "Regata Feminina em Modal Trabalhado com Tranças e Relevos",
-      "description": "Regata feminina em modal, com gola redonda e trabalho elaborado em pontos texturizados, tranças e pequenos relevos distribuídos pela parte frontal. O desenho vertical valoriza a peça e traz um visual delicado e sofisticado, com acabamento canelado na gola e na barra. Preço: R$ 31,90. No Pix: R$ 28,00 — 12,23% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
-      "category": {
-        "slug": "blusa",
-        "name": "Blusa"
-      },
-      "price": "31.90",
-      "minimum_order": 6,
-      "offer_type": "atacado",
-      "availability": "sob_pedido",
-      "quantity": 20,
-      "days_since_confirmation": 0,
-      "seller_name": "Sarah Tricô",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/f626206f-b2b0-41be-a480-2e087f36f8c4.jpg",
-      "images": [
-        "assets/products/f626206f-b2b0-41be-a480-2e087f36f8c4.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "offer_owner_name": "Sarah Tricô",
-      "authorization_confirmed": true,
-      "supplier_slug": "sarah-trico",
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Modal%20Trabalhado%20com%20Tran%C3%A7as%20e%20Relevos%22%0APre%C3%A7o%3A%20R%24%2031%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/f626206f-b2b0-41be-a480-2e087f36f8c4/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Jacquard%20Po%C3%A1%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/b2dbef70-37bb-4cad-b545-d6001745180e/"
       }
     },
     {
@@ -357,7 +202,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -372,7 +217,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Modal%20Listrada%20Multicolor%20com%20Decote%20V%22%0APre%C3%A7o%3A%20R%24%2031%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/b856a39e-70c4-44ff-855e-62c17fdc6981/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Modal%20Listrada%20Multicolor%20com%20Decote%20V%22%0APre%C3%A7o%3A%20R%24%2031%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/b856a39e-70c4-44ff-855e-62c17fdc6981/"
       }
     },
     {
@@ -388,7 +233,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -403,7 +248,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Bicolor%20Geom%C3%A9trica%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/52e774b3-2cdb-4b28-9ecf-6423dab52547/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Bicolor%20Geom%C3%A9trica%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/52e774b3-2cdb-4b28-9ecf-6423dab52547/"
       }
     },
     {
@@ -419,7 +264,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -434,7 +279,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Listrada%20Multicolor%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/cb3643b1-78da-4cf4-aa8e-51861ea72f44/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Listrada%20Multicolor%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/cb3643b1-78da-4cf4-aa8e-51861ea72f44/"
       }
     },
     {
@@ -450,7 +295,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -465,7 +310,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Listrada%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/8ef218ac-e46b-483e-869a-3b1876b36c91/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Listrada%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/8ef218ac-e46b-483e-869a-3b1876b36c91/"
       }
     },
     {
@@ -481,7 +326,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -496,7 +341,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Trabalhado%20com%20Tran%C3%A7as%20e%20Pontos%20Vazados%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/af1623e8-a94d-429c-aee7-d4ec976d3109/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Trabalhado%20com%20Tran%C3%A7as%20e%20Pontos%20Vazados%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/af1623e8-a94d-429c-aee7-d4ec976d3109/"
       }
     },
     {
@@ -512,7 +357,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -527,7 +372,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Listrada%20com%20Decote%20V%20e%20Bot%C3%B5es%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/7f2b1711-ab4d-418b-b439-334638be72ea/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Listrada%20com%20Decote%20V%20e%20Bot%C3%B5es%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/7f2b1711-ab4d-418b-b439-334638be72ea/"
       }
     },
     {
@@ -543,7 +388,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -558,7 +403,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Trabalhado%20com%20Tran%C3%A7as%20e%20Relevos%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/9cf95eef-d0de-4f0c-aae3-558b90f2c7ed/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Trabalhado%20com%20Tran%C3%A7as%20e%20Relevos%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/9cf95eef-d0de-4f0c-aae3-558b90f2c7ed/"
       }
     },
     {
@@ -574,7 +419,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -590,7 +435,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Listrada%20com%20Gola%20Polo%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/ca545589-f399-4e6b-a731-7f23be9c9f60/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Listrada%20com%20Gola%20Polo%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/ca545589-f399-4e6b-a731-7f23be9c9f60/"
       }
     },
     {
@@ -606,7 +451,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -621,7 +466,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Listrada%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/62d97044-ca8e-4308-93ec-c90ec92b1f38/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Listrada%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/62d97044-ca8e-4308-93ec-c90ec92b1f38/"
       }
     },
     {
@@ -637,7 +482,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -652,7 +497,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Jacquard%20Argyle%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/076e6574-11d7-46c0-ae33-2e783710f4f5/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Jacquard%20Argyle%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/076e6574-11d7-46c0-ae33-2e783710f4f5/"
       }
     },
     {
@@ -668,7 +513,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -686,7 +531,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Conjunto%20Feminino%20em%20Tric%C3%B4%20Acr%C3%ADlico%20%E2%80%93%20Regata%20e%20Short%22%0APre%C3%A7o%3A%20R%24%2069%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/e7c24080-4de3-4117-9621-b67099e14e1a/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Conjunto%20Feminino%20em%20Tric%C3%B4%20Acr%C3%ADlico%20%E2%80%93%20Regata%20e%20Short%22%0APre%C3%A7o%3A%20R%24%2069%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/e7c24080-4de3-4117-9621-b67099e14e1a/"
       }
     },
     {
@@ -702,7 +547,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -717,7 +562,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20de%20Tric%C3%B4%20Vazado%20com%20Decote%20V%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/7d97b507-44ca-4ed7-889e-0e6284c46644/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20de%20Tric%C3%B4%20Vazado%20com%20Decote%20V%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/7d97b507-44ca-4ed7-889e-0e6284c46644/"
       }
     },
     {
@@ -733,7 +578,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -748,7 +593,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20de%20Al%C3%A7as%20com%20Decote%20V%20Rendado%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/615283d7-5961-4308-8310-732d2863aa1e/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20de%20Al%C3%A7as%20com%20Decote%20V%20Rendado%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/615283d7-5961-4308-8310-732d2863aa1e/"
       }
     },
     {
@@ -764,7 +609,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -779,7 +624,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20Tric%C3%B4%20Vazado%20com%20Recortes%20Laterais%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/7e23232c-1b55-40d7-a9e5-1b0efdb973f9/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20Tric%C3%B4%20Vazado%20com%20Recortes%20Laterais%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/7e23232c-1b55-40d7-a9e5-1b0efdb973f9/"
       }
     },
     {
@@ -795,7 +640,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -810,7 +655,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20de%20Tric%C3%B4%20Vazado%20Frente%20%C3%9Anica%20com%20Recortes%20Laterais%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/37af510b-2728-4643-916a-7cca3d8d0735/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20de%20Tric%C3%B4%20Vazado%20Frente%20%C3%9Anica%20com%20Recortes%20Laterais%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/37af510b-2728-4643-916a-7cca3d8d0735/"
       }
     },
     {
@@ -826,7 +671,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -841,7 +686,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20Feminino%20em%20Tric%C3%B4%20Vazado%20Frente%20%C3%9Anica%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20Feminino%20em%20Tric%C3%B4%20Vazado%20Frente%20%C3%9Anica%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb/"
       }
     },
     {
@@ -857,7 +702,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 0,
+      "days_since_confirmation": 1,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -872,7 +717,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20de%20Tric%C3%B4%20Vazado%20com%20Al%C3%A7as%20Finas%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/541ff4f4-36ff-4257-985b-8813494c480e/"
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20de%20Tric%C3%B4%20Vazado%20com%20Al%C3%A7as%20Finas%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/541ff4f4-36ff-4257-985b-8813494c480e/"
       }
     },
     {
@@ -888,7 +733,7 @@
       "offer_type": "atacado",
       "availability": "pronta_entrega",
       "quantity": 1,
-      "days_since_confirmation": 1,
+      "days_since_confirmation": 2,
       "seller_name": "Alison limão",
       "city": "Monte Sião",
       "state": "MG",
@@ -903,7 +748,7 @@
       "supplier_slug": "alison-limao",
       "whatsapp": {
         "nome": "Contato autorizado",
-        "link": "https://wa.me/5535991038206?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22%F0%9F%8F%8D%EF%B8%8F%20HONDA%20CG%20160%20%E2%80%94%20%C3%80%20VENDA%22%0APre%C3%A7o%3A%20R%24%2017000%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//alisonlimao.github.io/vendas/produto/d58b9b1b-8d8a-43e6-80ca-553435d11a0a/"
+        "link": "https://wa.me/5535991038206?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22%F0%9F%8F%8D%EF%B8%8F%20HONDA%20CG%20160%20%E2%80%94%20%C3%80%20VENDA%22%0APre%C3%A7o%3A%20R%24%2017000%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/d58b9b1b-8d8a-43e6-80ca-553435d11a0a/"
       },
       "telegram_contact": {
         "nome": "Alison limão",
@@ -923,7 +768,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 50,
-      "days_since_confirmation": 10,
+      "days_since_confirmation": 11,
       "seller_name": "Daguel tricot",
       "city": "Monte Sião",
       "state": "MG",
