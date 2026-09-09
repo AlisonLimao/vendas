@@ -59,6 +59,10 @@ h1, h2 { font-weight: 700; letter-spacing: -0.02em; }
   position: sticky; top: 0; z-index: 10;
 }
 .brand { display: flex; align-items: center; gap: .6rem; min-width: 0; }
+/* VDV-20260909-02 — a marca virou link de Início: âncora herda o visual
+   original e ganha foco visível para navegação por teclado. */
+a.brand { text-decoration: none; color: inherit; }
+a.brand:focus-visible { outline: 2px solid var(--vdv-accent, #f59e0b); outline-offset: 4px; border-radius: 8px; }
 .logo {
   display: inline-flex; align-items: center; justify-content: center;
   width: 2.3rem; height: 2.3rem; border-radius: 8px;

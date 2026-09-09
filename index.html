@@ -91,14 +91,16 @@
   <link rel="stylesheet" href="assets/css/vdv.css?v=20260907-9">
 </head>
 <body data-page="home">
-  <header class="topbar">
-    <div class="brand">
+  <header class="topbar" id="top">
+    <!-- VDV-20260909-02 — a marca vira atalho de Início: na Home, sobe ao topo
+       sem recarregar (busca/filtros preservados). -->
+    <a class="brand" href="#top" aria-label="VDV — voltar ao topo da vitrine">
       <span class="logo" aria-hidden="true">VDV</span>
       <div>
         <strong>Vitrine de Vendas</strong>
         <small>Estoques locais em circulação</small>
       </div>
-    </div>
+    </a>
     <nav class="topnav" aria-label="Navegação principal">
       <a href="#section-vitrine">Explorar</a>
       <a href="como-funciona.html">Como funciona</a>

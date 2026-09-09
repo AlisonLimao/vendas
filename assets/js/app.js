@@ -349,7 +349,14 @@
         chip.textContent = p.category.name;
         chip.addEventListener("click", function () {
           activeCat = activeCat === p.category.slug ? "" : p.category.slug;
+          // VDV-20260909-01 — escolher categoria recomeça a combinação: o
+          // estado de disponibilidade sai (lógico E visual). Sem isso o chip
+          // desmarcava na tela, mas `activeAvail` ficava preso e a busca
+          // seguia aplicando "pronta entrega" E categoria juntas.
+          activeAvail = "";
+          if (availChip) availChip.setAttribute("aria-pressed", "false");
           Array.prototype.forEach.call(catBox.children, function (c) {
+            if (c.getAttribute("data-avail")) return; // já sincronizado acima
             c.setAttribute("aria-pressed", String(c.getAttribute("data-slug") === activeCat));
           });
           renderSearch();
@@ -406,6 +413,56 @@
       sectionVitrine.hidden = true;
       sectionEmpty.hidden = false;
     }
+
+    // VDV-20260909-01 — retorno ao feed com estado. Ao abrir um produto, a
+    // Home guarda rolagem, busca, filtros e cards carregados em sessionStorage
+    // (escopo de aba). Ao voltar pelo "← Vitrine", o estado volta e o snapshot
+    // é limpo — restaura uma única vez, sem contaminar entrada direta/deep link.
+    var HOME_STATE_KEY = "vdv:home-state";
+    function saveHomeState() {
+      try {
+        sessionStorage.setItem(HOME_STATE_KEY, JSON.stringify({
+          scrollY: window.scrollY,
+          q: input.value,
+          cat: activeCat,
+          avail: activeAvail,
+          shown: shown
+        }));
+      } catch (e) { /* modo privado: sem snapshot, a Home abre do zero */ }
+    }
+    document.addEventListener("click", function (ev) {
+      if (ev.defaultPrevented || ev.button !== 0 ||
+          ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) return;
+      var t = ev.target;
+      var a = t && t.closest ? t.closest('a[href*="produto/index.html?id="]') : null;
+      if (a) saveHomeState();
+    });
+
+    try {
+      var raw = sessionStorage.getItem(HOME_STATE_KEY);
+      if (raw) {
+        sessionStorage.removeItem(HOME_STATE_KEY);
+        var snap = JSON.parse(raw);
+        if (snap && typeof snap === "object") {
+          input.value = typeof snap.q === "string" ? snap.q : "";
+          activeCat = typeof snap.cat === "string" ? snap.cat : "";
+          activeAvail = snap.avail === AVAIL_FILTER.value ? snap.avail : "";
+          if (typeof snap.shown === "number" && snap.shown > 0) {
+            shown = Math.min(snap.shown, products.length);
+          }
+          Array.prototype.forEach.call(catBox.children, function (c) {
+            var on = c.getAttribute("data-slug") === activeCat ||
+              (c.getAttribute("data-avail") !== null && activeAvail !== "");
+            c.setAttribute("aria-pressed", String(on));
+          });
+          renderExplore();
+          renderSearch();
+          if (snap.scrollY) {
+            requestAnimationFrame(function () { window.scrollTo(0, snap.scrollY); });
+          }
+        }
+      }
+    } catch (e) { /* snapshot inválido: segue com estado limpo */ }
   }
 
   // --------------------------------------------------------------- produto
