@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-09T01:17:17Z",
+  "generated_at": "2026-09-09T01:19:11Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 25,
+  "total": 30,
   "products": [
     {
       "id": "d49dee1e-27fa-4b23-9ed0-9f887a55b1fb",
@@ -128,6 +128,99 @@
       }
     },
     {
+      "id": "5b39fb3e-01e7-4666-9228-9bc00fd66e56",
+      "title": "Blusa Feminina em Modal Trabalhado com Gola Polo",
+      "description": "Blusa feminina em modal, manga curta e gola polo, com trabalho vazado em desenhos geométricos tipo espinha/chevron por toda a frente. Possui acabamento canelado nas mangas e na barra, com visual leve, delicado e sofisticado. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 1,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/5b39fb3e-01e7-4666-9228-9bc00fd66e56.jpg",
+      "images": [
+        "assets/products/5b39fb3e-01e7-4666-9228-9bc00fd66e56.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Trabalhado%20com%20Gola%20Polo%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/5b39fb3e-01e7-4666-9228-9bc00fd66e56/"
+      }
+    },
+    {
+      "id": "979b6dcb-903f-41e0-9704-b923e18b336b",
+      "title": "Regata Feminina em Modal Trabalhado Canelado com Decote V",
+      "description": "Regata feminina em modal, com decote V, alças largas e trabalho canelado com detalhes vazados na região do decote. A estrutura vertical valoriza a modelagem e cria um visual delicado, moderno e sofisticado. Preço: R$ 31,90. No Pix: R$ 28,00 — 12,23% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "31.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 1,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/979b6dcb-903f-41e0-9704-b923e18b336b.jpg",
+      "images": [
+        "assets/products/979b6dcb-903f-41e0-9704-b923e18b336b.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Modal%20Trabalhado%20Canelado%20com%20Decote%20V%22%0APre%C3%A7o%3A%20R%24%2031%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/979b6dcb-903f-41e0-9704-b923e18b336b/"
+      }
+    },
+    {
+      "id": "5023d667-e6c3-432b-bdb9-6a51d9d954fa",
+      "title": "Blusa Feminina em Modal Jacquard Poá",
+      "description": "Blusa feminina em modal jacquard. Possui manga curta, gola redonda e acabamento azul contrastante na gola, mangas e barra. O jacquard forma o desenho diretamente na malha, criando um visual marcante e moderno. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 1,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/5023d667-e6c3-432b-bdb9-6a51d9d954fa.jpg",
+      "images": [
+        "assets/products/5023d667-e6c3-432b-bdb9-6a51d9d954fa.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Jacquard%20Po%C3%A1%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/5023d667-e6c3-432b-bdb9-6a51d9d954fa/"
+      }
+    },
+    {
       "id": "76c53387-ee34-4fb2-bca3-88439d641654",
       "title": "Regata Feminina em Modal Listrada",
       "description": "Regata feminina em modal. Possui gola redonda, acabamento rosa contrastante na gola, cavas e barra, criando um visual moderno e delicado. Modelagem versátil e fácil de combinar com jeans, alfaiataria e peças casuais. Preço: R$ 31,90. No Pix: R$ 28,00 — 12,23% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
@@ -187,6 +280,68 @@
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
         "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Jacquard%20Po%C3%A1%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/b2dbef70-37bb-4cad-b545-d6001745180e/"
+      }
+    },
+    {
+      "id": "ab9045b7-6044-4016-9c60-95b80073f2ea",
+      "title": "Blusa Feminina em Modal Lisa com Detalhe Listrado nos Ombros",
+      "description": "Blusa feminina em modal, manga curta e gola redonda, com visual liso  e detalhe de listras contrastantes nos ombros. Possui acabamento canelado na gola e nas mangas, com modelagem versátil e moderna para combinações casuais ou mais arrumadas. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 1,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/ab9045b7-6044-4016-9c60-95b80073f2ea.jpg",
+      "images": [
+        "assets/products/ab9045b7-6044-4016-9c60-95b80073f2ea.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Lisa%20com%20Detalhe%20Listrado%20nos%20Ombros%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/ab9045b7-6044-4016-9c60-95b80073f2ea/"
+      }
+    },
+    {
+      "id": "f626206f-b2b0-41be-a480-2e087f36f8c4",
+      "title": "Regata Feminina em Modal Trabalhado com Tranças e Relevos",
+      "description": "Regata feminina em modal, com gola redonda e trabalho elaborado em pontos texturizados, tranças e pequenos relevos distribuídos pela parte frontal. O desenho vertical valoriza a peça e traz um visual delicado e sofisticado, com acabamento canelado na gola e na barra. Preço: R$ 31,90. No Pix: R$ 28,00 — 12,23% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "31.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 1,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/f626206f-b2b0-41be-a480-2e087f36f8c4.jpg",
+      "images": [
+        "assets/products/f626206f-b2b0-41be-a480-2e087f36f8c4.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Modal%20Trabalhado%20com%20Tran%C3%A7as%20e%20Relevos%22%0APre%C3%A7o%3A%20R%24%2031%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/f626206f-b2b0-41be-a480-2e087f36f8c4/"
       }
     },
     {
