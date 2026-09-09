@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://alisonlimao.github.io/vendas/sitemap.xml
+Sitemap: https://vitrinedevenda.com.br/sitemap.xml
