@@ -109,10 +109,16 @@
     // VDV-20260905-03: kind "denuncia" — com produto vira payload
     // denuncia_<uuid> (botão na página do produto), sem produto vira
     // "denuncia" (link do rodapé).
-    var map = { procura: "procura", vender: "vender", home: "", denuncia: "denuncia" };
+    // Fatia 29 (VDV-20260908-03): kind "comentario" — payload
+    // comentario_<uuid> (o visitante comenta pelo bot; moderação no /admin).
+    var map = {
+      procura: "procura", vender: "vender", home: "",
+      denuncia: "denuncia", comentario: "comentario"
+    };
     var param;
     if (product) {
-      param = (kind === "denuncia" ? "denuncia_" : "produto_") + product.id;
+      var payloadPrefix = { denuncia: "denuncia_", comentario: "comentario_" }[kind];
+      param = (payloadPrefix || "produto_") + product.id;
     } else {
       param = map[kind] || "";
     }
@@ -536,6 +542,22 @@
       esc(whatsappShareUrl(product)) + '" id="share-wa">' +
       ICON_WHATSAPP + "<span>Compartilhar no WhatsApp</span></a></p>" +
       '<p class="prod-seller">A negociação acontece direto no bot, sem cadastro neste site.</p>' +
+      // Fatia 29 (VDV-20260908-03) — comentários de visitantes: seção com os
+      // comentários APROVADOS (vêm do export, só name/text/date) + CTA para
+      // comentar pelo bot (payload comentario_<uuid>; moderação no /admin).
+      (product.comments && product.comments.length > 0
+        ? '<section class="prod-comments" aria-label="Comentários sobre este produto">' +
+          '<h2>💬 Comentários (' + product.comments.length + ')</h2>' +
+          '<ul class="comment-list">' +
+          Array.prototype.map.call(product.comments, function (c) {
+            var name = c.name || "Anônimo";
+            var date = c.date ? ' <span class="comment-date">' + esc(c.date) + "</span>" : "";
+            return '<li class="comment"><p class="comment-text">' + esc(c.text || "") +
+              '</p><p class="comment-meta">— ' + esc(name) + date + "</p></li>";
+          }).join("") +
+          "</ul></section>"
+        : "") +
+      '<p class="prod-comment-cta"><a class="btn btn-ghost" href="#" id="comment-link">💬 Comentar sobre este produto</a></p>' +
       '<p class="prod-more">Gostou? <a href="' + prefix + 'index.html">Veja mais produtos na nossa vitrine</a></p>' +
       // VDV-20260905-03 — canal de denúncia (payload denuncia_<uuid> no bot).
       '<p class="prod-report"><a href="#" id="report-link">🚩 Denunciar este anúncio</a></p>';
@@ -600,6 +622,22 @@
         track("produto_denuncia", {
           produto_id: product.id,
           event_category: "moderacao",
+          event_label: product.id,
+          transport_type: "beacon"
+        });
+      });
+    }
+
+    // Fatia 29 (VDV-20260908-03): CTA de comentário — deep link
+    // comentario_<uuid>; o comentário nasce pending no bot e só aparece
+    // aqui após aprovação no /admin (moderação antes de publicar).
+    var commentCta = main.querySelector("#comment-link");
+    if (commentCta) {
+      commentCta.href = deepLink("comentario", product);
+      commentCta.addEventListener("click", function () {
+        track("comentar_produto", {
+          produto_id: product.id,
+          event_category: "engajamento",
           event_label: product.id,
           transport_type: "beacon"
         });

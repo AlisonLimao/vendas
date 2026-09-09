@@ -395,6 +395,21 @@ footer p { margin: .3rem 0; }
 .prod-report { font-size: .85rem; margin: .75rem 0 0; color: var(--vdv-text-muted); }
 .prod-report a { color: var(--vdv-text-muted); text-decoration: none; }
 .prod-report a:hover { color: var(--vdv-text); text-decoration: underline; }
+/* Fatia 29 (VDV-20260908-03) — comentários de visitantes (só aprovados,
+ * vindos do export; comentar acontece pelo bot, com moderação no /admin). */
+.prod-comments { margin: 1.5rem 0 0; }
+.prod-comments h2 { font-size: 1.05rem; margin: 0 0 .6rem; }
+.comment-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+.comment {
+  margin: 0; padding: .7rem .9rem;
+  border-left: 3px solid var(--vdv-primary); border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--vdv-surface); box-shadow: var(--shadow);
+}
+.comment-text { margin: 0; font-size: .92rem; line-height: 1.45; }
+.comment-meta { margin: .3rem 0 0; font-size: .8rem; color: var(--vdv-text-muted); }
+.comment-date { margin-left: .35rem; }
+.prod-comment-cta { margin: 1rem 0 0; }
+.prod-comment-cta .btn { display: inline-flex; align-items: center; gap: .45rem; }
 footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
 .prod-trust {
   margin: 1.5rem 0 0; padding: .9rem 1rem;
