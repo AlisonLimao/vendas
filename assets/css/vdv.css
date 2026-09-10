@@ -172,8 +172,12 @@ main > section:first-of-type { margin-top: .5rem; }
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 }
 
-/* Card de vitrine (Home 2.0): foto 4:5 dominante, anunciante em evidência,
- * dados objetivos, chamada de ação — sem bordas pesadas nem excesso de info. */
+/* Card de vitrine (Home 2.0): foto quadrada (1:1) dominante, anunciante em
+ * evidência, dados objetivos, chamada de ação — sem bordas pesadas nem
+ * excesso de info. Molde 1:1 (VDV-20260909-07): fotos paisagem 4:3 sofriam
+ * corte de 40% da largura na moldura 4:5 — produto aparecia cortado/zoom
+ * demais; no quadrado o pior caso de corte cai para ~25% em qualquer
+ * orientação (retrato ou paisagem), coerente com .prod-photo (1:1). */
 .card {
   background: var(--vdv-surface); border: 1px solid var(--vdv-border);
   border-radius: var(--radius-lg); overflow: hidden;
@@ -183,7 +187,7 @@ main > section:first-of-type { margin-top: .5rem; }
 }
 .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); }
 .card img {
-  width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block;
+  width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block;
   background: var(--vdv-bg);
 }
 .card-body { padding: .8rem .85rem .9rem; display: flex; flex-direction: column; gap: .3rem; flex: 1; }
