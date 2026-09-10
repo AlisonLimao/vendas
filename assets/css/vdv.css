@@ -174,10 +174,10 @@ main > section:first-of-type { margin-top: .5rem; }
 
 /* Card de vitrine (Home 2.0): foto quadrada (1:1) dominante, anunciante em
  * evidência, dados objetivos, chamada de ação — sem bordas pesadas nem
- * excesso de info. Molde 1:1 (VDV-20260909-07): fotos paisagem 4:3 sofriam
- * corte de 40% da largura na moldura 4:5 — produto aparecia cortado/zoom
- * demais; no quadrado o pior caso de corte cai para ~25% em qualquer
- * orientação (retrato ou paisagem), coerente com .prod-photo (1:1). */
+ * excesso de info. Molde 1:1 com object-fit: contain (VDV-20260909-07,
+ * revisão 2 a pedido do Alison): a foto aparece INTEIRA, sem corte nem zoom
+ * — cover cortava produto em fotos paisagem 4:3 (fatia) e em retrato.
+ * O fundo var(--vdv-bg) vira "moldura" nas sobras. */
 .card {
   background: var(--vdv-surface); border: 1px solid var(--vdv-border);
   border-radius: var(--radius-lg); overflow: hidden;
@@ -187,8 +187,8 @@ main > section:first-of-type { margin-top: .5rem; }
 }
 .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); }
 .card img {
-  width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block;
-  background: var(--vdv-bg);
+  width: 100%; aspect-ratio: 1 / 1; object-fit: contain; display: block;
+  background: var(--vdv-bg); padding: .4rem;
 }
 .card-body { padding: .8rem .85rem .9rem; display: flex; flex-direction: column; gap: .3rem; flex: 1; }
 .card-title { font-size: .95rem; font-weight: 600; margin: 0; line-height: 1.3; }
@@ -350,7 +350,7 @@ footer p { margin: .3rem 0; }
   width: 100%; max-width: 32rem; margin: 0 auto;
   border-radius: var(--radius-lg); background: var(--vdv-surface);
   border: 1px solid var(--vdv-border); box-shadow: var(--shadow-lift);
-  aspect-ratio: 1 / 1; object-fit: cover; display: block;
+  aspect-ratio: 1 / 1; object-fit: contain; display: block; padding: .5rem;
 }
 /* Galeria do produto (VDV-20260903-03): principal + miniaturas clicáveis. */
 .prod-gallery { max-width: 32rem; margin: 0 auto; }
@@ -361,7 +361,7 @@ footer p { margin: .3rem 0; }
   border-radius: var(--radius); border: 2px solid var(--vdv-border);
   background: var(--vdv-surface); overflow: hidden; opacity: .75;
 }
-.prod-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.prod-thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .prod-thumb.is-active { border-color: var(--vdv-primary); opacity: 1; }
 .prod-thumb:focus-visible { outline: 2px solid var(--vdv-primary); outline-offset: 2px; }
 .prod-title { font-size: 1.35rem; margin: 1rem 0 .25rem; letter-spacing: -0.02em; }
