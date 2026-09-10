@@ -1,8 +1,42 @@
 {
-  "generated_at": "2026-09-10T00:20:31Z",
+  "generated_at": "2026-09-10T00:47:05Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 32,
+  "total": 33,
   "products": [
+    {
+      "id": "c32621ec-0751-414f-a092-63d5a5c13bdf",
+      "title": "Dragões Articulados 3D – Gamer e Floral",
+      "description": "Dragões articulados produzidos em impressão 3D, com movimentos flexíveis e acabamento detalhado. Disponíveis em dois modelos: Gamer, nas cores branco, preto e azul, e Floral, nas cores branco e rosa. Peças decorativas e colecionáveis, ideais para presente ou decoração. Valor: R$ 40,00 cada.",
+      "category": {
+        "slug": "impressao_3d",
+        "name": "Impressão 3D"
+      },
+      "price": "40.00",
+      "minimum_order": 1,
+      "offer_type": "varejo",
+      "availability": "pronta_entrega",
+      "quantity": 10,
+      "days_since_confirmation": 0,
+      "seller_name": "Imprima 3D",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf.jpg",
+      "images": [
+        "assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf.jpg",
+        "assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf-2.jpg",
+        "assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf-3.jpg",
+        "assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf-4.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Imprima 3D",
+      "authorization_confirmed": true,
+      "supplier_slug": "imprima-3d",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Imprima 3D",
+        "link": "https://wa.me/5535992031487?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Drag%C3%B5es%20Articulados%203D%20%E2%80%93%20Gamer%20e%20Floral%22%0APre%C3%A7o%3A%20R%24%2040%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/c32621ec-0751-414f-a092-63d5a5c13bdf/"
+      }
+    },
     {
       "id": "81980328-4254-44f2-9618-98d96a527fab",
       "title": "Roldanas Redutoras de Atrito para Shima",
