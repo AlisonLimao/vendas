@@ -449,6 +449,10 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
   color: var(--vdv-accent); font-weight: 600; font-size: .9rem; text-decoration: none;
 }
 .back-link:hover { text-decoration: underline; }
+/* Reivindicação de vitrine (VDV-20260910-01): link discreto do dono —
+   mesmo peso do card-meta, cor de destaque discreta, sem virar CTA. */
+.claim-link { color: var(--vdv-accent); text-decoration: none; font-weight: 600; }
+.claim-link:hover { text-decoration: underline; }
 
 /* Topbar compacta em telas estreitas (página de produto tem 3 elementos). */
 @media (max-width: 560px) {
