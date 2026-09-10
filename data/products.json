@@ -1,8 +1,74 @@
 {
-  "generated_at": "2026-09-09T23:53:22Z",
+  "generated_at": "2026-09-10T00:20:31Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 30,
+  "total": 32,
   "products": [
+    {
+      "id": "81980328-4254-44f2-9618-98d96a527fab",
+      "title": "Roldanas Redutoras de Atrito para Shima",
+      "description": "Roldanas redutoras de atrito desenvolvidas e comercializadas pela Imprima 3D. Reduzem a tensão nas antenas laterais, melhorando o desempenho da máquina e ajudando a diminuir perdas causadas pelo atrito. Produto testado em empresas de Monte Sião.\nPreço: R$ 70,00 cada guia | R$ 140,00 o par.",
+      "category": {
+        "slug": "impressao_3d",
+        "name": "Impressão 3D"
+      },
+      "price": "140.00",
+      "minimum_order": 1,
+      "offer_type": "varejo",
+      "availability": "pronta_entrega",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Imprima 3D",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/81980328-4254-44f2-9618-98d96a527fab.jpg",
+      "images": [
+        "assets/products/81980328-4254-44f2-9618-98d96a527fab.jpg",
+        "assets/products/81980328-4254-44f2-9618-98d96a527fab-2.jpg",
+        "assets/products/81980328-4254-44f2-9618-98d96a527fab-3.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Imprima 3D",
+      "authorization_confirmed": true,
+      "supplier_slug": "imprima-3d",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Imprima 3D",
+        "link": "https://wa.me/5535992031487?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Roldanas%20Redutoras%20de%20Atrito%20para%20Shima%22%0APre%C3%A7o%3A%20R%24%20140%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/81980328-4254-44f2-9618-98d96a527fab/"
+      }
+    },
+    {
+      "id": "75fbc39b-b454-458c-bb19-a7f8b31cd040",
+      "title": "Roldanas Redutoras de Atrito para Stoll",
+      "description": "Roldanas redutoras de atrito desenvolvidas e comercializadas pela Imprima 3D. Reduzem a tensão nas antenas laterais, melhorando o desempenho e ajudando a diminuir perdas causadas pelo atrito. Produto testado em empresas de Monte Sião.\nGuias 4 e 5: R$ 70,00 cada 140,0 o par | Guias 3 e 6: R$ 85,00 cada 170,00 o par.",
+      "category": {
+        "slug": "impressao_3d",
+        "name": "Impressão 3D"
+      },
+      "price": "180.00",
+      "minimum_order": 1,
+      "offer_type": "varejo",
+      "availability": "pronta_entrega",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Imprima 3D",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/75fbc39b-b454-458c-bb19-a7f8b31cd040.jpg",
+      "images": [
+        "assets/products/75fbc39b-b454-458c-bb19-a7f8b31cd040.jpg",
+        "assets/products/75fbc39b-b454-458c-bb19-a7f8b31cd040-2.jpg",
+        "assets/products/75fbc39b-b454-458c-bb19-a7f8b31cd040-3.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Imprima 3D",
+      "authorization_confirmed": true,
+      "supplier_slug": "imprima-3d",
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Imprima 3D",
+        "link": "https://wa.me/5535992031487?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Roldanas%20Redutoras%20de%20Atrito%20para%20Stoll%22%0APre%C3%A7o%3A%20R%24%20180%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/75fbc39b-b454-458c-bb19-a7f8b31cd040/"
+      }
+    },
     {
       "id": "d49dee1e-27fa-4b23-9ed0-9f887a55b1fb",
       "title": "Calça Feminina em Modal Canelado Reta",
@@ -16,7 +82,7 @@
       "offer_type": "atacado",
       "availability": "pronta_entrega",
       "quantity": 20,
-      "days_since_confirmation": 1,
+      "days_since_confirmation": 2,
       "seller_name": "Ana maria",
       "city": "Monte Sião",
       "state": "MG",
@@ -47,7 +113,7 @@
       "offer_type": "atacado",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 1,
+      "days_since_confirmation": 2,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
