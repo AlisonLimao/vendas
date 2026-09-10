@@ -32,6 +32,61 @@
     window.gtag("event", eventName, params || {});
   }
 
+  // Fatia 30 (VDV-20260909-05) — telemetria própria da vitrine, SEMPRE
+  // consent-gated (mesma gate do GA): o wrapper abaixo intercepta a MESMA
+  // função que liga o GA (TermsFeed, nível "tracking"; callbacks_force
+  // re-dispara a cada visita com consentimento já dado). Antes do aceite,
+  // nenhum byte sai — a coleta é opcional como o GA.
+  //
+  // Deploy dark (decisão do Alison, 09/09/2026): TELEMETRIA_URL fica
+  // INDEFINIDA até a ponte https://api.vitrinedevenda.com.br existir
+  // (Cloudflare Tunnel — ação do Alison). Sem URL, nada é enviado e o site
+  // funciona igual.
+  var TELEMETRIA_URL; // indefinido de propósito (deploy dark)
+  var consentimentoTelemetria = false;
+  (function () {
+    var original = window.vdvGrantAnalyticsAndTrackPage;
+    window.vdvGrantAnalyticsAndTrackPage = function () {
+      consentimentoTelemetria = true;
+      if (typeof original === "function") original();
+    };
+  })();
+
+  // sid: id aleatório de SESSÃO (sem valor próprio — o servidor persiste só
+  // o hash efêmero sha256(sid + salt diário); o salt nunca sai do servidor).
+  // Escopo de aba (sessionStorage); modo privado → id descartável.
+  var vdvSid = (function () {
+    try {
+      var key = "vdv:sid";
+      var v = sessionStorage.getItem(key);
+      if (!v) {
+        v = (Math.random().toString(36) + Date.now().toString(36) +
+          Math.random().toString(36)).slice(0, 24);
+        sessionStorage.setItem(key, v);
+      }
+      return v;
+    } catch (e) {
+      return (Math.random().toString(36) + Date.now().toString(36)).slice(0, 24);
+    }
+  })();
+
+  // Evento da vitrine (plano 08 §3): POST one-way via sendBeacon (text/plain
+  // = requisição simples, sem preflight). Campos fechados; refs opcionais.
+  // Falha = silêncio — telemetria nunca atrapalha nem atrasa a vitrine.
+  function telemetria(tipo, refs) {
+    if (!TELEMETRIA_URL || !consentimentoTelemetria) return;
+    var payload = { type: tipo, sid: vdvSid, origin: "web" };
+    if (refs) {
+      if (refs.product) payload.product = refs.product;
+      if (refs.supplier) payload.supplier = refs.supplier;
+      if (refs.category) payload.category = refs.category;
+      if (refs.channel) payload.channel = refs.channel;
+    }
+    try {
+      navigator.sendBeacon(TELEMETRIA_URL, JSON.stringify(payload));
+    } catch (e) { /* silêncio */ }
+  }
+
   function $(id) { return document.getElementById(id); }
 
   function esc(text) {
@@ -163,6 +218,11 @@
           event_label: el.getAttribute("data-ga-origin") || el.getAttribute("data-deep-link") || "nao_identificada",
           transport_type: "beacon"
         });
+        // Fatia 30: deep link de procura → procura_click; de vender
+        // (anunciar) → advertise_click. Outros deep links não viram evento.
+        var kind = el.getAttribute("data-deep-link");
+        if (kind === "procura") telemetria("procura_click");
+        else if (kind === "vender") telemetria("advertise_click");
       });
     });
   }
@@ -279,6 +339,7 @@
         a.textContent = s.name;
         a.addEventListener("click", function () {
           track("abrir_vitrine", { fornecedor_slug: s.slug, event_category: "navegacao" });
+          telemetria("supplier_view", { supplier: s.slug });
         });
         chips.appendChild(a);
       });
@@ -302,6 +363,7 @@
     loadBtn.addEventListener("click", function () {
       shown = Math.min(shown + EXPLORE_PAGE, products.length);
       renderExplore();
+      telemetria("load_more");
     });
     if (infiniteScroll) {
       loadBtn.hidden = true;
@@ -372,6 +434,9 @@
       sectionEmpty.hidden = searching || products.length > 0;
     }
 
+    // Fatia 30: busca é evento de intenção — 1 evento por assinatura
+    // (termo+categoria+disponibilidade) mudada, não por tecla.
+    var ultimaBuscaEnviada = "";
     function renderSearch() {
       var q = input.value.replace(/\s+/g, " ").trim().toLowerCase();
       var cat = activeCat;
@@ -393,6 +458,12 @@
         ? found.length + " oferta" + (found.length > 1 ? "s" : "") + " encontrada" + (found.length > 1 ? "s" : "")
         : "Nada encontrado — tente outro termo";
       fill($("results-grid"), found);
+      var assinatura = q + "|" + cat + "|" + avail;
+      if (assinatura !== ultimaBuscaEnviada) {
+        ultimaBuscaEnviada = assinatura;
+        telemetria("search", { category: cat || null });
+        if (!found.length) telemetria("search_zero_result", { category: cat || null });
+      }
     }
 
     input.addEventListener("input", renderSearch);
@@ -489,6 +560,9 @@
 
     status.hidden = true;
     document.title = product.title + " — VDV, Vitrine de Vendas";
+    // Fatia 30: visualização do produto (consent-gated; sem consentimento
+    // nem TELEMETRIA_URL, é no-op).
+    telemetria("product_view", { product: product.id });
     var isPecaUnica = offerType(product) === "peca_unica";
     var ownerSuffix = (isAssisted(product) && product.offer_owner_name)
       ? " · oferta de " + product.offer_owner_name
@@ -595,9 +669,13 @@
       '<div class="contact-channels">' + channelsHtml + "</div>" +
       '<span class="wa-note">Escolha o canal para falar sobre este anúncio — o contato é direto com ' +
       (assisted ? "o responsável pela oferta." : "o anunciante.") + "</span>" +
-      '<p class="share-row"><a class="btn btn-ghost" target="_blank" rel="noopener" href="' +
+      // VDV-20260910-02 — divulgação em bloco próprio, mesmo padrão de botão
+      // dos canais de contato (deixa de parecer acessório; separação visual
+      // contato ≠ divulgação). GA #share-wa / compartilhar_produto intacto.
+      '<span class="action-label">Divulgar</span>' +
+      '<div class="action-grid"><a class="btn-channel share" target="_blank" rel="noopener" href="' +
       esc(whatsappShareUrl(product)) + '" id="share-wa">' +
-      ICON_WHATSAPP + "<span>Compartilhar no WhatsApp</span></a></p>" +
+      ICON_WHATSAPP + "<span>Compartilhar este produto</span></a></div>" +
       '<p class="prod-seller">A negociação acontece direto no bot, sem cadastro neste site.</p>' +
       // Fatia 29 (VDV-20260908-03) — comentários de visitantes: seção com os
       // comentários APROVADOS (vêm do export, só name/text/date) + CTA para
@@ -618,6 +696,16 @@
       '<p class="prod-more">Gostou? <a href="' + prefix + 'index.html">Veja mais produtos na nossa vitrine</a></p>' +
       // VDV-20260905-03 — canal de denúncia (payload denuncia_<uuid> no bot).
       '<p class="prod-report"><a href="#" id="report-link">🚩 Denunciar este anúncio</a></p>';
+
+    // Fatia 27/30: link para a vitrine do fornecedor. Páginas estáticas
+    // `fornecedor/` são zero-JS — o supplier_view é medido no CLIQUE no link
+    // (aqui e nos chips "Vitrines do VDV" da Home), nunca na página estática.
+    var supplierLink = main.querySelector('a[href*="fornecedor/"]');
+    if (supplierLink && product.supplier_slug) {
+      supplierLink.addEventListener("click", function () {
+        telemetria("supplier_view", { supplier: product.supplier_slug });
+      });
+    }
 
     // Troca da foto principal ao tocar a miniatura (galeria — VDV-20260903-03).
     var mainPhoto = main.querySelector("#prod-photo-main");
@@ -642,6 +730,7 @@
           event_label: product.id,
           transport_type: "beacon"
         });
+        telemetria("contact_click", { product: product.id, channel: "telegram" });
       });
     }
 
@@ -654,6 +743,7 @@
           event_label: product.id,
           transport_type: "beacon"
         });
+        telemetria("share", { product: product.id });
       });
     }
 
@@ -667,6 +757,7 @@
           event_label: product.id,
           transport_type: "beacon"
         });
+        telemetria("contact_click", { product: product.id, channel: "whatsapp" });
       });
     }
 

@@ -391,6 +391,25 @@ footer p { margin: .3rem 0; }
 .btn-channel.tg { background: #229ed9; }
 .btn-channel.wa { background: #25d366; }
 
+/* Ações de divulgação (VDV-20260910-02): o compartilhar segue o MESMO padrão
+ * de grade/altura dos canais de contato, mas em bloco próprio (contato ≠
+ * divulgação — nenhum dos dois escondido) e com estilo neutro de superfície,
+ * para não parecer um CTA de contato. */
+.action-label {
+  display: block; margin: 1.15rem 0 0;
+  font-size: .78rem; font-weight: 700; letter-spacing: .05em;
+  text-transform: uppercase; color: var(--vdv-text-muted);
+}
+.action-grid {
+  display: grid; gap: .6rem; margin-top: .5rem;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+}
+.btn-channel.share {
+  background: var(--vdv-surface); color: inherit;
+  border: 1px solid var(--vdv-border);
+}
+.btn-channel.share svg { width: 1.15rem; height: 1.15rem; }
+
 .share-row { margin: .75rem 0 0; }
 .share-row .btn { display: inline-flex; align-items: center; gap: .45rem; }
 .share-row .btn svg { width: 1.05rem; height: 1.05rem; fill: currentColor; }
