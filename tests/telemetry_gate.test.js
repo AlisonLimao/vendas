@@ -1,9 +1,10 @@
 /* Fatia 30 (VDV-20260909-05) — invariantes da telemetria própria no front.
- * Deploy dark: TELEMETRIA_URL fica INDEFINIDA até a ponte
- * api.vitrinedevenda.com.br existir; e a coleta é sempre consent-gated
- * (mesma gate do GA). Este teste é estático (node puro) sobre o app.js —
- * garante por grep as 3 invariantes do plano 08:
- *   1. TELEMETRIA_URL declarada SEM valor (deploy dark);
+ * Deploy dark encerrado (11/09/2026, ponte Cloudflare liberada pelo Alison):
+ * TELEMETRIA_URL aponta para a rota própria do VDV
+ * (https://api.vitrinedevenda.com.br/eventos) e a coleta é SEMPRE
+ * consent-gated (mesma gate do GA). Este teste é estático (node puro) sobre o
+ * app.js — garante por grep as 3 invariantes do plano 08:
+ *   1. TELEMETRIA_URL aponta para a rota própria da ponte Cloudflare;
  *   2. telemetria() retorna cedo se faltar URL OU consentimento;
  *   3. o único transporte é navigator.sendBeacon (one-way, sem leitura).
  * Rodar: node tests/telemetry_gate.test.js */
@@ -18,15 +19,17 @@ const js = fs.readFileSync(
   "utf8"
 );
 
-// 1. Deploy dark: declarada sem valor — nenhum byte sai enquanto a ponte
-//    Cloudflare não existir (decisão do Alison, 09/09/2026).
+// 1. Coleta ativa (11/09/2026): aponta para a rota própria do VDV na ponte
+//    Cloudflare — deploy dark encerrado (Alison liberou a ponte).
 assert(
-  js.includes("var TELEMETRIA_URL;"),
-  "TELEMETRIA_URL deve ser declarada sem valor (deploy dark)"
+  /var\s+TELEMETRIA_URL\s*=\s*["']https:\/\/api\.vitrinedevenda\.com\.br\/eventos["'];/.test(
+    js
+  ),
+  "TELEMETRIA_URL deve apontar para a rota própria na ponte Cloudflare"
 );
 assert(
-  !/TELEMETRIA_URL\s*=\s*(?!;)/.test(js),
-  "TELEMETRIA_URL não pode receber valor nesta fatia (deploy dark)"
+  !/var\s+TELEMETRIA_URL\s*;/.test(js),
+  "deploy dark não pode voltar (TELEMETRIA_URL indefinida)"
 );
 
 // 2. Consent-gated: a função só segue com URL E consentimento (mesma gate
@@ -74,4 +77,4 @@ assert(
   "evento search deve estar instrumentado"
 );
 
-console.log("telemetry_gate: OK (deploy dark + consent-gate + sendBeacon)");
+console.log("telemetry_gate: OK (rota própria + consent-gate + sendBeacon)");
