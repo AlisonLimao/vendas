@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T23:26:37Z",
+  "generated_at": "2026-09-11T00:00:57Z",
   "bot_username": "vitrine_vendasbot",
   "total": 34,
   "products": [
@@ -32,6 +32,7 @@
       "offer_owner_name": "Imprima 3D",
       "authorization_confirmed": true,
       "supplier_slug": "imprima-3d",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Imprima 3D",
@@ -66,6 +67,7 @@
       "offer_owner_name": "Imprima 3D",
       "authorization_confirmed": true,
       "supplier_slug": "imprima-3d",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Imprima 3D",
@@ -99,6 +101,7 @@
       "offer_owner_name": "Imprima 3D",
       "authorization_confirmed": true,
       "supplier_slug": "imprima-3d",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Imprima 3D",
@@ -119,7 +122,7 @@
       "availability": "pronta_entrega",
       "quantity": 20,
       "days_since_confirmation": 0,
-      "seller_name": "Imprima 3D",
+      "seller_name": "imprima 3D",
       "city": "Monte Sião",
       "state": "MG",
       "image": "assets/products/75fbc39b-b454-458c-bb19-a7f8b31cd040.jpg",
@@ -129,12 +132,13 @@
         "assets/products/75fbc39b-b454-458c-bb19-a7f8b31cd040-3.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
-      "offer_owner_name": "Imprima 3D",
+      "offer_owner_name": "imprima 3D",
       "authorization_confirmed": true,
       "supplier_slug": "imprima-3d",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
-        "nome": "Imprima 3D",
+        "nome": "imprima 3D",
         "link": "https://wa.me/5535992031487?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Roldanas%20Redutoras%20de%20Atrito%20para%20Stoll%22%0APre%C3%A7o%3A%20R%24%20180%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/75fbc39b-b454-458c-bb19-a7f8b31cd040/"
       }
     },
@@ -163,6 +167,7 @@
       "offer_owner_name": "Ana maria",
       "authorization_confirmed": true,
       "supplier_slug": "ana-maria-65dc1758",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Ana maria",
@@ -182,7 +187,7 @@
       "offer_type": "atacado",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 2,
+      "days_since_confirmation": 3,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
@@ -194,6 +199,7 @@
       "offer_owner_name": "Ana Maria",
       "authorization_confirmed": true,
       "supplier_slug": "ana-maria-65dc1758",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Ana Maria",
@@ -225,6 +231,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -256,6 +263,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -287,6 +295,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -318,6 +327,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -349,6 +359,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -380,6 +391,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -411,6 +423,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -442,6 +455,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -473,6 +487,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -504,6 +519,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -535,6 +551,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -566,6 +583,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -597,6 +615,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -628,6 +647,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -659,6 +679,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -690,6 +711,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -722,6 +744,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -753,6 +776,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -784,6 +808,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -818,6 +843,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -849,6 +875,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -880,6 +907,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -911,6 +939,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -942,6 +971,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -973,6 +1003,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -1004,6 +1035,7 @@
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
+      "supplier_official": false,
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
@@ -1036,6 +1068,7 @@
       ],
       "publication_mode": "own_offer",
       "supplier_slug": "alison-limao",
+      "supplier_official": true,
       "whatsapp": {
         "nome": "Contato autorizado",
         "link": "https://wa.me/5535991038206?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22%F0%9F%8F%8D%EF%B8%8F%20HONDA%20CG%20160%20%E2%80%94%20%C3%80%20VENDA%22%0APre%C3%A7o%3A%20R%24%2017000%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/d58b9b1b-8d8a-43e6-80ca-553435d11a0a/"
@@ -1058,7 +1091,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 50,
-      "days_since_confirmation": 12,
+      "days_since_confirmation": 13,
       "seller_name": "Daguel tricot",
       "city": "Monte Sião",
       "state": "MG",
@@ -1067,7 +1100,8 @@
         "assets/products/973b2c9d-8d82-45b1-87cc-3c160be64446.jpg"
       ],
       "publication_mode": "own_offer",
-      "supplier_slug": "daguel-tricot"
+      "supplier_slug": "daguel-tricot",
+      "supplier_official": true
     }
   ]
 }
