@@ -38,11 +38,11 @@
   // re-dispara a cada visita com consentimento já dado). Antes do aceite,
   // nenhum byte sai — a coleta é opcional como o GA.
   //
-  // Deploy dark (decisão do Alison, 09/09/2026): TELEMETRIA_URL fica
-  // INDEFINIDA até a ponte https://api.vitrinedevenda.com.br existir
-  // (Cloudflare Tunnel — ação do Alison). Sem URL, nada é enviado e o site
-  // funciona igual.
-  var TELEMETRIA_URL; // indefinido de propósito (deploy dark)
+  // Deploy dark encerrado (Alison liberou a ponte em 11/09/2026): a coleta
+  // aponta para a rota própria do VDV no túnel Cloudflare
+  // (api.vitrinedevenda.com.br). Continua SEMPRE consent-gated — sem aceite,
+  // nenhum byte sai (mesma gate do GA).
+  var TELEMETRIA_URL = 'https://api.vitrinedevenda.com.br/eventos';
   var consentimentoTelemetria = false;
   (function () {
     var original = window.vdvGrantAnalyticsAndTrackPage;
