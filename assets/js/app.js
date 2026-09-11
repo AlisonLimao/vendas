@@ -110,6 +110,18 @@
     return p.offer_type || p.sale_type || "atacado";
   }
 
+  // VDV-20260911-01k: rótulos públicos do tipo de oferta (mesmos do bot) —
+  // "atacado" deixou de ser regra global; páginas de produto apresentam o
+  // tipo do anúncio.
+  var OFFER_TYPE_LABELS = {
+    atacado: "atacado",
+    peca_unica: "peça única",
+    varejo: "varejo",
+    lote: "lote fechado",
+    sob_encomenda: "sob encomenda",
+    servico: "serviço"
+  };
+
   // Fatia 26 (VDV-20260907-03): publicação assistida — o dono da oferta é o
   // vendedor exibido e quem recebe a negociação. Fallback legacy p/ JSON antigo.
   function publicationMode(p) {
@@ -567,9 +579,11 @@
     var ownerSuffix = (isAssisted(product) && product.offer_owner_name)
       ? " · oferta de " + product.offer_owner_name
       : "";
-    setOg("og:title", product.title + " — " +
-      (isPecaUnica ? "peça única" : "atacado") + " em " + product.city + "/" +
-      product.state + ownerSuffix);
+    // VDV-20260911-01k: o "atacado" não é regra global (pós-0015) — o OG
+    // apresenta o tipo do anúncio (varejo, lote fechado, sob encomenda...).
+    var typeLabel = OFFER_TYPE_LABELS[offerType(product)] || "atacado";
+    setOg("og:title", product.title + " — " + typeLabel + " em " + product.city +
+      "/" + product.state + ownerSuffix);
     setOg("og:description", product.description.slice(0, 160));
     var ogImg = document.querySelector('meta[property="og:image"]');
     if (!ogImg) {
@@ -580,9 +594,14 @@
     ogImg.setAttribute("content", new URL(product.image, window.location.href).href);
 
     var qty = product.quantity ? " · " + product.quantity + " un em estoque" : "";
+    // Idem: tipos de mínimo fixo (varejo/lote/sob encomenda/serviço) nascem
+    // com minimum_order=1 — "Pedido mínimo: 1 unidades" é ruído; mesma regra
+    // dos cards (só mostra mínimo quando > 1).
     var moLi = isPecaUnica
       ? "<li>🏷️ Peça única — valor da unidade</li>"
-      : "<li>🧾 Pedido mínimo: " + product.minimum_order + " unidades</li>";
+      : (product.minimum_order > 1
+        ? "<li>🧾 Pedido mínimo: " + product.minimum_order + " unidades</li>"
+        : "");
     // Galeria completa (VDV-20260903-03): principal + extras; sem `images`
     // (JSON antigo em cache), degrada para a foto única de sempre.
     var photos = (product.images && product.images.length > 0)
