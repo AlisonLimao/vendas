@@ -472,3 +472,34 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
   .how-steps { grid-template-columns: repeat(3, 1fr); }
   .prod-photo { max-width: 26rem; }
 }
+
+/* VDV-20260911-02 — card de cookies compacto. Override da APRESENTAÇÃO do
+ * banner do TermsFeed 4.2.0 (notice_banner_type "simple"); a camada de
+ * consentimento não muda — Consent Mode v2 default-denied, callbacks GA +
+ * telemetria própria, #open_preferences_center, tudo intacto. O default da
+ * lib (padding 3rem, título 24px, botões em bloco largura 100%) cobria boa
+ * parte da viewport em telas pequenas. !important necessário: a lib injeta
+ * o próprio <style> no head DEPOIS do vdv.css (ordem de documento venceria). */
+.termsfeed-com---nb .cc-nb-main-container { padding: .875rem 1rem !important; }
+.termsfeed-com---nb .cc-nb-title { font-size: .95rem !important; font-weight: 600; }
+.termsfeed-com---nb .cc-nb-text { font-size: .8125rem !important; margin: 0 0 .5rem !important; }
+.termsfeed-com---nb .cc-nb-text-urls { font-size: .75rem !important; }
+.termsfeed-com---nb .cc-nb-okagree,
+.termsfeed-com---nb .cc-nb-reject,
+.termsfeed-com---nb .cc-nb-changep {
+  display: inline-block !important;
+  width: auto !important;
+  font-size: .8125rem !important;
+  padding: .45rem .875rem;
+  margin: 0 .25rem .25rem 0 !important;
+}
+.termsfeed-com---nb .cc-nb-buttons-container { display: block; }
+.termsfeed-com---nb.termsfeed-com---nb-simple { max-width: min(80%, 26rem) !important; }
+@media (max-width: 640px) {
+  .termsfeed-com---nb.termsfeed-com---nb-simple {
+    height: auto !important;
+    max-height: 42vh !important;
+    overflow: auto;
+  }
+  .termsfeed-com---nb .cc-nb-main-container { padding: .75rem .875rem !important; }
+}
