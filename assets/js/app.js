@@ -867,6 +867,47 @@
 
     var share = main.querySelector("#share-wa");
     if (share) {
+      // VDV-20260911-07b — desktop (navegadores sem Web Share de ARQUIVOS):
+      // a foto em exibição é convertida e copiada para o CLIPBOARD; o wa.me
+      // abre em nova aba e a pessoa cola a foto na conversa (Ctrl+V). Sem
+      // clipboard (navegador velho) → wa.me de sempre, sem copiar nada.
+      function desktopShare(blob) {
+        var colar = navigator.clipboard && window.ClipboardItem;
+        var img = new Image();
+        var objUrl = URL.createObjectURL(blob);
+        img.onload = function () {
+          var canvas = document.createElement("canvas");
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          canvas.getContext("2d").drawImage(img, 0, 0);
+          URL.revokeObjectURL(objUrl);
+          canvas.toBlob(function (png) {
+            if (png && colar) {
+              navigator.clipboard
+                .write([new ClipboardItem({ "image/png": png })])
+                .then(function () {
+                  var nota = document.createElement("span");
+                  nota.className = "copied-note";
+                  nota.textContent =
+                    "📷 Foto copiada! Abra a conversa do WhatsApp e cole com Ctrl+V.";
+                  var grid = main.querySelector(".action-grid");
+                  if (grid && grid.parentNode) {
+                    grid.parentNode.insertBefore(nota, grid.nextSibling);
+                    setTimeout(function () { nota.remove(); }, 10000);
+                  }
+                })
+                .catch(function () { /* clipboard recusado: só o link */ });
+            }
+            window.open(share.href, "_blank", "noopener");
+          }, "image/png");
+        };
+        img.onerror = function () {
+          URL.revokeObjectURL(objUrl);
+          window.location.href = share.href; // foto ilegível: wa.me de sempre
+        };
+        img.src = objUrl;
+      }
+
       share.addEventListener("click", function (ev) {
         track("compartilhar_produto", {
           produto_id: product.id,
@@ -876,12 +917,22 @@
         });
         telemetria("share", { product: product.id });
         // VDV-20260911-07 — a foto em exibição vai ANEXADA na conversa (Web
-        // Share API Level 2, Android Chrome / iOS 15+): mais dinâmico que o
-        // preview do link, que é gerado pelo servidor do WhatsApp a partir da
-        // og:image fixa do export e não pode variar por quem compartilha.
-        // Sem suporte (ou falha no fetch) → o <a> wa.me segue como fallback.
-        if (!navigator.share || !navigator.canShare) return;
+        // Share API Level 2, celular): mais dinâmico que o preview do link,
+        // que é gerado pelo servidor do WhatsApp a partir da og:image fixa do
+        // export e não pode variar por quem compartilha.
+        var comArquivos = navigator.share && navigator.canShare;
         ev.preventDefault();
+        if (!comArquivos) {
+          // Desktop: copia a foto e abre o WhatsApp para colar (Ctrl+V).
+          fetch(prefix + (photos[fotoSelecionada] || photos[0]))
+            .then(function (r) {
+              if (!r.ok) throw new Error("HTTP " + r.status);
+              return r.blob();
+            })
+            .then(desktopShare)
+            .catch(function () { window.location.href = share.href; });
+          return;
+        }
         var src = prefix + (photos[fotoSelecionada] || photos[0]);
         var nome = "vdv-" + product.id +
           (fotoSelecionada > 0 ? "-" + (fotoSelecionada + 1) : "") + ".jpg";
@@ -891,7 +942,7 @@
           .then(function (blob) {
             arquivo = new File([blob], nome, { type: blob.type || "image/jpeg" });
             if (!navigator.canShare({ files: [arquivo] })) {
-              window.location.href = share.href; // sem arquivos: fallback wa.me
+              desktopShare(blob); // suporte a arquivos ausente: via desktop
               return null;
             }
             return navigator.share({

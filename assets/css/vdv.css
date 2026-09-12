@@ -439,6 +439,14 @@ footer p { margin: .3rem 0; }
   display: grid; gap: .6rem; margin-top: .5rem;
   grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
 }
+/* VDV-20260911-07b — desktop: aviso "foto copiada, cole na conversa"
+ * (a via Web Share de arquivos não existe no desktop; lá a foto vai pelo
+ * clipboard + WhatsApp Web). Some sozinho após 10s. */
+.copied-note {
+  display: block; margin: .5rem 0 0;
+  font-size: .82rem; font-weight: 600;
+  color: var(--vdv-accent);
+}
 .btn-channel.share {
   background: var(--vdv-surface); color: inherit;
   border: 1px solid var(--vdv-border);

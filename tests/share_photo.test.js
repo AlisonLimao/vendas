@@ -21,12 +21,14 @@ const js = fs.readFileSync(
   "utf8"
 );
 
-// 1. Gate dupla de suporte: antes do preventDefault (sem suporte → <a> wa.me
-//    nativo) e depois do fetch (canShare({ files }) → share; senão fallback).
+// 1. Gate de suporte: sem Web Share de arquivos (desktop) → via clipboard;
+//    com suporte, canShare({ files }) de novo depois do fetch decide entre
+//    share e via desktop.
 assert(
-  js.includes("if (!navigator.share || !navigator.canShare) return;") &&
-    js.includes("ev.preventDefault();"),
-  "sem Web Share API, o fallback é o <a> wa.me intocado"
+  js.includes("var comArquivos = navigator.share && navigator.canShare;") &&
+    js.includes("ev.preventDefault();") &&
+    js.includes("if (!comArquivos) {"),
+  "sem Web Share de arquivos, a via é a do desktop (clipboard), não o <a> cru"
 );
 assert(
   js.includes("navigator.canShare({ files: [arquivo] })"),
@@ -46,7 +48,31 @@ assert(
 );
 assert(
   (js.match(/window\.location\.href = share\.href;/g) || []).length >= 2,
-  "fallback wa.me deve existir para canShare falso e para falha de fetch"
+  "fallback wa.me deve existir para falha de fetch (celular e desktop)"
+);
+
+// 2b. VDV-20260911-07b — desktop (sem Web Share de arquivos): a foto vai pelo
+//     CLIPBOARD (PNG via canvas) + wa.me abre em nova aba; nota "Foto
+//     copiada" só quando a cópia succeed; navegador sem ClipboardItem
+//     segue pro link sem copiar nada.
+assert(
+  js.includes("navigator.clipboard") &&
+    js.includes("window.ClipboardItem") &&
+    js.includes('new ClipboardItem({ "image/png": png })'),
+  "a via desktop deve copiar a foto pelo clipboard (PNG)"
+);
+assert(
+  js.includes('canvas.toBlob(function (png) {') &&
+    js.includes('"image/png"'),
+  "a conversão para PNG deve passar pelo canvas (JPEG cru não cola em todo app)"
+);
+assert(
+  js.includes('window.open(share.href, "_blank", "noopener")'),
+  "a via desktop deve abrir o wa.me em nova aba (nota continua visível)"
+);
+assert(
+  js.includes("if (png && colar) {"),
+  "sem ClipboardItem (navegador velho): só o link, sem copiar"
 );
 
 // 3. A foto é a selecionada na galeria — nunca índice fixo.
