@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-12T01:48:34Z",
+  "generated_at": "2026-09-12T07:47:16Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 34,
+  "total": 33,
   "products": [
     {
       "id": "9f22576b-b542-4666-a3be-6e70157c0817",
@@ -1077,31 +1077,6 @@
         "nome": "Alison limão",
         "link": "https://t.me/Alison29silva"
       }
-    },
-    {
-      "id": "973b2c9d-8d82-45b1-87cc-3c160be64446",
-      "title": "Blusa modal babadinho",
-      "description": "Blusa modal estilosa inverno verão com babadinho nos ombros",
-      "category": {
-        "slug": "blusa",
-        "name": "Blusa"
-      },
-      "price": "28.00",
-      "minimum_order": 50,
-      "offer_type": "atacado",
-      "availability": "sob_pedido",
-      "quantity": 50,
-      "days_since_confirmation": 14,
-      "seller_name": "Daguel tricot",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/973b2c9d-8d82-45b1-87cc-3c160be64446.jpg",
-      "images": [
-        "assets/products/973b2c9d-8d82-45b1-87cc-3c160be64446.jpg"
-      ],
-      "publication_mode": "own_offer",
-      "supplier_slug": "daguel-tricot",
-      "supplier_official": true
     }
   ]
 }
