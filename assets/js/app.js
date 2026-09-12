@@ -87,13 +87,36 @@
     } catch (e) { /* silêncio */ }
   }
 
+  // VDV-20260912-01 — sinal OPERACIONAL (medição operacional mínima, decisão
+  // de 12/09): sinais agregados de direção do produto que valem MESMO quando
+  // o visitante recusa cookies. Diferenças da telemetria() consentida:
+  // SEM gate de consentimento, SEM sid (nenhum identificador — nada é
+  // hasheado nem persistido além de tipo/refs/canal), sem cookie, sem
+  // localStorage de rastreamento, sem fingerprint. Campos fechados:
+  // {type, origin:"web", product?, category?, channel?} — supplier e tipos
+  // da stream consentida não existem aqui. Tipos: page_view/like/share/
+  // contact_click. Falha = silêncio (nunca atrapalha a vitrine).
+  var SINAL_URL = 'https://api.vitrinedevenda.com.br/sinal';
+  function sinal(tipo, refs) {
+    if (!SINAL_URL) return;
+    var payload = { type: tipo, origin: "web" };
+    if (refs) {
+      if (refs.product) payload.product = refs.product;
+      if (refs.category) payload.category = refs.category;
+      if (refs.channel) payload.channel = refs.channel;
+    }
+    try {
+      navigator.sendBeacon(SINAL_URL, JSON.stringify(payload));
+    } catch (e) { /* silêncio */ }
+  }
+
   // Fase 0 do "gostei" (VDV-20260905-01): favoritos locais — a lista de
   // compras do comprador, salva no NAVEGADOR (localStorage), sem backend e
   // sem cadastro. O clique no coração "v❤️" envia o evento ``like`` pela
   // ponte de telemetria (consent-gated, igual aos outros) — APENAS ao
   // favoritar (desfavoritar não manda evento, para não inflar o sinal).
-  // Sem contagem pública: o like é sinal para o /admin, nunca exportado
-  // (regra do mínimo do desenho de 05/09 — nunca mostrar "0 curtidas").
+  // VDV-20260912-01: o like TAMBÉM vai pelo sinal operacional (sem
+  // identificador, vale sem aceite) — desfavoritar segue sem evento.
   var favoritos = (function () {
     try {
       var v = JSON.parse(localStorage.getItem("vdv:favoritos") || "[]");
@@ -123,6 +146,7 @@
     if (agoraFavorito) {
       favoritos.push(id);
       telemetria("like", { product: id });
+      sinal("like", { product: id });
     } else {
       favoritos.splice(i, 1);
     }
@@ -666,8 +690,11 @@
     status.hidden = true;
     document.title = product.title + " — VDV, Vitrine de Vendas";
     // Fatia 30: visualização do produto (consent-gated; sem consentimento
-    // nem TELEMETRIA_URL, é no-op).
+    // nem TELEMETRIA_URL, é no-op). VDV-20260912-01: a abertura da página
+    // de produto TAMBÉM é sinal operacional (sem identificador, vale sem
+    // aceite) — o indicador de visitas é abertura de página.
     telemetria("product_view", { product: product.id });
+    sinal("page_view", { product: product.id });
     var isPecaUnica = offerType(product) === "peca_unica";
     var ownerSuffix = (isAssisted(product) && product.offer_owner_name)
       ? " · oferta de " + product.offer_owner_name
@@ -862,6 +889,7 @@
           transport_type: "beacon"
         });
         telemetria("contact_click", { product: product.id, channel: "telegram" });
+        sinal("contact_click", { product: product.id, channel: "telegram" });
       });
     }
 
@@ -916,6 +944,7 @@
           transport_type: "beacon"
         });
         telemetria("share", { product: product.id });
+        sinal("share", { product: product.id });
         // VDV-20260911-07 — a foto em exibição vai ANEXADA na conversa (Web
         // Share API Level 2, celular): mais dinâmico que o preview do link,
         // que é gerado pelo servidor do WhatsApp a partir da og:image fixa do
@@ -979,6 +1008,7 @@
           transport_type: "beacon"
         });
         telemetria("contact_click", { product: product.id, channel: "whatsapp" });
+        sinal("contact_click", { product: product.id, channel: "whatsapp" });
       });
     }
 
@@ -1027,7 +1057,12 @@
         renderStaticLinks(catalog.bot_username || DEFAULT_BOT);
         var page = document.body.getAttribute("data-page");
         if (page === "produto") initProduto(catalog);
-        else if (page === "home") initHome(catalog);
+        else if (page === "home") {
+          initHome(catalog);
+          // VDV-20260912-01: abertura da HOME é sinal operacional sem
+          // referência — o denominador do funil (chegou → interagiu).
+          sinal("page_view");
+        }
       })
       .catch(function () {
         var s = $("status");
