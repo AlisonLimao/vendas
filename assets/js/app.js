@@ -700,6 +700,10 @@
     var photos = (product.images && product.images.length > 0)
       ? product.images
       : [product.image];
+    // VDV-20260911-07 — foto escolhida na galeria vira a foto compartilhada
+    // (Web Share API Level 2; o preview do link em si não muda — ele é gerado
+    // pelo servidor do WhatsApp a partir da og:image fixa do export).
+    var fotoSelecionada = 0;
     var thumbs = photos.length > 1
       ? '<div class="prod-thumbs" role="group" aria-label="Fotos do produto">' +
         Array.prototype.map.call(photos, function (src, i) {
@@ -838,6 +842,9 @@
         if (mainPhoto && btn.getAttribute("data-src")) {
           mainPhoto.src = btn.getAttribute("data-src");
         }
+        // VDV-20260911-07: a foto em exibição vira a candidata ao compartilhar.
+        var idx = Array.prototype.indexOf.call(main.querySelectorAll(".prod-thumb"), btn);
+        if (idx !== -1) fotoSelecionada = idx;
         Array.prototype.forEach.call(main.querySelectorAll(".prod-thumb"), function (b) {
           b.classList.remove("is-active");
         });
@@ -860,7 +867,7 @@
 
     var share = main.querySelector("#share-wa");
     if (share) {
-      share.addEventListener("click", function () {
+      share.addEventListener("click", function (ev) {
         track("compartilhar_produto", {
           produto_id: product.id,
           event_category: "compartilhamento",
@@ -868,6 +875,38 @@
           transport_type: "beacon"
         });
         telemetria("share", { product: product.id });
+        // VDV-20260911-07 — a foto em exibição vai ANEXADA na conversa (Web
+        // Share API Level 2, Android Chrome / iOS 15+): mais dinâmico que o
+        // preview do link, que é gerado pelo servidor do WhatsApp a partir da
+        // og:image fixa do export e não pode variar por quem compartilha.
+        // Sem suporte (ou falha no fetch) → o <a> wa.me segue como fallback.
+        if (!navigator.share || !navigator.canShare) return;
+        ev.preventDefault();
+        var src = prefix + (photos[fotoSelecionada] || photos[0]);
+        var nome = "vdv-" + product.id +
+          (fotoSelecionada > 0 ? "-" + (fotoSelecionada + 1) : "") + ".jpg";
+        var arquivo = null;
+        fetch(src)
+          .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.blob(); })
+          .then(function (blob) {
+            arquivo = new File([blob], nome, { type: blob.type || "image/jpeg" });
+            if (!navigator.canShare({ files: [arquivo] })) {
+              window.location.href = share.href; // sem arquivos: fallback wa.me
+              return null;
+            }
+            return navigator.share({
+              files: [arquivo],
+              title: product.title,
+              text: product.title + " — " + fmtPriceText(product),
+              url: shareUrl(product)
+            });
+          })
+          .catch(function (e) {
+            // AbortError = pessoa fechou o menu de compartilhamento (nada a
+            // fazer); qualquer outra falha cai no fallback de sempre.
+            if (e && e.name === "AbortError") return;
+            window.location.href = share.href;
+          });
       });
     }
 
