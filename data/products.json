@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T00:13:13Z",
+  "generated_at": "2026-09-12T00:15:48Z",
   "bot_username": "vitrine_vendasbot",
   "total": 34,
   "products": [
@@ -87,7 +87,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 20,
-      "days_since_confirmation": 1,
+      "days_since_confirmation": 2,
       "seller_name": "Imprima 3D",
       "city": "Monte Sião",
       "state": "MG",
