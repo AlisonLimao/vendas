@@ -21,14 +21,16 @@ const js = fs.readFileSync(
   "utf8"
 );
 
-// 1. Gate de suporte: sem Web Share de arquivos (desktop) → via clipboard;
-//    com suporte, canShare({ files }) de novo depois do fetch decide entre
-//    share e via desktop.
+// 1. Gate de suporte: a via de arquivos exige TELA DE TOQUE (pointer: coarse)
+//    — o Chrome/Edge do Windows também tem navigator.share com arquivos, mas
+//    abre o painel nativo do Windows (sem WhatsApp Web lá, VDV-20260911-07c).
+//    Desktop (ponteiro fino) → via clipboard.
 assert(
-  js.includes("var comArquivos = navigator.share && navigator.canShare;") &&
+  js.includes('window.matchMedia("(pointer: coarse)").matches') &&
+    js.includes("var comArquivos =") &&
     js.includes("ev.preventDefault();") &&
     js.includes("if (!comArquivos) {"),
-  "sem Web Share de arquivos, a via é a do desktop (clipboard), não o <a> cru"
+  "a via de arquivos só vale em tela de toque; desktop vai pro clipboard"
 );
 assert(
   js.includes("navigator.canShare({ files: [arquivo] })"),

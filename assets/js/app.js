@@ -920,7 +920,14 @@
         // Share API Level 2, celular): mais dinâmico que o preview do link,
         // que é gerado pelo servidor do WhatsApp a partir da og:image fixa do
         // export e não pode variar por quem compartilha.
-        var comArquivos = navigator.share && navigator.canShare;
+        // VDV-20260911-07c — a via de arquivos fica restrita a TELA DE TOQUE:
+        // o Chrome/Edge do Windows TAMBÉM tem navigator.share com arquivos,
+        // mas abre o painel nativo do Windows (sem WhatsApp Web lá — relato
+        // do Alison). pointer: coarse = celular/tablet; desktop com mouse
+        // (mesmo com tela touch, o ponteiro primário é fino) vai pro clipboard.
+        var comArquivos = !!(window.matchMedia &&
+          window.matchMedia("(pointer: coarse)").matches) &&
+          navigator.share && navigator.canShare;
         ev.preventDefault();
         if (!comArquivos) {
           // Desktop: copia a foto e abre o WhatsApp para colar (Ctrl+V).
