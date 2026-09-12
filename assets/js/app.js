@@ -87,6 +87,86 @@
     } catch (e) { /* silêncio */ }
   }
 
+  // Fase 0 do "gostei" (VDV-20260905-01): favoritos locais — a lista de
+  // compras do comprador, salva no NAVEGADOR (localStorage), sem backend e
+  // sem cadastro. O clique no coração "v❤️" envia o evento ``like`` pela
+  // ponte de telemetria (consent-gated, igual aos outros) — APENAS ao
+  // favoritar (desfavoritar não manda evento, para não inflar o sinal).
+  // Sem contagem pública: o like é sinal para o /admin, nunca exportado
+  // (regra do mínimo do desenho de 05/09 — nunca mostrar "0 curtidas").
+  var favoritos = (function () {
+    try {
+      var v = JSON.parse(localStorage.getItem("vdv:favoritos") || "[]");
+      return Array.isArray(v) ? v.filter(function (x) { return typeof x === "string"; }) : [];
+    } catch (e) { return []; }
+  })();
+
+  function ehFavorito(id) { return favoritos.indexOf(id) !== -1; }
+
+  // Atualiza todos os corações do produto (card + página) após um toggle.
+  function sincronizarCores(productoId) {
+    var liked = ehFavorito(productoId);
+    Array.prototype.forEach.call(
+      document.querySelectorAll('.card-like[data-id="' + productoId + '"]'),
+      function (btn) { btn.classList.toggle("is-liked", liked); }
+    );
+    var likeBtn = document.getElementById("like-btn");
+    if (likeBtn && likeBtn.getAttribute("data-id") === productoId) {
+      likeBtn.classList.toggle("is-liked", liked);
+      likeBtn.textContent = liked ? "❤ Gostando deste produto" : "❤ Gostei deste produto";
+    }
+  }
+
+  function alternarFavorito(id) {
+    var i = favoritos.indexOf(id);
+    var agoraFavorito = i === -1;
+    if (agoraFavorito) {
+      favoritos.push(id);
+      telemetria("like", { product: id });
+    } else {
+      favoritos.splice(i, 1);
+    }
+    try { localStorage.setItem("vdv:favoritos", JSON.stringify(favoritos)); } catch (e) { /* silêncio */ }
+    sincronizarCores(id);
+    renderFavoritos();
+    return agoraFavorito;
+  }
+
+  function botaoLike(productoId) {
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "card-like" + (ehFavorito(productoId) ? " is-liked" : "");
+    btn.setAttribute("data-id", productoId);
+    btn.setAttribute("aria-label", "Gostei deste produto");
+    btn.textContent = "v❤";
+    btn.addEventListener("click", function (ev) {
+      // O coração fica sobre o card (que é um link): o clique no coração
+      // NÃO abre o produto.
+      ev.preventDefault();
+      ev.stopPropagation();
+      alternarFavorito(productoId);
+    });
+    return btn;
+  }
+
+  // Seção "Meus favoritos" da Home: os produtos favoritados que ainda estão
+  // no catálogo, na ordem de favoritamento (mais recente primeiro). Some
+  // quando a lista fica vazia (ou o favorito saiu da vitrine).
+  function renderFavoritos() {
+    var section = $("section-favoritos");
+    if (!section) return; // páginas sem a seção (produto, institucionais)
+    var grid = $("grid-favoritos");
+    if (!grid) return;
+    var presentes = (window.__vdvCatalogProducts || [])
+      .filter(function (p) { return ehFavorito(p.id); });
+    grid.innerHTML = "";
+    presentes
+      .slice()
+      .reverse()
+      .forEach(function (p) { grid.appendChild(cardEl(p)); });
+    section.hidden = presentes.length === 0;
+  }
+
   function $(id) { return document.getElementById(id); }
 
   function esc(text) {
@@ -240,6 +320,11 @@
   }
 
   function cardEl(p) {
+    // Fase 0 do "gostei": o card vira um wrapper (card-wrap) com o link
+    // inteiro de sempre + o coração (botão FORA do <a> — button dentro de
+    // link é HTML inválido e o clique dispararia a navegação).
+    var wrap = document.createElement("div");
+    wrap.className = "card-wrap";
     var a = document.createElement("a");
     a.className = "card";
     a.href = "produto/index.html?id=" + encodeURIComponent(p.id);
@@ -261,7 +346,9 @@
       '<p class="card-flags">' + availabilityBadge(p) + saleBadge(p) + freshnessBadge(p) + "</p>" +
       '<p class="card-more">Ver detalhes <span aria-hidden="true">→</span></p>' +
       "</div>";
-    return a;
+    wrap.appendChild(a);
+    wrap.appendChild(botaoLike(p.id));
+    return wrap;
   }
 
   function fill(grid, list) {
@@ -279,6 +366,12 @@
     var results = $("results");
 
     status.textContent = "";
+
+    // Fase 0 do "gostei": o catálogo carregado fica acessível ao módulo de
+    // favoritos (a seção "Meus favoritos" re-renderiza sobre ele a cada
+    // toggle — só produtos ainda presentes na vitrine aparecem).
+    window.__vdvCatalogProducts = products;
+    renderFavoritos();
 
     // Faixas editoriais: só quando o catálogo sustenta (sem duplicar card).
     // VDV-20260907-14: a faixa fixa "⚡ Pronta entrega" saiu do topo — pronta
@@ -658,6 +751,11 @@
       "</div>" +
       '<h1 class="prod-title">' + esc(product.title) + "</h1>" +
       '<p class="prod-price">' + fmtPrice(product) + "</p>" +
+      // Fase 0 do "gostei": favoritar pela página do produto (o estado vive
+      // no localStorage junto com os corações dos cards — sincronizados).
+      '<button type="button" class="prod-like' + (ehFavorito(product.id) ? " is-liked" : "") +
+      '" id="like-btn" data-id="' + esc(product.id) + '" aria-label="Salvar este produto nos favoritos">❤ ' +
+      (ehFavorito(product.id) ? "Gostando deste produto" : "Gostei deste produto") + "</button>" +
       '<ul class="prod-facts">' +
       (isAssisted(product)
         ? "<li>🤝 Oferta de <strong>" +
@@ -727,6 +825,13 @@
     }
 
     // Troca da foto principal ao tocar a miniatura (galeria — VDV-20260903-03).
+    var likeBtn = main.querySelector("#like-btn");
+    if (likeBtn) {
+      likeBtn.addEventListener("click", function () {
+        alternarFavorito(product.id);
+      });
+    }
+
     var mainPhoto = main.querySelector("#prod-photo-main");
     Array.prototype.forEach.call(main.querySelectorAll(".prod-thumb"), function (btn) {
       btn.addEventListener("click", function () {
