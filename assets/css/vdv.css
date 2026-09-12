@@ -508,33 +508,46 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
   .prod-photo { max-width: 26rem; }
 }
 
-/* VDV-20260911-02 — card de cookies compacto. Override da APRESENTAÇÃO do
- * banner do TermsFeed 4.2.0 (notice_banner_type "simple"); a camada de
+/* VDV-20260911-06 — faixa de cookies fina no rodapé (evolução do card
+ * compacto do VDV-20260911-02, a pedido do Alison: "faixa pequena na parte
+ * inferior", primeiro impacto leve, página nunca bloqueada). A MECÂNICA de
  * consentimento não muda — Consent Mode v2 default-denied, callbacks GA +
- * telemetria própria, #open_preferences_center, tudo intacto. O default da
- * lib (padding 3rem, título 24px, botões em bloco largura 100%) cobria boa
- * parte da viewport em telas pequenas. !important necessário: a lib injeta
- * o próprio <style> no head DEPOIS do vdv.css (ordem de documento venceria). */
-.termsfeed-com---nb .cc-nb-main-container { padding: .875rem 1rem !important; }
-.termsfeed-com---nb .cc-nb-title { font-size: .95rem !important; font-weight: 600; }
-.termsfeed-com---nb .cc-nb-text { font-size: .8125rem !important; margin: 0 0 .5rem !important; }
-.termsfeed-com---nb .cc-nb-text-urls { font-size: .75rem !important; }
+ * telemetria própria, #open_preferences_center, tudo intacto; o aceite
+ * continua sendo AÇÃO EXPLICITA no botão (navegar sem aceitar não envia
+ * nenhum byte — invariante do plano 08). Só apresentação do banner do
+ * TermsFeed 4.2.0 (notice_banner_type "simple" mantido — restyle por CSS).
+ * !important necessário: a lib injeta o próprio <style> no head DEPOIS do
+ * vdv.css (ordem de documento venceria). */
+.termsfeed-com---nb.termsfeed-com---nb-simple {
+  position: fixed !important;
+  left: 0 !important; right: 0 !important; bottom: 0 !important; top: auto !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  border-radius: 0 !important;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, .18) !important;
+}
+.termsfeed-com---nb .cc-nb-main-container {
+  display: flex; align-items: center; flex-wrap: wrap; gap: .6rem 1rem;
+  max-width: 72rem; margin: 0 auto;
+  padding: .55rem .9rem !important;
+}
+/* Faixa de uma linha: o título some — o texto curto basta. */
+.termsfeed-com---nb .cc-nb-title { display: none !important; }
+.termsfeed-com---nb .cc-nb-text { font-size: .8rem !important; margin: 0 !important; flex: 1 1 16rem; }
+.termsfeed-com---nb .cc-nb-text-urls { font-size: .72rem !important; margin: 0 !important; }
+.termsfeed-com---nb .cc-nb-buttons-container { display: flex !important; gap: .4rem; margin-left: auto; }
 .termsfeed-com---nb .cc-nb-okagree,
 .termsfeed-com---nb .cc-nb-reject,
 .termsfeed-com---nb .cc-nb-changep {
   display: inline-block !important;
   width: auto !important;
-  font-size: .8125rem !important;
-  padding: .45rem .875rem;
-  margin: 0 .25rem .25rem 0 !important;
+  font-size: .8rem !important;
+  padding: .4rem .8rem !important;
+  margin: 0 !important;
 }
-.termsfeed-com---nb .cc-nb-buttons-container { display: block; }
-.termsfeed-com---nb.termsfeed-com---nb-simple { max-width: min(80%, 26rem) !important; }
 @media (max-width: 640px) {
-  .termsfeed-com---nb.termsfeed-com---nb-simple {
-    height: auto !important;
-    max-height: 42vh !important;
-    overflow: auto;
-  }
-  .termsfeed-com---nb .cc-nb-main-container { padding: .75rem .875rem !important; }
+  /* No celular a faixa continua fina: quebra em 2 linhas no máximo
+   * (texto, depois botões) — nunca vira o cartão grande de antes. */
+  .termsfeed-com---nb .cc-nb-main-container { padding: .5rem .75rem !important; }
+  .termsfeed-com---nb .cc-nb-buttons-container { margin-left: 0; }
 }
