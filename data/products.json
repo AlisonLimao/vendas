@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-12T01:17:29Z",
+  "generated_at": "2026-09-12T01:38:19Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 30,
+  "total": 34,
   "products": [
     {
       "id": "9f22576b-b542-4666-a3be-6e70157c0817",
@@ -399,6 +399,38 @@
       }
     },
     {
+      "id": "b2dbef70-37bb-4cad-b545-d6001745180e",
+      "title": "Blusa Feminina em Modal Jacquard Poá",
+      "description": "Blusa feminina em modal jacquard, manga curta e gola redonda. O padrão é formado diretamente na malha, criando um visual delicado e marcante, com acabamento canelado na gola, mangas e barra. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 4,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/b2dbef70-37bb-4cad-b545-d6001745180e.jpg",
+      "images": [
+        "assets/products/b2dbef70-37bb-4cad-b545-d6001745180e.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Jacquard%20Po%C3%A1%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/b2dbef70-37bb-4cad-b545-d6001745180e/"
+      }
+    },
+    {
       "id": "ab9045b7-6044-4016-9c60-95b80073f2ea",
       "title": "Blusa Feminina em Modal Lisa com Detalhe Listrado nos Ombros",
       "description": "Blusa feminina em modal, manga curta e gola redonda, com visual liso  e detalhe de listras contrastantes nos ombros. Possui acabamento canelado na gola e nas mangas, com modelagem versátil e moderna para combinações casuais ou mais arrumadas. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
@@ -684,6 +716,103 @@
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
         "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Trabalhado%20com%20Tran%C3%A7as%20e%20Relevos%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/9cf95eef-d0de-4f0c-aae3-558b90f2c7ed/"
+      }
+    },
+    {
+      "id": "ca545589-f399-4e6b-a731-7f23be9c9f60",
+      "title": "Blusa Feminina em Modal Listrada com Gola Polo",
+      "description": "Blusa feminina em modal com listras largas, manga curta e gola polo com decote em V. Possui acabamento canelado nas mangas e na barra, com visual moderno e elegante, fácil de combinar com jeans, alfaiataria e peças casuais. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 4,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/ca545589-f399-4e6b-a731-7f23be9c9f60.jpg",
+      "images": [
+        "assets/products/ca545589-f399-4e6b-a731-7f23be9c9f60.jpg",
+        "assets/products/ca545589-f399-4e6b-a731-7f23be9c9f60-2.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Listrada%20com%20Gola%20Polo%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/ca545589-f399-4e6b-a731-7f23be9c9f60/"
+      }
+    },
+    {
+      "id": "62d97044-ca8e-4308-93ec-c90ec92b1f38",
+      "title": "Blusa Feminina em Modal Listrada",
+      "description": "Blusa feminina em modal, com listras horizontais, manga curta e gola redonda. Possui modelagem clássica, toque visual clean e acabamento contrastante na gola e nas mangas, criando uma peça versátil para combinações casuais ou mais arrumadas. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram. Fornecedor",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 4,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/62d97044-ca8e-4308-93ec-c90ec92b1f38.jpg",
+      "images": [
+        "assets/products/62d97044-ca8e-4308-93ec-c90ec92b1f38.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Listrada%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/62d97044-ca8e-4308-93ec-c90ec92b1f38/"
+      }
+    },
+    {
+      "id": "076e6574-11d7-46c0-ae33-2e783710f4f5",
+      "title": "Blusa Feminina em Modal Jacquard Argyle",
+      "description": "Blusa feminina em modal jacquard, com desenho argyle, manga curta, gola redonda e acabamentos canelados na gola, mangas e barra. O jacquard cria o desenho diretamente na malha, trazendo um acabamento mais elaborado e sofisticado à peça. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram. Fornecedor.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa"
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 4,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/076e6574-11d7-46c0-ae33-2e783710f4f5.jpg",
+      "images": [
+        "assets/products/076e6574-11d7-46c0-ae33-2e783710f4f5.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Jacquard%20Argyle%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/076e6574-11d7-46c0-ae33-2e783710f4f5/"
       }
     },
     {
