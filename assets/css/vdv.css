@@ -497,6 +497,15 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
 .claim-link { color: var(--vdv-accent); text-decoration: none; font-weight: 600; }
 .claim-link:hover { text-decoration: underline; }
 
+/* Logo da vitrine do fornecedor (VDV-20260914-01): identidade opcional
+   exibida no cabeçalho da página. Quadrada/recortada, discreta — não compete
+   com o título. Sem logo, a regra simplesmente não é usada. */
+.supplier-logo {
+  display: block; width: 6rem; height: 6rem; object-fit: cover;
+  border-radius: .6rem; margin: .35rem 0 .5rem;
+  background: var(--vdv-bg); border: 1px solid var(--vdv-border);
+}
+
 /* Topbar compacta em telas estreitas (página de produto tem 3 elementos). */
 @media (max-width: 560px) {
   .brand small { display: none; }
