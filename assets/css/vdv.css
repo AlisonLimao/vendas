@@ -428,6 +428,8 @@ footer p { margin: .3rem 0; }
 .prod-thumb:focus-visible { outline: 2px solid var(--vdv-primary); outline-offset: 2px; }
 .prod-title { font-size: 1.35rem; margin: 1rem 0 .25rem; letter-spacing: -0.02em; }
 .prod-price { font-size: 1.7rem; font-weight: 800; color: var(--vdv-primary); margin: 0; font-variant-numeric: tabular-nums; }
+/* VDV-20260906-02: nota do tipo de oferta junto ao preço (menor, neutra). */
+.card-price small, .prod-price small { font-size: .72em; font-weight: 600; color: var(--vdv-text-muted); }
 .prod-facts { list-style: none; padding: 0; margin: .8rem 0; color: var(--vdv-text-muted); font-size: .92rem; }
 .prod-facts li { margin: .22rem 0; }
 .prod-desc { white-space: pre-wrap; }
