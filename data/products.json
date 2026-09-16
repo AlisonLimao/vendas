@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T00:37:53Z",
+  "generated_at": "2026-09-16T19:55:10Z",
   "bot_username": "vitrine_vendasbot",
   "total": 33,
   "products": [
@@ -9,14 +9,18 @@
       "description": "Animais articulados produzidos em impressão 3D, com movimentos flexíveis e acabamento detalhado. Modelos disponíveis de axolote e tubarões, em diferentes cores. Peças divertidas, colecionáveis e ideais para presente ou decoração. Valor: R$ 20,00 cada.",
       "category": {
         "slug": "impressao_3d",
-        "name": "Impressão 3D"
+        "name": "Impressão 3D",
+        "group": {
+          "slug": "impressao_3d",
+          "name": "Impressão 3D"
+        }
       },
       "price": "20.00",
       "minimum_order": 1,
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 5,
+      "days_since_confirmation": 6,
       "seller_name": "Imprima 3D",
       "city": "Monte Sião",
       "state": "MG",
@@ -45,14 +49,18 @@
       "description": "Dragões articulados produzidos em impressão 3D, com movimentos flexíveis e acabamento detalhado. Disponíveis em dois modelos: Gamer, nas cores branco, preto e azul, e Floral, nas cores branco e rosa. Peças decorativas e colecionáveis, ideais para presente ou decoração. Valor: R$ 40,00 cada.",
       "category": {
         "slug": "impressao_3d",
-        "name": "Impressão 3D"
+        "name": "Impressão 3D",
+        "group": {
+          "slug": "impressao_3d",
+          "name": "Impressão 3D"
+        }
       },
       "price": "40.00",
       "minimum_order": 1,
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 5,
+      "days_since_confirmation": 6,
       "seller_name": "Imprima 3D",
       "city": "Monte Sião",
       "state": "MG",
@@ -80,7 +88,11 @@
       "description": "Roldanas redutoras de atrito desenvolvidas e comercializadas pela Imprima 3D. Reduzem a tensão nas antenas laterais, melhorando o desempenho da máquina e ajudando a diminuir perdas causadas pelo atrito. Produto testado em empresas de Monte Sião.\nPreço: R$ 70,00 cada guia | R$ 140,00 o par.",
       "category": {
         "slug": "impressao_3d",
-        "name": "Impressão 3D"
+        "name": "Impressão 3D",
+        "group": {
+          "slug": "impressao_3d",
+          "name": "Impressão 3D"
+        }
       },
       "price": "140.00",
       "minimum_order": 1,
@@ -114,7 +126,11 @@
       "description": "Roldanas redutoras de atrito desenvolvidas e comercializadas pela Imprima 3D. Reduzem a tensão nas antenas laterais, melhorando o desempenho e ajudando a diminuir perdas causadas pelo atrito. Produto testado em empresas de Monte Sião.\nGuias 4 e 5: R$ 70,00 cada 140,0 o par | Guias 3 e 6: R$ 85,00 cada 170,00 o par.",
       "category": {
         "slug": "impressao_3d",
-        "name": "Impressão 3D"
+        "name": "Impressão 3D",
+        "group": {
+          "slug": "impressao_3d",
+          "name": "Impressão 3D"
+        }
       },
       "price": "180.00",
       "minimum_order": 1,
@@ -148,7 +164,11 @@
       "description": "Calça feminina em modal canelado, com cintura alta, cós largo e modelagem reta. A textura vertical alonga visualmente a peça e traz um caimento elegante, confortável e versátil, ideal para produções casuais ou mais arrumadas. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "calca",
-        "name": "Calça"
+        "name": "Calça",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "30.00",
       "minimum_order": 6,
@@ -180,7 +200,11 @@
       "description": "Regata feminina em modal canelado, com alças largas, decote quadrado e detalhe frontal com botões. A textura vertical valoriza a modelagem e cria um visual elegante, feminino e versátil, fácil de combinar com jeans, alfaiataria e peças casuais.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "15.00",
       "minimum_order": 6,
@@ -212,7 +236,11 @@
       "description": "Cropped feminino em modal jacquard, sem mangas, com decote redondo e desenho em poá. Possui modelagem curta e acabamento contrastante na barra, criando um visual moderno e marcante. Preço: R$ 31,90. No Pix: R$ 28,00 — 12,23% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "31.90",
       "minimum_order": 6,
@@ -244,7 +272,11 @@
       "description": "Blusa feminina em modal, com listras horizontais, manga curta e gola polo em rosa. Possui acabamento rosa contrastante nas mangas e na barra, criando um visual moderno, delicado e fácil de combinar. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "41.90",
       "minimum_order": 6,
@@ -276,7 +308,11 @@
       "description": "Blusa feminina em modal, manga curta e gola polo, com trabalho vazado em desenhos geométricos tipo espinha/chevron por toda a frente. Possui acabamento canelado nas mangas e na barra, com visual leve, delicado e sofisticado. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "41.90",
       "minimum_order": 6,
@@ -308,7 +344,11 @@
       "description": "Regata feminina em modal, com decote V, alças largas e trabalho canelado com detalhes vazados na região do decote. A estrutura vertical valoriza a modelagem e cria um visual delicado, moderno e sofisticado. Preço: R$ 31,90. No Pix: R$ 28,00 — 12,23% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "31.90",
       "minimum_order": 6,
@@ -340,7 +380,11 @@
       "description": "Blusa feminina em modal jacquard. Possui manga curta, gola redonda e acabamento azul contrastante na gola, mangas e barra. O jacquard forma o desenho diretamente na malha, criando um visual marcante e moderno. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "41.90",
       "minimum_order": 6,
@@ -372,7 +416,11 @@
       "description": "Regata feminina em modal. Possui gola redonda, acabamento rosa contrastante na gola, cavas e barra, criando um visual moderno e delicado. Modelagem versátil e fácil de combinar com jeans, alfaiataria e peças casuais. Preço: R$ 31,90. No Pix: R$ 28,00 — 12,23% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "31.90",
       "minimum_order": 6,
@@ -404,7 +452,11 @@
       "description": "Blusa feminina em modal jacquard, manga curta e gola redonda. O padrão é formado diretamente na malha, criando um visual delicado e marcante, com acabamento canelado na gola, mangas e barra. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "41.90",
       "minimum_order": 6,
@@ -436,7 +488,11 @@
       "description": "Blusa feminina em modal, manga curta e gola redonda, com visual liso  e detalhe de listras contrastantes nos ombros. Possui acabamento canelado na gola e nas mangas, com modelagem versátil e moderna para combinações casuais ou mais arrumadas. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "41.90",
       "minimum_order": 6,
@@ -468,7 +524,11 @@
       "description": "Regata feminina em modal, com gola redonda e trabalho elaborado em pontos texturizados, tranças e pequenos relevos distribuídos pela parte frontal. O desenho vertical valoriza a peça e traz um visual delicado e sofisticado, com acabamento canelado na gola e na barra. Preço: R$ 31,90. No Pix: R$ 28,00 — 12,23% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "31.90",
       "minimum_order": 6,
@@ -500,7 +560,11 @@
       "description": "Regata feminina em modal. Possui alças largas, decote V e acabamento canelado na barra. O mix de cores deixa a peça leve, moderna e fácil de combinar em produções casuais. Preço: R$ 31,90. No Pix: R$ 28,00 — 12,23% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "31.90",
       "minimum_order": 6,
@@ -532,7 +596,11 @@
       "description": "Blusa feminina em modal, manga curta e gola redonda, com desenho geométrico bicolor em rosa e marrom. O contraste entre as cores cria um visual moderno e marcante, com acabamento canelado na gola, mangas e barra. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "41.90",
       "minimum_order": 6,
@@ -564,7 +632,11 @@
       "description": "Blusa feminina em modal. Possui manga curta, gola redonda e acabamento canelado nas mangas e na barra. O mix de cores deixa a peça leve, moderna e fácil de combinar em produções casuais. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "41.90",
       "minimum_order": 6,
@@ -596,7 +668,11 @@
       "description": "Blusa feminina em modal, com listras horizontais finas, manga curta e gola redonda. Possui acabamento canelado na gola, mangas e barra, com visual delicado, moderno e fácil de combinar em produções casuais ou mais arrumadas. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "41.90",
       "minimum_order": 6,
@@ -628,7 +704,11 @@
       "description": "Blusa feminina em modal, manga curta e gola redonda, com trabalho em tranças, relevos e pontos vazados na parte frontal. O desenho vertical valoriza a peça e cria um visual delicado e sofisticado, com acabamento canelado na gola, mangas e barra. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "41.90",
       "minimum_order": 6,
@@ -660,7 +740,11 @@
       "description": "Blusa feminina em modal com listras horizontais, manga curta, decote V e detalhe frontal com três botões. Possui acabamento canelado nas mangas e na barra, com visual marcante e modelagem versátil. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "41.90",
       "minimum_order": 6,
@@ -692,7 +776,11 @@
       "description": "Blusa feminina em modal, manga curta e gola redonda, com trabalho elaborado em pontos texturizados, tranças e pequenos relevos distribuídos pela peça. O acabamento canelado na gola, mangas e barra valoriza o caimento e deixa o modelo delicado e sofisticado. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "41.90",
       "minimum_order": 6,
@@ -724,14 +812,18 @@
       "description": "Blusa feminina em modal com listras largas, manga curta e gola polo com decote em V. Possui acabamento canelado nas mangas e na barra, com visual moderno e elegante, fácil de combinar com jeans, alfaiataria e peças casuais. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "41.90",
       "minimum_order": 6,
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 8,
+      "days_since_confirmation": 9,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -757,14 +849,18 @@
       "description": "Blusa feminina em modal, com listras horizontais, manga curta e gola redonda. Possui modelagem clássica, toque visual clean e acabamento contrastante na gola e nas mangas, criando uma peça versátil para combinações casuais ou mais arrumadas. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram. Fornecedor",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "41.90",
       "minimum_order": 6,
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 8,
+      "days_since_confirmation": 9,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -789,14 +885,18 @@
       "description": "Blusa feminina em modal jacquard, com desenho argyle, manga curta, gola redonda e acabamentos canelados na gola, mangas e barra. O jacquard cria o desenho diretamente na malha, trazendo um acabamento mais elaborado e sofisticado à peça. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram. Fornecedor.",
       "category": {
         "slug": "blusa",
-        "name": "Blusa"
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "41.90",
       "minimum_order": 6,
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 8,
+      "days_since_confirmation": 9,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -821,14 +921,18 @@
       "description": "Conjunto feminino em tricô acrílico composto por regata de alças largas e short com cordão para ajuste na cintura. O trabalho bicolor em verde e branco cria um desenho geométrico moderno, com acabamento canelado nas barras. Modelagem confortável e leve, ideal para produções casuais e de verão. Preço: R$ 69,90. No Pix: R$ 65,90 — 5,72% de desconto.",
       "category": {
         "slug": "conjunto",
-        "name": "Conjunto"
+        "name": "Conjunto",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "69.90",
       "minimum_order": 6,
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 8,
+      "days_since_confirmation": 9,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -856,14 +960,18 @@
       "description": "Vestido longo feminino em tricô vazado, com decote V, alças largas e diferentes desenhos rendados distribuídos ao longo da peça. A combinação de pontos cria textura e um visual elegante, leve e sofisticado. Possui forro para mais conforto e segurança no uso. Preço: R$ 85,90. No Pix: R$ 79,90 — 6,98% de desconto.",
       "category": {
         "slug": "vestido",
-        "name": "Vestido"
+        "name": "Vestido",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "85.90",
       "minimum_order": 6,
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 8,
+      "days_since_confirmation": 9,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -888,14 +996,18 @@
       "description": "Vestido longo feminino de alças, com decote V e trabalho rendado ao longo da peça. A saia possui desenhos rendados amplos e barra levemente rodada, criando um visual leve, elegante e sofisticado. Possui forro para mais conforto e segurança. Preço: R$ 85,90. No Pix: R$ 79,90 — 6,98% de desconto.",
       "category": {
         "slug": "vestido",
-        "name": "Vestido"
+        "name": "Vestido",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "85.90",
       "minimum_order": 6,
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 8,
+      "days_since_confirmation": 9,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -920,14 +1032,18 @@
       "description": "Vestido longo feminino em tricô vazado, com alças largas, decote quadrado, recortes laterais na cintura e fenda lateral. O trabalho em pontos geométricos valoriza a peça e traz um visual moderno e elegante. Possui forro, oferecendo mais conforto e segurança no uso. Preço: R$ 85,90. No Pix: R$ 79,90 — 6,98% de desconto",
       "category": {
         "slug": "vestido",
-        "name": "Vestido"
+        "name": "Vestido",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "85.90",
       "minimum_order": 6,
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 8,
+      "days_since_confirmation": 9,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -952,14 +1068,18 @@
       "description": "Vestido longo feminino em tricô vazado, com modelagem frente única, recortes laterais na cintura e desenhos geométricos trabalhados ao longo da peça. Possui fenda lateral, trazendo um acabamento moderno e elegante ao modelo.\nPossui forro, trazendo mais conforto e segurança no uso.\nPreço: R$ 85,90\nPix: R$ 79,90 — 6,98% de desconto",
       "category": {
         "slug": "vestido",
-        "name": "Vestido"
+        "name": "Vestido",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "85.90",
       "minimum_order": 6,
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 8,
+      "days_since_confirmation": 9,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -984,14 +1104,18 @@
       "description": "Vestido longo feminino em tricô vazado, com modelagem frente única, decote profundo e diferentes estruturas de pontos trabalhados ao longo da peça.\nPossui forro, trazendo mais conforto e segurança no uso.\nPreço: R$ 85,90\nPix: R$ 79,90 — 6,98% de desconto\nPedido mínimo: 6 peças.\nConsulte as cores disponíveis pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "vestido",
-        "name": "Vestido"
+        "name": "Vestido",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "85.90",
       "minimum_order": 6,
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 8,
+      "days_since_confirmation": 9,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -1016,14 +1140,18 @@
       "description": "Vestido longo feminino em tricô vazado, com alças finas e diferentes estruturas de pontos trabalhados ao longo da peça.\nPossui forro, trazendo mais conforto e segurança no uso.\nPreço: R$ 85,90\nPix: R$ 79,90 — 6,98% de desconto.\nPedido mínimo: 6 peças\nConsulte as cores disponíveis pelo WhatsApp ou Telegram.",
       "category": {
         "slug": "vestido",
-        "name": "Vestido"
+        "name": "Vestido",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
       },
       "price": "85.90",
       "minimum_order": 6,
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 8,
+      "days_since_confirmation": 9,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -1048,14 +1176,18 @@
       "description": "Ano: 2021\nModelo: 2022\nQuilometragem: 17.800 km\nPreço: R$ 17.000\nSegundo proprietário no documento. Segundo o vendedor, quem efetivamente utilizou a moto foi ele; o proprietário anterior apenas a retirou da loja.\nAcompanha:\n• Manual\n• Chave reserva\n• Alarme",
       "category": {
         "slug": "motos",
-        "name": "Motos"
+        "name": "Motos",
+        "group": {
+          "slug": "veiculos",
+          "name": "Veículos"
+        }
       },
       "price": "17000.00",
       "minimum_order": 1,
       "offer_type": "atacado",
       "availability": "pronta_entrega",
       "quantity": 1,
-      "days_since_confirmation": 9,
+      "days_since_confirmation": 10,
       "seller_name": "Alison limão",
       "city": "Monte Sião",
       "state": "MG",
@@ -1077,6 +1209,13 @@
         "nome": "Alison limão",
         "link": "https://t.me/Alison29silva"
       }
+    }
+  ],
+  "category_pages": [
+    {
+      "slug": "moda_e_malharia",
+      "name": "Moda e Malharia",
+      "total": 28
     }
   ]
 }
