@@ -7,17 +7,19 @@
   <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <meta name="theme-color" content="#1e3a8a">
-  <title>VDV — Vitrine de Vendas | Oferta e procura de malharia</title>
-  <meta name="description" content="Oferta e procura de malharia no mesmo lugar: encontre estoques de fornecedores locais com anunciante identificado, ou publique o que você está procurando. Negocie direto pelo Telegram — sem taxa de plataforma.">
+  <title>VDV — Vitrine de Vendas de Monte Sião | Produtos, Serviços e Oportunidades</title>
+  <meta name="description" content="A vitrine de vendas de Monte Sião: produtos, serviços e oportunidades da região, com anunciante identificado. Encontre o que precisa ou publique o que está procurando. Negocie direto pelo Telegram — sem taxa de plataforma.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://vitrinedevenda.com.br/">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="VDV — Vitrine de Vendas">
+  <meta property="og:site_name" content="VDV — Vitrine de Vendas de Monte Sião">
   <meta property="og:url" content="https://vitrinedevenda.com.br/">
   <meta property="og:image" content="https://vitrinedevenda.com.br/assets/vdv-banner-share-1200x630.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="VDV — Vitrine de Vendas. Estoques locais em circulação.">
+  <meta property="og:image:alt" content="VDV — Vitrine de Vendas de Monte Sião. Produtos, serviços e oportunidades da região.">
+  <meta property="og:title" content="VDV — Vitrine de Vendas de Monte Sião | Produtos, Serviços e Oportunidades">
+  <meta property="og:description" content="A vitrine de vendas de Monte Sião: produtos, serviços e oportunidades da região, com anunciante identificado. Negocie direto pelo Telegram — sem taxa de plataforma.">
   <meta name="twitter:card" content="summary_large_image">
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -88,7 +90,7 @@
       });
     });
   </script>
-  <link rel="stylesheet" href="assets/css/vdv.css?v=20260916-1">
+  <link rel="stylesheet" href="assets/css/vdv.css?v=20260916-2">
 </head>
 <body data-page="home">
   <header class="topbar" id="top">
@@ -111,10 +113,11 @@
   <main>
     <section class="hero">
       <div class="hero-copy">
-        <!-- VDV-20260907-01 — reposicionamento: oferta E procura no mesmo nível
-             (antes: "Encontre produtos para atacado" — posicionamento de catálogo). -->
-        <h1>Oferta e procura de malharia, no mesmo lugar.</h1>
-        <p class="hero-sub">Encontre produtos disponíveis ou publique o que você está procurando.</p>
+        <!-- VDV-20260916-04 — apresentação ampla (VDV-20260916-01): o VDV é a
+             vitrine da cidade (produtos, serviços e oportunidades), não só
+             malharia. Oferta e procura seguem no mesmo nível. -->
+        <h1>A vitrine de vendas de Monte Sião.</h1>
+        <p class="hero-sub">Produtos, serviços e oportunidades da região — com anunciante identificado, no mesmo lugar.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#section-vitrine">Explorar ofertas</a>
           <a class="btn btn-ghost" data-deep-link="procura" data-ga-origin="cta_hero_procura" href="#">Criar uma Procura</a>
@@ -207,7 +210,7 @@
 
     <section id="section-empty" hidden>
       <h2>A vitrine está sendo atualizada</h2>
-      <p>Novos modelos e fornecedores estão entrando no VDV.</p>
+      <p>Novos produtos e fornecedores estão entrando no VDV.</p>
       <p>Enquanto isso, diga o que você procura e deixe a demanda chegar até quem vende.</p>
       <div class="empty-actions">
         <a class="btn btn-primary" data-deep-link="procura" data-ga-origin="cta_empty_procura" href="#">Criar uma Procura</a>
@@ -219,6 +222,9 @@
          Explicação + selos vêm DEPOIS dos produtos (desejo → confiança → ação). -->
     <section id="section-confianca">
       <p class="trust-lead">Cada anúncio mostra <strong>quem está vendendo</strong>, a <strong>disponibilidade</strong> e as <strong>condições</strong> — e a negociação acontece direto com o fornecedor, pelo Telegram.</p>
+      <!-- VDV-20260916-04 — modelo de confiança explícito: o VDV não fica no
+           meio do pagamento (o visitante nunca precisa adivinhar isso). -->
+      <p class="trust-pill">O VDV não recebe o pagamento — a negociação é direta entre vocês</p>
       <ul class="trust-row" aria-label="Por que confiar">
         <li>✓ Anunciante identificado</li>
         <li>✓ Disponibilidade confirmada pelo fornecedor</li>
@@ -278,8 +284,19 @@
     <p><a href="#" id="open_preferences_center">Preferências de cookies</a></p>
   </footer>
 
+  <!-- VDV-20260916-04 — navegação mobile fixa (Início | Explorar | Favoritos |
+       Procura). Escondida ≥720px no CSS; o JS rola suave, cai para a vitrine
+       quando a seção alvo ainda está hidden (revelada por densidade) e foca
+       o campo de busca no atalho de Procura. -->
+  <nav class="bottombar" aria-label="Navegação do celular">
+    <a href="#top" id="bb-inicio" aria-current="page"><span class="bb-ico" aria-hidden="true">🏠</span>Início</a>
+    <a href="#section-categorias" id="bb-explorar"><span class="bb-ico" aria-hidden="true">🔎</span>Explorar</a>
+    <a href="#section-favoritos" id="bb-favoritos"><span class="bb-ico" aria-hidden="true">❤️</span>Favoritos</a>
+    <a href="#top" id="bb-procura"><span class="bb-ico" aria-hidden="true">💬</span>Procura</a>
+  </nav>
+
   <script src="assets/js/fair_rotation.js?v=20260907-10"></script>
-  <script src="assets/js/app.js?v=20260916-1"></script>
+  <script src="assets/js/app.js?v=20260916-2"></script>
   <noscript>
     Gerenciamento de consentimento de cookies por <a href="https://www.termsfeed.com/">TermsFeed</a>.
   </noscript>

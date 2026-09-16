@@ -375,7 +375,7 @@
     wrap.className = "card-wrap";
     var a = document.createElement("a");
     a.className = "card";
-    a.href = "produto/index.html?id=" + encodeURIComponent(p.id);
+    a.href = prefix + "produto/index.html?id=" + encodeURIComponent(p.id);
     a.addEventListener("click", function () {
       track("abrir_produto", {
         produto_id: p.id,
@@ -763,6 +763,35 @@
   }
 
   // --------------------------------------------------------------- produto
+  // VDV-20260916-04 — "Continue explorando": candidatos 100% client-side de
+  // products.json (BANCO → WEB: nada novo no JSON). Primeiro o mesmo
+  // anunciante, depois o mesmo grupo de categoria; produto atual excluído;
+  // cap 8. A seção inteira some com menos de 2 itens (nunca título vazio).
+  function relatedProducts(catalog, product) {
+    var out = [];
+    var seen = {};
+    seen[product.id] = true;
+    var pool = catalog.products || [];
+    function addFrom(pred) {
+      for (var i = 0; i < pool.length && out.length < 8; i++) {
+        if (seen[pool[i].id] || !pred(pool[i])) continue;
+        seen[pool[i].id] = true;
+        out.push(pool[i]);
+      }
+    }
+    var group = product.category && product.category.group;
+    if (product.supplier_slug) {
+      addFrom(function (p) { return p.supplier_slug === product.supplier_slug; });
+    }
+    if (group) {
+      addFrom(function (p) {
+        return !!(p.category && p.category.group &&
+          p.category.group.slug === group.slug);
+      });
+    }
+    return out;
+  }
+
   function initProduto(catalog) {
     var main = $("produto-main");
     var status = $("status");
@@ -877,6 +906,25 @@
             ICON_WHATSAPP + "<span>Falar no WhatsApp</span></a>"
           : "");
     }
+    // VDV-20260916-04 — bloco do vendedor: quem vende em evidência, entre a
+    // decisão (título/preço) e o contato. Iniciais em círculo (sem foto nova,
+    // sem dado novo); link para a vitrine do fornecedor quando existe.
+    var sellerName = (assisted && product.offer_owner_name) || product.seller_name;
+    var initials = (sellerName || "?").trim().split(/\s+/)
+      .map(function (w) { return w.charAt(0); }).slice(0, 2).join("").toUpperCase();
+    var sellerCardHtml =
+      '<div class="seller-card">' +
+      '<span class="seller-avatar" aria-hidden="true">' + esc(initials) + "</span>" +
+      '<div class="seller-info">' +
+      '<p class="seller-name">' + esc(sellerName) + "</p>" +
+      '<p class="seller-loc">' + esc(product.city) + "/" + esc(product.state) +
+      (assisted ? " · 🤝 cadastro assistido no VDV" : "") + "</p>" +
+      (product.supplier_slug
+        ? '<a href="' + prefix + 'fornecedor/' + esc(product.supplier_slug) +
+          '/">Ver todos os produtos de ' + esc(sellerName) + " &rarr;</a>"
+        : "") +
+      "</div></div>";
+
     main.innerHTML =
       '<div class="prod-gallery">' +
       '<img class="prod-photo" id="prod-photo-main" loading="lazy" width="640" height="640" src="' +
@@ -890,38 +938,22 @@
       '<button type="button" class="prod-like' + (ehFavorito(product.id) ? " is-liked" : "") +
       '" id="like-btn" data-id="' + esc(product.id) + '" aria-label="Salvar este produto nos favoritos">❤ ' +
       (ehFavorito(product.id) ? "Gostando deste produto" : "Gostei deste produto") + "</button>" +
+      // Decisão: condições do anúncio (quem vende fica no seller-card —
+      // VDV-20260916-04 evita repetir o vendedor aqui).
       '<ul class="prod-facts">' +
-      (isAssisted(product)
-        ? "<li>🤝 Oferta de <strong>" +
-          esc(product.offer_owner_name || product.seller_name) +
-          "</strong> · " +
-          esc(product.city) + "/" + esc(product.state) + "</li>"
-        : "<li>🏪 Vendido por <strong>" + esc(product.seller_name) + "</strong> · " +
-          esc(product.city) + "/" + esc(product.state) + "</li>") +
       "<li>📦 " + esc(AVAILABILITY_LABELS[product.availability] || "Disponível") + qty + "</li>" +
       moLi +
       "<li>🗓️ " + esc(freshText(product)) + "</li>" +
       "</ul>" +
-      // Fatia 27 (VDV-20260907-05) — segunda forma de navegação: a vitrine do
-      // fornecedor ("Gostei dessa peça da Sarah. O que mais ela tem?"). Some
-      // quando o anúncio não tem fornecedor resolvido (legado sem backfill).
-      (product.supplier_slug
-        ? '<p class="prod-more"><a href="' + prefix + 'fornecedor/' +
-          esc(product.supplier_slug) + '/">Ver todos os produtos de ' +
-          esc(product.offer_owner_name || product.seller_name || "este anunciante") +
-          " &rarr;</a></p>"
-        : "") +
-      // Fatia 32 (VDV-20260916-01) — terceira forma de navegação: "Mais em
-      // <grupo> →", espelhando o link da página estática do produto. SÓ quando
-      // o grupo ganhou página (gate no export; catalog.category_pages lista as
-      // páginas que existem — nunca linka 404).
+      sellerCardHtml +
+      // Fatia 32 (VDV-20260916-01) — "Mais em <grupo> →" espelhando a página
+      // estática. SÓ quando o grupo ganhou página (gate no export).
       (temPaginaGrupo
         ? '<p class="prod-more"><a href="' + prefix + 'categoria/' +
           esc(product.category.group.slug) + '/">Mais em ' +
           esc(product.category.group.name || product.category.group.slug) +
           " &rarr;</a></p>"
         : "") +
-      '<p class="prod-desc">' + esc(product.description) + "</p>" +
       // Canais de contato (VDV-20260905-05): os dois no MESMO tamanho padrão,
       // lado a lado, com as cores/logos oficiais dos canais — identifica pelo
       // ícone antes de ler. Telegram: chat DIRETO do anunciante (t.me gerado no
@@ -930,9 +962,12 @@
       '<div class="contact-channels">' + channelsHtml + "</div>" +
       '<span class="wa-note">Escolha o canal para falar sobre este anúncio — o contato é direto com ' +
       (assisted ? "o responsável pela oferta." : "o anunciante.") + "</span>" +
+      // VDV-20260916-04 — modelo de confiança explícito no momento da decisão
+      // de contato: o VDV não fica no meio do pagamento.
+      '<p class="trust-pill">O VDV não recebe o pagamento — a negociação é direta entre vocês</p>' +
+      '<p class="prod-desc">' + esc(product.description) + "</p>" +
       // VDV-20260910-02 — divulgação em bloco próprio, mesmo padrão de botão
-      // dos canais de contato (deixa de parecer acessório; separação visual
-      // contato ≠ divulgação). GA #share-wa / compartilhar_produto intacto.
+      // dos canais de contato. GA #share-wa / compartilhar_produto intacto.
       '<span class="action-label">Divulgar</span>' +
       '<div class="action-grid"><a class="btn-channel share" target="_blank" rel="noopener" href="' +
       esc(whatsappShareUrl(product)) + '" id="share-wa">' +
@@ -954,9 +989,25 @@
           "</ul></section>"
         : "") +
       '<p class="prod-comment-cta"><a class="btn btn-ghost" href="#" id="comment-link">💬 Comentar sobre este produto</a></p>' +
-      '<p class="prod-more">Gostou? <a href="' + prefix + 'index.html">Veja mais produtos na nossa vitrine</a></p>' +
+      // VDV-20260916-04 — "Continue explorando": exploração depois da decisão
+      // (mesmo anunciante → mesmo grupo; cap 8; some com < 2 itens).
+      '<section class="prod-related" aria-label="Continue explorando">' +
+      "<h2>Continue explorando</h2>" +
+      '<div class="grid" id="prod-related-grid"></div>' +
+      "</section>" +
       // VDV-20260905-03 — canal de denúncia (payload denuncia_<uuid> no bot).
       '<p class="prod-report"><a href="#" id="report-link">🚩 Denunciar este anúncio</a></p>';
+
+    // VDV-20260916-04: preenche "Continue explorando" (reusa cardEl/fill).
+    var relatedGrid = main.querySelector("#prod-related-grid");
+    if (relatedGrid) {
+      var related = relatedProducts(catalog, product);
+      if (related.length >= 2) {
+        fill(relatedGrid, related);
+      } else {
+        relatedGrid.closest(".prod-related").hidden = true;
+      }
+    }
 
     // Fatia 27/30: link para a vitrine do fornecedor. Páginas estáticas
     // `fornecedor/` são zero-JS — o supplier_view é medido no CLIQUE no link
@@ -1172,8 +1223,55 @@
     if (el) el.setAttribute("content", value);
   }
 
+  // ------------------------------------------------- bottom bar (VDV-20260916-04)
+  // Navegação mobile fixa (só existe no index.html). Rolagem suave; se a
+  // seção alvo ainda está hidden (revelada por densidade), cai para a vitrine
+  // em vez de rolar seção vazia. Procura rola ao topo e foca o campo de busca.
+  // Zero telemetria nova — é navegação local.
+  function initBottombar() {
+    var bar = document.querySelector(".bottombar");
+    if (!bar) return;
+    var reduceMotion = window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var scrollOpt = { behavior: reduceMotion ? "auto" : "smooth" };
+    var links = bar.querySelectorAll("a");
+
+    function markCurrent(link) {
+      for (var i = 0; i < links.length; i++) {
+        links[i].removeAttribute("aria-current");
+      }
+      if (link) link.setAttribute("aria-current", "page");
+    }
+
+    bar.addEventListener("click", function (ev) {
+      var link = ev.target.closest("a");
+      if (!link) return;
+      ev.preventDefault();
+      markCurrent(link);
+      if (link.id === "bb-procura") {
+        var top = $("top");
+        if (top) top.scrollIntoView(scrollOpt);
+        var input = $("search");
+        if (input) input.focus({ preventScroll: true });
+        return;
+      }
+      var hash = link.getAttribute("href") || "";
+      var target = hash.charAt(0) === "#" ? $(hash.slice(1)) : null;
+      if (!target) return;
+      if (target.hidden) {
+        var fallback = $("section-vitrine");
+        if (fallback && !fallback.hidden) {
+          fallback.scrollIntoView(scrollOpt);
+        }
+        return;
+      }
+      target.scrollIntoView(scrollOpt);
+    });
+  }
+
   // ------------------------------------------------------------------ boot
   document.addEventListener("DOMContentLoaded", function () {
+    initBottombar();
     fetch(prefix + "data/products.json")
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(function (catalog) {
