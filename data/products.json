@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T21:24:26Z",
+  "generated_at": "2026-09-16T21:35:04Z",
   "bot_username": "vitrine_vendasbot",
   "total": 33,
   "products": [
@@ -499,7 +499,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 8,
+      "days_since_confirmation": 9,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
