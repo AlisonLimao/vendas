@@ -597,3 +597,83 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
   .termsfeed-com---nb .cc-nb-main-container { padding: .5rem .75rem !important; }
   .termsfeed-com---nb .cc-nb-buttons-container { margin-left: 0; }
 }
+
+/* ------------------------------------------------------------------ */
+/* VDV-20260916-04 — repaginação visual (manter e refinar). Blocos     */
+/* novos abaixo; identidade (paleta/Archivo/dark) preservada.          */
+/* ------------------------------------------------------------------ */
+
+/* Bottom bar de navegação mobile (Início | Explorar | Favoritos | Procura):
+ * fixa no rodapé, só no celular (≥720px some — mesmo breakpoint do hero).
+ * Cores da identidade; safe-area para não brigar com a barra do sistema. */
+.bottombar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
+  display: flex; justify-content: space-around; align-items: stretch;
+  background: var(--vdv-surface);
+  border-top: 1px solid var(--vdv-border);
+  box-shadow: 0 -2px 10px rgba(16, 24, 40, .08);
+  padding: .3rem .25rem env(safe-area-inset-bottom, 0px);
+}
+.bottombar a {
+  display: flex; flex-direction: column; align-items: center; gap: .15rem;
+  flex: 1; max-width: 6rem;
+  padding: .35rem .25rem; border-radius: var(--radius);
+  text-decoration: none; color: var(--vdv-text-muted);
+  font-size: .68rem; font-weight: 600; text-align: center;
+}
+.bottombar a .bb-ico { font-size: 1.15rem; line-height: 1; }
+.bottombar a:hover { color: var(--vdv-primary); }
+/* Página atual em destaque (app.js marca [aria-current="page"]). */
+.bottombar a[aria-current="page"] { color: var(--vdv-primary); }
+@media (min-width: 720px) {
+  .bottombar { display: none; }
+}
+/* Reserva o espaço da barra fixa para ela não cobrir o rodapé. */
+@media (max-width: 719px) {
+  body { padding-bottom: calc(4.2rem + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* Pill de confiança (VDV-20260916-04): "O VDV não recebe o pagamento —
+ * a negociação é direta entre vocês". Verde do ✓ dos selos — promessa,
+ * não ação (não compete com os CTAs de contato). */
+.trust-pill {
+  display: inline-flex; align-items: center; gap: .4rem;
+  margin: .9rem 0 0; padding: .4rem .85rem;
+  border-radius: 999px; font-size: .82rem; font-weight: 600;
+  color: #15803d; background: rgba(22, 138, 69, .1);
+  border: 1px solid rgba(22, 138, 69, .25);
+}
+.trust-pill::before { content: "🛡️"; font-size: .95rem; }
+@media (prefers-color-scheme: dark) {
+  .trust-pill { color: #4ade80; background: rgba(34, 197, 94, .14); border-color: rgba(34, 197, 94, .35); }
+}
+
+/* Bloco do vendedor na página de produto (VDV-20260916-04): quem vende em
+ * evidência, entre a decisão (título/preço) e o contato — card de superfície
+ * com iniciais em círculo marinho (sem foto nova, sem dado novo). */
+.seller-card {
+  display: flex; align-items: center; gap: .8rem;
+  margin: 1.1rem 0 0; padding: .8rem 1rem;
+  background: var(--vdv-surface); border: 1px solid var(--vdv-border);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow);
+  max-width: 32rem;
+}
+.seller-avatar {
+  flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+  width: 2.9rem; height: 2.9rem; border-radius: 50%;
+  background: var(--vdv-primary); color: #fff;
+  font-weight: 800; font-size: 1.05rem;
+}
+.seller-info { min-width: 0; }
+.seller-name { margin: 0; font-weight: 700; font-size: .98rem; }
+.seller-loc { margin: .1rem 0 0; font-size: .82rem; color: var(--vdv-text-muted); }
+.seller-card a { color: var(--vdv-accent); font-weight: 600; text-decoration: none; font-size: .85rem; }
+.seller-card a:hover { text-decoration: underline; }
+
+/* "Continue explorando" (VDV-20260916-04): exploração depois da decisão —
+ * reusa a grade e o card existentes; o h2 segue o padrão das seções. */
+.prod-related { margin: 2.25rem 0 0; }
+.prod-related h2 { margin: 0 0 .8rem; }
+.prod-related .grid { gap: .8rem; }
+.prod-related .card img { aspect-ratio: 1 / 1; }
+.prod-related .prod-report { margin-top: 1.5rem; }
