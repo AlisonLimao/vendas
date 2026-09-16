@@ -20,6 +20,10 @@
   // Faixas editoriais só entram quando há catálogo suficiente pra não
   // duplicar card na tela (Home 2.0 — vitrine comprador-first).
   var RECENT_STRIP_MIN = 5;  // faixa "Acabou de chegar" com >= 5 produtos
+  // Fatia 32 (VDV-20260916-01) — navegação de descoberta:
+  var RECENT_RAIL_CAP = 10;  // teto de cards no trilho "Acabou de chegar"
+  var GROUP_RAIL_MIN = 5;    // trilho por grupo só com densidade (gate do export)
+  var GROUP_RAIL_CAP = 12;   // teto de cards no trilho do grupo
   var AVAILABILITY_LABELS = {
     pronta_entrega: "Pronta entrega",
     em_producao: "Em produção",
@@ -404,7 +408,78 @@
     var hasPronta = products.some(function (p) { return p.availability === "pronta_entrega"; });
     var showRecentStrip = products.length >= RECENT_STRIP_MIN;
     sectionRecent.hidden = !showRecentStrip;
-    if (showRecentStrip) fill($("grid-recent"), products.slice(0, 4));
+    // Fatia 32 — trilho horizontal: mais cards do que a antiga faixa de 4,
+    // mas com teto (a grade exaustiva continua sendo "Explore a vitrine").
+    if (showRecentStrip) fill($("grid-recent"), products.slice(0, RECENT_RAIL_CAP));
+
+    // Fatia 32 — seção "Categorias": links SÓ para páginas estáticas que
+    // existem (exportador publica catalog.category_pages com o gate >= 5 já
+    // aplicado). Sem página → sem link: nunca 404, nunca inventa volume.
+    var sectionCategorias = $("section-categorias");
+    var catPages = catalog.category_pages || [];
+    var showCategorias = catPages.length > 0;
+    sectionCategorias.hidden = !showCategorias;
+    if (showCategorias) {
+      var catChips = $("chips-categorias");
+      catChips.innerHTML = "";
+      catPages.forEach(function (cp) {
+        var a = document.createElement("a");
+        a.className = "chip";
+        a.href = "categoria/" + encodeURIComponent(cp.slug) + "/";
+        a.textContent = cp.name + " (" + cp.total + ")";
+        a.addEventListener("click", function () {
+          track("abrir_categoria", { categoria_slug: cp.slug, event_category: "navegacao" });
+        });
+        catChips.appendChild(a);
+      });
+    }
+
+    // Fatia 32 — trilho por GRUPO da taxonomia: o grupo com mais anúncios
+    // ganha um trilho horizontal quando tem densidade (>= GROUP_RAIL_MIN, o
+    // mesmo gate das páginas). Cards do trilho não repetem os do trilho de
+    // recentes (invariante "sem duplicar card na tela"). Link "Ver categoria"
+    // só quando a página do grupo existe. Sem grupo denso → seção some.
+    var sectionGrupo = $("section-grupo");
+    var groupCounts = {};
+    products.forEach(function (p) {
+      var g = p.category && p.category.group;
+      if (!g || !g.slug) return;
+      if (!groupCounts[g.slug]) {
+        groupCounts[g.slug] = { slug: g.slug, name: g.name || g.slug, n: 0 };
+      }
+      groupCounts[g.slug].n += 1;
+    });
+    var topGroup = null;
+    Object.keys(groupCounts).forEach(function (k) {
+      if (!topGroup || groupCounts[k].n > topGroup.n) topGroup = groupCounts[k];
+    });
+    var recentesIds = {};
+    if (showRecentStrip) {
+      products.slice(0, RECENT_RAIL_CAP).forEach(function (p) { recentesIds[p.id] = true; });
+    }
+    var grupoCards = topGroup
+      ? products.filter(function (p) {
+          var g = p.category && p.category.group;
+          return g && g.slug === topGroup.slug && !recentesIds[p.id];
+        }).slice(0, GROUP_RAIL_CAP)
+      : [];
+    var showGrupo = !!topGroup && topGroup.n >= GROUP_RAIL_MIN && grupoCards.length > 0;
+    sectionGrupo.hidden = !showGrupo;
+    if (showGrupo) {
+      $("rail-grupo-title").textContent = topGroup.name;
+      fill($("grid-grupo"), grupoCards);
+      var grupoLink = $("rail-grupo-link");
+      var temPagina = catPages.some(function (cp) { return cp.slug === topGroup.slug; });
+      if (temPagina) {
+        grupoLink.hidden = false;
+        grupoLink.href = "categoria/" + encodeURIComponent(topGroup.slug) + "/";
+        grupoLink.addEventListener("click", function () {
+          track("abrir_categoria", { categoria_slug: topGroup.slug, event_category: "navegacao" });
+        });
+      } else {
+        grupoLink.hidden = true;
+      }
+    }
 
     // VDV-20260907-08 — seção giratória "Em exposição agora": 8 slots fixos;
     // a cada tick troca 1 card (posição rotativa) pelo próximo produto do
@@ -557,7 +632,9 @@
     });
 
     function setBrowseVisibility(searching) {
+      sectionCategorias.hidden = searching || !showCategorias;
       sectionRecent.hidden = searching || !showRecentStrip;
+      sectionGrupo.hidden = searching || !showGrupo;
       sectionExposicao.hidden = searching || !showExposicao;
       sectionVitrine.hidden = searching || products.length === 0;
       sectionEmpty.hidden = searching || products.length > 0;
@@ -696,6 +773,12 @@
     telemetria("product_view", { product: product.id });
     sinal("page_view", { product: product.id });
     var isPecaUnica = offerType(product) === "peca_unica";
+    // Fatia 32: página do grupo existe? (decidido no export pelo gate — o
+    // front só confere a lista das páginas publicadas).
+    var prodGroup = product.category && product.category.group;
+    var temPaginaGrupo = !!(prodGroup && (catalog.category_pages || []).some(
+      function (cp) { return cp.slug === prodGroup.slug; }
+    ));
     var ownerSuffix = (isAssisted(product) && product.offer_owner_name)
       ? " · oferta de " + product.offer_owner_name
       : "";
@@ -808,6 +891,16 @@
           esc(product.offer_owner_name || product.seller_name || "este anunciante") +
           " &rarr;</a></p>"
         : "") +
+      // Fatia 32 (VDV-20260916-01) — terceira forma de navegação: "Mais em
+      // <grupo> →", espelhando o link da página estática do produto. SÓ quando
+      // o grupo ganhou página (gate no export; catalog.category_pages lista as
+      // páginas que existem — nunca linka 404).
+      (temPaginaGrupo
+        ? '<p class="prod-more"><a href="' + prefix + 'categoria/' +
+          esc(product.category.group.slug) + '/">Mais em ' +
+          esc(product.category.group.name || product.category.group.slug) +
+          " &rarr;</a></p>"
+        : "") +
       '<p class="prod-desc">' + esc(product.description) + "</p>" +
       // Canais de contato (VDV-20260905-05): os dois no MESMO tamanho padrão,
       // lado a lado, com as cores/logos oficiais dos canais — identifica pelo
@@ -852,6 +945,16 @@
     if (supplierLink && product.supplier_slug) {
       supplierLink.addEventListener("click", function () {
         telemetria("supplier_view", { supplier: product.supplier_slug });
+      });
+    }
+
+    // Fatia 32: idem para o link "Mais em <grupo>" — página estática zero-JS,
+    // o clique é medido aqui (só GA — sem novo tipo na ponte de telemetria,
+    // que exigiria mudar o servidor).
+    var catLink = main.querySelector('a[href*="categoria/"]');
+    if (catLink && prodGroup) {
+      catLink.addEventListener("click", function () {
+        track("abrir_categoria", { categoria_slug: prodGroup.slug, event_category: "navegacao" });
       });
     }
 

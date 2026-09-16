@@ -159,6 +159,33 @@ main > section:first-of-type { margin-top: .5rem; }
 }
 .chip:hover { border-color: var(--vdv-accent); }
 .chip[aria-pressed="true"] { background: var(--vdv-primary); border-color: var(--vdv-primary); color: #fff; }
+/* Fatia 32 — chips que são links (Categorias, Vitrines do VDV): visual igual
+ * aos botões-chip, sem decoração de âncora. */
+a.chip { text-decoration: none; display: inline-block; }
+
+/* Fatia 32 (VDV-20260916-01) — trilhos horizontais de descoberta: cards
+ * leves em rolagem lateral com snap. O trilho é amostra, não catálogo —
+ * a grade exaustiva continua sendo "Explore a vitrine". Cards mais leves:
+ * sem flags nem "Ver detalhes" (detalhe fica na página do produto), título
+ * em 2 linhas no máximo (trilho de altura constante). */
+.rail {
+  display: flex; gap: .75rem;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  padding-bottom: .4rem;
+}
+.rail > .card-wrap { flex: 0 0 auto; width: 9.5rem; scroll-snap-align: start; }
+.rail .card-body { padding: .55rem .6rem .65rem; gap: .15rem; }
+.rail .card-title {
+  font-size: .85rem;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.rail .card-price { font-size: .95rem; }
+.rail .card-more, .rail .card-flags { display: none; }
+.rail-more { margin: .5rem 0 0; font-size: .92rem; }
+.rail-more a { color: var(--vdv-accent); font-weight: 600; text-decoration: none; }
+.rail-more a:hover { text-decoration: underline; }
 
 :is(a, button, input, .chip):focus-visible { outline: 2px solid var(--vdv-accent); outline-offset: 2px; }
 

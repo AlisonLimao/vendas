@@ -88,7 +88,7 @@
       });
     });
   </script>
-  <link rel="stylesheet" href="assets/css/vdv.css?v=20260911-6">
+  <link rel="stylesheet" href="assets/css/vdv.css?v=20260916-1">
 </head>
 <body data-page="home">
   <header class="topbar" id="top">
@@ -144,13 +144,33 @@
       <button id="clear-search" class="btn btn-ghost" hidden>Limpar busca</button>
     </section>
 
+    <!-- Fatia 32 (VDV-20260916-01) — descoberta por categoria: links SÓ para
+         páginas que existem (gate >= 5 no exportador; catalog.category_pages).
+         Sem página acima do gate, a seção não aparece (nunca 404, nunca
+         inventa volume). -->
+    <section id="section-categorias" hidden>
+      <h2>Categorias</h2>
+      <div class="chips" id="chips-categorias"></div>
+    </section>
+
     <!-- VDV-20260907-14: a faixa fixa "⚡ Pronta entrega" saiu do topo —
          disponibilidade é escolha do anunciante; o visitante filtra quando
          quiser pelo chip "⚡ Pronta entrega" em "Explore a vitrine" (app.js). -->
 
+    <!-- Fatia 32 — "Acabou de chegar" vira trilho horizontal: descoberta leve
+         antes da grade completa; "Explore a vitrine" segue como grade total. -->
     <section id="section-novidades" hidden>
       <h2>Acabou de chegar</h2>
-      <div class="grid" id="grid-recent"></div>
+      <div class="rail" id="grid-recent"></div>
+    </section>
+
+    <!-- Fatia 32 — trilho por grupo da taxonomia: só quando o grupo tem
+         densidade (>= 5 anúncios); link "Ver categoria" só quando a página
+         estática existe. Some quando nenhum grupo sustenta o trilho. -->
+    <section id="section-grupo" hidden>
+      <h2 id="rail-grupo-title"></h2>
+      <div class="rail" id="grid-grupo"></div>
+      <p class="rail-more"><a id="rail-grupo-link" href="#" hidden>Ver categoria &rarr;</a></p>
     </section>
 
     <!-- VDV-20260907-08 — rodízio: vitrine "viva" enquanto a página está
@@ -259,7 +279,7 @@
   </footer>
 
   <script src="assets/js/fair_rotation.js?v=20260907-10"></script>
-  <script src="assets/js/app.js?v=20260912-1"></script>
+  <script src="assets/js/app.js?v=20260916-1"></script>
   <noscript>
     Gerenciamento de consentimento de cookies por <a href="https://www.termsfeed.com/">TermsFeed</a>.
   </noscript>
