@@ -1,8 +1,44 @@
 {
-  "generated_at": "2026-09-17T01:31:55Z",
+  "generated_at": "2026-09-17T01:42:33Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 34,
+  "total": 35,
   "products": [
+    {
+      "id": "8f4ea055-b260-4e5b-a0d0-f75649f29967",
+      "title": "Conjunto Blusa Tricô com Saia",
+      "description": "Conjunto feminino composto por blusa de tricô  com manga curta e estampa de ursinho, acompanhada de saia longa. A saia possui caimento leve e detalhe franzido, criando movimento e conforto. Uma combinação casual e versátil para o dia a dia, passeios e produções descontraídas.",
+      "category": {
+        "slug": "conjunto",
+        "name": "Conjunto",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
+      },
+      "price": "20.00",
+      "minimum_order": 1,
+      "offer_type": "varejo",
+      "availability": "pronta_entrega",
+      "quantity": 10,
+      "days_since_confirmation": 0,
+      "seller_name": "Ana Maria",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/8f4ea055-b260-4e5b-a0d0-f75649f29967.jpg",
+      "images": [
+        "assets/products/8f4ea055-b260-4e5b-a0d0-f75649f29967.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Ana Maria",
+      "authorization_confirmed": true,
+      "supplier_slug": "ana-maria-65dc1758",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Ana Maria",
+        "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Conjunto%20Blusa%20Tric%C3%B4%20com%20Saia%22%0APre%C3%A7o%3A%20R%24%2020%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/8f4ea055-b260-4e5b-a0d0-f75649f29967/"
+      }
+    },
     {
       "id": "ab5497f7-08ee-446a-9f7e-72c8f16d1ef8",
       "title": "Vestido Saída de Praia em Tricô Vazado",
@@ -1251,7 +1287,7 @@
     {
       "slug": "moda_e_malharia",
       "name": "Moda e Malharia",
-      "total": 29
+      "total": 30
     }
   ]
 }
