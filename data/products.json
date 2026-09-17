@@ -1,8 +1,44 @@
 {
-  "generated_at": "2026-09-17T00:11:19Z",
+  "generated_at": "2026-09-17T01:31:55Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 33,
+  "total": 34,
   "products": [
+    {
+      "id": "ab5497f7-08ee-446a-9f7e-72c8f16d1ef8",
+      "title": "Vestido Saída de Praia em Tricô Vazado",
+      "description": "Peça em tricô vazado, com modelagem ajustada, alças largas e decote arredondado. O desenho da trama combina pontos abertos e detalhes geométricos na cintura, criando um visual moderno e elegante. Ideal para usar como saída de praia, sobre biquíni ou em produções leves de verão.",
+      "category": {
+        "slug": "vestido",
+        "name": "Vestido",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
+      },
+      "price": "22.00",
+      "minimum_order": 1,
+      "offer_type": "varejo",
+      "availability": "pronta_entrega",
+      "quantity": 200,
+      "days_since_confirmation": 0,
+      "seller_name": "Ana Maria",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/ab5497f7-08ee-446a-9f7e-72c8f16d1ef8.jpg",
+      "images": [
+        "assets/products/ab5497f7-08ee-446a-9f7e-72c8f16d1ef8.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Ana Maria",
+      "authorization_confirmed": true,
+      "supplier_slug": "ana-maria-65dc1758",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Ana Maria",
+        "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Sa%C3%ADda%20de%20Praia%20em%20Tric%C3%B4%20Vazado%22%0APre%C3%A7o%3A%20R%24%2022%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/ab5497f7-08ee-446a-9f7e-72c8f16d1ef8/"
+      }
+    },
     {
       "id": "9f22576b-b542-4666-a3be-6e70157c0817",
       "title": "Animais Aquáticos Articulados 3D – Axolote e Tubarões",
@@ -20,7 +56,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 6,
+      "days_since_confirmation": 7,
       "seller_name": "Imprima 3D",
       "city": "Monte Sião",
       "state": "MG",
@@ -60,7 +96,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 6,
+      "days_since_confirmation": 7,
       "seller_name": "Imprima 3D",
       "city": "Monte Sião",
       "state": "MG",
@@ -99,7 +135,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 20,
-      "days_since_confirmation": 6,
+      "days_since_confirmation": 7,
       "seller_name": "Imprima 3D",
       "city": "Monte Sião",
       "state": "MG",
@@ -137,7 +173,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 20,
-      "days_since_confirmation": 6,
+      "days_since_confirmation": 7,
       "seller_name": "imprima 3D",
       "city": "Monte Sião",
       "state": "MG",
@@ -1215,7 +1251,7 @@
     {
       "slug": "moda_e_malharia",
       "name": "Moda e Malharia",
-      "total": 28
+      "total": 29
     }
   ]
 }
