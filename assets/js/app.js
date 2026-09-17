@@ -432,26 +432,121 @@
     // mas com teto (a grade exaustiva continua sendo "Explore a vitrine").
     if (showRecentStrip) fill($("grid-recent"), products.slice(0, RECENT_RAIL_CAP));
 
-    // Fatia 32 — seção "Categorias": links SÓ para páginas estáticas que
-    // existem (exportador publica catalog.category_pages com o gate >= 5 já
-    // aplicado). Sem página → sem link: nunca 404, nunca inventa volume.
+    // VDV-20260916-05 — contagem por grupo/sub em uma passada (reusada pelo
+    // bloco único de categorias e pelo trilho de grupo da Fatia 32).
+    var groups = {};
+    products.forEach(function (p) {
+      var c = p.category || {};
+      var g = c.group || {};
+      if (!g.slug) return;
+      var gr = groups[g.slug] ||
+        (groups[g.slug] = { slug: g.slug, name: g.name || g.slug, n: 0, subs: {} });
+      gr.n += 1;
+      var sub = gr.subs[c.slug] ||
+        (gr.subs[c.slug] = { slug: c.slug, name: c.name || c.slug, n: 0 });
+      sub.n += 1;
+    });
+
+    // VDV-20260916-05 — bloco único de categorias: um só ponto de navegação na
+    // Home. Grupo em destaque — LINK para a página estática quando existe
+    // (gate >= 5 já aplicado pelo exportador em catalog.category_pages; nunca
+    // 404) ou FILTRO do grupo inteiro quando não. Subcategorias com anúncios
+    // ficam logo abaixo como filtro local com contagem; categoria raiz
+    // (group.slug === category.slug, ex.: Impressão 3D) não se repete. O bloco
+    // NÃO some durante a busca (o filtro ativo precisa continuar na tela).
+    // Zero telemetria nova: o filtro cai no telemetria("search") existente via
+    // assinatura; o link reusa o evento abrir_categoria da Fatia 32.
     var sectionCategorias = $("section-categorias");
     var catPages = catalog.category_pages || [];
-    var showCategorias = catPages.length > 0;
+    var pageBySlug = {};
+    catPages.forEach(function (cp) { pageBySlug[cp.slug] = cp; });
+    var showCategorias = products.length > 0;
     sectionCategorias.hidden = !showCategorias;
-    if (showCategorias) {
-      var catChips = $("chips-categorias");
-      catChips.innerHTML = "";
-      catPages.forEach(function (cp) {
-        var a = document.createElement("a");
-        a.className = "chip";
-        a.href = "categoria/" + encodeURIComponent(cp.slug) + "/";
-        a.textContent = cp.name + " (" + cp.total + ")";
-        a.addEventListener("click", function () {
-          track("abrir_categoria", { categoria_slug: cp.slug, event_category: "navegacao" });
+    var catChips = $("chips-categorias");
+    catChips.innerHTML = "";
+    var activeCat = "";   // filtro por subcategoria (slug)
+    var activeGroup = ""; // filtro por grupo (slug) — mutuamente exclusivos
+    var AVAIL_FILTER = { value: "pronta_entrega", label: "⚡ Pronta entrega" };
+    var activeAvail = "";
+    function syncChipStates() {
+      Array.prototype.forEach.call(catChips.children, function (row) {
+        Array.prototype.forEach.call(row.children, function (chip) {
+          var slug = chip.getAttribute("data-slug");
+          var grp = chip.getAttribute("data-group");
+          var avail = chip.getAttribute("data-avail");
+          if (slug) chip.setAttribute("aria-pressed", String(slug === activeCat));
+          else if (grp) chip.setAttribute("aria-pressed", String(grp === activeGroup));
+          else if (avail !== null) {
+            chip.setAttribute("aria-pressed", String(avail === activeAvail));
+          }
         });
-        catChips.appendChild(a);
       });
+    }
+    if (showCategorias) {
+      Object.keys(groups)
+        .map(function (k) { return groups[k]; })
+        .sort(function (a, b) { return b.n - a.n; })
+        .forEach(function (gr) {
+          var row = document.createElement("div");
+          row.className = "cat-group";
+          var page = pageBySlug[gr.slug];
+          var gChip = document.createElement(page ? "a" : "button");
+          if (page) {
+            gChip.href = "categoria/" + encodeURIComponent(gr.slug) + "/";
+            gChip.addEventListener("click", function () {
+              track("abrir_categoria", { categoria_slug: gr.slug, event_category: "navegacao" });
+            });
+          } else {
+            gChip.type = "button";
+            gChip.setAttribute("aria-pressed", "false");
+            gChip.setAttribute("data-group", gr.slug);
+            gChip.addEventListener("click", function () {
+              activeGroup = activeGroup === gr.slug ? "" : gr.slug;
+              activeCat = "";
+              activeAvail = "";
+              syncChipStates();
+              renderSearch();
+            });
+          }
+          gChip.className = "chip chip-group";
+          gChip.textContent = gr.name + " (" + gr.n + ")";
+          row.appendChild(gChip);
+          Object.keys(gr.subs)
+            .map(function (k) { return gr.subs[k]; })
+            .filter(function (s) { return s.slug !== gr.slug; })
+            .sort(function (a, b) { return b.n - a.n; })
+            .forEach(function (s) {
+              var chip = document.createElement("button");
+              chip.type = "button";
+              chip.className = "chip";
+              chip.setAttribute("aria-pressed", "false");
+              chip.setAttribute("data-slug", s.slug);
+              chip.textContent = s.name + " " + s.n;
+              chip.addEventListener("click", function () {
+                activeCat = activeCat === s.slug ? "" : s.slug;
+                activeGroup = "";
+                activeAvail = "";
+                syncChipStates();
+                renderSearch();
+              });
+              row.appendChild(chip);
+            });
+          catChips.appendChild(row);
+        });
+      if (hasPronta) {
+        var availChip = document.createElement("button");
+        availChip.type = "button";
+        availChip.className = "chip";
+        availChip.setAttribute("aria-pressed", "false");
+        availChip.setAttribute("data-avail", AVAIL_FILTER.value);
+        availChip.textContent = AVAIL_FILTER.label;
+        availChip.addEventListener("click", function () {
+          activeAvail = activeAvail === AVAIL_FILTER.value ? "" : AVAIL_FILTER.value;
+          syncChipStates();
+          renderSearch();
+        });
+        catChips.appendChild(availChip);
+      }
     }
 
     // Fatia 32 — trilho por GRUPO da taxonomia: o grupo com mais anúncios
@@ -459,19 +554,11 @@
     // mesmo gate das páginas). Cards do trilho não repetem os do trilho de
     // recentes (invariante "sem duplicar card na tela"). Link "Ver categoria"
     // só quando a página do grupo existe. Sem grupo denso → seção some.
+    // VDV-20260916-05 — contagem reusa o mapa `groups` do bloco de categorias.
     var sectionGrupo = $("section-grupo");
-    var groupCounts = {};
-    products.forEach(function (p) {
-      var g = p.category && p.category.group;
-      if (!g || !g.slug) return;
-      if (!groupCounts[g.slug]) {
-        groupCounts[g.slug] = { slug: g.slug, name: g.name || g.slug, n: 0 };
-      }
-      groupCounts[g.slug].n += 1;
-    });
     var topGroup = null;
-    Object.keys(groupCounts).forEach(function (k) {
-      if (!topGroup || groupCounts[k].n > topGroup.n) topGroup = groupCounts[k];
+    Object.keys(groups).forEach(function (k) {
+      if (!topGroup || groups[k].n > topGroup.n) topGroup = groups[k];
     });
     var recentesIds = {};
     if (showRecentStrip) {
@@ -599,60 +686,14 @@
       io.observe(loadBtn.parentElement);
     }
 
-    var activeCat = "";
-    // VDV-20260907-14 — filtro de disponibilidade: o chip "⚡ Pronta entrega"
-    // deixa a escolha com o visitante (era faixa fixa no topo da Home). Vive na
-    // mesma fileira de chips de categoria e coexiste com eles (semântica E).
-    var AVAIL_FILTER = { value: "pronta_entrega", label: "⚡ Pronta entrega" };
-    var activeAvail = "";
     var input = $("search");
     var clearBtn = $("clear-search");
-    var catBox = $("categories");
-    var seen = {};
-
-    if (hasPronta) {
-      var availChip = document.createElement("button");
-      availChip.type = "button";
-      availChip.className = "chip";
-      availChip.setAttribute("aria-pressed", "false");
-      availChip.setAttribute("data-avail", AVAIL_FILTER.value);
-      availChip.textContent = AVAIL_FILTER.label;
-      availChip.addEventListener("click", function () {
-        activeAvail = activeAvail === AVAIL_FILTER.value ? "" : AVAIL_FILTER.value;
-        availChip.setAttribute("aria-pressed", String(activeAvail === AVAIL_FILTER.value));
-        renderSearch();
-      });
-      catBox.appendChild(availChip);
-    }
-    products.forEach(function (p) {
-      if (!seen[p.category.slug]) {
-        seen[p.category.slug] = true;
-        var chip = document.createElement("button");
-        chip.type = "button";
-        chip.className = "chip";
-        chip.setAttribute("aria-pressed", "false");
-        chip.setAttribute("data-slug", p.category.slug);
-        chip.textContent = p.category.name;
-        chip.addEventListener("click", function () {
-          activeCat = activeCat === p.category.slug ? "" : p.category.slug;
-          // VDV-20260909-01 — escolher categoria recomeça a combinação: o
-          // estado de disponibilidade sai (lógico E visual). Sem isso o chip
-          // desmarcava na tela, mas `activeAvail` ficava preso e a busca
-          // seguia aplicando "pronta entrega" E categoria juntas.
-          activeAvail = "";
-          if (availChip) availChip.setAttribute("aria-pressed", "false");
-          Array.prototype.forEach.call(catBox.children, function (c) {
-            if (c.getAttribute("data-avail")) return; // já sincronizado acima
-            c.setAttribute("aria-pressed", String(c.getAttribute("data-slug") === activeCat));
-          });
-          renderSearch();
-        });
-        catBox.appendChild(chip);
-      }
-    });
 
     function setBrowseVisibility(searching) {
-      sectionCategorias.hidden = searching || !showCategorias;
+      // VDV-20260916-05 — o bloco de categorias NÃO some durante a busca: os
+      // chips de filtro moram nele e o filtro ativo precisa continuar na tela
+      // (trocar/desmarcar sem limpar a busca inteira).
+      sectionCategorias.hidden = products.length === 0;
       sectionRecent.hidden = searching || !showRecentStrip;
       sectionGrupo.hidden = searching || !showGrupo;
       sectionExposicao.hidden = searching || !showExposicao;
@@ -666,8 +707,9 @@
     function renderSearch() {
       var q = input.value.replace(/\s+/g, " ").trim().toLowerCase();
       var cat = activeCat;
+      var grp = activeGroup;
       var avail = activeAvail;
-      var searching = q !== "" || cat !== "" || avail !== "";
+      var searching = q !== "" || cat !== "" || grp !== "" || avail !== "";
       results.hidden = !searching;
       clearBtn.hidden = !searching;
       setBrowseVisibility(searching);
@@ -675,6 +717,7 @@
       var found = products.filter(function (p) {
         if (avail && p.availability !== "pronta_entrega") return false;
         if (cat && p.category.slug !== cat) return false;
+        if (grp && (!p.category.group || p.category.group.slug !== grp)) return false;
         if (!q) return true;
         var hay = (p.title + " " + p.description + " " + p.category.name + " " +
           p.city + " " + p.seller_name).toLowerCase();
@@ -684,11 +727,11 @@
         ? found.length + " oferta" + (found.length > 1 ? "s" : "") + " encontrada" + (found.length > 1 ? "s" : "")
         : "Nada encontrado — tente outro termo";
       fill($("results-grid"), found);
-      var assinatura = q + "|" + cat + "|" + avail;
+      var assinatura = q + "|" + cat + "|" + grp + "|" + avail;
       if (assinatura !== ultimaBuscaEnviada) {
         ultimaBuscaEnviada = assinatura;
-        telemetria("search", { category: cat || null });
-        if (!found.length) telemetria("search_zero_result", { category: cat || null });
+        telemetria("search", { category: cat || grp || null });
+        if (!found.length) telemetria("search_zero_result", { category: cat || grp || null });
       }
     }
 
@@ -696,16 +739,16 @@
     clearBtn.addEventListener("click", function () {
       input.value = "";
       activeCat = "";
+      activeGroup = "";
       activeAvail = "";
-      Array.prototype.forEach.call(catBox.children, function (c) {
-        c.setAttribute("aria-pressed", "false");
-      });
+      syncChipStates();
       results.hidden = true;
       clearBtn.hidden = true;
       setBrowseVisibility(false);
     });
 
     if (products.length === 0) {
+      sectionCategorias.hidden = true;
       sectionRecent.hidden = true;
       sectionVitrine.hidden = true;
       sectionEmpty.hidden = false;
@@ -722,6 +765,7 @@
           scrollY: window.scrollY,
           q: input.value,
           cat: activeCat,
+          grp: activeGroup,
           avail: activeAvail,
           shown: shown
         }));
@@ -743,15 +787,12 @@
         if (snap && typeof snap === "object") {
           input.value = typeof snap.q === "string" ? snap.q : "";
           activeCat = typeof snap.cat === "string" ? snap.cat : "";
+          activeGroup = typeof snap.grp === "string" ? snap.grp : "";
           activeAvail = snap.avail === AVAIL_FILTER.value ? snap.avail : "";
           if (typeof snap.shown === "number" && snap.shown > 0) {
             shown = Math.min(snap.shown, products.length);
           }
-          Array.prototype.forEach.call(catBox.children, function (c) {
-            var on = c.getAttribute("data-slug") === activeCat ||
-              (c.getAttribute("data-avail") !== null && activeAvail !== "");
-            c.setAttribute("aria-pressed", String(on));
-          });
+          syncChipStates();
           renderExplore();
           renderSearch();
           if (snap.scrollY) {

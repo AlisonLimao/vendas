@@ -90,7 +90,7 @@
       });
     });
   </script>
-  <link rel="stylesheet" href="assets/css/vdv.css?v=20260916-2">
+  <link rel="stylesheet" href="assets/css/vdv.css?v=20260916-3">
 </head>
 <body data-page="home">
   <header class="topbar" id="top">
@@ -126,7 +126,6 @@
           <input id="search" type="search" placeholder="O que você procura? Ex.: blusa de inverno"
                  autocomplete="off" aria-label="Buscar produto">
         </div>
-        <div id="categories" class="chips" aria-label="Categorias"></div>
       </div>
       <!-- Banner da arte oficial do VDV (VDV-20260831-05) — só no desktop;
            no celular a primeira dobra é produto (VDV-20260905-09) -->
@@ -141,6 +140,18 @@
          tem produto/capacidade em termos de demanda, não de exposição. -->
     <p class="hero-strip"><strong>Tem produto ou capacidade para fornecer?</strong> Veja o que estão procurando — compradores já estão dizendo o que precisam no VDV.</p>
 
+    <!-- VDV-20260916-05 — bloco único de categorias: um só ponto de navegação,
+         organizado por grupo da taxonomia. Grupo em destaque — link para a
+         página estática quando existe (gate >= 5 do exportador, via
+         catalog.category_pages) ou filtro do grupo inteiro quando não.
+         Subcategorias com anúncios ficam logo abaixo, como filtro local com
+         contagem. O bloco NÃO some durante a busca (o filtro ativo precisa
+         continuar acessível na tela). -->
+    <section id="section-categorias">
+      <h2>Categorias</h2>
+      <div class="cat-block" id="chips-categorias"></div>
+    </section>
+
     <section id="results" hidden>
       <h2 id="results-title">Resultado da busca</h2>
       <div id="results-grid" class="grid"></div>
@@ -151,14 +162,6 @@
          páginas que existem (gate >= 5 no exportador; catalog.category_pages).
          Sem página acima do gate, a seção não aparece (nunca 404, nunca
          inventa volume). -->
-    <section id="section-categorias" hidden>
-      <h2>Categorias</h2>
-      <div class="chips" id="chips-categorias"></div>
-    </section>
-
-    <!-- VDV-20260907-14: a faixa fixa "⚡ Pronta entrega" saiu do topo —
-         disponibilidade é escolha do anunciante; o visitante filtra quando
-         quiser pelo chip "⚡ Pronta entrega" em "Explore a vitrine" (app.js). -->
 
     <!-- Fatia 32 — "Acabou de chegar" vira trilho horizontal: descoberta leve
          antes da grade completa; "Explore a vitrine" segue como grade total. -->
@@ -296,7 +299,7 @@
   </nav>
 
   <script src="assets/js/fair_rotation.js?v=20260907-10"></script>
-  <script src="assets/js/app.js?v=20260916-2"></script>
+  <script src="assets/js/app.js?v=20260916-3"></script>
   <noscript>
     Gerenciamento de consentimento de cookies por <a href="https://www.termsfeed.com/">TermsFeed</a>.
   </noscript>
