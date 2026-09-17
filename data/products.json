@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T23:44:57Z",
+  "generated_at": "2026-09-17T00:11:19Z",
   "bot_username": "vitrine_vendasbot",
   "total": 33,
   "products": [
@@ -175,7 +175,7 @@
       "offer_type": "atacado",
       "availability": "pronta_entrega",
       "quantity": 20,
-      "days_since_confirmation": 8,
+      "days_since_confirmation": 9,
       "seller_name": "Ana maria",
       "city": "Monte Sião",
       "state": "MG",
@@ -211,7 +211,7 @@
       "offer_type": "atacado",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 8,
+      "days_since_confirmation": 9,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
