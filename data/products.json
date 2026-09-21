@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T01:44:57Z",
+  "generated_at": "2026-09-21T07:46:39Z",
   "bot_username": "vitrine_vendasbot",
   "total": 34,
   "products": [
@@ -300,6 +300,42 @@
         "tipo": "whatsapp",
         "nome": "Ana Maria",
         "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Modal%20Canelado%20com%20Decote%20Quadrado%20e%20Bot%C3%B5es%22%0APre%C3%A7o%3A%20R%24%2015%2C00%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/6955d7a9-add8-4767-a9f8-189eead8c6ab/"
+      }
+    },
+    {
+      "id": "70f4ec48-4393-469e-86e8-173a21e2ee61",
+      "title": "Cropped Feminino em Modal Jacquard Poá",
+      "description": "Cropped feminino em modal jacquard, sem mangas, com decote redondo e desenho em poá. Possui modelagem curta e acabamento contrastante na barra, criando um visual moderno e marcante. Preço: R$ 31,90. No Pix: R$ 28,00 — 12,23% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
+      },
+      "price": "31.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 13,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/70f4ec48-4393-469e-86e8-173a21e2ee61.jpg",
+      "images": [
+        "assets/products/70f4ec48-4393-469e-86e8-173a21e2ee61.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Cropped%20Feminino%20em%20Modal%20Jacquard%20Po%C3%A1%22%0APre%C3%A7o%3A%20R%24%2031%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/70f4ec48-4393-469e-86e8-173a21e2ee61/"
       }
     },
     {
@@ -1205,53 +1241,13 @@
         "nome": "Sarah Tricô",
         "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20de%20Tric%C3%B4%20Vazado%20com%20Al%C3%A7as%20Finas%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/541ff4f4-36ff-4257-985b-8813494c480e/"
       }
-    },
-    {
-      "id": "d58b9b1b-8d8a-43e6-80ca-553435d11a0a",
-      "title": "🏍️ HONDA CG 160 — À VENDA",
-      "description": "Ano: 2021\nModelo: 2022\nQuilometragem: 17.800 km\nPreço: R$ 17.000\nSegundo proprietário no documento. Segundo o vendedor, quem efetivamente utilizou a moto foi ele; o proprietário anterior apenas a retirou da loja.\nAcompanha:\n• Manual\n• Chave reserva\n• Alarme",
-      "category": {
-        "slug": "motos",
-        "name": "Motos",
-        "group": {
-          "slug": "veiculos",
-          "name": "Veículos"
-        }
-      },
-      "price": "17000.00",
-      "minimum_order": 1,
-      "offer_type": "atacado",
-      "availability": "pronta_entrega",
-      "quantity": 1,
-      "days_since_confirmation": 14,
-      "seller_name": "Alison limão",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/d58b9b1b-8d8a-43e6-80ca-553435d11a0a.jpg",
-      "images": [
-        "assets/products/d58b9b1b-8d8a-43e6-80ca-553435d11a0a.jpg",
-        "assets/products/d58b9b1b-8d8a-43e6-80ca-553435d11a0a-2.jpg",
-        "assets/products/d58b9b1b-8d8a-43e6-80ca-553435d11a0a-3.jpg",
-        "assets/products/d58b9b1b-8d8a-43e6-80ca-553435d11a0a-4.jpg"
-      ],
-      "publication_mode": "own_offer",
-      "supplier_slug": "alison-limao",
-      "supplier_official": true,
-      "whatsapp": {
-        "nome": "Contato autorizado",
-        "link": "https://wa.me/5535991038206?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22%F0%9F%8F%8D%EF%B8%8F%20HONDA%20CG%20160%20%E2%80%94%20%C3%80%20VENDA%22%0APre%C3%A7o%3A%20R%24%2017000%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/d58b9b1b-8d8a-43e6-80ca-553435d11a0a/"
-      },
-      "telegram_contact": {
-        "nome": "Alison limão",
-        "link": "https://t.me/Alison29silva"
-      }
     }
   ],
   "category_pages": [
     {
       "slug": "moda_e_malharia",
       "name": "Moda e Malharia",
-      "total": 29
+      "total": 30
     }
   ]
 }
