@@ -17,7 +17,7 @@
  *   6. setBrowseVisibility mantém o bloco visível durante a busca;
  *   7. snapshot de retorno guarda/restaura raiz+filho com validação anti-
  *      estado-órfão (raiz inexistente some; filho sem raiz válida some);
- *   8. cache-busting ?v=20260921-2 no CSS e no app.js.
+ *   8. cache-busting ?v=20260921-3 no CSS e no app.js.
  * Rodar: node tests/categorias.test.js */
 "use strict";
 
@@ -140,7 +140,7 @@ assert(/renderCatBlock\(\);\s*\n\s*renderExplore\(\);\s*\n\s*renderSearch\(\);/.
   "7. restore re-renderiza o bloco de 2 níveis");
 
 // 8. Cache-busting da fatia.
-assert(/vdv\.css\?v=20260921-2/.test(html), "8. CSS com ?v=20260921-2 na home");
-assert(/app\.js\?v=20260921-2/.test(html), "8. app.js com ?v=20260921-2 na home");
+assert(/vdv\.css\?v=20260921-3/.test(html), "8. CSS com ?v=20260921-3 na home");
+assert(/app\.js\?v=20260921-3/.test(html), "8. app.js com ?v=20260921-3 na home");
 
 console.log("categorias: OK (taxonomia navegável em 2 níveis — VDV-20260921-01)");

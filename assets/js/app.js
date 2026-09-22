@@ -824,6 +824,9 @@
         ? ctx.join(" › ") + " · " + contagem
         : contagem;
       fill($("results-grid"), found);
+      // Bloco 5 (VDV-20260921-01) — CTA de Procura contextual, só quando a
+      // busca não acha nada (link já emite procura_click no deep link).
+      $("results-procura").hidden = found.length > 0;
       var assinatura = q + "|" + cat + "|" + grp + "|" + avail;
       if (assinatura !== ultimaBuscaEnviada) {
         ultimaBuscaEnviada = assinatura;
