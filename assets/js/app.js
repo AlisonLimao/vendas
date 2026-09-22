@@ -463,75 +463,77 @@
     var showCategorias = products.length > 0;
     sectionCategorias.hidden = !showCategorias;
     var catChips = $("chips-categorias");
-    catChips.innerHTML = "";
-    var activeCat = "";   // filtro por subcategoria (slug)
-    var activeGroup = ""; // filtro por grupo (slug) — mutuamente exclusivos
+
+    // VDV-20260921-01 (Bloco 1) — taxonomia navegável em 2 níveis, derivada
+    // dos produtos (a taxonomia exportada é a fonte de verdade; nada
+    // hardcoded). Nível 1: só raízes (grupos) + "Toda a vitrine". Nível 2,
+    // só com raiz ativa E filhos diretos: "Tudo em <categoria>" + filhos.
+    // Trocar de raiz limpa obrigatoriamente o filho; "Toda a vitrine" limpa
+    // ambos (e a disponibilidade); "Tudo em <categoria>" limpa só o filho.
+    // Raiz nunca vira link: a navegação para a página estática (gate >= 5)
+    // mora no nível 2 como ação discreta — filtro e navegação não se
+    // misturam. Busca textual combina sem apagar o termo.
+    var selectedCategory = "";     // raiz ativa (slug do grupo)
+    var selectedSubcategory = "";  // filho ativo (slug da sub)
     var AVAIL_FILTER = { value: "pronta_entrega", label: "⚡ Pronta entrega" };
     var activeAvail = "";
+    function setChipPressed(chip) {
+      var slug = chip.getAttribute("data-slug");
+      var grp = chip.getAttribute("data-group");
+      var avail = chip.getAttribute("data-avail");
+      if (chip.hasAttribute("data-all")) {
+        chip.setAttribute("aria-pressed",
+          String(!selectedCategory && !selectedSubcategory));
+      } else if (slug) {
+        chip.setAttribute("aria-pressed", String(slug === selectedSubcategory));
+      } else if (grp) {
+        chip.setAttribute("aria-pressed",
+          String(grp === selectedCategory && !selectedSubcategory));
+      } else if (avail !== null) {
+        chip.setAttribute("aria-pressed", String(avail === activeAvail));
+      }
+    }
     function syncChipStates() {
       Array.prototype.forEach.call(catChips.children, function (row) {
-        Array.prototype.forEach.call(row.children, function (chip) {
-          var slug = chip.getAttribute("data-slug");
-          var grp = chip.getAttribute("data-group");
-          var avail = chip.getAttribute("data-avail");
-          if (slug) chip.setAttribute("aria-pressed", String(slug === activeCat));
-          else if (grp) chip.setAttribute("aria-pressed", String(grp === activeGroup));
-          else if (avail !== null) {
-            chip.setAttribute("aria-pressed", String(avail === activeAvail));
-          }
-        });
+        Array.prototype.forEach.call(row.children, setChipPressed);
       });
     }
-    if (showCategorias) {
+    function renderCatBlock() {
+      catChips.innerHTML = "";
+      if (!showCategorias) return;
+      var row1 = document.createElement("div");
+      row1.className = "cat-row cat-row-l1";
+      var allChip = document.createElement("button");
+      allChip.type = "button";
+      allChip.className = "chip chip-all";
+      allChip.setAttribute("aria-pressed", "false");
+      allChip.setAttribute("data-all", "1");
+      allChip.textContent = "Toda a vitrine";
+      allChip.addEventListener("click", function () {
+        selectedCategory = "";
+        selectedSubcategory = "";
+        activeAvail = "";
+        renderCatBlock();
+        renderSearch();
+      });
+      row1.appendChild(allChip);
       Object.keys(groups)
         .map(function (k) { return groups[k]; })
         .sort(function (a, b) { return b.n - a.n; })
         .forEach(function (gr) {
-          var row = document.createElement("div");
-          row.className = "cat-group";
-          var page = pageBySlug[gr.slug];
-          var gChip = document.createElement(page ? "a" : "button");
-          if (page) {
-            gChip.href = "categoria/" + encodeURIComponent(gr.slug) + "/";
-            gChip.addEventListener("click", function () {
-              track("abrir_categoria", { categoria_slug: gr.slug, event_category: "navegacao" });
-            });
-          } else {
-            gChip.type = "button";
-            gChip.setAttribute("aria-pressed", "false");
-            gChip.setAttribute("data-group", gr.slug);
-            gChip.addEventListener("click", function () {
-              activeGroup = activeGroup === gr.slug ? "" : gr.slug;
-              activeCat = "";
-              activeAvail = "";
-              syncChipStates();
-              renderSearch();
-            });
-          }
-          gChip.className = "chip chip-group";
-          gChip.textContent = gr.name + " (" + gr.n + ")";
-          row.appendChild(gChip);
-          Object.keys(gr.subs)
-            .map(function (k) { return gr.subs[k]; })
-            .filter(function (s) { return s.slug !== gr.slug; })
-            .sort(function (a, b) { return b.n - a.n; })
-            .forEach(function (s) {
-              var chip = document.createElement("button");
-              chip.type = "button";
-              chip.className = "chip";
-              chip.setAttribute("aria-pressed", "false");
-              chip.setAttribute("data-slug", s.slug);
-              chip.textContent = s.name + " " + s.n;
-              chip.addEventListener("click", function () {
-                activeCat = activeCat === s.slug ? "" : s.slug;
-                activeGroup = "";
-                activeAvail = "";
-                syncChipStates();
-                renderSearch();
-              });
-              row.appendChild(chip);
-            });
-          catChips.appendChild(row);
+          var chip = document.createElement("button");
+          chip.type = "button";
+          chip.className = "chip chip-group";
+          chip.setAttribute("aria-pressed", "false");
+          chip.setAttribute("data-group", gr.slug);
+          chip.textContent = gr.name + " (" + gr.n + ")";
+          chip.addEventListener("click", function () {
+            selectedCategory = selectedCategory === gr.slug ? "" : gr.slug;
+            selectedSubcategory = "";
+            renderCatBlock();
+            renderSearch();
+          });
+          row1.appendChild(chip);
         });
       if (hasPronta) {
         var availChip = document.createElement("button");
@@ -542,12 +544,63 @@
         availChip.textContent = AVAIL_FILTER.label;
         availChip.addEventListener("click", function () {
           activeAvail = activeAvail === AVAIL_FILTER.value ? "" : AVAIL_FILTER.value;
-          syncChipStates();
+          renderCatBlock();
           renderSearch();
         });
-        catChips.appendChild(availChip);
+        row1.appendChild(availChip);
       }
+      catChips.appendChild(row1);
+      var current = selectedCategory ? groups[selectedCategory] : null;
+      if (!current) { syncChipStates(); return; }
+      var children = Object.keys(current.subs)
+        .map(function (k) { return current.subs[k]; })
+        .filter(function (s) { return s.slug !== current.slug; })
+        .sort(function (a, b) { return b.n - a.n; });
+      if (children.length) {
+        var row2 = document.createElement("div");
+        row2.className = "cat-row cat-row-l2";
+        var allIn = document.createElement("button");
+        allIn.type = "button";
+        allIn.className = "chip chip-group";
+        allIn.setAttribute("aria-pressed", "false");
+        allIn.setAttribute("data-group", current.slug);
+        allIn.textContent = "Tudo em " + current.name;
+        allIn.addEventListener("click", function () {
+          selectedSubcategory = "";
+          renderCatBlock();
+          renderSearch();
+        });
+        row2.appendChild(allIn);
+        children.forEach(function (s) {
+          var chip = document.createElement("button");
+          chip.type = "button";
+          chip.className = "chip";
+          chip.setAttribute("aria-pressed", "false");
+          chip.setAttribute("data-slug", s.slug);
+          chip.textContent = s.name + " " + s.n;
+          chip.addEventListener("click", function () {
+            selectedSubcategory = selectedSubcategory === s.slug ? "" : s.slug;
+            renderCatBlock();
+            renderSearch();
+          });
+          row2.appendChild(chip);
+        });
+        var page = pageBySlug[current.slug];
+        if (page) {
+          var pgLink = document.createElement("a");
+          pgLink.className = "chip chip-page";
+          pgLink.href = "categoria/" + encodeURIComponent(current.slug) + "/";
+          pgLink.textContent = "Página de " + current.name + " →";
+          pgLink.addEventListener("click", function () {
+            track("abrir_categoria", { categoria_slug: current.slug, event_category: "navegacao" });
+          });
+          row2.appendChild(pgLink);
+        }
+        catChips.appendChild(row2);
+      }
+      syncChipStates();
     }
+    renderCatBlock();
 
     // Fatia 32 — trilho por GRUPO da taxonomia: o grupo com mais anúncios
     // ganha um trilho horizontal quando tem densidade (>= GROUP_RAIL_MIN, o
@@ -706,8 +759,8 @@
     var ultimaBuscaEnviada = "";
     function renderSearch() {
       var q = input.value.replace(/\s+/g, " ").trim().toLowerCase();
-      var cat = activeCat;
-      var grp = activeGroup;
+      var cat = selectedSubcategory;
+      var grp = selectedCategory;
       var avail = activeAvail;
       var searching = q !== "" || cat !== "" || grp !== "" || avail !== "";
       results.hidden = !searching;
@@ -723,9 +776,19 @@
           p.city + " " + p.seller_name).toLowerCase();
         return q.split(" ").every(function (term) { return hay.indexOf(term) !== -1; });
       });
-      $("results-title").textContent = found.length
+      // VDV-20260921-01 (Bloco 1) — contexto pai › filho ativo + contagem.
+      var ctx = [];
+      if (grp) ctx.push(groups[grp] ? groups[grp].name : grp);
+      if (cat) {
+        var g = groups[grp];
+        ctx.push(g && g.subs[cat] ? g.subs[cat].name : cat);
+      }
+      var contagem = found.length
         ? found.length + " oferta" + (found.length > 1 ? "s" : "") + " encontrada" + (found.length > 1 ? "s" : "")
         : "Nada encontrado — tente outro termo";
+      $("results-title").textContent = ctx.length
+        ? ctx.join(" › ") + " · " + contagem
+        : contagem;
       fill($("results-grid"), found);
       var assinatura = q + "|" + cat + "|" + grp + "|" + avail;
       if (assinatura !== ultimaBuscaEnviada) {
@@ -738,10 +801,10 @@
     input.addEventListener("input", renderSearch);
     clearBtn.addEventListener("click", function () {
       input.value = "";
-      activeCat = "";
-      activeGroup = "";
+      selectedSubcategory = "";
+      selectedCategory = "";
       activeAvail = "";
-      syncChipStates();
+      renderCatBlock();
       results.hidden = true;
       clearBtn.hidden = true;
       setBrowseVisibility(false);
@@ -764,8 +827,8 @@
         sessionStorage.setItem(HOME_STATE_KEY, JSON.stringify({
           scrollY: window.scrollY,
           q: input.value,
-          cat: activeCat,
-          grp: activeGroup,
+          cat: selectedSubcategory,
+          grp: selectedCategory,
           avail: activeAvail,
           shown: shown
         }));
@@ -786,13 +849,22 @@
         var snap = JSON.parse(raw);
         if (snap && typeof snap === "object") {
           input.value = typeof snap.q === "string" ? snap.q : "";
-          activeCat = typeof snap.cat === "string" ? snap.cat : "";
-          activeGroup = typeof snap.grp === "string" ? snap.grp : "";
+          selectedCategory = typeof snap.grp === "string" ? snap.grp : "";
+          selectedSubcategory = typeof snap.cat === "string" ? snap.cat : "";
+          // VDV-20260921-01 (Bloco 1) — validação contra o catálogo atual:
+          // raiz que não existe mais some; filho sem raiz válida (ou filho
+          // que deixou de existir) nunca fica órfão.
+          if (selectedCategory && !groups[selectedCategory]) selectedCategory = "";
+          if (selectedSubcategory) {
+            var gs = groups[selectedCategory];
+            if (!gs || !gs.subs[selectedSubcategory] ||
+                selectedSubcategory === selectedCategory) selectedSubcategory = "";
+          }
           activeAvail = snap.avail === AVAIL_FILTER.value ? snap.avail : "";
           if (typeof snap.shown === "number" && snap.shown > 0) {
             shown = Math.min(snap.shown, products.length);
           }
-          syncChipStates();
+          renderCatBlock();
           renderExplore();
           renderSearch();
           if (snap.scrollY) {

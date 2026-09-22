@@ -1,17 +1,23 @@
-/* VDV-20260916-05 — um único ponto de categorias na home (bloco com hierarquia).
+/* VDV-20260921-01 (Bloco 1) — taxonomia navegável em 2 níveis.
  * Teste estático (node puro, por regex — padrão das suítes do front) sobre
  * index.html e app.js:
- *   1. hero sem os chips de filtro soltos (#categories removido);
- *   2. bloco único #section-categorias com .cat-block, logo após o hero e
- *      antes de #results, sem `hidden` fixo no HTML;
- *   3. app.js: sem $("categories"); render único com .cat-group/.chip-group;
- *      grupo é LINK quando a página existe (pageBySlug) e FILTRO quando não;
- *      categoria raiz (group.slug === category.slug) não repete a sub;
- *   4. estado activeGroup mutuamente exclusivo com activeCat e syncChipStates;
- *   5. renderSearch filtra por grupo e inclui grp na assinatura de telemetria;
+ *   1. hero sem chips de filtro soltos; bloco único #section-categorias após
+ *      o hero e antes de #results, sem `hidden` fixo no HTML;
+ *   2. nível 1: "Toda a vitrine" (data-all) + só raízes (chip-group como
+ *      FILTRO, nunca link) + chip ⚡; raiz NÃO mistura navegação com filtro;
+ *   3. nível 2: "Tudo em <categoria>" (limpa só o filho) + filhos diretos
+ *      (categoria raiz não repete a sub) + link chip-page quando a página
+ *      existe (pageBySlug), só com raiz ativa;
+ *   4. estados selectedCategory/selectedSubcategory: trocar raiz limpa o
+ *      filho; "Toda a vitrine" limpa ambos; syncChipStates centraliza
+ *      aria-pressed;
+ *   5. renderSearch filtra por raiz (grupo) e filho, título mostra contexto
+ *      "pai › filho · contagem" (breadcrumb), assinatura de telemetria
+ *      inclui raiz e filho;
  *   6. setBrowseVisibility mantém o bloco visível durante a busca;
- *   7. snapshot de retorno (sessionStorage) guarda/restaura grp;
- *   8. cache-busting ?v=20260916-3 no CSS e no app.js.
+ *   7. snapshot de retorno guarda/restaura raiz+filho com validação anti-
+ *      estado-órfão (raiz inexistente some; filho sem raiz válida some);
+ *   8. cache-busting ?v=20260921-1 no CSS e no app.js.
  * Rodar: node tests/categorias.test.js */
 "use strict";
 
@@ -28,60 +34,78 @@ const html = fs.readFileSync(
   "utf8"
 );
 
-// 1. Hero limpo: sem o contêiner antigo de chips de filtro.
+// 1. Hero limpo + bloco único de categorias no lugar certo.
 assert(!/id="categories"/.test(html), "1. #categories removido do hero");
 assert(!/\$\("categories"\)/.test(js), "1. app.js sem referência a #categories");
-
-// 2. Bloco único de categorias no lugar certo.
-const heroIdx = html.indexOf("</section>", html.indexOf('class="hero"'));
-const catIdx = html.indexOf('<section id="section-categorias"');
 const resultsIdx = html.indexOf('<section id="results" hidden>');
-assert(catIdx !== -1, "2. seção de categorias presente");
-assert(resultsIdx !== -1, "2. seção de resultados presente");
-assert(catIdx < resultsIdx, "2. categorias antes de #results");
-assert(
-  html.indexOf('<section id="section-categorias"', heroIdx) === catIdx ||
-    catIdx > html.indexOf('class="hero"'),
-  "2. bloco de categorias após o hero"
-);
+const catIdx = html.indexOf('<section id="section-categorias"');
+assert(catIdx !== -1 && resultsIdx !== -1, "1. seções presentes");
+assert(catIdx < resultsIdx, "1. categorias antes de #results");
 assert(
   /<section id="section-categorias">\s*<h2>Categorias<\/h2>\s*<div class="cat-block" id="chips-categorias"><\/div>\s*<\/section>/.test(html),
-  "2. bloco único com .cat-block e sem hidden fixo"
+  "1. bloco único com .cat-block e sem hidden fixo"
 );
 
-// 3. Render do bloco único no app.js.
-assert(js.includes('id="chips-categorias"') || js.includes('chips-categorias'),
-  "3. JS preenche o bloco único");
-assert(js.includes('className = "chip chip-group"'), "3. chip de grupo em destaque");
+// 2. Nível 1: "Toda a vitrine" + raízes como filtro (nunca link).
+assert(js.includes("var selectedCategory = \"\""), "2. selectedCategory declarado");
+assert(js.includes("var selectedSubcategory = \"\""), "2. selectedSubcategory declarado");
+assert(js.includes('"Toda a vitrine"'), "2. chip Toda a vitrine");
+assert(js.includes('setAttribute("data-all", "1")'), "2. data-all no chip de reset");
+assert(js.includes('className = "chip chip-group"'), "2. raiz com destaque de grupo");
+assert(js.includes('setAttribute("data-group", gr.slug)'), "2. raiz como FILTRO");
+assert(
+  !/document\.createElement\(page \? "a" : "button"\)/.test(js),
+  "2. raiz nunca vira link condicional (navegação foi para o nível 2)"
+);
+assert(js.includes('"⚡ Pronta entrega"'), "2. chip ⚡ no nível 1");
+assert(js.includes('className = "cat-row cat-row-l1"'), "2. nível 1 em cat-row própria");
+
+// 3. Nível 2: Tudo em <categoria> + filhos + link da página.
+assert(js.includes('"Tudo em " + current.name'), "3. Tudo em <categoria>");
+assert(/s\.slug !== current\.slug/.test(js), "3. categoria raiz não repete a sub");
+assert(js.includes('className = "cat-row cat-row-l2"'), "3. nível 2 em cat-row própria");
+assert(js.includes('className = "chip chip-page"'), "3. link discreto da página estática");
 assert(js.includes("pageBySlug"), "3. link condicionado a category_pages");
-assert(js.includes('setAttribute("data-group", gr.slug)'), "3. chip de grupo como filtro quando sem página");
-assert(/s\.slug !== gr\.slug/.test(js), "3. categoria raiz não repete a sub");
-assert(/gChip\.className = "chip chip-group"/.test(js), "3. classe de destaque do grupo");
-
-// 4. Estado mutuamente exclusivo + sincronização visual.
-assert(js.includes("var activeGroup = \"\""), "4. activeGroup declarado");
 assert(
-  /activeGroup = activeGroup === gr\.slug \? "" : gr\.slug;[\s\S]{0,120}activeCat = "";/.test(js),
-  "4. escolher grupo limpa activeCat"
+  /if \(!current\) \{ syncChipStates\(\); return; \}/.test(js),
+  "3. nível 2 só aparece com raiz ativa"
+);
+assert(/if \(children\.length\)/.test(js), "3. nível 2 só com filhos diretos");
+
+// 4. Estado: trocar raiz limpa o filho; Toda a vitrine limpa ambos.
+assert(
+  /selectedCategory = selectedCategory === gr\.slug \? "" : gr\.slug;[\s\S]{0,80}selectedSubcategory = "";/.test(js),
+  "4. trocar a raiz limpa o filho"
 );
 assert(
-  /activeCat = activeCat === s\.slug \? "" : s\.slug;[\s\S]{0,80}activeGroup = "";/.test(js),
-  "4. escolher sub limpa activeGroup"
+  /allChip\.addEventListener[\s\S]{0,300}selectedCategory = "";[\s\S]{0,60}selectedSubcategory = "";[\s\S]{0,60}activeAvail = "";/.test(js),
+  "4. Toda a vitrine limpa raiz, filho e disponibilidade"
+);
+assert(
+  /allIn\.addEventListener[\s\S]{0,200}selectedSubcategory = "";[\s\S]{0,40}renderCatBlock\(\);/.test(js),
+  "4. Tudo em <categoria> limpa só o filho"
 );
 assert(js.includes("function syncChipStates"), "4. syncChipStates centraliza aria-pressed");
+assert(/function setChipPressed/.test(js), "4. aria-pressed calculado por chip");
+assert(
+  /selectedSubcategory = selectedSubcategory === s\.slug \? "" : s\.slug;/.test(js),
+  "4. filho é toggle sem tocar a raiz"
+);
 
-// 5. renderSearch com filtro de grupo.
+// 5. renderSearch: filtro raiz+filho, breadcrumb e assinatura.
 const rsIdx = js.indexOf("function renderSearch");
 const rs = js.slice(rsIdx, js.indexOf("input.addEventListener", rsIdx));
-assert(rs.includes("grp = activeGroup"), "5. renderSearch lê activeGroup");
+assert(rs.includes("cat = selectedSubcategory"), "5. renderSearch lê o filho");
+assert(rs.includes("grp = selectedCategory"), "5. renderSearch lê a raiz");
 assert(
   rs.includes("p.category.group.slug !== grp"),
-  "5. predicado filtra pelo grupo"
+  "5. predicado filtra pela raiz (grupo)"
 );
-assert(rs.includes("grp + \"|\" + avail") || /cat \+ "\|" \+ grp \+ "\|" \+ avail/.test(rs),
-  "5. assinatura de telemetria inclui o grupo");
+assert(/ctx\.join\(" › "\)/.test(rs), "5. breadcrumb pai › filho no título");
+assert(/cat \+ "\|" \+ grp \+ "\|" \+ avail/.test(rs),
+  "5. assinatura de telemetria inclui raiz e filho");
 
-// 6. O bloco de categorias NÃO some durante a busca (o filtro ativo fica na tela).
+// 6. O bloco de categorias NÃO some durante a busca.
 const visIdx = js.indexOf("function setBrowseVisibility");
 const vis = js.slice(visIdx, js.indexOf("}", js.indexOf("sectionEmpty.hidden", visIdx)));
 assert(
@@ -93,15 +117,30 @@ assert(
   "6. categorias não pode ser escondida por searching"
 );
 
-// 7. Snapshot de retorno à home persiste o filtro de grupo.
-assert(/grp: activeGroup/.test(js), "7. saveHomeState persiste grp");
+// 7. Snapshot de retorno: guarda raiz+filho e valida contra o catálogo.
+assert(/cat: selectedSubcategory/.test(js), "7. saveHomeState persiste o filho");
+assert(/grp: selectedCategory/.test(js), "7. saveHomeState persiste a raiz");
 assert(
-  /activeGroup = typeof snap\.grp === "string" \? snap\.grp : "";/.test(js),
-  "7. restore lê grp do snapshot"
+  /selectedCategory = typeof snap\.grp === "string" \? snap\.grp : "";/.test(js),
+  "7. restore lê a raiz do snapshot"
 );
+assert(
+  /selectedSubcategory = typeof snap\.cat === "string" \? snap\.cat : "";/.test(js),
+  "7. restore lê o filho do snapshot"
+);
+assert(
+  /if \(selectedCategory && !groups\[selectedCategory\]\) selectedCategory = "";/.test(js),
+  "7. raiz inexistente nunca volta órfã"
+);
+assert(
+  /if \(!gs \|\| !gs\.subs\[selectedSubcategory\] \|\|[\s\S]{0,60}selectedSubcategory = "";/.test(js),
+  "7. filho sem raiz válida nunca fica órfão"
+);
+assert(/renderCatBlock\(\);\s*\n\s*renderExplore\(\);\s*\n\s*renderSearch\(\);/.test(js),
+  "7. restore re-renderiza o bloco de 2 níveis");
 
 // 8. Cache-busting da fatia.
-assert(/vdv\.css\?v=20260916-3/.test(html), "8. CSS com ?v=20260916-3 na home");
-assert(/app\.js\?v=20260916-3/.test(html), "8. app.js com ?v=20260916-3 na home");
+assert(/vdv\.css\?v=20260921-1/.test(html), "8. CSS com ?v=20260921-1 na home");
+assert(/app\.js\?v=20260921-1/.test(html), "8. app.js com ?v=20260921-1 na home");
 
-console.log("categorias: OK (bloco único com hierarquia — grupo + subs + ⚡)");
+console.log("categorias: OK (taxonomia navegável em 2 níveis — VDV-20260921-01)");

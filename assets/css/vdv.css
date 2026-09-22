@@ -677,23 +677,36 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
 .prod-related .grid { gap: .8rem; }
 .prod-related .card img { aspect-ratio: 1 / 1; }
 .prod-related .prod-report { margin-top: 1.5rem; }
-/* VDV-20260916-05 — bloco único de categorias: um só ponto de navegação,
- * organizado por grupo. O grupo em destaque é LINK quando a página estática
- * existe (gate >= 5) e FILTRO quando não; as subcategorias com anúncios
- * ficam na mesma fileira, como filtro local (aria-pressed do .chip já vale). */
+/* VDV-20260921-01 (Bloco 1) — taxonomia navegável em 2 níveis: nível 1 =
+ * raízes + "Toda a vitrine"; nível 2, só com raiz ativa = "Tudo em <categoria>"
+ * + filhos diretos + link discreto para a página estática (gate >= 5).
+ * Mobile: uma faixa rolável horizontal por nível (chips não quebram linha). */
 .cat-block { display: flex; flex-direction: column; gap: .55rem; }
-.cat-group { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; }
+.cat-row { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; }
+.cat-row-l2 {
+  padding-left: .65rem;
+  border-left: 2px solid var(--vdv-border);
+}
 .chip-group { font-weight: 600; }
-/* Grupo com página: destaque de ação (leva para a página estática). */
-a.chip-group {
+/* Link discreto para a página estática do grupo (navegação ≠ filtro). */
+a.chip-page {
   background: var(--vdv-surface);
   border-color: var(--vdv-primary);
   color: var(--vdv-primary);
 }
 @media (prefers-color-scheme: dark) {
-  a.chip-group {
+  a.chip-page {
     background: rgba(37, 99, 235, .14);
     border-color: var(--vdv-accent);
     color: #93c5fd;
   }
+}
+@media (max-width: 640px) {
+  .cat-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .cat-row::-webkit-scrollbar { display: none; }
 }

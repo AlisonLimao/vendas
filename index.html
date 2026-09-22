@@ -90,7 +90,7 @@
       });
     });
   </script>
-  <link rel="stylesheet" href="assets/css/vdv.css?v=20260916-3">
+  <link rel="stylesheet" href="assets/css/vdv.css?v=20260921-1">
 </head>
 <body data-page="home">
   <header class="topbar" id="top">
@@ -140,13 +140,13 @@
          tem produto/capacidade em termos de demanda, não de exposição. -->
     <p class="hero-strip"><strong>Tem produto ou capacidade para fornecer?</strong> Veja o que estão procurando — compradores já estão dizendo o que precisam no VDV.</p>
 
-    <!-- VDV-20260916-05 — bloco único de categorias: um só ponto de navegação,
-         organizado por grupo da taxonomia. Grupo em destaque — link para a
-         página estática quando existe (gate >= 5 do exportador, via
-         catalog.category_pages) ou filtro do grupo inteiro quando não.
-         Subcategorias com anúncios ficam logo abaixo, como filtro local com
-         contagem. O bloco NÃO some durante a busca (o filtro ativo precisa
-         continuar acessível na tela). -->
+    <!-- VDV-20260921-01 (Bloco 1) — taxonomia navegável em 2 níveis, um só
+         ponto de navegação: nível 1 = "Toda a vitrine" + raízes da taxonomia
+         (grupos); nível 2, só com raiz ativa = "Tudo em <categoria>" + filhos
+         diretos + link para a página estática quando existe (gate >= 5 do
+         exportador, via catalog.category_pages). A árvore deriva dos produtos
+         (taxonomia exportada é a fonte de verdade). O bloco NÃO some durante
+         a busca (o filtro ativo precisa continuar acessível na tela). -->
     <section id="section-categorias">
       <h2>Categorias</h2>
       <div class="cat-block" id="chips-categorias"></div>
@@ -299,7 +299,7 @@
   </nav>
 
   <script src="assets/js/fair_rotation.js?v=20260907-10"></script>
-  <script src="assets/js/app.js?v=20260916-3"></script>
+  <script src="assets/js/app.js?v=20260921-1"></script>
   <noscript>
     Gerenciamento de consentimento de cookies por <a href="https://www.termsfeed.com/">TermsFeed</a>.
   </noscript>
