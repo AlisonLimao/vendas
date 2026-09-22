@@ -74,12 +74,41 @@
     }
   })();
 
+  // VDV-20260921-01 (Bloco 3) — origem de compartilhamento rastreável: a URL
+  // compartilhada carrega ``?o=<canal>`` e o visitante que chega por ela
+  // tem a origem preservada na navegação da sessão (sessionStorage — escopo
+  // de aba, sem valor próprio além de "veio de um compartilhamento").
+  // Allowlist fechada, espelhada na allowlist do servidor (migração 0026):
+  // ``web`` (navegação direta), ``compartilhamento`` (share nativo, alvo
+  // desconhecido), ``compartilhamento_whatsapp/facebook/google`` e
+  // ``seller_share`` (compartilhamento do próprio vendedor). Falha ou
+  // valor fora da lista = "web" (nunca inventar origem).
+  var ORIGEM_PARAMS = {
+    whatsapp: "compartilhamento_whatsapp",
+    facebook: "compartilhamento_facebook",
+    google: "compartilhamento_google",
+    seller_share: "seller_share",
+    compartilhamento: "compartilhamento"
+  };
+  var vdvOrigem = (function () {
+    try {
+      var p = new URL(window.location.href).searchParams.get("o");
+      if (p && ORIGEM_PARAMS[p]) {
+        sessionStorage.setItem("vdv:origem", ORIGEM_PARAMS[p]);
+        return ORIGEM_PARAMS[p];
+      }
+      var v = sessionStorage.getItem("vdv:origem");
+      if (v) return v;
+    } catch (e) { /* silêncio */ }
+    return "web";
+  })();
+
   // Evento da vitrine (plano 08 §3): POST one-way via sendBeacon (text/plain
   // = requisição simples, sem preflight). Campos fechados; refs opcionais.
   // Falha = silêncio — telemetria nunca atrapalha nem atrasa a vitrine.
   function telemetria(tipo, refs) {
     if (!TELEMETRIA_URL || !consentimentoTelemetria) return;
-    var payload = { type: tipo, sid: vdvSid, origin: "web" };
+    var payload = { type: tipo, sid: vdvSid, origin: vdvOrigem };
     if (refs) {
       if (refs.product) payload.product = refs.product;
       if (refs.supplier) payload.supplier = refs.supplier;
@@ -97,13 +126,13 @@
   // SEM gate de consentimento, SEM sid (nenhum identificador — nada é
   // hasheado nem persistido além de tipo/refs/canal), sem cookie, sem
   // localStorage de rastreamento, sem fingerprint. Campos fechados:
-  // {type, origin:"web", product?, category?, channel?} — supplier e tipos
+  // {type, origin, product?, category?, channel?} — supplier e tipos
   // da stream consentida não existem aqui. Tipos: page_view/like/share/
   // contact_click. Falha = silêncio (nunca atrapalha a vitrine).
   var SINAL_URL = 'https://api.vitrinedevenda.com.br/sinal';
   function sinal(tipo, refs) {
     if (!SINAL_URL) return;
-    var payload = { type: tipo, origin: "web" };
+    var payload = { type: tipo, origin: vdvOrigem };
     if (refs) {
       if (refs.product) payload.product = refs.product;
       if (refs.category) payload.category = refs.category;
@@ -325,13 +354,18 @@
 
   /* URL pública de compartilhamento do produto (página estática com OG
    * resolvido no export — VDV-20260901-04). É a URL que vai na mensagem
-   * compartilhada, para o card de preview sair com foto/título do produto. */
-  function shareUrl(product) {
-    return new URL(prefix + "produto/" + product.id + "/", window.location.href).href;
+   * compartilhada, para o card de preview sair com foto/título do produto.
+   * Bloco 3 (VDV-20260921-01): ``?o=<origem>`` na URL compartilhada —
+   * wa.me explícito = "whatsapp"; share nativo do sistema (alvo à escolha
+   * da pessoa) = "compartilhamento" (sem alegar canal que não se sabe). */
+  function shareUrl(product, origem) {
+    var url = new URL(prefix + "produto/" + product.id + "/", window.location.href);
+    if (origem) url.searchParams.set("o", origem);
+    return url.href;
   }
 
   function whatsappShareUrl(product) {
-    var msg = product.title + " — " + fmtPriceText(product) + "\n" + shareUrl(product);
+    var msg = product.title + " — " + fmtPriceText(product) + "\n" + shareUrl(product, "whatsapp");
     return "https://wa.me/?text=" + encodeURIComponent(msg);
   }
 
@@ -1272,7 +1306,7 @@
               files: [arquivo],
               title: product.title,
               text: product.title + " — " + fmtPriceText(product),
-              url: shareUrl(product)
+              url: shareUrl(product, "compartilhamento")
             });
           })
           .catch(function (e) {

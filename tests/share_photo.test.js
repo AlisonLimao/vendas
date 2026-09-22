@@ -39,7 +39,7 @@ assert(
 assert(
   js.includes("navigator.share({") &&
     js.includes("files: [arquivo]") &&
-    js.includes("url: shareUrl(product)"),
+    js.includes('url: shareUrl(product, "compartilhamento")'),
   "o compartilhamento leva o arquivo + título + URL da página do produto"
 );
 

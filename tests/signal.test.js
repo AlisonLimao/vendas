@@ -44,9 +44,11 @@ assert(
 
 // 3. Contrato fechado: payload com type/origin/product/category/channel —
 //    nunca sid nem supplier (o endpoint rejeita 400).
+//    Bloco 3 (VDV-20260921-01): origin vem de ``vdvOrigem`` (``?o=`` na URL
+//    compartilhada, preservada na sessão; default "web").
 assert(
-  js.includes("var payload = { type: tipo, origin: \"web\" };"),
-  "payload do sinal operacional não carrega sid"
+  js.includes("var payload = { type: tipo, origin: vdvOrigem };"),
+  "payload do sinal operacional não carrega sid e usa a origem da sessão"
 );
 var corpoSinal = js.slice(
   js.indexOf("function sinal("),

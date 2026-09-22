@@ -8,7 +8,7 @@
  *      alvo está hidden e foca o campo de busca no atalho de Procura;
  *   5. página de produto interativa: seller-card, pill e "Continue explorando"
  *      (gate >= 2, cap 8, produto atual excluído) reusando cardEl;
- *   6. cache-busting ?v=20260921-1 no CSS e no app.js.
+ *   6. cache-busting ?v=20260921-2 no CSS e no app.js.
  * Rodar: node tests/repaginacao.test.js */
 "use strict";
 
@@ -87,7 +87,7 @@ assert(
 );
 
 // 6. Cache-busting da repaginação.
-assert(/vdv\.css\?v=20260921-1/.test(html), "6. CSS com ?v=20260921-1 na home");
-assert(/app\.js\?v=20260921-1/.test(html), "6. app.js com ?v=20260921-1 na home");
+assert(/vdv\.css\?v=20260921-2/.test(html), "6. CSS com ?v=20260921-2 na home");
+assert(/app\.js\?v=20260921-2/.test(html), "6. app.js com ?v=20260921-2 na home");
 
 console.log("repaginacao: OK (copy ampla + bottom bar + confiança + relacionados)");
