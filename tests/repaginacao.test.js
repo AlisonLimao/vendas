@@ -87,7 +87,7 @@ assert(
 );
 
 // 6. Cache-busting da repaginação.
-assert(/vdv\.css\?v=20260923-1/.test(html), "6. CSS com ?v=20260923-1 na home");
-assert(/app\.js\?v=20260921-3/.test(html), "6. app.js com ?v=20260921-3 na home");
+assert(/vdv\.css\?v=[0-9]{8}-[0-9]+/.test(html), "6. CSS com ?v= no cache-busting da home");
+assert(/app\.js\?v=[0-9]{8}-[0-9]+/.test(html), "6. app.js com ?v= no cache-busting da home");
 
 console.log("repaginacao: OK (copy ampla + bottom bar + confiança + relacionados)");

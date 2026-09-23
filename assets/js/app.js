@@ -401,6 +401,38 @@
     });
   }
 
+  // R2 (VDV-20260923-01, mestre item 12): contêiner de imagem 4:5 fixo.
+  // cover é o padrão (moda = cena/modelo); Impressão 3D usa contain (produto
+  // isolado — cortar confunde a leitura). Heurística pelo grupo da categoria.
+  // Placeholder neutro quando a foto não existe ou falha o download (decisão
+  // do Alison 23/09: falha de apresentação não desclassifica o anúncio).
+  function isImpressao3d(p) {
+    var g = p.category && p.category.group && p.category.group.slug;
+    return g === "impressao_3d" || (p.category && p.category.slug === "impressao_3d");
+  }
+
+  function cardImgPlaceholder() {
+    var ph = document.createElement("div");
+    ph.className = "card-imgph";
+    ph.setAttribute("role", "img");
+    ph.setAttribute("aria-label", "Sem foto");
+    ph.textContent = "Sem foto";
+    return ph;
+  }
+
+  function cardMedia(p) {
+    if (!p.image) return cardImgPlaceholder();
+    var img = document.createElement("img");
+    img.loading = "lazy";
+    img.src = prefix + p.image;
+    img.alt = p.title;
+    if (isImpressao3d(p)) img.className = "card-img-contain";
+    img.addEventListener("error", function () {
+      img.replaceWith(cardImgPlaceholder());
+    });
+    return img;
+  }
+
   function cardEl(p) {
     // Fase 0 do "gostei": o card vira um wrapper (card-wrap) com o link
     // inteiro de sempre + o coração (botão FORA do <a> — button dentro de
@@ -417,17 +449,36 @@
         seller_name: p.seller_name
       });
     });
-    a.innerHTML =
-      '<img loading="lazy" src="' + esc(prefix + p.image) + '" alt="' + esc(p.title) + '">' +
-      '<div class="card-body">' +
+    a.appendChild(cardMedia(p));
+    var body = document.createElement("div");
+    body.className = "card-body";
+    body.innerHTML =
       '<p class="card-title">' + esc(p.title) + "</p>" +
-      (p.seller_name ? '<p class="card-seller">' + esc(p.seller_name) + "</p>" : "") +
+      (p.seller_name
+        ? '<span class="card-seller"' +
+          (p.supplier_slug
+            ? ' data-seller-href="' + esc(prefix + "fornecedor/" + p.supplier_slug + "/") + '"'
+            : "") +
+          ">" +
+          esc(p.seller_name) + "</span>"
+        : "") +
       '<p class="card-meta">' + (p.category && p.category.name ? esc(p.category.name) + " · " : "") +
       esc(p.city) + "/" + esc(p.state) + "</p>" +
       '<p class="card-price">' + fmtPrice(p) + "</p>" +
       '<p class="card-flags">' + availabilityBadge(p) + saleBadge(p) + freshnessBadge(p) + "</p>" +
-      '<p class="card-more">Ver detalhes <span aria-hidden="true">→</span></p>' +
-      "</div>";
+      '<p class="card-more">Ver detalhes <span aria-hidden="true">→</span></p>';
+    a.appendChild(body);
+    // R2: fornecedor navegável no card — clique no nome não navega para o
+    // produto, vai para a vitrine (mesmo padrão do coração: fora do fluxo do <a>).
+    var sellerEl = body.querySelector(".card-seller");
+    if (sellerEl && sellerEl.getAttribute("data-seller-href")) {
+      sellerEl.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        track("abrir_vitrine", { seller_name: p.seller_name });
+        location.href = sellerEl.getAttribute("data-seller-href");
+      });
+    }
     wrap.appendChild(a);
     wrap.appendChild(botaoLike(p.id));
     return wrap;
