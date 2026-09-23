@@ -62,10 +62,20 @@ assert(
   "3. placeholder na mesma proporção 4:5"
 );
 
-// 4. Falha de download → placeholder (error listener no img do card).
+// 4. Falha de download → primeiro tenta a original (R3), depois placeholder.
 assert(
-  /img\.addEventListener\("error", function \(\) \{\s*img\.replaceWith\(cardImgPlaceholder\(\)\);/.test(js),
-  "4. onerror do img troca por placeholder"
+  /img\.addEventListener\("error", function \(\) \{[\s\S]*?data-fallback-src[\s\S]*?img\.replaceWith\(cardImgPlaceholder\(\)\);/.test(js),
+  "4. onerror do img: fallback original → placeholder"
+);
+
+// 4b. R3: srcset da thumbnail WebP 400w gerada pelo exportador + sizes.
+assert(
+  /if \(p\.image_thumb\)[\s\S]{0,200}srcset", prefix \+ p\.image_thumb \+ " 400w/.test(js),
+  "4b. srcset usa image_thumb 400w quando o exportador fornece"
+);
+assert(
+  js.includes('img.setAttribute("sizes", "(max-width: 767px) 46vw, 276px")'),
+  "4b. sizes alinhado à largura real dos cards"
 );
 
 // 5. Título com clamp de 2 linhas.

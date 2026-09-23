@@ -426,8 +426,24 @@
     img.loading = "lazy";
     img.src = prefix + p.image;
     img.alt = p.title;
+    // R3 (VDV-20260923-01, mestre itens 12/41): card pequeno usa a thumbnail
+    // WebP (400w) gerada pelo exportador; a original fica de fallback (e para
+    // navegadores sem srcset). Se a thumb falhar, tenta a original antes de
+    // aceitar o placeholder — falha de download não apaga o produto.
+    if (p.image_thumb) {
+      img.setAttribute("srcset", prefix + p.image_thumb + " 400w");
+      img.setAttribute("sizes", "(max-width: 767px) 46vw, 276px");
+      img.setAttribute("data-fallback-src", prefix + p.image);
+    }
     if (isImpressao3d(p)) img.className = "card-img-contain";
     img.addEventListener("error", function () {
+      var fb = img.getAttribute("data-fallback-src");
+      if (fb) {
+        img.removeAttribute("data-fallback-src");
+        img.removeAttribute("srcset");
+        img.src = fb;
+        return;
+      }
       img.replaceWith(cardImgPlaceholder());
     });
     return img;
