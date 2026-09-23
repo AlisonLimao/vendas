@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T22:14:59Z",
+  "generated_at": "2026-09-23T22:46:52Z",
   "bot_username": "vitrine_vendasbot",
   "total": 15,
   "products": [
@@ -29,6 +29,7 @@
         "assets/products/1f1a2dcd-3720-4a9f-b4d1-4fb7949ee934.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/1f1a2dcd-3720-4a9f-b4d1-4fb7949ee934.webp",
       "offer_owner_name": "Ana Maria",
       "authorization_confirmed": true,
       "supplier_slug": "ana-maria-65dc1758",
@@ -65,6 +66,7 @@
         "assets/products/6ac0bbb6-964f-4659-bfda-52bbd5e385ec.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/6ac0bbb6-964f-4659-bfda-52bbd5e385ec.webp",
       "offer_owner_name": "Ana Maria",
       "authorization_confirmed": true,
       "supplier_slug": "ana-maria-65dc1758",
@@ -101,6 +103,7 @@
         "assets/products/ab5497f7-08ee-446a-9f7e-72c8f16d1ef8.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/ab5497f7-08ee-446a-9f7e-72c8f16d1ef8.webp",
       "offer_owner_name": "Ana Maria",
       "authorization_confirmed": true,
       "supplier_slug": "ana-maria-65dc1758",
@@ -141,6 +144,7 @@
         "assets/products/9f22576b-b542-4666-a3be-6e70157c0817-5.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/9f22576b-b542-4666-a3be-6e70157c0817.webp",
       "offer_owner_name": "Imprima 3D",
       "authorization_confirmed": true,
       "supplier_slug": "imprima-3d",
@@ -180,6 +184,7 @@
         "assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf-4.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf.webp",
       "offer_owner_name": "Imprima 3D",
       "authorization_confirmed": true,
       "supplier_slug": "imprima-3d",
@@ -218,6 +223,7 @@
         "assets/products/81980328-4254-44f2-9618-98d96a527fab-3.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/81980328-4254-44f2-9618-98d96a527fab.webp",
       "offer_owner_name": "Imprima 3D",
       "authorization_confirmed": true,
       "supplier_slug": "imprima-3d",
@@ -256,6 +262,7 @@
         "assets/products/75fbc39b-b454-458c-bb19-a7f8b31cd040-3.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/75fbc39b-b454-458c-bb19-a7f8b31cd040.webp",
       "offer_owner_name": "imprima 3D",
       "authorization_confirmed": true,
       "supplier_slug": "imprima-3d",
@@ -292,6 +299,7 @@
         "assets/products/d49dee1e-27fa-4b23-9ed0-9f887a55b1fb.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/d49dee1e-27fa-4b23-9ed0-9f887a55b1fb.webp",
       "offer_owner_name": "Ana maria",
       "authorization_confirmed": true,
       "supplier_slug": "ana-maria-65dc1758",
@@ -328,6 +336,7 @@
         "assets/products/6955d7a9-add8-4767-a9f8-189eead8c6ab.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/6955d7a9-add8-4767-a9f8-189eead8c6ab.webp",
       "offer_owner_name": "Ana Maria",
       "authorization_confirmed": true,
       "supplier_slug": "ana-maria-65dc1758",
@@ -364,6 +373,7 @@
         "assets/products/7d97b507-44ca-4ed7-889e-0e6284c46644.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/7d97b507-44ca-4ed7-889e-0e6284c46644.webp",
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
@@ -400,6 +410,7 @@
         "assets/products/615283d7-5961-4308-8310-732d2863aa1e.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/615283d7-5961-4308-8310-732d2863aa1e.webp",
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
@@ -436,6 +447,7 @@
         "assets/products/7e23232c-1b55-40d7-a9e5-1b0efdb973f9.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/7e23232c-1b55-40d7-a9e5-1b0efdb973f9.webp",
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
@@ -472,6 +484,7 @@
         "assets/products/37af510b-2728-4643-916a-7cca3d8d0735.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/37af510b-2728-4643-916a-7cca3d8d0735.webp",
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
@@ -508,6 +521,7 @@
         "assets/products/b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb.webp",
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
@@ -544,6 +558,7 @@
         "assets/products/541ff4f4-36ff-4257-985b-8813494c480e.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/541ff4f4-36ff-4257-985b-8813494c480e.webp",
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
