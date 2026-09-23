@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-09-22T07:46:37Z",
+  "generated_at": "2026-09-23T01:05:50Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 6,
+  "total": 7,
   "products": [
     {
-      "id": "8f4ea055-b260-4e5b-a0d0-f75649f29967",
-      "title": "Conjunto Blusa Tricô com Saia",
-      "description": "Conjunto feminino composto por blusa de tricô  com manga curta e estampa de ursinho, acompanhada de saia longa. A saia possui caimento leve e detalhe franzido, criando movimento e conforto. Uma combinação casual e versátil para o dia a dia, passeios e produções descontraídas.",
+      "id": "1f1a2dcd-3720-4a9f-b4d1-4fb7949ee934",
+      "title": "Blusa de Tricô Bordô com Estampa de Ursinho",
+      "description": "Blusa feminina em tricô na cor bordô, com modelagem ajustada, manga curta e gola redonda. O destaque fica por conta da estampa frontal de ursinho, que traz um visual delicado e moderno. Uma peça versátil, confortável e estilosa para compor looks casuais no dia a dia.",
       "category": {
-        "slug": "conjunto",
-        "name": "Conjunto",
+        "slug": "blusa",
+        "name": "Blusa",
         "group": {
           "slug": "moda_e_malharia",
           "name": "Moda e Malharia"
         }
       },
-      "price": "20.00",
+      "price": "15.00",
       "minimum_order": 1,
       "offer_type": "varejo",
       "availability": "pronta_entrega",
-      "quantity": 10,
-      "days_since_confirmation": 5,
+      "quantity": 30,
+      "days_since_confirmation": 0,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
-      "image": "assets/products/8f4ea055-b260-4e5b-a0d0-f75649f29967.jpg",
+      "image": "assets/products/1f1a2dcd-3720-4a9f-b4d1-4fb7949ee934.jpg",
       "images": [
-        "assets/products/8f4ea055-b260-4e5b-a0d0-f75649f29967.jpg"
+        "assets/products/1f1a2dcd-3720-4a9f-b4d1-4fb7949ee934.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
       "offer_owner_name": "Ana Maria",
@@ -36,7 +36,43 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Ana Maria",
-        "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Conjunto%20Blusa%20Tric%C3%B4%20com%20Saia%22%0APre%C3%A7o%3A%20R%24%2020%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/8f4ea055-b260-4e5b-a0d0-f75649f29967/"
+        "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20de%20Tric%C3%B4%20Bord%C3%B4%20com%20Estampa%20de%20Ursinho%22%0APre%C3%A7o%3A%20R%24%2015%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/1f1a2dcd-3720-4a9f-b4d1-4fb7949ee934/"
+      }
+    },
+    {
+      "id": "6ac0bbb6-964f-4659-bfda-52bbd5e385ec",
+      "title": "Saia Longa Mescla Clara com Caimento Leve",
+      "description": "Saia longa em tom mescla claro, com modelagem confortável e caimento leve. Possui detalhe franzido na altura do quadril, que valoriza o visual e traz movimento à peça. Ideal para compor produções casuais, elegantes e confortáveis para diversas ocasiões.",
+      "category": {
+        "slug": "saia",
+        "name": "Saia",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
+      },
+      "price": "25.00",
+      "minimum_order": 1,
+      "offer_type": "varejo",
+      "availability": "pronta_entrega",
+      "quantity": 3,
+      "days_since_confirmation": 0,
+      "seller_name": "Ana Maria",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/6ac0bbb6-964f-4659-bfda-52bbd5e385ec.jpg",
+      "images": [
+        "assets/products/6ac0bbb6-964f-4659-bfda-52bbd5e385ec.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "offer_owner_name": "Ana Maria",
+      "authorization_confirmed": true,
+      "supplier_slug": "ana-maria-65dc1758",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Ana Maria",
+        "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Saia%20Longa%20Mescla%20Clara%20com%20Caimento%20Leve%22%0APre%C3%A7o%3A%20R%24%2025%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/6ac0bbb6-964f-4659-bfda-52bbd5e385ec/"
       }
     },
     {
@@ -92,7 +128,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 12,
+      "days_since_confirmation": 13,
       "seller_name": "Imprima 3D",
       "city": "Monte Sião",
       "state": "MG",
@@ -132,7 +168,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 12,
+      "days_since_confirmation": 13,
       "seller_name": "Imprima 3D",
       "city": "Monte Sião",
       "state": "MG",
@@ -171,7 +207,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 20,
-      "days_since_confirmation": 12,
+      "days_since_confirmation": 13,
       "seller_name": "Imprima 3D",
       "city": "Monte Sião",
       "state": "MG",
@@ -209,7 +245,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 20,
-      "days_since_confirmation": 12,
+      "days_since_confirmation": 13,
       "seller_name": "imprima 3D",
       "city": "Monte Sião",
       "state": "MG",
