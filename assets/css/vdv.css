@@ -10,6 +10,10 @@
   src: url("../fonts/archivo-var.woff2") format("woff2");
 }
 
+/* R1 (VDV-20260923-01, prompt mestre itens 30–35) — camada de tokens do
+ * design system: escala de espaço, raios, sombras, tipografia e container.
+ * Os nomes antigos (--radius, --shadow, --space) continuam válidos como
+ * aliases para não quebrar as regras existentes. */
 :root {
   --vdv-primary: #1e3a8a;        /* marinho da logo VDV */
   --vdv-primary-dark: #172554;
@@ -21,12 +25,58 @@
   --vdv-text-muted: #5b6472;
   --vdv-border: #e5e9f0;
   --vdv-danger: #b91c1c;
-  --radius: 10px;
-  --radius-lg: 16px;
-  --shadow: 0 1px 2px rgba(16, 24, 40, .06);
-  --shadow-lift: 0 8px 24px rgba(30, 58, 138, .10);
-  --space: 1rem;
+  /* Semânticos: verde só em promessa/estado positivo e WhatsApp; o resto
+   * da página deve permanecer majoritariamente neutra (mestre itens 30/46). */
+  --vdv-success: #15803d;
+  --vdv-success-bright: #4ade80;
+  --vdv-like: #d64550;
+  /* Cores oficiais dos canais (identificação imediata na página de produto). */
+  --vdv-tg: #229ed9;
+  --vdv-wa: #25d366;
+
+  /* Escala de espaçamento (item 32): 4 8 12 16 24 32 48 64 96. */
+  --sp-1: .25rem;
+  --sp-2: .5rem;
+  --sp-3: .75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+  --sp-9: 6rem;
+  --space: var(--sp-4);
+
+  /* Raios (item 33): 8 / 12 / 16; pílulas usam --r-full. */
+  --r-1: 8px;
+  --r-2: 12px;
+  --r-3: 16px;
+  --r-full: 999px;
+  --radius: var(--r-2);
+  --radius-lg: var(--r-3);
+
+  /* Sombras mínimas (item 34): sombra de borda, nunca peso; cards podem
+   * ficar sem sombra. */
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, .06);
+  --shadow-md: 0 4px 12px rgba(16, 24, 40, .08);
+  --shadow: var(--shadow-sm);
+  --shadow-lift: var(--shadow-md);
+
+  /* Tipografia (item 31): única família, poucos pesos, poucos tamanhos. */
+  --fs-h1: 1.5rem;          /* 24px — título principal mobile */
+  --fs-h1-desktop: 2.1rem;  /* ~34px */
+  --fs-h2: 1.15rem;
+  --fs-card: .95rem;
+  --fs-price: 1.08rem;
+  --fs-price-lg: 1.7rem;
+  --fs-body: 1rem;
+  --fs-small: .85rem;
+  --fs-xs: .8rem;
   --font: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* Container (item 35): mantido em 72rem (1152px) nesta fatia para não
+   * mexer em layout junto com tokens; a avaliação de 1280px entra com a
+   * Home reestruturada (R4), junto da decisão de colunas da grade. */
+  --container: 72rem;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -62,10 +112,10 @@ h1, h2 { font-weight: 700; letter-spacing: -0.02em; }
 /* VDV-20260909-02 — a marca virou link de Início: âncora herda o visual
    original e ganha foco visível para navegação por teclado. */
 a.brand { text-decoration: none; color: inherit; }
-a.brand:focus-visible { outline: 2px solid var(--vdv-accent, #f59e0b); outline-offset: 4px; border-radius: 8px; }
+a.brand:focus-visible { outline: 2px solid var(--vdv-accent, #f59e0b); outline-offset: 4px; border-radius: var(--r-1); }
 .logo {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 2.3rem; height: 2.3rem; border-radius: 8px;
+  width: 2.3rem; height: 2.3rem; border-radius: var(--r-1);
   background: var(--vdv-primary); color: #fff;
   font-weight: 800; font-size: .95rem; letter-spacing: -0.03em;
 }
@@ -79,10 +129,10 @@ a.brand:focus-visible { outline: 2px solid var(--vdv-accent, #f59e0b); outline-o
 .topnav a:hover { color: var(--vdv-primary); }
 .topbar .btn-sell { margin-left: 0; }
 
-main { max-width: 72rem; margin: 0 auto; padding: 1rem; }
+main { max-width: var(--container); margin: 0 auto; padding: 1rem; }
 
-h1 { font-size: 1.5rem; margin: .25rem 0; }
-h2 { font-size: 1.15rem; margin: 1.1rem 0 .65rem; }
+h1 { font-size: var(--fs-h1); margin: .25rem 0; }
+h2 { font-size: var(--fs-h2); margin: 1.1rem 0 .65rem; }
 
 /* Respiro de vitrine (Home 2.0): seções separadas, títulos editoriais. */
 main > section { margin-top: 1.9rem; }
@@ -111,7 +161,7 @@ main > section:first-of-type { margin-top: .5rem; }
   font-size: .82rem; font-weight: 600; color: var(--vdv-primary);
   background: rgba(37, 99, 235, .08);
   border: 1px solid rgba(37, 99, 235, .18);
-  border-radius: 999px; padding: .25rem .7rem;
+  border-radius: var(--r-full); padding: .25rem .7rem;
 }
 @media (prefers-color-scheme: dark) {
   .trust-row li { color: #93b4f8; background: rgba(37, 99, 235, .14); border-color: rgba(37, 99, 235, .35); }
@@ -144,7 +194,7 @@ main > section:first-of-type { margin-top: .5rem; }
 .searchbar input {
   width: 100%; box-sizing: border-box;
   padding: .8rem 1.1rem; font-size: 1rem; font-family: inherit;
-  border: 1px solid var(--vdv-border); border-radius: 999px;
+  border: 1px solid var(--vdv-border); border-radius: var(--r-full);
   background: var(--vdv-surface); color: inherit; margin-top: .5rem;
   box-shadow: var(--shadow);
 }
@@ -152,7 +202,7 @@ main > section:first-of-type { margin-top: .5rem; }
 
 .chips { display: flex; flex-wrap: wrap; gap: .45rem; margin: .55rem 0; }
 .chip {
-  border: 1px solid var(--vdv-border); border-radius: 999px;
+  border: 1px solid var(--vdv-border); border-radius: var(--r-full);
   padding: .32rem .85rem; font-size: .85rem; font-weight: 500; cursor: pointer;
   background: var(--vdv-surface); color: inherit; font-family: inherit;
   transition: border-color .15s, background .15s;
@@ -218,10 +268,10 @@ a.chip { text-decoration: none; display: inline-block; }
   background: var(--vdv-bg); padding: .4rem;
 }
 .card-body { padding: .8rem .85rem .9rem; display: flex; flex-direction: column; gap: .3rem; flex: 1; }
-.card-title { font-size: .95rem; font-weight: 600; margin: 0; line-height: 1.3; }
+.card-title { font-size: var(--fs-card); font-weight: 600; margin: 0; line-height: 1.3; }
 .card-seller { font-size: .82rem; font-weight: 700; color: var(--vdv-accent); margin: 0; }
 .card-meta { font-size: .78rem; color: var(--vdv-text-muted); margin: 0; }
-.card-price { font-size: 1.08rem; font-weight: 700; color: var(--vdv-primary); margin: .15rem 0 0; font-variant-numeric: tabular-nums; }
+.card-price { font-size: var(--fs-price); font-weight: 700; color: var(--vdv-primary); margin: .15rem 0 0; font-variant-numeric: tabular-nums; }
 .card-flags { display: flex; flex-wrap: wrap; gap: .3rem; align-items: center; margin: 0; }
 .card-more {
   margin: .45rem 0 0; padding-top: .45rem; border-top: 1px solid var(--vdv-border);
@@ -249,20 +299,20 @@ a.chip { text-decoration: none; display: inline-block; }
   transition: transform .12s ease;
 }
 .card-like:active { transform: scale(1.12); }
-.card-like.is-liked { color: #d64550; border-color: #d64550; }
+.card-like.is-liked { color: var(--vdv-like); border-color: var(--vdv-like); }
 
 /* Favoritar pela página do produto: botão discreto sob o preço, mesmo
  * padrão visual dos corações dos cards (estado compartilhado no
  * localStorage). */
 .prod-like {
   display: inline-block; margin: .35rem 0 .8rem; padding: .45rem .9rem;
-  border-radius: 999px; border: 1px solid var(--vdv-border);
+  border-radius: var(--r-full); border: 1px solid var(--vdv-border);
   background: var(--vdv-surface); cursor: pointer;
   font-size: .88rem; font-weight: 600; color: var(--vdv-text-muted);
   transition: transform .12s ease;
 }
 .prod-like:active { transform: scale(1.05); }
-.prod-like.is-liked { color: #d64550; border-color: #d64550; }
+.prod-like.is-liked { color: var(--vdv-like); border-color: var(--vdv-like); }
 
 /* Seção "Meus favoritos": nota de privacidade discreta sob a grade. */
 .favoritos-note { font-size: .8rem; color: var(--vdv-text-muted); margin: .6rem 0 0; }
@@ -300,23 +350,23 @@ a.chip { text-decoration: none; display: inline-block; }
 .prose .btn-primary { margin-top: 1.25rem; }
 .card-price { margin-top: auto; }
 .badge {
-  display: inline-block; border-radius: 6px; padding: .12rem .5rem;
+  display: inline-block; border-radius: var(--r-1); padding: .12rem .5rem;
   font-size: .72rem; font-weight: 600;
   background: rgba(37, 99, 235, .1); color: var(--vdv-accent);
 }
-.badge-ok { background: rgba(22, 138, 69, .12); color: #15803d; }
+.badge-ok { background: rgba(22, 138, 69, .12); color: var(--vdv-success); }
 .badge-warn { background: #fef3c7; color: #92400e; }
 .badge-sale { background: #fce7f3; color: #9d174d; }
 @media (prefers-color-scheme: dark) {
   .badge { background: rgba(37, 99, 235, .2); color: #93b4f8; }
-  .badge-ok { background: rgba(34, 197, 94, .18); color: #4ade80; }
+  .badge-ok { background: rgba(34, 197, 94, .18); color: var(--vdv-success-bright); }
   .badge-warn { background: rgba(245, 158, 11, .18); color: #fcd34d; }
   .badge-sale { background: rgba(219, 39, 119, .2); color: #f9a8d4; }
 }
 
 /* ------------------------------------------------------------------ botões */
 .btn {
-  display: inline-block; padding: .65rem 1.15rem; border-radius: 999px;
+  display: inline-block; padding: .65rem 1.15rem; border-radius: var(--r-full);
   font-weight: 600; font-size: .95rem; text-decoration: none; text-align: center;
   border: 1px solid var(--vdv-border); cursor: pointer; background: var(--vdv-surface);
   color: inherit; font-family: inherit;
@@ -376,7 +426,7 @@ a.chip { text-decoration: none; display: inline-block; }
 }
 .how-num {
   flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
-  width: 2rem; height: 2rem; border-radius: 999px;
+  width: 2rem; height: 2rem; border-radius: var(--r-full);
   background: var(--vdv-primary); color: #fff; font-weight: 800; font-size: .9rem;
 }
 .how-steps strong { display: block; font-size: .98rem; }
@@ -392,16 +442,16 @@ a.chip { text-decoration: none; display: inline-block; }
   font-weight: 600; color: var(--vdv-text-muted); font-size: .82rem;
 }
 .footer-trust li { display: inline-flex; align-items: center; gap: .35rem; }
-.footer-trust li::before { content: "✓"; color: #15803d; font-weight: 800; }
+.footer-trust li::before { content: "✓"; color: var(--vdv-success); font-weight: 800; }
 @media (prefers-color-scheme: dark) {
-  .footer-trust li::before { color: #4ade80; }
+  .footer-trust li::before { color: var(--vdv-success-bright); }
 }
 
 /* ------------------------------------------------------------------ footer */
 footer {
   padding: 1.75rem 1rem 2rem; color: var(--vdv-text-muted); font-size: .85rem;
   border-top: 1px solid var(--vdv-border); margin-top: 2.5rem;
-  max-width: 72rem; margin-left: auto; margin-right: auto;
+  max-width: var(--container); margin-left: auto; margin-right: auto;
 }
 footer a { color: var(--vdv-accent); text-decoration: none; }
 footer a:hover { text-decoration: underline; }
@@ -427,7 +477,7 @@ footer p { margin: .3rem 0; }
 .prod-thumb.is-active { border-color: var(--vdv-primary); opacity: 1; }
 .prod-thumb:focus-visible { outline: 2px solid var(--vdv-primary); outline-offset: 2px; }
 .prod-title { font-size: 1.35rem; margin: 1rem 0 .25rem; letter-spacing: -0.02em; }
-.prod-price { font-size: 1.7rem; font-weight: 800; color: var(--vdv-primary); margin: 0; font-variant-numeric: tabular-nums; }
+.prod-price { font-size: var(--fs-price-lg); font-weight: 800; color: var(--vdv-primary); margin: 0; font-variant-numeric: tabular-nums; }
 /* VDV-20260906-02: nota do tipo de oferta junto ao preço (menor, neutra). */
 .card-price small, .prod-price small { font-size: .72em; font-weight: 600; color: var(--vdv-text-muted); }
 .prod-facts { list-style: none; padding: 0; margin: .8rem 0; color: var(--vdv-text-muted); font-size: .92rem; }
@@ -444,7 +494,7 @@ footer p { margin: .3rem 0; }
 .btn-channel {
   display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
   min-height: 3.2rem; padding: .8rem .9rem;
-  border-radius: 999px; text-decoration: none; text-align: center;
+  border-radius: var(--r-full); text-decoration: none; text-align: center;
   font-weight: 700; font-size: .98rem; line-height: 1.2;
   color: #fff; border: 0; cursor: pointer;
   transition: filter .15s;
@@ -452,8 +502,8 @@ footer p { margin: .3rem 0; }
 .btn-channel:hover { filter: brightness(1.08); }
 .btn-channel svg { width: 1.3rem; height: 1.3rem; flex: 0 0 auto; fill: currentColor; }
 /* Cores oficiais das marcas (identificação imediata do canal). */
-.btn-channel.tg { background: #229ed9; }
-.btn-channel.wa { background: #25d366; }
+.btn-channel.tg { background: var(--vdv-tg); }
+.btn-channel.wa { background: var(--vdv-wa); }
 
 /* Ações de divulgação (VDV-20260910-02): o compartilhar segue o MESMO padrão
  * de grade/altura dos canais de contato, mas em bloco próprio (contato ≠
@@ -531,7 +581,7 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
    com o título. Sem logo, a regra simplesmente não é usada. */
 .supplier-logo {
   display: block; width: 6rem; height: 6rem; object-fit: cover;
-  border-radius: .6rem; margin: .35rem 0 .5rem;
+  border-radius: var(--r-1); margin: .35rem 0 .5rem;
   background: var(--vdv-bg); border: 1px solid var(--vdv-border);
 }
 
@@ -574,7 +624,7 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
 }
 .termsfeed-com---nb .cc-nb-main-container {
   display: flex; align-items: center; flex-wrap: wrap; gap: .6rem 1rem;
-  max-width: 72rem; margin: 0 auto;
+  max-width: var(--container); margin: 0 auto;
   padding: .55rem .9rem !important;
 }
 /* Faixa de uma linha: o título some — o texto curto basta. */
@@ -639,13 +689,13 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
 .trust-pill {
   display: inline-flex; align-items: center; gap: .4rem;
   margin: .9rem 0 0; padding: .4rem .85rem;
-  border-radius: 999px; font-size: .82rem; font-weight: 600;
-  color: #15803d; background: rgba(22, 138, 69, .1);
+  border-radius: var(--r-full); font-size: .82rem; font-weight: 600;
+  color: var(--vdv-success); background: rgba(22, 138, 69, .1);
   border: 1px solid rgba(22, 138, 69, .25);
 }
 .trust-pill::before { content: "🛡️"; font-size: .95rem; }
 @media (prefers-color-scheme: dark) {
-  .trust-pill { color: #4ade80; background: rgba(34, 197, 94, .14); border-color: rgba(34, 197, 94, .35); }
+  .trust-pill { color: var(--vdv-success-bright); background: rgba(34, 197, 94, .14); border-color: rgba(34, 197, 94, .35); }
 }
 
 /* Bloco do vendedor na página de produto (VDV-20260916-04): quem vende em
