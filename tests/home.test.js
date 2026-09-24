@@ -153,4 +153,19 @@ assert(
   "8. desktop mantém os 8 cards"
 );
 
+// 9. R10: Telegram nunca define a plataforma na copy pública —
+//    "fale direto com quem vende" no og/meta e na confiança; canal só nos
+//    botões de contato (que são fato, não definição).
+assert(
+  html.includes("Fale direto com quem vende — sem taxa de plataforma") &&
+    html.includes("a negociação acontece direto com quem vende"),
+  "9. og/meta e confiança sem Telegram como definição (R10)"
+);
+assert(
+  html.includes("Fale direto com quem está vendendo.") &&
+    html.includes("a negociação é direta entre você e quem vende") &&
+    !/pelo Telegram/.test(html),
+  "9. Converse/trust/footer sem 'pelo Telegram' (R10)"
+);
+
 console.log("home: OK (Home reestruturada — VDV-20260923-01 R4)");
