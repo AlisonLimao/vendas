@@ -11,19 +11,14 @@
   var FRESH_DAYS = 7; // aviso de frescura a partir de 7 dias (decisão 31/08)
   var DEFAULT_BOT = "vitrine_vendasbot";
   var EXPLORE_PAGE = 8; // página inicial da grade "Explore a vitrine"
-  // VDV-20260907-08 — rodízio "Em exposição agora": 4 cards girando (2×2 no
-  // celular, fileira de 4 no desktop), 1 troca animada a cada 4s (wrap-around
-  // pelo catálogo inteiro) enquanto a página está aberta.
-  var EXPOSICAO_SIZE = 4;
-  var EXPOSICAO_STEP_MS = 4000;
-  var EXPOSICAO_EXIT_MS = 450; // duração da animação de saída (vdv-card-out)
   // Faixas editoriais só entram quando há catálogo suficiente pra não
   // duplicar card na tela (Home 2.0 — vitrine comprador-first).
+  // R4 (VDV-20260923-01, mestre itens 13-15): trilho de grupo e rotação
+  // "Em exposição agora" fundidos na seleção "Para você explorar".
   var RECENT_STRIP_MIN = 5;  // faixa "Acabou de chegar" com >= 5 produtos
-  // Fatia 32 (VDV-20260916-01) — navegação de descoberta:
-  var RECENT_RAIL_CAP = 10;  // teto de cards no trilho "Acabou de chegar"
-  var GROUP_RAIL_MIN = 5;    // trilho por grupo só com densidade (gate do export)
-  var GROUP_RAIL_CAP = 12;   // teto de cards no trilho do grupo
+  var NOVIDADES_CAP = 8;     // teto de cards em "Acabou de chegar" (grade)
+  var EXPLORAR_CAP = 8;      // teto de cards em "Para você explorar"
+  var VITRINES_CAP = 4;      // teto de chips em "Vitrines do VDV"
   var AVAILABILITY_LABELS = {
     pronta_entrega: "Pronta entrega",
     em_producao: "Em produção",
@@ -411,6 +406,37 @@
     return g === "impressao_3d" || (p.category && p.category.slug === "impressao_3d");
   }
 
+  // R4 — seleção "Para você explorar": funde o antigo trilho de grupo e a
+  // rotação "Em exposição agora" em uma seleção única e honesta — recência
+  // (ordem do exportador, published_at DESC) com distribuição entre
+  // categorias (round-robin), cap fixo, sem ranking inventado e sem rotação.
+  // Exclui os ids já exibidos (invariante "sem duplicar card na tela").
+  function pickExplorar(products, excludeIds, cap) {
+    var buckets = [];
+    var byCat = {};
+    products.forEach(function (p) {
+      if (excludeIds[p.id]) return;
+      var slug = (p.category && p.category.slug) || "_sem_categoria";
+      if (!byCat[slug]) { byCat[slug] = []; buckets.push(byCat[slug]); }
+      byCat[slug].push(p);
+    });
+    var picked = [];
+    var round = 0;
+    while (picked.length < cap) {
+      var progressou = false;
+      for (var b = 0; b < buckets.length; b++) {
+        if (buckets[b].length > round) {
+          picked.push(buckets[b][round]);
+          progressou = true;
+          if (picked.length >= cap) break;
+        }
+      }
+      if (!progressou) break;
+      round += 1;
+    }
+    return picked;
+  }
+
   function cardImgPlaceholder() {
     var ph = document.createElement("div");
     ph.className = "card-imgph";
@@ -531,7 +557,7 @@
     sectionRecent.hidden = !showRecentStrip;
     // Fatia 32 — trilho horizontal: mais cards do que a antiga faixa de 4,
     // mas com teto (a grade exaustiva continua sendo "Explore a vitrine").
-    if (showRecentStrip) fill($("grid-recent"), products.slice(0, RECENT_RAIL_CAP));
+    if (showRecentStrip) fill($("grid-recent"), products.slice(0, NOVIDADES_CAP));
 
     // VDV-20260916-05 — contagem por grupo/sub em uma passada (reusada pelo
     // bloco único de categorias e pelo trilho de grupo da Fatia 32).
@@ -703,84 +729,18 @@
     }
     renderCatBlock();
 
-    // Fatia 32 — trilho por GRUPO da taxonomia: o grupo com mais anúncios
-    // ganha um trilho horizontal quando tem densidade (>= GROUP_RAIL_MIN, o
-    // mesmo gate das páginas). Cards do trilho não repetem os do trilho de
-    // recentes (invariante "sem duplicar card na tela"). Link "Ver categoria"
-    // só quando a página do grupo existe. Sem grupo denso → seção some.
-    // VDV-20260916-05 — contagem reusa o mapa `groups` do bloco de categorias.
-    var sectionGrupo = $("section-grupo");
-    var topGroup = null;
-    Object.keys(groups).forEach(function (k) {
-      if (!topGroup || groups[k].n > topGroup.n) topGroup = groups[k];
-    });
+    // R4 — "Para você explorar": substitui o trilho de grupo da Fatia 32 e a
+    // rotação "Em exposição agora" (VDV-20260907-08). Cards não repetem os da
+    // faixa "Acabou de chegar" (invariante "sem duplicar card na tela").
+    var sectionExplorar = $("section-explorar");
     var recentesIds = {};
     if (showRecentStrip) {
-      products.slice(0, RECENT_RAIL_CAP).forEach(function (p) { recentesIds[p.id] = true; });
+      products.slice(0, NOVIDADES_CAP).forEach(function (p) { recentesIds[p.id] = true; });
     }
-    var grupoCards = topGroup
-      ? products.filter(function (p) {
-          var g = p.category && p.category.group;
-          return g && g.slug === topGroup.slug && !recentesIds[p.id];
-        }).slice(0, GROUP_RAIL_CAP)
-      : [];
-    var showGrupo = !!topGroup && topGroup.n >= GROUP_RAIL_MIN && grupoCards.length > 0;
-    sectionGrupo.hidden = !showGrupo;
-    if (showGrupo) {
-      $("rail-grupo-title").textContent = topGroup.name;
-      fill($("grid-grupo"), grupoCards);
-      var grupoLink = $("rail-grupo-link");
-      var temPagina = catPages.some(function (cp) { return cp.slug === topGroup.slug; });
-      if (temPagina) {
-        grupoLink.hidden = false;
-        grupoLink.href = "categoria/" + encodeURIComponent(topGroup.slug) + "/";
-        grupoLink.addEventListener("click", function () {
-          track("abrir_categoria", { categoria_slug: topGroup.slug, event_category: "navegacao" });
-        });
-      } else {
-        grupoLink.hidden = true;
-      }
-    }
-
-    // VDV-20260907-08 — seção giratória "Em exposição agora": 8 slots fixos;
-    // a cada tick troca 1 card (posição rotativa) pelo próximo produto do
-    // catálogo (wrap-around). Só aparece com catálogo maior que a página da
-    // grade "Explore" — abaixo disso tudo já está visível logo adiante.
-    var sectionExposicao = $("section-exposicao");
-    var showExposicao = products.length > EXPLORE_PAGE;
-    sectionExposicao.hidden = !showExposicao;
-    if (showExposicao) {
-      var expoGrid = $("grid-exposicao");
-      // VDV-20260907-09 — rodízio igualitário por anunciante: fila por turnos
-      // (fair_rotation.js), cada anunciante 1× a cada N ticks independente do
-      // tamanho do catálogo; ordem sorteada a cada visita.
-      var rotation = window.VDVFairRotation.createRotation(products);
-      var expoSlots = [];
-      for (var ei = 0; ei < Math.min(EXPOSICAO_SIZE, products.length); ei++) {
-        var slotEl = cardEl(rotation.next());
-        expoGrid.appendChild(slotEl);
-        expoSlots.push(slotEl);
-      }
-      var expoPos = 0; // próximo slot a ser substituído
-      setInterval(function () {
-        // Pausa: aba em segundo plano (economia/bateria) ou seção oculta
-        // pelo modo busca — o timer continua mas nada troca.
-        if (document.hidden || sectionExposicao.hidden) return;
-        var p = rotation.next();
-        var pos = expoPos % expoSlots.length;
-        expoPos += 1;
-        var leaving = expoSlots[pos];
-        // Troca em 2 tempos: o antigo anima a saída ocupando o próprio
-        // espaço (a grade não pula), então o novo entra no lugar dele.
-        leaving.classList.add("card-leaving");
-        setTimeout(function () {
-          var fresh = cardEl(p);
-          fresh.classList.add("card-entering");
-          leaving.replaceWith(fresh);
-          expoSlots[pos] = fresh;
-        }, EXPOSICAO_EXIT_MS);
-      }, EXPOSICAO_STEP_MS);
-    }
+    var explorarCards = pickExplorar(products, recentesIds, EXPLORAR_CAP);
+    var showExplorar = explorarCards.length > 0;
+    sectionExplorar.hidden = !showExplorar;
+    if (showExplorar) fill($("grid-explorar"), explorarCards);
 
     // VDV-20260907-06 — seção "Vitrines do VDV": um chip por fornecedor
     // (dedup por supplier_slug, primeiro display vence — mesmo critério do
@@ -797,7 +757,7 @@
     if (suppliers.length) {
       var chips = $("chips-vitrines");
       chips.innerHTML = "";
-      suppliers.forEach(function (s) {
+      suppliers.slice(0, VITRINES_CAP).forEach(function (s) {
         var a = document.createElement("a");
         a.className = "chip";
         a.href = "fornecedor/" + encodeURIComponent(s.slug) + "/";
@@ -849,8 +809,7 @@
       // (trocar/desmarcar sem limpar a busca inteira).
       sectionCategorias.hidden = products.length === 0;
       sectionRecent.hidden = searching || !showRecentStrip;
-      sectionGrupo.hidden = searching || !showGrupo;
-      sectionExposicao.hidden = searching || !showExposicao;
+      sectionExplorar.hidden = searching || !showExplorar;
       sectionVitrine.hidden = searching || products.length === 0;
       sectionEmpty.hidden = searching || products.length > 0;
     }

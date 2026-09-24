@@ -90,7 +90,7 @@
       });
     });
   </script>
-  <link rel="stylesheet" href="assets/css/vdv.css?v=20260923-2">
+  <link rel="stylesheet" href="assets/css/vdv.css?v=20260923-4">
 </head>
 <body data-page="home">
   <header class="topbar" id="top">
@@ -120,7 +120,6 @@
         <p class="hero-sub">Produtos, serviços e oportunidades da região — com anunciante identificado, no mesmo lugar.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#section-vitrine">Explorar ofertas</a>
-          <a class="btn btn-ghost" data-deep-link="procura" data-ga-origin="cta_hero_procura" href="#">Criar uma Procura</a>
         </div>
         <div class="searchbar">
           <input id="search" type="search" placeholder="O que você procura? Ex.: blusa de inverno"
@@ -136,9 +135,18 @@
 
     <p id="status" class="status" role="status"></p>
 
-    <!-- VDV-20260907-01 — faixa que equaliza oferta e demanda: fala com quem
-         tem produto/capacidade em termos de demanda, não de exposição. -->
-    <p class="hero-strip"><strong>Tem produto ou capacidade para fornecer?</strong> Veja o que estão procurando — compradores já estão dizendo o que precisam no VDV.</p>
+    <!-- R4 (VDV-20260923-01, mestre item 13): a faixa institucional do topo
+         ("Tem produto ou capacidade...") saiu — a primeira dobra é produto; a
+         conversa com o vendedor fica no bloco "Anunciar" depois da confiança. -->
+
+    <!-- Fatia 32 / R4 — "Acabou de chegar": descoberta leve em grade (≤6 no
+         celular / ≤8 no desktop via CSS), "Ver tudo" desce para a vitrine.
+         Só aparece com catálogo que sustenta a faixa (>= 5). -->
+    <section id="section-novidades" hidden>
+      <h2>Acabou de chegar</h2>
+      <div class="grid grid-novidades" id="grid-recent"></div>
+      <p class="rail-more"><a href="#section-vitrine">Ver tudo &rarr;</a></p>
+    </section>
 
     <!-- VDV-20260921-01 (Bloco 1) — taxonomia navegável em 2 níveis, um só
          ponto de navegação: nível 1 = "Toda a vitrine" + raízes da taxonomia
@@ -165,37 +173,14 @@
          Sem página acima do gate, a seção não aparece (nunca 404, nunca
          inventa volume). -->
 
-    <!-- Fatia 32 — "Acabou de chegar" vira trilho horizontal: descoberta leve
-         antes da grade completa; "Explore a vitrine" segue como grade total. -->
-    <section id="section-novidades" hidden>
-      <h2>Acabou de chegar</h2>
-      <div class="rail" id="grid-recent"></div>
-    </section>
-
-    <!-- Fatia 32 — trilho por grupo da taxonomia: só quando o grupo tem
-         densidade (>= 5 anúncios); link "Ver categoria" só quando a página
-         estática existe. Some quando nenhum grupo sustenta o trilho. -->
-    <section id="section-grupo" hidden>
-      <h2 id="rail-grupo-title"></h2>
-      <div class="rail" id="grid-grupo"></div>
-      <p class="rail-more"><a id="rail-grupo-link" href="#" hidden>Ver categoria &rarr;</a></p>
-    </section>
-
-    <!-- VDV-20260907-08 — rodízio: vitrine "viva" enquanto a página está
-         aberta. 1 card troca a cada 4s girando pelo catálogo inteiro
-         (app.js); "Acabou de chegar" permanece fixo. -->
-    <section id="section-exposicao" hidden>
-      <h2>Em exposição agora</h2>
-      <div class="grid" id="grid-exposicao"></div>
-    </section>
-
-    <!-- Fase 0 do "gostei" (VDV-20260905-01): a lista de compras do
-         comprador — corações tocados ficam salvos NESTE NAVEGADOR
-         (localStorage), sem cadastro e sem servidor. Some quando vazia. -->
-    <section id="section-favoritos" hidden>
-      <h2>❤️ Meus favoritos</h2>
-      <div class="grid" id="grid-favoritos"></div>
-      <p class="favoritos-note">Salvos neste navegador, só para você.</p>
+    <!-- R4 (VDV-20260923-01, mestre itens 13-15) — "Para você explorar":
+         funde o antigo trilho de grupo e a rotação "Em exposição agora" em
+         uma seleção única e honesta — recência (ordem do exportador,
+         published_at DESC) com distribuição entre categorias (round-robin),
+         cap 8, sem ranking inventado e sem rotação. -->
+    <section id="section-explorar" hidden>
+      <h2>Para você explorar</h2>
+      <div class="grid" id="grid-explorar"></div>
     </section>
 
     <!-- VDV-20260907-06 — gancho de crescimento: as vitrines (fornecedores)
@@ -205,6 +190,20 @@
       <div class="chips" id="chips-vitrines"></div>
     </section>
 
+    <!-- Fase 0 do "gostei" (VDV-20260905-01): a lista de compras do
+         comprador — corações tocados ficam salvos NESTE NAVEGADOR
+         (localStorage), sem cadastro e sem servidor. Some quando vazia.
+         TRANSIÇÃO R4→R5: a seção sai da Home quando /favoritos/ existir
+         (plano R5 — acesso vira página própria + atalho no topo). -->
+    <section id="section-favoritos" hidden>
+      <h2>❤️ Meus favoritos</h2>
+      <div class="grid" id="grid-favoritos"></div>
+      <p class="favoritos-note">Salvos neste navegador, só para você.</p>
+    </section>
+
+    <!-- TRANSIÇÃO R4→R5: a grade completa permanece na Home até a página
+         /explorar/ existir (plano R5) — enquanto isso é a única forma de ver
+         o catálogo inteiro sem busca. A seção então sai da Home. -->
     <section id="section-vitrine">
       <h2>Explore a vitrine</h2>
       <div class="grid" id="grid-all"></div>
@@ -300,8 +299,7 @@
     <a href="#top" id="bb-procura"><span class="bb-ico" aria-hidden="true">💬</span>Procura</a>
   </nav>
 
-  <script src="assets/js/fair_rotation.js?v=20260907-10"></script>
-  <script src="assets/js/app.js?v=20260923-3"></script>
+  <script src="assets/js/app.js?v=20260923-4"></script>
   <noscript>
     Gerenciamento de consentimento de cookies por <a href="https://www.termsfeed.com/">TermsFeed</a>.
   </noscript>

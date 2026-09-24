@@ -249,6 +249,15 @@ a.chip { text-decoration: none; display: inline-block; }
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 }
 
+/* R4 — "Acabou de chegar" em grade: no celular a faixa mostra 6 cards
+ * (2 colunas × 3 fileiras) — os excedentes do cap 8 saem da tela via CSS
+ * (o JS mantém o mesmo cap nos dois viewports; o corte é apresentação,
+ * não seleção — o desktop vê os 8). */
+.grid-novidades > .card-wrap:nth-child(n+7) { display: none; }
+@media (min-width: 768px) {
+  .grid-novidades > .card-wrap:nth-child(n+7) { display: block; }
+}
+
 /* Card de vitrine (Home 2.0): card único 4:5 (VDV-20260923-01 R2, mestre
  * item 12): contêiner de imagem com proporção fixa 4:5 — o card nunca muda
  * de altura entre fotos de proporções diferentes. object-fit: cover é o
