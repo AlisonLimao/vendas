@@ -353,8 +353,10 @@
     // "denuncia" (link do rodapé).
     // Fatia 29 (VDV-20260908-03): kind "comentario" — payload
     // comentario_<uuid> (o visitante comenta pelo bot; moderação no /admin).
+    // R9 (VDV-20260923-01): kind "vitrine" — CTA "Começar a anunciar" da
+    // /anunciar.html abre o fluxo de anúncio direto (?start=vitrine, Fatia 28).
     var map = {
-      procura: "procura", vender: "vender", home: "",
+      procura: "procura", vender: "vender", vitrine: "vitrine", home: "",
       denuncia: "denuncia", comentario: "comentario"
     };
     var param;
@@ -407,11 +409,12 @@
           event_label: el.getAttribute("data-ga-origin") || el.getAttribute("data-deep-link") || "nao_identificada",
           transport_type: "beacon"
         });
-        // Fatia 30: deep link de procura → procura_click; de vender
-        // (anunciar) → advertise_click. Outros deep links não viram evento.
+        // Fatia 30: deep link de procura → procura_click; de vender/anunciar
+        // (vender ou vitrine) → advertise_click. Outros deep links não viram
+        // evento.
         var kind = el.getAttribute("data-deep-link");
         if (kind === "procura") telemetria("procura_click");
-        else if (kind === "vender") telemetria("advertise_click");
+        else if (kind === "vender" || kind === "vitrine") telemetria("advertise_click");
       });
     });
   }
