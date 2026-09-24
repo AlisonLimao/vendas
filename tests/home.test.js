@@ -14,6 +14,8 @@
  *      (viraram as páginas /explorar/ e /favoritos/); bottombar navega;
  *   7. modo busca: explorar esconde junto com novidades (setBrowseVisibility);
  *   8. mobile: .grid-novidades oculta cards 7+ via CSS, desktop mantém os 8.
+ *   9. R10: copy pública sem Telegram como definição da plataforma.
+ *  10. R11: JSON-LD WebSite + Organization na Home (só fatos públicos).
  * Rodar: node tests/home.test.js */
 "use strict";
 
@@ -166,6 +168,16 @@ assert(
     html.includes("a negociação é direta entre você e quem vende") &&
     !/pelo Telegram/.test(html),
   "9. Converse/trust/footer sem 'pelo Telegram' (R10)"
+);
+
+// 10. R11: dados estruturados — JSON-LD WebSite + Organization na Home
+//     (só fatos públicos: nome/URL/logo; nada de dados de pessoa).
+assert(
+  /<script type="application\/ld\+json">/.test(html) &&
+    /"@type": "WebSite"/.test(html) &&
+    /"@type": "Organization"/.test(html) &&
+    /"url": "https:\/\/vitrinedevenda\.com\.br\/"/.test(html),
+  "10. JSON-LD WebSite + Organization na Home (R11)"
 );
 
 console.log("home: OK (Home reestruturada — VDV-20260923-01 R4)");
