@@ -525,6 +525,30 @@ footer p { margin: .3rem 0; }
 .btn-channel.tg { background: var(--vdv-tg); }
 .btn-channel.wa { background: var(--vdv-wa); }
 
+/* R6 (VDV-20260923-01, mestre item 20) — sticky do produto no mobile:
+ * PREÇO + WHATSAPP substituem a navegação inferior global (que não existe
+ * nesta página) — o CTA fica acessível durante toda a rolagem. Só mobile
+ * (≥768px volta ao fluxo); `env(safe-area-inset-bottom)` respeita a área
+ * segura (iPhone); main ganha padding equivalente para a barra não cobrir
+ * conteúdo. Sem duas barras simultâneas: a bottombar é só da Home. */
+.prod-sticky { display: none; }
+@media (max-width: 767px) {
+  .prod-sticky {
+    display: flex; align-items: center; justify-content: space-between; gap: .8rem;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+    background: var(--vdv-surface); border-top: 1px solid var(--vdv-border);
+    box-shadow: var(--shadow-lift);
+    padding: .55rem .9rem calc(.55rem + env(safe-area-inset-bottom, 0px));
+  }
+  .prod-sticky .sticky-price {
+    font-weight: 700; font-size: 1.02rem; color: var(--vdv-text); white-space: nowrap;
+  }
+  .prod-sticky .sticky-cta { min-height: 2.7rem; padding: .5rem 1rem; flex: 0 0 auto; }
+  body[data-page="produto"] main {
+    padding-bottom: calc(4.4rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
 /* Ações de divulgação (VDV-20260910-02): o compartilhar segue o MESMO padrão
  * de grade/altura dos canais de contato, mas em bloco próprio (contato ≠
  * divulgação — nenhum dos dois escondido) e com estilo neutro de superfície,

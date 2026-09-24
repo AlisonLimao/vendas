@@ -1114,22 +1114,14 @@
       '<button type="button" class="prod-like' + (ehFavorito(product.id) ? " is-liked" : "") +
       '" id="like-btn" data-id="' + esc(product.id) + '" aria-label="Salvar este produto nos favoritos">❤ ' +
       (ehFavorito(product.id) ? "Gostando deste produto" : "Gostei deste produto") + "</button>" +
-      // Decisão: condições do anúncio (quem vende fica no seller-card —
-      // VDV-20260916-04 evita repetir o vendedor aqui).
-      '<ul class="prod-facts">' +
+      // R6 (VDV-20260923-01, mestre item 19) — ordem de decisão: DISPONIBILIDADE
+      // vem logo depois do preço; as CONDIÇÕES DA OFERTA (pedido mínimo etc.)
+      // descem para depois da descrição.
+      '<ul class="prod-facts prod-disp">' +
       "<li>📦 " + esc(AVAILABILITY_LABELS[product.availability] || "Disponível") + qty + "</li>" +
-      moLi +
       "<li>🗓️ " + esc(freshText(product)) + "</li>" +
       "</ul>" +
       sellerCardHtml +
-      // Fatia 32 (VDV-20260916-01) — "Mais em <grupo> →" espelhando a página
-      // estática. SÓ quando o grupo ganhou página (gate no export).
-      (temPaginaGrupo
-        ? '<p class="prod-more"><a href="' + prefix + 'categoria/' +
-          esc(product.category.group.slug) + '/">Mais em ' +
-          esc(product.category.group.name || product.category.group.slug) +
-          " &rarr;</a></p>"
-        : "") +
       // Canais de contato (VDV-20260905-05): os dois no MESMO tamanho padrão,
       // lado a lado, com as cores/logos oficiais dos canais — identifica pelo
       // ícone antes de ler. Telegram: chat DIRETO do anunciante (t.me gerado no
@@ -1142,6 +1134,16 @@
       // de contato: o VDV não fica no meio do pagamento.
       '<p class="trust-pill">O VDV não recebe o pagamento — a negociação é direta entre vocês</p>' +
       '<p class="prod-desc">' + esc(product.description) + "</p>" +
+      // R6 — CONDIÇÕES DA OFERTA depois da descrição (mestre item 19): a
+      // decisão (nome/preço/disp/vendedor/contato) vem primeiro. Sem campo
+      // estruturado de condição de pagamento — quando o anunciante escreve,
+      // já está na descrição.
+      '<ul class="prod-facts prod-cond">' +
+      moLi +
+      (product.category && product.category.name
+        ? "<li>Categoria: " + esc(product.category.name) + "</li>"
+        : "") +
+      "</ul>" +
       // VDV-20260910-02 — divulgação em bloco próprio, mesmo padrão de botão
       // dos canais de contato. GA #share-wa / compartilhar_produto intacto.
       '<span class="action-label">Divulgar</span>' +
@@ -1165,6 +1167,15 @@
           "</ul></section>"
         : "") +
       '<p class="prod-comment-cta"><a class="btn btn-ghost" href="#" id="comment-link">💬 Comentar sobre este produto</a></p>' +
+      // Fatia 32 (VDV-20260916-01) — "Mais em <grupo> →" espelhando a página
+      // estática. SÓ quando o grupo ganhou página (gate no export). R6: no
+      // bloco de navegação pós-decisão (mestre item 19 — MAIS DESTA VITRINE).
+      (temPaginaGrupo
+        ? '<p class="prod-more"><a href="' + prefix + 'categoria/' +
+          esc(product.category.group.slug) + '/">Mais em ' +
+          esc(product.category.group.name || product.category.group.slug) +
+          " &rarr;</a></p>"
+        : "") +
       // VDV-20260916-04 — "Continue explorando": exploração depois da decisão
       // (mesmo anunciante → mesmo grupo; cap 8; some com < 2 itens).
       '<section class="prod-related" aria-label="Continue explorando">' +
@@ -1173,6 +1184,27 @@
       "</section>" +
       // VDV-20260905-03 — canal de denúncia (payload denuncia_<uuid> no bot).
       '<p class="prod-report"><a href="#" id="report-link">🚩 Denunciar este anúncio</a></p>';
+
+    // R6 (VDV-20260923-01, mestre item 20) — sticky do produto no mobile:
+    // PREÇO + WHATSAPP sempre acessíveis durante a rolagem. Usa o mesmo
+    // canal autorizado do bloco de contato — WhatsApp do anunciante ou do
+    // dono assistido; sem WhatsApp, deep link do bot ("Falar com o vendedor").
+    // Escondida ≥768px no CSS (no desktop o CTA fica no fluxo).
+    var stickyEl = $("prod-sticky");
+    if (stickyEl) {
+      var stickyWaLink = (cc && cc.tipo === "whatsapp" && cc.link)
+        ? cc.link
+        : (product.whatsapp && product.whatsapp.link ? product.whatsapp.link : "");
+      stickyEl.innerHTML =
+        '<span class="sticky-price">' + fmtPrice(product) + "</span>" +
+        (stickyWaLink
+          ? '<a class="btn-channel wa sticky-cta" target="_blank" rel="noopener" href="' +
+            esc(stickyWaLink) + '">' + ICON_WHATSAPP + "<span>WhatsApp</span></a>"
+          : '<a class="btn-channel tg sticky-cta" href="' +
+            esc(deepLink("interesse", product)) + '">' + ICON_TELEGRAM +
+            "<span>Falar com o vendedor</span></a>");
+      stickyEl.hidden = false;
+    }
 
     // VDV-20260916-04: preenche "Continue explorando" (reusa cardEl/fill).
     var relatedGrid = main.querySelector("#prod-related-grid");

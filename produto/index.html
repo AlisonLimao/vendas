@@ -91,7 +91,7 @@
       });
     });
   </script>
-  <link rel="stylesheet" href="../assets/css/vdv.css?v=20260923-4">
+  <link rel="stylesheet" href="../assets/css/vdv.css?v=20260923-5">
 </head>
 <body data-page="produto">
   <header class="topbar">
@@ -111,13 +111,18 @@
     <p id="status" class="status" role="status">Carregando…</p>
   </main>
 
+  <!-- R6 (VDV-20260923-01, mestre item 20) — sticky PREÇO + WHATSAPP do
+       produto no mobile; o app.js preenche com o canal autorizado do
+       anúncio (WhatsApp ou deep link do bot). Escondida ≥768px no CSS. -->
+  <div class="prod-sticky" id="prod-sticky" hidden></div>
+
   <footer>
     <p><a href="../como-funciona.html">Como funciona</a> · <a href="../privacidade.html">Privacidade</a> · <a href="../termos.html">Termos</a> · <a data-deep-link="denuncia" data-ga-origin="rodape_denuncia" href="#">🚩 Denunciar</a></p>
     <p>Sem taxa de plataforma: a negociação acontece direto entre você e o fornecedor, pelo Telegram. Analytics e cookies opcionais só são ativados com consentimento.</p>
     <p><a href="#" id="open_preferences_center">Preferências de cookies</a></p>
   </footer>
 
-  <script src="../assets/js/app.js?v=20260923-4"></script>
+  <script src="../assets/js/app.js?v=20260923-5"></script>
   <noscript>
     Gerenciamento de consentimento de cookies por <a href="https://www.termsfeed.com/">TermsFeed</a>.
   </noscript>
