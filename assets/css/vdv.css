@@ -17,6 +17,9 @@
 :root {
   --vdv-primary: #1e3a8a;        /* marinho da logo VDV */
   --vdv-primary-dark: #172554;
+  --vdv-primary-ink: #1e3a8a;    /* primary como COR DE TEXTO (preços/títulos);
+                                  * separado do primary de fundo p/ o escuro
+                                  * poder clarear sem tocar nos botões. */
   --vdv-accent: #2563eb;         /* azul real — links e detalhes */
   --vdv-cta: #f59e0b;            /* âmbar — só no CTA "Quero vender" */
   --vdv-bg: #f7f8fb;
@@ -85,6 +88,13 @@
     --vdv-text: #e5e9f0;
     --vdv-text-muted: #94a3b8;
     --vdv-border: #2a3550;
+    /* R12 (VDV-20260924-01, mestre item 37): contrastes WCAG AA no escuro
+     * (audit_contrast_tokens.py). Botões com fundo primary + texto branco
+     * ficam como estão (branco sobre #1e3a8a passa de sobra). */
+    --vdv-accent: #60a5fa;       /* links/detalhes legíveis no escuro */
+    --vdv-primary-ink: #93c5fd;  /* preços/títulos em primary legíveis */
+    --vdv-danger: #f87171;
+    --vdv-success: #4ade80;
   }
 }
 * { box-sizing: border-box; }
@@ -126,7 +136,7 @@ a.brand:focus-visible { outline: 2px solid var(--vdv-accent, #f59e0b); outline-o
   color: var(--vdv-text-muted); text-decoration: none;
   font-size: .9rem; font-weight: 600;
 }
-.topnav a:hover { color: var(--vdv-primary); }
+.topnav a:hover { color: var(--vdv-primary-ink); }
 .topbar .btn-sell { margin-left: 0; }
 
 main { max-width: var(--container); margin: 0 auto; padding: 1rem; }
@@ -158,7 +168,7 @@ main > section:first-of-type { margin-top: .5rem; }
 }
 .trust-row li {
   display: inline-flex; align-items: center; gap: .3rem;
-  font-size: .82rem; font-weight: 600; color: var(--vdv-primary);
+  font-size: .82rem; font-weight: 600; color: var(--vdv-primary-ink);
   background: rgba(37, 99, 235, .08);
   border: 1px solid rgba(37, 99, 235, .18);
   border-radius: var(--r-full); padding: .25rem .7rem;
@@ -291,7 +301,7 @@ a.chip { text-decoration: none; display: inline-block; }
 .card-seller[data-seller-href] { cursor: pointer; }
 .card-seller[data-seller-href]:hover { text-decoration: underline; }
 .card-meta { font-size: .78rem; color: var(--vdv-text-muted); margin: 0; }
-.card-price { font-size: var(--fs-price); font-weight: 700; color: var(--vdv-primary); margin: .15rem 0 0; font-variant-numeric: tabular-nums; }
+.card-price { font-size: var(--fs-price); font-weight: 700; color: var(--vdv-primary-ink); margin: .15rem 0 0; font-variant-numeric: tabular-nums; }
 .card-flags { display: flex; flex-wrap: wrap; gap: .3rem; align-items: center; margin: 0; }
 .card-more {
   margin: .45rem 0 0; padding-top: .45rem; border-top: 1px solid var(--vdv-border);
@@ -301,6 +311,29 @@ a.chip { text-decoration: none; display: inline-block; }
 /* VDV-20260907-10 — filtro por categoria na página do fornecedor: o [hidden]
  * nativo perde para o display flex do card — garantir ocultação. */
 .card[hidden] { display: none !important; }
+
+/* R12 (VDV-20260924-01, mestre item 39) — skeleton com o mesmo encaixe do
+ * card real (mídia 4/5 + linhas de corpo): ocupa a grade durante o fetch
+ * de products.json para evitar layout shift; sem spinner. Pulso sutil e
+ * desligado em prefers-reduced-motion. */
+.card-skeleton { pointer-events: none; }
+.sk-media {
+  width: 100%; aspect-ratio: 4 / 5; display: block;
+  background: var(--vdv-border);
+}
+.sk-line {
+  height: .8rem; border-radius: var(--r-1); margin: .55rem .85rem 0;
+  background: var(--vdv-border);
+}
+.sk-line-price { width: 45%; }
+.card-body .sk-line:first-child { margin-top: .8rem; }
+.card-body .sk-line:last-child { margin-bottom: .9rem; }
+@media (prefers-reduced-motion: no-preference) {
+  .sk-media, .sk-line { animation: sk-pulse 1.4s ease-in-out infinite; }
+  .card-body .sk-line:nth-child(2) { animation-delay: .15s; }
+  .card-body .sk-line:nth-child(3) { animation-delay: .3s; }
+  @keyframes sk-pulse { 50% { opacity: .55; } }
+}
 
 /* Fase 0 do "gostei" (VDV-20260905-01) — coração "v❤" nos cards: o card
  * (link) passa a viver dentro de um wrapper para acomodar o botão FORA do
@@ -494,10 +527,10 @@ footer p { margin: .3rem 0; }
   background: var(--vdv-surface); overflow: hidden; opacity: .75;
 }
 .prod-thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
-.prod-thumb.is-active { border-color: var(--vdv-primary); opacity: 1; }
-.prod-thumb:focus-visible { outline: 2px solid var(--vdv-primary); outline-offset: 2px; }
+.prod-thumb.is-active { border-color: var(--vdv-primary-ink); opacity: 1; }
+.prod-thumb:focus-visible { outline: 2px solid var(--vdv-primary-ink); outline-offset: 2px; }
 .prod-title { font-size: 1.35rem; margin: 1rem 0 .25rem; letter-spacing: -0.02em; }
-.prod-price { font-size: var(--fs-price-lg); font-weight: 800; color: var(--vdv-primary); margin: 0; font-variant-numeric: tabular-nums; }
+.prod-price { font-size: var(--fs-price-lg); font-weight: 800; color: var(--vdv-primary-ink); margin: 0; font-variant-numeric: tabular-nums; }
 /* VDV-20260906-02: nota do tipo de oferta junto ao preço (menor, neutra). */
 .card-price small, .prod-price small { font-size: .72em; font-weight: 600; color: var(--vdv-text-muted); }
 .prod-facts { list-style: none; padding: 0; margin: .8rem 0; color: var(--vdv-text-muted); font-size: .92rem; }
@@ -716,9 +749,9 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
   font-size: .68rem; font-weight: 600; text-align: center;
 }
 .bottombar a .bb-ico { font-size: 1.15rem; line-height: 1; }
-.bottombar a:hover { color: var(--vdv-primary); }
+.bottombar a:hover { color: var(--vdv-primary-ink); }
 /* Página atual em destaque (app.js marca [aria-current="page"]). */
-.bottombar a[aria-current="page"] { color: var(--vdv-primary); }
+.bottombar a[aria-current="page"] { color: var(--vdv-primary-ink); }
 @media (min-width: 720px) {
   .bottombar { display: none; }
 }
@@ -824,7 +857,7 @@ a.chip-page {
 .filter-bar select:focus-visible { outline: 2px solid var(--vdv-accent); outline-offset: 2px; }
 .chips-ativos { margin: .35rem 0 .9rem; }
 .chips-ativos:empty { display: none; }
-.chip-x { font-weight: 600; color: var(--vdv-primary); }
+.chip-x { font-weight: 600; color: var(--vdv-primary-ink); }
 .chip-x span { margin-left: .15rem; font-weight: 700; }
 
 /* R8 (VDV-20260923-01) — o item permanente de navegação leva ao bloco único

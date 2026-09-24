@@ -67,6 +67,10 @@ assert(
   "advertise_click",
   "contact_click",
   "share",
+  // R12 (VDV-20260924-01, mestre item 45): especificidade do canal —
+  // emitidos junto do contact_click (dashboards intactos).
+  "whatsapp_click",
+  "telegram_click",
 ].forEach(function (tipo) {
   assert(
     js.includes('telemetria("' + tipo + '"'),

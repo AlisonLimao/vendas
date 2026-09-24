@@ -974,6 +974,13 @@
       back.href = prefix + "index.html";
       back.textContent = "Ver ofertas";
       main.appendChild(back);
+      // R12 (VDV-20260924-01, mestre item 48/49) — estado com próximo
+      // caminho: além da volta à vitrine, caminho direto para Explorar.
+      var mais = document.createElement("a");
+      mais.className = "btn btn-ghost btn-cta";
+      mais.href = prefix + "explorar/";
+      mais.textContent = "Veja outros produtos desta vitrine";
+      main.appendChild(mais);
       document.title = "Produto não encontrado — VDV, Vitrine de Vendas";
       return;
     }
@@ -1193,6 +1200,17 @@
             esc(deepLink("interesse", product)) + '">' + ICON_TELEGRAM +
             "<span>Falar com o vendedor</span></a>");
       stickyEl.hidden = false;
+      // R12 (VDV-20260924-01, mestre item 45): o sticky é o maior CTA do
+      // mobile — o clique no canal dele entra no mesmo par contact_click +
+      // canal específico (whatsapp_click/telegram_click) dos blocos acima.
+      var stickyCta = stickyEl.querySelector(".sticky-cta");
+      if (stickyCta) {
+        var stickyChannel = stickyCta.classList.contains("wa") ? "whatsapp" : "telegram";
+        stickyCta.addEventListener("click", function () {
+          telemetria("contact_click", { product: product.id, channel: stickyChannel });
+          telemetria(stickyChannel + "_click", { product: product.id });
+        });
+      }
     }
 
     // VDV-20260916-04: preenche "Continue explorando" (reusa cardEl/fill).
@@ -1260,6 +1278,8 @@
           transport_type: "beacon"
         });
         telemetria("contact_click", { product: product.id, channel: "telegram" });
+        // R12 (VDV-20260924-01, mestre item 45): idem whatsapp_click.
+        telemetria("telegram_click", { product: product.id });
         sinal("contact_click", { product: product.id, channel: "telegram" });
       });
     }
@@ -1379,6 +1399,10 @@
           transport_type: "beacon"
         });
         telemetria("contact_click", { product: product.id, channel: "whatsapp" });
+        // R12 (VDV-20260924-01, mestre item 45): especificidade do canal —
+        // contact_click continua (dashboards); whatsapp_click isola o canal
+        // para o funil de conversão (maior CTA da página de produto).
+        telemetria("whatsapp_click", { product: product.id });
         sinal("contact_click", { product: product.id, channel: "whatsapp" });
       });
     }
@@ -1775,14 +1799,65 @@
     });
   }
 
+  // ------------------------------------------------------------ skeletons
+  // R12 (VDV-20260924-01, mestre item 39): skeleton com o mesmo encaixe do
+  // card real (card-wrap > .card com mídia 4/5 + corpo) — ocupa a grade
+  // durante o fetch de products.json para evitar layout shift; nada de
+  // spinner. Removido assim que o catálogo chega (ou falha).
+  function renderSkeletons(page) {
+    var targets = [];
+    if (page === "home") {
+      targets.push({ grid: "grid-recent", section: "section-novidades", n: NOVIDADES_CAP });
+      targets.push({ grid: "grid-explorar", section: "section-explorar", n: EXPLORAR_CAP });
+    } else if (page === "explorar") {
+      targets.push({ grid: "x-grid", n: 8 });
+    } else if (page === "favoritos") {
+      targets.push({ grid: "grid-favoritos", section: "section-favoritos", n: 8 });
+    }
+    targets.forEach(function (t) {
+      var grid = $(t.grid);
+      if (!grid) return;
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < t.n; i++) {
+        var wrap = document.createElement("div");
+        wrap.className = "card-wrap";
+        var sk = document.createElement("div");
+        sk.className = "card card-skeleton";
+        sk.setAttribute("aria-hidden", "true");
+        sk.innerHTML =
+          '<div class="sk-media"></div>' +
+          '<div class="card-body">' +
+          '<div class="sk-line sk-line-title"></div>' +
+          '<div class="sk-line sk-line-short"></div>' +
+          '<div class="sk-line sk-line-price"></div>' +
+          "</div>";
+        wrap.appendChild(sk);
+        frag.appendChild(wrap);
+      }
+      grid.appendChild(frag);
+      var sec = t.section && $(t.section);
+      if (sec) sec.hidden = false; // ocupa o lugar do conteúdo durante o load
+    });
+  }
+
+  function clearSkeletons() {
+    var nodes = document.querySelectorAll(".card-skeleton");
+    for (var i = 0; i < nodes.length; i++) {
+      var wrap = nodes[i].parentNode;
+      if (wrap && wrap.parentNode) wrap.parentNode.removeChild(wrap);
+    }
+  }
+
   // ------------------------------------------------------------------ boot
   document.addEventListener("DOMContentLoaded", function () {
     initBottombar();
+    var page = document.body.getAttribute("data-page");
+    renderSkeletons(page);
     fetch(prefix + "data/products.json")
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(function (catalog) {
+        clearSkeletons();
         renderStaticLinks(catalog.bot_username || DEFAULT_BOT);
-        var page = document.body.getAttribute("data-page");
         if (page === "produto") initProduto(catalog);
         else if (page === "explorar") initExplorar(catalog);
         else if (page === "favoritos") initFavoritos(catalog);
@@ -1794,6 +1869,7 @@
         }
       })
       .catch(function () {
+        clearSkeletons();
         var s = $("status");
         if (s) s.textContent =
           "Não foi possível carregar o catálogo agora. Recarregue a página em alguns instantes.";
