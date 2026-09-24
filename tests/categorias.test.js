@@ -136,7 +136,7 @@ assert(
   /if \(!gs \|\| !gs\.subs\[selectedSubcategory\] \|\|[\s\S]{0,60}selectedSubcategory = "";/.test(js),
   "7. filho sem raiz válida nunca fica órfão"
 );
-assert(/renderCatBlock\(\);\s*\n\s*renderExplore\(\);\s*\n\s*renderSearch\(\);/.test(js),
+assert(/renderCatBlock\(\);\s*\n\s*renderSearch\(\);/.test(js),
   "7. restore re-renderiza o bloco de 2 níveis");
 
 // 8. Cache-busting da fatia.

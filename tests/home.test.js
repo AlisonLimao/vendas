@@ -10,8 +10,8 @@
  *      categoria, cap EXPLORAR_CAP) e exclusão dos ids de novidades;
  *   5. caps explícitos: NOVIDADES_CAP/EXPLORAR_CAP = 8, VITRINES_CAP = 4
  *      (chips de vitrines com slice no cap);
- *   6. grade completa "Explore a vitrine" permanece na Home (transição R4→R5)
- *      e favoritos também (bottombar aponta para ela);
+ *   6. R5: grade completa "Explore a vitrine" e "Meus favoritos" saem da Home
+ *      (viraram as páginas /explorar/ e /favoritos/); bottombar navega;
  *   7. modo busca: explorar esconde junto com novidades (setBrowseVisibility);
  *   8. mobile: .grid-novidades oculta cards 7+ via CSS, desktop mantém os 8.
  * Rodar: node tests/home.test.js */
@@ -95,12 +95,22 @@ assert(
   "5. caps aplicados em novidades, explorar e vitrines"
 );
 
-// 6. Transição R4→R5: grade completa e favoritos seguem na Home.
+// 6. R5: grade completa e favoritos saem da Home (páginas /explorar/ e
+//    /favoritos/); os alvos do topo/hero/"Ver tudo"/bottombar viram páginas.
 assert(
-  /id="section-vitrine"/.test(html) &&
-    /id="section-favoritos"/.test(html) &&
-    /id="grid-all"/.test(html),
-  "6. grade completa e favoritos permanecem (transição R4→R5)"
+  !/id="section-vitrine"/.test(html) &&
+    !/id="section-favoritos"/.test(html) &&
+    !/id="grid-all"/.test(html) &&
+    !/id="load-more"/.test(html),
+  "6. grade completa e favoritos saem da Home (R5)"
+);
+assert(
+  /<a href="explorar\/">Explorar<\/a>/.test(html) &&
+    /class="btn btn-primary" href="explorar\/">Explorar ofertas/.test(html) &&
+    /href="explorar\/">Explorar a vitrine inteira/.test(html) &&
+    /href="explorar\/" id="bb-explorar"/.test(html) &&
+    /href="favoritos\/" id="bb-favoritos"/.test(html),
+  "6. alvos de navegação apontam para /explorar/ e /favoritos/"
 );
 
 // 7. Modo busca esconde explorar junto com as outras faixas editoriais.

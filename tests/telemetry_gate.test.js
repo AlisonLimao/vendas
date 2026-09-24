@@ -54,14 +54,15 @@ assert(
   "nada de fetch/XHR para telemetria (one-way apenas)"
 );
 
-// 4. Eventos instrumentados = allowlist do plano 08 (9 tipos; os 7 usados
+// 4. Eventos instrumentados = allowlist do plano 08 (9 tipos; os 6 usados
 //    no front — product_view, supplier_view, search, search_zero_result,
-//    load_more, procura_click, advertise_click, contact_click, share).
+//    procura_click, advertise_click, contact_click, share). ``load_more``
+//    saiu da lista na R5 (VDV-20260923-01): a grade paginada da Home saiu
+//    (virou /explorar/, sem paginação) e o evento ficou sem emissor.
 [
   "product_view",
   "supplier_view",
   "search_zero_result",
-  "load_more",
   "procura_click",
   "advertise_click",
   "contact_click",

@@ -2,15 +2,20 @@
  * Sem framework, sem backend, sem coleta de dados. Todo CTA vira deep link do
  * Telegram (BANCO → WEB — este site nunca escreve em lugar nenhum).
  *
- * Páginas: body[data-page="home"] (index.html), body[data-page="produto"] e
- * páginas institucionais (data-page="institucional" — só deep links).
+ * Páginas: body[data-page="home"] (index.html), body[data-page="produto"],
+ * body[data-page="explorar"] (explorar/index.html), body[data-page="favoritos"]
+ * (favoritos/index.html) e páginas institucionais (data-page="institucional"
+ * — só deep links).
  */
 (function () {
   "use strict";
 
   var FRESH_DAYS = 7; // aviso de frescura a partir de 7 dias (decisão 31/08)
   var DEFAULT_BOT = "vitrine_vendasbot";
-  var EXPLORE_PAGE = 8; // página inicial da grade "Explore a vitrine"
+  // R5 (VDV-20260923-01) — snapshot de navegação compartilhado pela Home,
+  // /explorar/ e /favoritos/: quem navega para um produto (ou para a outra
+  // página) guarda filtros/rolagem; quem volta consome uma única vez.
+  var HOME_STATE_KEY = "vdv:home-state";
   // Faixas editoriais só entram quando há catálogo suficiente pra não
   // duplicar card na tela (Home 2.0 — vitrine comprador-first).
   // R4 (VDV-20260923-01, mestre itens 13-15): trilho de grupo e rotação
@@ -24,7 +29,9 @@
     em_producao: "Em produção",
     sob_pedido: "Sob pedido",
   };
-  var prefix = document.body.getAttribute("data-page") === "produto" ? "../" : "";
+  var pageAttr = document.body.getAttribute("data-page") || "";
+  var prefix = (pageAttr === "produto" || pageAttr === "explorar" ||
+    pageAttr === "favoritos") ? "../" : "";
 
   function track(eventName, params) {
     if (typeof window.gtag !== "function") return;
@@ -201,9 +208,9 @@
     return btn;
   }
 
-  // Seção "Meus favoritos" da Home: os produtos favoritados que ainda estão
-  // no catálogo, na ordem de favoritamento (mais recente primeiro). Some
-  // quando a lista fica vazia (ou o favorito saiu da vitrine).
+  // Favoritos: na Home, a seção some quando a lista fica vazia. Na página
+  // /favoritos/ (R5 — VDV-20260923-01), ela nunca some: re-renderiza sobre o
+  // catálogo a cada toggle e alterna com o estado vazio (CTA para /explorar/).
   function renderFavoritos() {
     var section = $("section-favoritos");
     if (!section) return; // páginas sem a seção (produto, institucionais)
@@ -216,6 +223,19 @@
       .slice()
       .reverse()
       .forEach(function (p) { grid.appendChild(cardEl(p)); });
+    if (document.body.getAttribute("data-page") === "favoritos") {
+      section.hidden = presentes.length === 0;
+      var vazio = $("favoritos-vazio");
+      if (vazio) vazio.hidden = presentes.length > 0;
+      var count = $("favoritos-count");
+      if (count) {
+        count.textContent = presentes.length
+          ? presentes.length + " produto" + (presentes.length > 1 ? "s" : "") +
+            " salvo" + (presentes.length > 1 ? "s" : "")
+          : "";
+      }
+      return;
+    }
     section.hidden = presentes.length === 0;
   }
 
@@ -536,17 +556,14 @@
     var products = catalog.products || [];
     var status = $("status");
     var sectionRecent = $("section-novidades");
-    var sectionVitrine = $("section-vitrine");
     var sectionEmpty = $("section-empty");
     var results = $("results");
 
     status.textContent = "";
 
-    // Fase 0 do "gostei": o catálogo carregado fica acessível ao módulo de
-    // favoritos (a seção "Meus favoritos" re-renderiza sobre ele a cada
-    // toggle — só produtos ainda presentes na vitrine aparecem).
+    // R5 (VDV-20260923-01) — o catálogo segue acessível ao módulo de
+    // favoritos (a página /favoritos/ re-renderiza sobre ele a cada toggle).
     window.__vdvCatalogProducts = products;
-    renderFavoritos();
 
     // Faixas editoriais: só quando o catálogo sustenta (sem duplicar card).
     // VDV-20260907-14: a faixa fixa "⚡ Pronta entrega" saiu do topo — pronta
@@ -770,35 +787,9 @@
       });
     }
 
-    // Grade principal: a vitrine inteira, paginada client-side.
-    // VDV-20260907-08 — rolagem infinita: quando o fim da grade entra na
-    // viewport, a próxima página carrega sozinha (IntersectionObserver).
-    // O botão "Carregar mais" permanece como fallback para navegadores
-    // sem suporte a observer — só é escondido no modo infinito.
-    var shown = Math.min(EXPLORE_PAGE, products.length);
-    var loadBtn = $("load-more");
-    var infiniteScroll = "IntersectionObserver" in window;
-    function renderExplore() {
-      fill($("grid-all"), products.slice(0, shown));
-      var exhausted = shown >= products.length;
-      loadBtn.hidden = infiniteScroll || exhausted;
-      if (exhausted) loadBtn.parentElement.hidden = true;
-    }
-    renderExplore();
-    loadBtn.addEventListener("click", function () {
-      shown = Math.min(shown + EXPLORE_PAGE, products.length);
-      renderExplore();
-      telemetria("load_more");
-    });
-    if (infiniteScroll) {
-      loadBtn.hidden = true;
-      var io = new IntersectionObserver(function (entries) {
-        if (!entries[0].isIntersecting || shown >= products.length) return;
-        shown = Math.min(shown + EXPLORE_PAGE, products.length);
-        renderExplore();
-      }, { rootMargin: "400px" });
-      io.observe(loadBtn.parentElement);
-    }
+    // R5 (VDV-20260923-01) — a grade completa "Explore a vitrine" saiu da
+    // Home: ver o catálogo inteiro (com busca + filtros) virou a página
+    // /explorar/, linkada no topo, no hero, no "Ver tudo" e no bottombar.
 
     var input = $("search");
     var clearBtn = $("clear-search");
@@ -810,7 +801,6 @@
       sectionCategorias.hidden = products.length === 0;
       sectionRecent.hidden = searching || !showRecentStrip;
       sectionExplorar.hidden = searching || !showExplorar;
-      sectionVitrine.hidden = searching || products.length === 0;
       sectionEmpty.hidden = searching || products.length > 0;
     }
 
@@ -876,15 +866,14 @@
     if (products.length === 0) {
       sectionCategorias.hidden = true;
       sectionRecent.hidden = true;
-      sectionVitrine.hidden = true;
       sectionEmpty.hidden = false;
     }
 
-    // VDV-20260909-01 — retorno ao feed com estado. Ao abrir um produto, a
-    // Home guarda rolagem, busca, filtros e cards carregados em sessionStorage
-    // (escopo de aba). Ao voltar pelo "← Vitrine", o estado volta e o snapshot
-    // é limpo — restaura uma única vez, sem contaminar entrada direta/deep link.
-    var HOME_STATE_KEY = "vdv:home-state";
+    // VDV-20260909-01 — retorno ao feed com estado. Ao abrir um produto (ou
+    // navegar para /explorar/ e /favoritos/, R5), a Home guarda rolagem, busca
+    // e filtros em sessionStorage (escopo de aba). Ao voltar, o estado volta e
+    // o snapshot é limpo — restaura uma única vez, sem contaminar entrada
+    // direta/deep link.
     function saveHomeState() {
       try {
         sessionStorage.setItem(HOME_STATE_KEY, JSON.stringify({
@@ -892,8 +881,7 @@
           q: input.value,
           cat: selectedSubcategory,
           grp: selectedCategory,
-          avail: activeAvail,
-          shown: shown
+          avail: activeAvail
         }));
       } catch (e) { /* modo privado: sem snapshot, a Home abre do zero */ }
     }
@@ -901,7 +889,9 @@
       if (ev.defaultPrevented || ev.button !== 0 ||
           ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) return;
       var t = ev.target;
-      var a = t && t.closest ? t.closest('a[href*="produto/index.html?id="]') : null;
+      var a = t && t.closest ? t.closest(
+        'a[href*="produto/index.html?id="], a[href$="explorar/"], a[href$="favoritos/"]'
+      ) : null;
       if (a) saveHomeState();
     });
 
@@ -924,11 +914,7 @@
                 selectedSubcategory === selectedCategory) selectedSubcategory = "";
           }
           activeAvail = snap.avail === AVAIL_FILTER.value ? snap.avail : "";
-          if (typeof snap.shown === "number" && snap.shown > 0) {
-            shown = Math.min(snap.shown, products.length);
-          }
           renderCatBlock();
-          renderExplore();
           renderSearch();
           if (snap.scrollY) {
             requestAnimationFrame(function () { window.scrollTo(0, snap.scrollY); });
@@ -1431,11 +1417,330 @@
     if (el) el.setAttribute("content", value);
   }
 
+  // ----------------------------------------------------------- explorar (R5)
+  // R5 (VDV-20260923-01, mestre item 16) — página /explorar/ substitui a grade
+  // completa "Explore a vitrine" da Home. Busca textual + filtros (categoria
+  // em 2 níveis, disponibilidade e tipo de oferta — só os que têm dados no
+  // catálogo; sem filtro de preço/cidade com catálogo pequeno), ordenação
+  // (recentes/preço), contagem, chips de filtros ativos removíveis e
+  // zero-result com caminhos. Sem login: favoritos ficam no localStorage.
+  // Filtros preservados ao voltar: reusa o HOME_STATE_KEY da Home.
+  function initExplorar(catalog) {
+    var products = catalog.products || [];
+    var status = $("status");
+    if (status) status.textContent = "";
+    window.__vdvCatalogProducts = products;
+
+    var input = $("search");
+    var clearBtn = $("clear-search");
+    var selGrupo = $("x-grupo");
+    var selSub = $("x-sub");
+    var selTipo = $("x-tipo");
+    var selOrdem = $("x-ordem");
+    var availBtn = $("x-avail");
+    var countEl = $("x-count");
+    var chipsEl = $("x-chips");
+    var gridEl = $("x-grid");
+    var zeroEl = $("x-zero");
+
+    var AVAIL_FILTER = { value: "pronta_entrega", label: "⚡ Pronta entrega" };
+    var q = "", grp = "", sub = "", tipo = "", avail = "";
+    var ordem = "recentes";
+    var ultimaBuscaEnviada = "";
+
+    // Taxonomia em 2 níveis derivada dos produtos (mesma fonte da Home).
+    var groups = {};
+    products.forEach(function (p) {
+      var c = p.category || {};
+      var g = c.group || {};
+      if (!g.slug) return;
+      var gr = groups[g.slug] ||
+        (groups[g.slug] = { slug: g.slug, name: g.name || g.slug, n: 0, subs: {} });
+      gr.n += 1;
+      var subG = gr.subs[c.slug] ||
+        (gr.subs[c.slug] = { slug: c.slug, name: c.name || c.slug, n: 0 });
+      subG.n += 1;
+    });
+
+    // Filtros só com dados no catálogo (nunca botão que não faz nada).
+    var hasPronta = products.some(function (p) {
+      return p.availability === "pronta_entrega";
+    });
+    if (availBtn) availBtn.hidden = !hasPronta;
+
+    var tipos = {};
+    products.forEach(function (p) { tipos[offerType(p)] = true; });
+    Object.keys(tipos).sort().forEach(function (t) {
+      var opt = document.createElement("option");
+      opt.value = t;
+      opt.textContent = OFFER_TYPE_LABELS[t] || t;
+      selTipo.appendChild(opt);
+    });
+
+    function fillGrupoOptions() {
+      selGrupo.innerHTML = "";
+      var optAll = document.createElement("option");
+      optAll.value = "";
+      optAll.textContent = "Todas as categorias";
+      selGrupo.appendChild(optAll);
+      Object.keys(groups)
+        .map(function (k) { return groups[k]; })
+        .sort(function (a, b) { return b.n - a.n; })
+        .forEach(function (gr) {
+          var opt = document.createElement("option");
+          opt.value = gr.slug;
+          opt.textContent = gr.name + " (" + gr.n + ")";
+          selGrupo.appendChild(opt);
+        });
+    }
+    function fillSubOptions() {
+      selSub.innerHTML = "";
+      var optAll = document.createElement("option");
+      optAll.value = "";
+      optAll.textContent = "Todas as subcategorias";
+      selSub.appendChild(optAll);
+      var current = grp ? groups[grp] : null;
+      selSub.disabled = !current;
+      if (!current) return;
+      Object.keys(current.subs)
+        .map(function (k) { return current.subs[k]; })
+        .filter(function (s) { return s.slug !== current.slug; })
+        .sort(function (a, b) { return b.n - a.n; })
+        .forEach(function (s) {
+          var opt = document.createElement("option");
+          opt.value = s.slug;
+          opt.textContent = s.name + " (" + s.n + ")";
+          selSub.appendChild(opt);
+        });
+    }
+    fillGrupoOptions();
+    fillSubOptions();
+
+    // Chips de filtros ativos, removíveis (um por filtro aplicado).
+    function activeChips() {
+      var out = [];
+      if (grp) {
+        out.push({
+          label: groups[grp] ? groups[grp].name : grp,
+          clear: function () { grp = ""; sub = ""; }
+        });
+      }
+      if (sub) {
+        var g = groups[grp];
+        var nome = g && g.subs[sub] ? g.subs[sub].name : sub;
+        out.push({
+          label: nome,
+          clear: function () { sub = ""; }
+        });
+      }
+      if (avail) {
+        out.push({
+          label: AVAIL_FILTER.label,
+          clear: function () { avail = ""; }
+        });
+      }
+      if (tipo) {
+        out.push({
+          label: OFFER_TYPE_LABELS[tipo] || tipo,
+          clear: function () { tipo = ""; }
+        });
+      }
+      if (q) {
+        out.push({
+          label: "“" + q + "”",
+          clear: function () { q = ""; input.value = ""; }
+        });
+      }
+      return out;
+    }
+
+    function aplicar() {
+      var searching = q !== "" || grp !== "" || sub !== "" ||
+        tipo !== "" || avail !== "";
+      var found = products.filter(function (p) {
+        if (avail && p.availability !== "pronta_entrega") return false;
+        if (sub && p.category.slug !== sub) return false;
+        if (grp && (!p.category.group || p.category.group.slug !== grp)) return false;
+        if (tipo && offerType(p) !== tipo) return false;
+        if (!q) return true;
+        var hay = (p.title + " " + p.description + " " + p.category.name + " " +
+          p.city + " " + p.seller_name).toLowerCase();
+        return q.split(" ").every(function (term) {
+          return hay.indexOf(term) !== -1;
+        });
+      });
+      if (ordem === "preco") {
+        found = found.slice().sort(function (a, b) {
+          return Number(a.price) - Number(b.price);
+        });
+      }
+
+      var ctx = [];
+      if (grp) ctx.push(groups[grp] ? groups[grp].name : grp);
+      if (sub) {
+        var g = groups[grp];
+        ctx.push(g && g.subs[sub] ? g.subs[sub].name : sub);
+      }
+      countEl.textContent = found.length
+        ? found.length + " oferta" + (found.length > 1 ? "s" : "") +
+          (q ? " para “" + input.value.trim() + "”" : "") +
+          (ctx.length ? " · " + ctx.join(" › ") : "")
+        : "";
+
+      chipsEl.innerHTML = "";
+      activeChips().forEach(function (chip) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "chip chip-x";
+        b.setAttribute("aria-label", "Remover filtro " + chip.label);
+        b.innerHTML = esc(chip.label) + ' <span aria-hidden="true">×</span>';
+        b.addEventListener("click", function () {
+          chip.clear();
+          syncControles();
+          aplicar();
+        });
+        chipsEl.appendChild(b);
+      });
+
+      gridEl.innerHTML = "";
+      found.forEach(function (p) { gridEl.appendChild(cardEl(p)); });
+      gridEl.hidden = found.length === 0;
+      zeroEl.hidden = !(searching && found.length === 0);
+      if (clearBtn) clearBtn.hidden = !searching;
+
+      // Fatia 30 — busca é evento de intenção: 1 evento por assinatura mudada.
+      var assinatura = q + "|" + sub + "|" + grp + "|" + tipo + "|" + avail;
+      if (assinatura !== ultimaBuscaEnviada) {
+        ultimaBuscaEnviada = assinatura;
+        telemetria("search", { category: sub || grp || null });
+        if (searching && !found.length) {
+          telemetria("search_zero_result", { category: sub || grp || null });
+        }
+      }
+    }
+
+    // Controles seguem o estado (restore, chips removíveis e botão limpar).
+    function syncControles() {
+      input.value = q;
+      selGrupo.value = grp;
+      fillSubOptions();
+      selSub.value = sub;
+      selTipo.value = tipo;
+      selOrdem.value = ordem;
+      if (availBtn) {
+        availBtn.setAttribute("aria-pressed", String(avail === AVAIL_FILTER.value));
+      }
+    }
+
+    input.addEventListener("input", function () {
+      q = input.value.replace(/\s+/g, " ").trim().toLowerCase();
+      aplicar();
+    });
+    function limparTudo() {
+      q = ""; grp = ""; sub = ""; tipo = ""; avail = "";
+      syncControles();
+      aplicar();
+      input.focus({ preventScroll: true });
+    }
+    clearBtn.addEventListener("click", limparTudo);
+    var zeroLimpar = $("x-limpar");
+    if (zeroLimpar) zeroLimpar.addEventListener("click", limparTudo);
+    selGrupo.addEventListener("change", function () {
+      grp = selGrupo.value;
+      sub = "";
+      fillSubOptions();
+      aplicar();
+    });
+    selSub.addEventListener("change", function () {
+      sub = selSub.value;
+      aplicar();
+    });
+    selTipo.addEventListener("change", function () {
+      tipo = selTipo.value;
+      aplicar();
+    });
+    selOrdem.addEventListener("change", function () {
+      ordem = selOrdem.value;
+      aplicar();
+    });
+    if (availBtn) {
+      availBtn.addEventListener("click", function () {
+        avail = avail === AVAIL_FILTER.value ? "" : AVAIL_FILTER.value;
+        syncControles();
+        aplicar();
+      });
+    }
+
+    // Filtros preservados ao voltar (reuso do snapshot da Home/Vitrine).
+    function saveExplorarState() {
+      try {
+        sessionStorage.setItem(HOME_STATE_KEY, JSON.stringify({
+          scrollY: window.scrollY,
+          q: input.value,
+          cat: sub,
+          grp: grp,
+          avail: avail,
+          tipo: tipo,
+          ordem: ordem
+        }));
+      } catch (e) { /* modo privado: sem snapshot */ }
+    }
+    document.addEventListener("click", function (ev) {
+      if (ev.defaultPrevented || ev.button !== 0 ||
+          ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) return;
+      var t = ev.target;
+      var a = t && t.closest ? t.closest(
+        'a[href*="produto/index.html?id="], a[href="../"]'
+      ) : null;
+      if (a) saveExplorarState();
+    });
+
+    try {
+      var raw = sessionStorage.getItem(HOME_STATE_KEY);
+      if (raw) {
+        sessionStorage.removeItem(HOME_STATE_KEY);
+        var snap = JSON.parse(raw);
+        if (snap && typeof snap === "object") {
+          q = typeof snap.q === "string" ? snap.q.toLowerCase() : "";
+          grp = typeof snap.grp === "string" ? snap.grp : "";
+          sub = typeof snap.cat === "string" ? snap.cat : "";
+          avail = snap.avail === AVAIL_FILTER.value ? snap.avail : "";
+          tipo = Object.prototype.hasOwnProperty.call(tipos, snap.tipo)
+            ? snap.tipo : "";
+          ordem = snap.ordem === "preco" ? "preco" : "recentes";
+          if (grp && !groups[grp]) { grp = ""; sub = ""; }
+          if (sub) {
+            var gs = groups[grp];
+            if (!gs || !gs.subs[sub] || sub === grp) sub = "";
+          }
+          syncControles();
+          aplicar();
+          if (snap.scrollY) {
+            requestAnimationFrame(function () { window.scrollTo(0, snap.scrollY); });
+          }
+        }
+      }
+    } catch (e) { /* snapshot inválido: segue com estado limpo */ }
+  }
+
+  // ---------------------------------------------------------- favoritos (R5)
+  // Página /favoritos/ — a lista de compras do comprador vira página própria
+  // (antes: seção da Home). Sem login: corações salvos no localStorage; só
+  // produtos ainda presentes no catálogo aparecem. Estado vazio com CTA para
+  // /explorar/ (plano R5, mestre item 17).
+  function initFavoritos(catalog) {
+    var status = $("status");
+    if (status) status.textContent = "";
+    window.__vdvCatalogProducts = catalog.products || [];
+    renderFavoritos();
+  }
+
   // ------------------------------------------------- bottom bar (VDV-20260916-04)
-  // Navegação mobile fixa (só existe no index.html). Rolagem suave; se a
-  // seção alvo ainda está hidden (revelada por densidade), cai para a vitrine
-  // em vez de rolar seção vazia. Procura rola ao topo e foca o campo de busca.
-  // Zero telemetria nova — é navegação local.
+  // VDV-20260916-04 — navegação mobile fixa. R5 (VDV-20260923-01): Explorar e
+  // Favoritos viram páginas próprias — links de navegação (href sem "#")
+  // navegam de verdade; só âncoras locais são interceptadas para rolar suave.
+  // Procura rola ao topo e foca o campo de busca (a página /explorar/ também
+  // tem input#search — o atalho funciona nas duas). Zero telemetria nova.
   function initBottombar() {
     var bar = document.querySelector(".bottombar");
     if (!bar) return;
@@ -1454,6 +1759,8 @@
     bar.addEventListener("click", function (ev) {
       var link = ev.target.closest("a");
       if (!link) return;
+      var hash = link.getAttribute("href") || "";
+      if (hash.charAt(0) !== "#") return; // navegação entre páginas: deixa passar
       ev.preventDefault();
       markCurrent(link);
       if (link.id === "bb-procura") {
@@ -1463,16 +1770,8 @@
         if (input) input.focus({ preventScroll: true });
         return;
       }
-      var hash = link.getAttribute("href") || "";
-      var target = hash.charAt(0) === "#" ? $(hash.slice(1)) : null;
-      if (!target) return;
-      if (target.hidden) {
-        var fallback = $("section-vitrine");
-        if (fallback && !fallback.hidden) {
-          fallback.scrollIntoView(scrollOpt);
-        }
-        return;
-      }
+      var target = $(hash.slice(1));
+      if (!target || target.hidden) return;
       target.scrollIntoView(scrollOpt);
     });
   }
@@ -1486,6 +1785,8 @@
         renderStaticLinks(catalog.bot_username || DEFAULT_BOT);
         var page = document.body.getAttribute("data-page");
         if (page === "produto") initProduto(catalog);
+        else if (page === "explorar") initExplorar(catalog);
+        else if (page === "favoritos") initFavoritos(catalog);
         else if (page === "home") {
           initHome(catalog);
           // VDV-20260912-01: abertura da HOME é sinal operacional sem
@@ -1497,7 +1798,7 @@
         var s = $("status");
         if (s) s.textContent =
           "Não foi possível carregar o catálogo agora. Recarregue a página em alguns instantes.";
-        ["section-novidades", "section-vitrine"].forEach(function (id) {
+        ["section-novidades"].forEach(function (id) {
           var el = $(id);
           if (el) el.hidden = true;
         });

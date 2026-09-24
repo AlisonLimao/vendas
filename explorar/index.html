@@ -7,21 +7,20 @@
   <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <meta name="theme-color" content="#1e3a8a">
-  <title>Produto — VDV, Vitrine de Vendas</title>
-  <meta name="description" content="Detalhes da oferta de atacado: preço, pedido mínimo, disponibilidade e contato pelo Telegram.">
+  <title>Explorar a vitrine — VDV, Vitrine de Vendas</title>
+  <meta name="description" content="Explore todo o catálogo do VDV: busque por termo, filtre por categoria, disponibilidade e tipo de oferta, ordene por recência ou preço.">
   <meta name="robots" content="index,follow">
-  <meta property="og:type" content="product">
+  <link rel="canonical" href="https://vitrinedevenda.com.br/explorar/">
+  <meta property="og:type" content="website">
   <meta property="og:site_name" content="VDV — Vitrine de Vendas de Monte Sião">
-  <!-- Opengraph completado dinamicamente (OG image precisa de URL absoluta).
-       A imagem abaixo é o fallback quando o produto não renderiza og:image
-       própria (banner oficial do VDV — VDV-20260831-05). -->
+  <meta property="og:url" content="https://vitrinedevenda.com.br/explorar/">
   <meta property="og:image" content="https://vitrinedevenda.com.br/assets/vdv-banner-share-1200x630.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="VDV — Vitrine de Vendas de Monte Sião. Produtos, serviços e oportunidades da região.">
+  <meta property="og:title" content="Explorar a vitrine — VDV, Vitrine de Vendas">
+  <meta property="og:description" content="Busca e filtros sobre todo o catálogo do VDV — negocie direto pelo Telegram.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta property="og:title" content="Vitrine de Atacado">
-  <meta property="og:description" content="Oferta de atacado — negocie pelo Telegram.">
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
@@ -93,34 +92,79 @@
   </script>
   <link rel="stylesheet" href="../assets/css/vdv.css?v=20260923-6">
 </head>
-<body data-page="produto">
-  <header class="topbar">
-    <a class="btn btn-ghost" href=".." data-ga-origin="produto_voltar">&larr; Vitrine</a>
-    <!-- VDV-20260909-02 — a marca volta à vitrine (a Home restaura o estado do feed). -->
-    <a class="brand" href=".." aria-label="VDV — voltar à vitrine">
+<body data-page="explorar">
+  <header class="topbar" id="top">
+    <a class="btn btn-ghost" href="../">&larr; Vitrine</a>
+    <a class="brand" href="../" aria-label="VDV — voltar à vitrine">
       <span class="logo" aria-hidden="true">VDV</span>
       <div>
         <strong>Vitrine de Vendas</strong>
         <small>Estoques locais em circulação</small>
       </div>
     </a>
-    <a class="btn btn-sell" data-deep-link="vender" data-ga-origin="produto_topo_vender" href="#">Quero vender</a>
+    <a class="btn btn-sell" data-deep-link="vender" data-ga-origin="explorar_topo_vender" href="#">Quero vender</a>
   </header>
 
-  <main id="produto-main">
+  <main>
+    <!-- R5 (VDV-20260923-01, mestre item 16) — /explorar/: título, busca,
+         filtros (categoria 2 níveis, disponibilidade, tipo de oferta — só os
+         que têm dados), ordenação, contagem, chips ativos removíveis,
+         grid padrão e zero-result com caminhos. -->
+    <h1>Explorar a vitrine</h1>
+    <p class="hero-sub">Todo o catálogo do VDV em um só lugar — busque, filtre e negocie direto pelo Telegram.</p>
+
+    <div class="searchbar">
+      <input id="search" type="search" placeholder="O que você procura? Ex.: blusa de inverno"
+             autocomplete="off" aria-label="Buscar produto">
+      <button id="clear-search" class="btn btn-ghost" hidden>Limpar busca</button>
+    </div>
+
+    <div class="filter-bar">
+      <select id="x-grupo" aria-label="Filtrar por categoria">
+        <option value="">Todas as categorias</option>
+      </select>
+      <select id="x-sub" aria-label="Filtrar por subcategoria" disabled>
+        <option value="">Todas as subcategorias</option>
+      </select>
+      <select id="x-tipo" aria-label="Filtrar por tipo de oferta">
+        <option value="">Todo tipo de oferta</option>
+      </select>
+      <select id="x-ordem" aria-label="Ordenar resultados">
+        <option value="recentes">Mais recentes</option>
+        <option value="preco">Menor preço</option>
+      </select>
+      <button type="button" class="chip" id="x-avail" aria-pressed="false">⚡ Pronta entrega</button>
+    </div>
+
+    <p id="x-count" class="status" role="status"></p>
+    <div class="chips chips-ativos" id="x-chips"></div>
+
+    <div class="grid" id="x-grid"></div>
+
+    <section id="x-zero" hidden>
+      <h2>Nada encontrado com esses filtros</h2>
+      <p>Tente outro termo, limpe os filtros ou diga o que você precisa — a procura chega até quem vende.</p>
+      <div class="empty-actions">
+        <button type="button" class="btn btn-ghost" id="x-limpar">Limpar filtros</button>
+        <a class="btn btn-primary" data-deep-link="procura" data-ga-origin="cta_explorar_zero_procura" href="#">Criar uma Procura</a>
+      </div>
+    </section>
+
     <p id="status" class="status" role="status">Carregando…</p>
   </main>
-
-  <!-- R6 (VDV-20260923-01, mestre item 20) — sticky PREÇO + WHATSAPP do
-       produto no mobile; o app.js preenche com o canal autorizado do
-       anúncio (WhatsApp ou deep link do bot). Escondida ≥768px no CSS. -->
-  <div class="prod-sticky" id="prod-sticky" hidden></div>
 
   <footer>
     <p><a href="../como-funciona.html">Como funciona</a> · <a href="../privacidade.html">Privacidade</a> · <a href="../termos.html">Termos</a> · <a data-deep-link="denuncia" data-ga-origin="rodape_denuncia" href="#">🚩 Denunciar</a></p>
     <p>Sem taxa de plataforma: a negociação acontece direto entre você e o fornecedor, pelo Telegram. Analytics e cookies opcionais só são ativados com consentimento.</p>
     <p><a href="#" id="open_preferences_center">Preferências de cookies</a></p>
   </footer>
+
+  <nav class="bottombar" aria-label="Navegação do celular">
+    <a href="../" id="bb-inicio"><span class="bb-ico" aria-hidden="true">🏠</span>Início</a>
+    <a href="./" id="bb-explorar" aria-current="page"><span class="bb-ico" aria-hidden="true">🔎</span>Explorar</a>
+    <a href="../favoritos/" id="bb-favoritos"><span class="bb-ico" aria-hidden="true">❤️</span>Favoritos</a>
+    <a href="#top" id="bb-procura"><span class="bb-ico" aria-hidden="true">💬</span>Procura</a>
+  </nav>
 
   <script src="../assets/js/app.js?v=20260923-6"></script>
   <noscript>

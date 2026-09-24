@@ -90,7 +90,7 @@
       });
     });
   </script>
-  <link rel="stylesheet" href="assets/css/vdv.css?v=20260923-5">
+  <link rel="stylesheet" href="assets/css/vdv.css?v=20260923-6">
 </head>
 <body data-page="home">
   <header class="topbar" id="top">
@@ -104,7 +104,9 @@
       </div>
     </a>
     <nav class="topnav" aria-label="Navegação principal">
-      <a href="#section-vitrine">Explorar</a>
+      <!-- R5 (VDV-20260923-01) — Explorar vira página própria (/explorar/),
+           com busca + filtros; a grade completa sai da Home. -->
+      <a href="explorar/">Explorar</a>
       <a href="como-funciona.html">Como funciona</a>
     </nav>
     <a class="btn btn-ghost" data-deep-link="vender" data-ga-origin="cta_topo_vender" href="#">Anunciar</a>
@@ -119,7 +121,7 @@
         <h1>A vitrine de vendas de Monte Sião.</h1>
         <p class="hero-sub">Produtos, serviços e oportunidades da região — com anunciante identificado, no mesmo lugar.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#section-vitrine">Explorar ofertas</a>
+          <a class="btn btn-primary" href="explorar/">Explorar ofertas</a>
         </div>
         <div class="searchbar">
           <input id="search" type="search" placeholder="O que você procura? Ex.: blusa de inverno"
@@ -145,7 +147,7 @@
     <section id="section-novidades" hidden>
       <h2>Acabou de chegar</h2>
       <div class="grid grid-novidades" id="grid-recent"></div>
-      <p class="rail-more"><a href="#section-vitrine">Ver tudo &rarr;</a></p>
+      <p class="rail-more"><a href="explorar/">Explorar a vitrine inteira &rarr;</a></p>
     </section>
 
     <!-- VDV-20260921-01 (Bloco 1) — taxonomia navegável em 2 níveis, um só
@@ -190,27 +192,11 @@
       <div class="chips" id="chips-vitrines"></div>
     </section>
 
-    <!-- Fase 0 do "gostei" (VDV-20260905-01): a lista de compras do
-         comprador — corações tocados ficam salvos NESTE NAVEGADOR
-         (localStorage), sem cadastro e sem servidor. Some quando vazia.
-         TRANSIÇÃO R4→R5: a seção sai da Home quando /favoritos/ existir
-         (plano R5 — acesso vira página própria + atalho no topo). -->
-    <section id="section-favoritos" hidden>
-      <h2>❤️ Meus favoritos</h2>
-      <div class="grid" id="grid-favoritos"></div>
-      <p class="favoritos-note">Salvos neste navegador, só para você.</p>
-    </section>
-
-    <!-- TRANSIÇÃO R4→R5: a grade completa permanece na Home até a página
-         /explorar/ existir (plano R5) — enquanto isso é a única forma de ver
-         o catálogo inteiro sem busca. A seção então sai da Home. -->
-    <section id="section-vitrine">
-      <h2>Explore a vitrine</h2>
-      <div class="grid" id="grid-all"></div>
-      <div class="load-more-row">
-        <button id="load-more" class="btn btn-ghost" hidden>Carregar mais</button>
-      </div>
-    </section>
+    <!-- R5 (VDV-20260923-01, mestre itens 16-17) — as seções "Explore a
+         vitrine" (grade completa) e "❤️ Meus favoritos" saíram da Home:
+         viraram as páginas /explorar/ (busca + filtros + ordenação) e
+         /favoritos/ (lista do navegador + estado vazio), linkadas no topo, no
+         hero, no "Explorar a vitrine inteira" das novidades e no bottombar. -->
 
     <section id="section-empty" hidden>
       <h2>A vitrine está sendo atualizada</h2>
@@ -289,17 +275,17 @@
   </footer>
 
   <!-- VDV-20260916-04 — navegação mobile fixa (Início | Explorar | Favoritos |
-       Procura). Escondida ≥720px no CSS; o JS rola suave, cai para a vitrine
-       quando a seção alvo ainda está hidden (revelada por densidade) e foca
-       o campo de busca no atalho de Procura. -->
+       Procura). Escondida ≥720px no CSS; âncoras locais rolam suave e o
+       atalho de Procura foca o campo de busca; links de navegação (R5)
+       levam às páginas /explorar/ e /favoritos/. -->
   <nav class="bottombar" aria-label="Navegação do celular">
     <a href="#top" id="bb-inicio" aria-current="page"><span class="bb-ico" aria-hidden="true">🏠</span>Início</a>
-    <a href="#section-categorias" id="bb-explorar"><span class="bb-ico" aria-hidden="true">🔎</span>Explorar</a>
-    <a href="#section-favoritos" id="bb-favoritos"><span class="bb-ico" aria-hidden="true">❤️</span>Favoritos</a>
+    <a href="explorar/" id="bb-explorar"><span class="bb-ico" aria-hidden="true">🔎</span>Explorar</a>
+    <a href="favoritos/" id="bb-favoritos"><span class="bb-ico" aria-hidden="true">❤️</span>Favoritos</a>
     <a href="#top" id="bb-procura"><span class="bb-ico" aria-hidden="true">💬</span>Procura</a>
   </nav>
 
-  <script src="assets/js/app.js?v=20260923-5"></script>
+  <script src="assets/js/app.js?v=20260923-6"></script>
   <noscript>
     Gerenciamento de consentimento de cookies por <a href="https://www.termsfeed.com/">TermsFeed</a>.
   </noscript>

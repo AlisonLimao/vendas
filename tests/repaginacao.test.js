@@ -3,9 +3,12 @@
  * index.html e app.js:
  *   1. copy ampla: title/h1 saem do viés de "malharia" para a marca da cidade;
  *   2. pill de confiança na home ("O VDV não recebe o pagamento…");
- *   3. bottom bar mobile com os 4 alvos (Início/Explorar/Favoritos/Procura);
- *   4. app.js: initBottombar rola suave, cai para a vitrine quando a seção
- *      alvo está hidden e foca o campo de busca no atalho de Procura;
+ *   3. bottom bar mobile com os 4 alvos (Início/Explorar/Favoritos/Procura) —
+ *      Explorar e Favoritos apontam para as páginas /explorar/ e /favoritos/
+ *      (R5);
+ *   4. app.js: initBottombar rola suave só em âncoras locais (links de
+ *      navegação entre páginas passam), e foca o campo de busca no atalho
+ *      de Procura;
  *   5. página de produto interativa: seller-card, pill e "Continue explorando"
  *      (gate >= 2, cap 8, produto atual excluído) reusando cardEl;
  *   6. cache-busting ?v=20260921-3 no CSS e no app.js.
@@ -40,24 +43,28 @@ assert(
   "2. pill de confiança na home"
 );
 
-// 3. Bottom bar: 4 âncoras com os alvos esperados.
+// 3. Bottom bar: 4 âncoras com os alvos esperados (R5: páginas próprias).
 assert(/<nav class="bottombar"/.test(html), "3. bottombar presente");
 for (const frag of [
   'id="bb-inicio" aria-current="page"',
-  'href="#section-categorias" id="bb-explorar"',
-  'href="#section-favoritos" id="bb-favoritos"',
+  'href="explorar/" id="bb-explorar"',
+  'href="favoritos/" id="bb-favoritos"',
   'id="bb-procura"',
 ]) {
   assert(html.includes(frag), `3. bottombar deve conter ${frag}`);
 }
-// 4. JS da bottom bar: scroll suave, fallback de seção hidden, foco na busca,
-//    e nenhuma telemetria nova no caminho (initBottombar não chama sinal/track).
+// 4. JS da bottom bar: scroll suave SÓ em âncoras locais (href começando com
+//    "#") — links de navegação entre páginas (explorar/, favoritos/, ../)
+//    passam sem preventDefault; Procura foca a busca; zero telemetria nova
+//    (initBottombar não chama sinal/track).
 const bbIdx = js.indexOf("function initBottombar");
 assert(bbIdx !== -1, "4. initBottombar definido no app.js");
 const bb = js.slice(bbIdx, js.indexOf("document.addEventListener(\"DOMContentLoaded\""));
 assert(bb.includes('"bb-procura"'), "4. atalho de Procura foca a busca");
 assert(bb.includes('input.focus'), "4. foco no campo de busca");
-assert(bb.includes("section-vitrine"), "4. fallback para a vitrine quando alvo hidden");
+assert(bb.includes('charAt(0) !== "#"'), "4. links de navegação entre páginas passam");
+assert(bb.includes("ev.preventDefault()"), "4. âncoras locais continuam interceptadas");
+assert(!bb.includes("section-vitrine"), "4. fallback da grade antiga removido");
 assert(bb.includes("scrollIntoView"), "4. rolagem suave até o alvo");
 assert(!/\bsinal\(/.test(bb) && !/\btrack\(/.test(bb), "4. zero telemetria nova na bottom bar");
 
