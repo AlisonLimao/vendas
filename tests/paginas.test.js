@@ -141,7 +141,8 @@ assert(/href="\.\.\/" id="bb-inicio"/.test(xHtml) &&
 assert(/href="\.\.\/favoritos\/" id="bb-favoritos"/.test(xHtml) &&
   /href="\.\.\/explorar\/" id="bb-explorar"/.test(fHtml),
   "7. Explorar/Favoritos se linkam mutuamente");
-assert(/href="\.\.\/explorar\/" id="bb-procura"/.test(fHtml),
-  "7. Procura leva à busca da /explorar/ na página de favoritos");
+assert(/href="\.\.\/#procura" id="bb-procura"/.test(xHtml) &&
+  /href="\.\.\/#procura" id="bb-procura"/.test(fHtml),
+  "7. Procura leva ao bloco único da Home (R8) nas duas páginas");
 
 console.log("paginas: OK (/explorar/ e /favoritos/ — VDV-20260923-01 R5)");

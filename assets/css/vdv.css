@@ -826,3 +826,7 @@ a.chip-page {
 .chips-ativos:empty { display: none; }
 .chip-x { font-weight: 600; color: var(--vdv-primary); }
 .chip-x span { margin-left: .15rem; font-weight: 700; }
+
+/* R8 (VDV-20260923-01) — o item permanente de navegação leva ao bloco único
+   de Procura; topbar é sticky, então a âncora reserva espaço para o título. */
+#procura { scroll-margin-top: 4rem; }

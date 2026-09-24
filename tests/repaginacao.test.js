@@ -49,19 +49,21 @@ for (const frag of [
   'id="bb-inicio" aria-current="page"',
   'href="explorar/" id="bb-explorar"',
   'href="favoritos/" id="bb-favoritos"',
-  'id="bb-procura"',
+  'href="#procura" id="bb-procura"',
 ]) {
   assert(html.includes(frag), `3. bottombar deve conter ${frag}`);
 }
+// R8: o item Procura leva ao bloco único (#procura), não ao topo.
+assert(html.includes('<section class="cta-procura" id="procura">'),
+  "3. bloco único de Procura com id=procura (R8)");
 // 4. JS da bottom bar: scroll suave SÓ em âncoras locais (href começando com
-//    "#") — links de navegação entre páginas (explorar/, favoritos/, ../)
-//    passam sem preventDefault; Procura foca a busca; zero telemetria nova
-//    (initBottombar não chama sinal/track).
+//    "#") — links de navegação entre páginas (explorar/, favoritos/, ../#procura)
+//    passam sem preventDefault; sem caso especial de Procura (o item leva ao
+//    bloco explicativo); zero telemetria nova (initBottombar não chama sinal/track).
 const bbIdx = js.indexOf("function initBottombar");
 assert(bbIdx !== -1, "4. initBottombar definido no app.js");
 const bb = js.slice(bbIdx, js.indexOf("document.addEventListener(\"DOMContentLoaded\""));
-assert(bb.includes('"bb-procura"'), "4. atalho de Procura foca a busca");
-assert(bb.includes('input.focus'), "4. foco no campo de busca");
+assert(!bb.includes('"bb-procura"'), "4. Procura sem caso especial — item leva ao bloco (R8)");
 assert(bb.includes('charAt(0) !== "#"'), "4. links de navegação entre páginas passam");
 assert(bb.includes("ev.preventDefault()"), "4. âncoras locais continuam interceptadas");
 assert(!bb.includes("section-vitrine"), "4. fallback da grade antiga removido");

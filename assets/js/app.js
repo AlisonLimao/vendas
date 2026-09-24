@@ -1763,13 +1763,9 @@
       if (hash.charAt(0) !== "#") return; // navegação entre páginas: deixa passar
       ev.preventDefault();
       markCurrent(link);
-      if (link.id === "bb-procura") {
-        var top = $("top");
-        if (top) top.scrollIntoView(scrollOpt);
-        var input = $("search");
-        if (input) input.focus({ preventScroll: true });
-        return;
-      }
+      // R8 (VDV-20260923-01): Procura não tem caso especial — o item leva ao
+      // bloco único (#procura) que explica ANTES de sair da página; o deep
+      // link para o bot só existe no CTA do bloco (com telemetria própria).
       var target = $(hash.slice(1));
       if (!target || target.hidden) return;
       target.scrollIntoView(scrollOpt);

@@ -113,6 +113,29 @@ assert(
   "6. alvos de navegação apontam para /explorar/ e /favoritos/"
 );
 
+// 6b. R8: Procura com presença honesta — bloco ÚNICO com entrada explicativa
+//     (mestre item 26) + item permanente de navegação (topnav e bottombar
+//     levam AO BLOCO; o deep link para o bot fica só no CTA do bloco).
+assert(
+  /<section class="cta-procura" id="procura">/.test(html) &&
+    html.match(/data-deep-link="procura"/g).length === 3,
+  "6b. bloco único de Procura (id=procura); deep link nos 3 CTAs contextuais (bloco, zero-result, catálogo vazio)"
+);
+assert(
+  /Não encontrou o que precisava\?<\/h2>/.test(html) &&
+    /Diga o que procura e deixe sua necessidade visível para fornecedores da região/.test(html),
+  "6b. entrada do bloco explica antes de enviar para fora da página"
+);
+assert(
+  /<a href="#procura">Procura<\/a>/.test(html) &&
+    /href="#procura" id="bb-procura"/.test(html),
+  "6b. navegação permanente: topnav e bottombar apontam ao bloco"
+);
+assert(
+  /scroll-margin-top: 4rem/.test(css),
+  "6b. âncora #procura reserva espaço da topbar sticky"
+);
+
 // 7. Modo busca esconde explorar junto com as outras faixas editoriais.
 assert(
   /sectionExplorar\.hidden = searching \|\| !showExplorar;/.test(js) &&
