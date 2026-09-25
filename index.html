@@ -220,6 +220,14 @@
       <div class="chips" id="chips-vitrines"></div>
     </section>
 
+    <!-- R14 (VDV-20260925-01) — "Procuras do VDV": demandas publicadas no bot
+         (modalidade Procura), exportadas em data/procuras.json. Oculta até o
+         JS carregar; fetch é best-effort (404/erro → seção fica oculta). -->
+    <section id="section-procuras" hidden>
+      <h2>Procuras do VDV</h2>
+      <div class="grid" id="grid-procuras"></div>
+    </section>
+
     <!-- R5 (VDV-20260923-01, mestre itens 16-17) — as seções "Explore a
          vitrine" (grade completa) e "❤️ Meus favoritos" saíram da Home:
          viraram as páginas /explorar/ (busca + filtros + ordenação) e
