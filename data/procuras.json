@@ -1,0 +1,24 @@
+{
+  "generated_at": "2026-09-25T21:20:21Z",
+  "bot_username": "vitrine_vendasbot",
+  "total": 1,
+  "procuras": [
+    {
+      "id": "024a7bdc-095a-434f-b8b2-0976742bcacd",
+      "description": "Procuro saída de praia feminina em tricô, de preferência com trama vazada e visual moderno. Busco modelos leves, com bom caimento, acabamento bem feito e aparência sofisticada para uso sobre biquíni ou maiô.\n\nTenho interesse em modelos semelhantes ao da imagem, em cores claras ou neutras, principalmente branco, off-white, bege ou cru.\n\nPreferência por fornecedor com pronta entrega ou possibilidade de reposição. Enviar fotos, valores, quantidade disponível e condições de venda.",
+      "category": {
+        "slug": "vestido",
+        "name": "Vestido"
+      },
+      "quantity": 1,
+      "deadline": "2026-10-10",
+      "price_max": "12.00",
+      "accepts_similar": true,
+      "status": "active",
+      "published_at": "2026-09-25T15:45:49Z",
+      "expires_at": "2026-10-02T15:45:49Z",
+      "image": "assets/procuras/024a7bdc-095a-434f-b8b2-0976742bcacd.jpg",
+      "image_thumb": "assets/procuras/thumb/024a7bdc-095a-434f-b8b2-0976742bcacd.webp"
+    }
+  ]
+}
