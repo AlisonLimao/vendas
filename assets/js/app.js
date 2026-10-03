@@ -460,6 +460,44 @@
     return picked;
   }
 
+  // Fatia 49 (mestre §23) — destaque editorial de vitrine: regra REAL de
+  // seleção = rodízio diário igualitário entre fornecedores (seed derivada
+  // da data — estável no dia, muda de dia a dia; todos os fornecedores
+  // passam pelo destaque ao longo dos dias — igualdade, não ranking).
+  // Inline no app.js: não justifica request extra de script (CWV).
+  function dailySeed() {
+    var d = new Date();
+    return ((d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate()) * 7) >>> 0;
+  }
+  function pickDestaqueDiario(products) {
+    var by = {};
+    products.forEach(function (p) {
+      if (!p.supplier_slug || !p.image) return;
+      var g = (by[p.supplier_slug] = by[p.supplier_slug] || {
+        name: p.seller_name || p.supplier_slug,
+        slug: p.supplier_slug,
+        city: p.city || "",
+        thumb: "",
+        n: 0
+      });
+      g.n += 1;
+      if (!g.thumb && p.image_thumb) g.thumb = p.image_thumb;
+    });
+    var keys = Object.keys(by).filter(function (k) { return by[k].n >= 1; });
+    if (!keys.length) return null;
+    var seed = dailySeed() || 1;
+    // LCG determinístico (Numerical Recipes): mesma ordem no dia inteiro.
+    var rng = function () {
+      seed = (seed * 1664525 + 1013904223) >>> 0;
+      return seed / 4294967296;
+    };
+    for (var i = keys.length - 1; i > 0; i--) {
+      var j = Math.floor(rng() * (i + 1));
+      var t = keys[i]; keys[i] = keys[j]; keys[j] = t;
+    }
+    return by[keys[0]];
+  }
+
   function cardImgPlaceholder() {
     var ph = document.createElement("div");
     ph.className = "card-imgph";
@@ -790,6 +828,52 @@
       });
     }
 
+    // Fatia 49 (mestre §23) — bloco editorial "Conheça esta vitrine" que quebra
+    // a monotonia do catálogo e valoriza o anunciante: real por definição
+    // (vitrine com produtos e foto no ar), destaque pelo rodízio diário.
+    var sectionDestaque = $("section-destaque");
+    var destaque = sectionDestaque ? pickDestaqueDiario(products) : null;
+    if (destaque) {
+      var dEl = $("vitrine-destaque");
+      dEl.innerHTML = "";
+      function vitrineDestaqueTrack() {
+        track("abrir_vitrine", { fornecedor_slug: destaque.slug, event_category: "navegacao" });
+        telemetria("supplier_view", { supplier: destaque.slug });
+      }
+      if (destaque.thumb) {
+        var dLink = document.createElement("a");
+        dLink.className = "vd-photo";
+        dLink.href = "fornecedor/" + encodeURIComponent(destaque.slug) + "/";
+        var dImg = document.createElement("img");
+        dImg.src = prefix + destaque.thumb;
+        dImg.alt = destaque.name + " — produtos no VDV";
+        dImg.loading = "lazy";
+        dImg.addEventListener("click", vitrineDestaqueTrack);
+        dLink.appendChild(dImg);
+        dEl.appendChild(dLink);
+      }
+      var dBody = document.createElement("div");
+      dBody.className = "vd-body";
+      var dName = document.createElement("a");
+      dName.className = "vd-name";
+      dName.href = "fornecedor/" + encodeURIComponent(destaque.slug) + "/";
+      dName.textContent = destaque.name;
+      var dMeta = document.createElement("p");
+      dMeta.className = "vd-meta";
+      dMeta.textContent = "Monte Sião e região · " + destaque.n +
+        (destaque.n > 1 ? " produtos" : " produto");
+      var dCta = document.createElement("a");
+      dCta.className = "vd-cta";
+      dCta.href = "fornecedor/" + encodeURIComponent(destaque.slug) + "/";
+      dCta.textContent = "Ver vitrine completa →";
+      dCta.addEventListener("click", vitrineDestaqueTrack);
+      dBody.appendChild(dName);
+      dBody.appendChild(dMeta);
+      dBody.appendChild(dCta);
+      dEl.appendChild(dBody);
+      sectionDestaque.hidden = false;
+    }
+
     // R14 (VDV-20260925-01) — "Procuras do VDV": demandas publicadas no bot.
     // Fetch SEPARADO e best-effort — 404/erro deixa a seção oculta e NUNCA
     // interfere na renderização dos produtos (independência do feed novo).
@@ -840,6 +924,47 @@
 
     var input = $("search");
     var clearBtn = $("clear-search");
+
+    // Fatia 49 (mestre §13) — termos rápidos: atalhos derivados do catálogo
+    // real (subcategorias com >= 2 anúncios; "outro" sai da lista). A contagem
+    // vem da própria taxonomia exportada — nunca inventa popularidade.
+    // Atalho = termo na busca textual (a navegação por categoria fica no
+    // bloco de Categorias; aqui é entrada de busca).
+    var qt = $("quick-terms");
+    if (qt) {
+      var termos = {};
+      products.forEach(function (p) {
+        var c = p.category || {};
+        if (c.slug && c.slug !== "outro") {
+          var t = (termos[c.slug] = termos[c.slug] || { name: c.name || c.slug, n: 0 });
+          t.n += 1;
+        }
+      });
+      var listaTermos = Object.keys(termos)
+        .map(function (k) { return termos[k]; })
+        .filter(function (t) { return t.n >= 2; })
+        .sort(function (a, b) { return b.n - a.n; })
+        .slice(0, 4)
+        .map(function (t) { return t.name; });
+      if (listaTermos.length) {
+        var lab = document.createElement("span");
+        lab.className = "qt-label";
+        lab.textContent = "Popular agora:";
+        qt.appendChild(lab);
+        listaTermos.forEach(function (nome) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "qt-term";
+          b.textContent = nome;
+          b.addEventListener("click", function () {
+            input.value = nome.toLowerCase();
+            renderSearch();
+          });
+          qt.appendChild(b);
+        });
+        qt.hidden = false;
+      }
+    }
 
     function setBrowseVisibility(searching) {
       // VDV-20260916-05 — o bloco de categorias NÃO some durante a busca: os

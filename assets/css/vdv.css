@@ -868,3 +868,67 @@ a.chip-page {
 /* R8 (VDV-20260923-01) — o item permanente de navegação leva ao bloco único
    de Procura; topbar é sticky, então a âncora reserva espaço para o título. */
 #procura { scroll-margin-top: 4rem; }
+
+/* ---- Fatia 49 (VDV-20261003-05) — termos rápidos + vitrine editorial ---- */
+.quick-terms {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
+  margin: .75rem 0 0;
+  font-size: var(--fs-small);
+}
+.quick-terms[hidden] { display: none; }
+.qt-label {
+  font-weight: 600;
+  color: var(--vdv-text);
+}
+.qt-term {
+  border: 1px solid var(--vdv-border);
+  background: var(--vdv-surface);
+  color: var(--vdv-text);
+  padding: 2px 11px;
+  border-radius: var(--r-full);
+  font: inherit;
+  font-size: var(--fs-small);
+  cursor: pointer;
+  min-height: 1.6rem;
+}
+.qt-term:hover { border-color: var(--vdv-accent); color: var(--vdv-accent); }
+.qt-term:focus-visible { outline: 2px solid var(--vdv-accent); outline-offset: 2px; }
+
+.vitrine-destaque {
+  display: grid;
+  grid-template-columns: 104px 1fr;
+  gap: var(--sp-4);
+  align-items: center;
+  padding: var(--sp-4);
+  border: 1px solid var(--vdv-border);
+  border-radius: var(--r-2);
+  background: var(--vdv-surface);
+}
+.vitrine-destaque[hidden] { display: none; }
+.vd-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: var(--r-2);
+}
+.vd-name {
+  display: block;
+  font-size: var(--fs-h2);
+  color: var(--vdv-primary-ink);
+  margin: 0 0 2px;
+}
+.vd-name:hover { text-decoration: underline; }
+.vd-meta {
+  margin: 0 0 6px;
+  font-size: var(--fs-small);
+  color: var(--vdv-text-muted);
+}
+.vd-cta { font-size: var(--fs-small); color: var(--vdv-accent); }
+.vd-cta:hover { text-decoration: underline; }
+@media (min-width: 720px) {
+  .vitrine-destaque { grid-template-columns: 144px 1fr; padding: var(--sp-5); }
+}

@@ -56,8 +56,8 @@ assert(
   "2. trilho de grupo removido"
 );
 
-// 3. Rotação removida (HTML e JS); arquivo fair_rotation.js deixa de ser
-//    carregado pela Home (lib + teste continuam no repo).
+// 3. Rotação removida (HTML e JS); arquivo fair_rotation.js saiu do repo
+//    (Fatia 49: o rodízio do destaque editorial mora no app.js, inline).
 assert(
   !/section-exposicao|grid-exposicao/.test(html) &&
     !/sectionExposicao|EXPOSICAO_|VDVFairRotation/.test(js) &&

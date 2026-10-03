@@ -139,7 +139,7 @@
       });
     });
   </script>
-  <link rel="stylesheet" href="assets/css/vdv.min.css?v=20261003-1">
+  <link rel="stylesheet" href="assets/css/vdv.min.css?v=20261003-2">
 </head>
 <body data-page="home">
   <header class="topbar" id="top">
@@ -182,6 +182,10 @@
           <input id="search" type="search" placeholder="O que você procura? Ex.: blusa de inverno"
                  autocomplete="off" aria-label="Buscar produto">
         </div>
+        <!-- Fatia 49 (VDV-20261003-05, mestre §13) — termos rápidos:
+             atalhos derivados do catálogo real (subcategorias com mais
+             anúncios); preenchido pelo app.js, oculto sem dados. -->
+        <p id="quick-terms" class="quick-terms" hidden></p>
       </div>
       <!-- Banner da arte oficial do VDV (VDV-20260831-05) — só no desktop;
            no celular a primeira dobra é produto (VDV-20260905-09) -->
@@ -238,6 +242,15 @@
     <section id="section-explorar" hidden>
       <h2>Para você explorar</h2>
       <div class="grid" id="grid-explorar"></div>
+    </section>
+
+    <!-- Fatia 49 (VDV-20261003-05, mestre §23) — quebra editorial no meio da
+         descoberta: uma vitrine real com foto (rodízio diário igualitário
+         entre fornecedores — regra real, sem ranking inventado; cada
+         fornecedor passa pelo destaque ao longo dos dias). -->
+    <section id="section-destaque" hidden>
+      <h2>Conheça esta vitrine</h2>
+      <div id="vitrine-destaque" class="vitrine-destaque"></div>
     </section>
 
     <!-- VDV-20260907-06 — gancho de crescimento: as vitrines (fornecedores)
@@ -352,7 +365,7 @@
     <a href="#procura" id="bb-procura"><span class="bb-ico" aria-hidden="true">💬</span>Procura</a>
   </nav>
 
-  <script src="assets/js/vdv.min.js?v=20261003-1"></script>
+  <script src="assets/js/vdv.min.js?v=20261003-2"></script>
   <noscript>
     Gerenciamento de consentimento de cookies por <a href="https://www.termsfeed.com/">TermsFeed</a>.
   </noscript>
