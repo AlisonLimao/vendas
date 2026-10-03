@@ -321,13 +321,6 @@
       esc(AVAILABILITY_LABELS[p.availability]) + "</span> ";
   }
 
-  function freshnessBadge(p) {
-    if (p.days_since_confirmation == null) return "";
-    return p.days_since_confirmation >= FRESH_DAYS
-      ? '<span class="badge badge-warn">Confirmar disponibilidade</span>'
-      : "";
-  }
-
   function saleBadge(p) {
     return offerType(p) === "peca_unica"
       ? '<span class="badge badge-sale">🏷️ PEÇA ÚNICA</span>'
@@ -647,6 +640,20 @@
     return img;
   }
 
+  /* Fatia 52 (plano 16, mestre §15/§18/§19) — UM só sinal forte de
+   * disponibilidade por card: PEÇA ÚNICA fala do tipo da oferta, os rótulos
+   * de disponibilidade do restante — nunca os dois juntos, nem o aviso de
+   * "confirmar" (que fica na página do produto, freshText). */
+  function cardSignal(p) {
+    if (offerType(p) === "peca_unica") return saleBadge(p);
+    return availabilityBadge(p);
+  }
+
+  /* Fatia 52 (plano 16, mestre §12/§13/§15) — o card vira peça editorial:
+   * sem caixa (a separação vem da foto, do espaço e do alinhamento) e a
+   * hierarquia visual é IMAGEM → PREÇO → NOME → FORNECEDOR. A linha "Ver
+   * detalhes" saiu — o card inteiro já é o link. Cidade/categoria ficam
+   * para a página do produto (menos texto, §49). */
   function cardEl(p) {
     // Fase 0 do "gostei": o card vira um wrapper (card-wrap) com o link
     // inteiro de sempre + o coração (botão FORA do <a> — button dentro de
@@ -667,6 +674,7 @@
     var body = document.createElement("div");
     body.className = "card-body";
     body.innerHTML =
+      '<p class="card-price">' + fmtPrice(p) + "</p>" +
       '<p class="card-title">' + esc(p.title) + "</p>" +
       (p.seller_name
         ? '<span class="card-seller"' +
@@ -676,11 +684,7 @@
           ">" +
           esc(p.seller_name) + "</span>"
         : "") +
-      '<p class="card-meta">' + (p.category && p.category.name ? esc(p.category.name) + " · " : "") +
-      esc(p.city) + "/" + esc(p.state) + "</p>" +
-      '<p class="card-price">' + fmtPrice(p) + "</p>" +
-      '<p class="card-flags">' + availabilityBadge(p) + saleBadge(p) + freshnessBadge(p) + "</p>" +
-      '<p class="card-more">Ver detalhes <span aria-hidden="true">→</span></p>';
+      '<p class="card-flags">' + cardSignal(p) + "</p>";
     a.appendChild(body);
     // R2: fornecedor navegável no card — clique no nome não navega para o
     // produto, vai para a vitrine (mesmo padrão do coração: fora do fluxo do <a>).
@@ -2175,9 +2179,9 @@
         sk.innerHTML =
           '<div class="sk-media"></div>' +
           '<div class="card-body">' +
+          '<div class="sk-line sk-line-price"></div>' +
           '<div class="sk-line sk-line-title"></div>' +
           '<div class="sk-line sk-line-short"></div>' +
-          '<div class="sk-line sk-line-price"></div>' +
           "</div>";
         wrap.appendChild(sk);
         frag.appendChild(wrap);
