@@ -40,9 +40,9 @@ const fHtml = fs.readFileSync(
 assert(/<body data-page="explorar">/.test(xHtml), "1. explorar com data-page");
 assert(/<body data-page="favoritos">/.test(fHtml), "1. favoritos com data-page");
 assert(/\.\.\/assets\/css\/vdv\.min\.css\?v=/.test(xHtml) &&
-  /\.\.\/assets\/js\/app\.js\?v=/.test(xHtml), "1. assets ../ com ?v= na explorar");
+  /\.\.\/assets\/js\/(?:vdv\.min\.js|app\.js)\?v=/.test(xHtml), "1. assets ../ com ?v= na explorar");
 assert(/\.\.\/assets\/css\/vdv\.min\.css\?v=/.test(fHtml) &&
-  /\.\.\/assets\/js\/app\.js\?v=/.test(fHtml), "1. assets ../ com ?v= nos favoritos");
+  /\.\.\/assets\/js\/(?:vdv\.min\.js|app\.js)\?v=/.test(fHtml), "1. assets ../ com ?v= nos favoritos");
 assert(/<title>Explorar a vitrine — VDV, Vitrine de Vendas<\/title>/.test(xHtml),
   "1. título da página Explorar");
 assert(/<title>Meus favoritos — VDV, Vitrine de Vendas<\/title>/.test(fHtml),

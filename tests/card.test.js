@@ -103,6 +103,6 @@ assert(
 
 // 8. Cache-busting na home.
 assert(/vdv(\.min)?\.css\?v=[0-9]{8}-[0-9]+/.test(html), "8. CSS com ?v= na home");
-assert(/app\.js\?v=[0-9]{8}-[0-9]+/.test(html), "8. app.js com ?v= na home");
+assert(/(?:vdv\.min\.js|app\.js)\?v=[0-9]{8}-[0-9]+/.test(html), "8. JS com ?v= na home");
 
 console.log("card: OK (card único 4:5 cover/contain + placeholder — VDV-20260923-01 R2)");
