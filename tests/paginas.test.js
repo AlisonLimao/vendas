@@ -39,9 +39,9 @@ const fHtml = fs.readFileSync(
 // 1. Páginas existem com data-page próprio e assets relativos com versão.
 assert(/<body data-page="explorar">/.test(xHtml), "1. explorar com data-page");
 assert(/<body data-page="favoritos">/.test(fHtml), "1. favoritos com data-page");
-assert(/\.\.\/assets\/css\/vdv\.css\?v=/.test(xHtml) &&
+assert(/\.\.\/assets\/css\/vdv\.min\.css\?v=/.test(xHtml) &&
   /\.\.\/assets\/js\/app\.js\?v=/.test(xHtml), "1. assets ../ com ?v= na explorar");
-assert(/\.\.\/assets\/css\/vdv\.css\?v=/.test(fHtml) &&
+assert(/\.\.\/assets\/css\/vdv\.min\.css\?v=/.test(fHtml) &&
   /\.\.\/assets\/js\/app\.js\?v=/.test(fHtml), "1. assets ../ com ?v= nos favoritos");
 assert(/<title>Explorar a vitrine — VDV, Vitrine de Vendas<\/title>/.test(xHtml),
   "1. título da página Explorar");
@@ -85,8 +85,8 @@ for (const frag of [
 
 // 4. app.js: boot por data-page e funções novas.
 assert(
-  /page === "explorar"\) initExplorar\(catalog\)/.test(js) &&
-    /page === "favoritos"\) initFavoritos\(catalog\)/.test(js),
+  /page === "explorar"\)\s*\{ initExplorar\(catalog\)/.test(js) &&
+    /page === "favoritos"\)\s*\{ clearSkeletons\(\); initFavoritos\(catalog\)/.test(js),
   "4. boot roteia explorar e favoritos"
 );
 assert(/function initExplorar\(catalog\)/.test(js) &&

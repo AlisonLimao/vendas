@@ -1673,8 +1673,32 @@
         chipsEl.appendChild(b);
       });
 
-      gridEl.innerHTML = "";
-      found.forEach(function (p) { gridEl.appendChild(cardEl(p)); });
+      var skelWraps = gridEl.__vdvSkeletonWraps;
+      if (skelWraps && !gridEl.__vdvCheio) {
+        // CWV (R12 follow, 02/10 — CLS do /explorar/): 1º preenchimento reusa
+        // os wraps dos skeletons 1:1 (replace in-place) e depois anexa o
+        // resto — UM reflow, sem o frame de grade vazia que fazia o rodapé
+        // pular duas vezes. Preenchimentos seguintes (filtros) refazem limpo.
+        gridEl.__vdvCheio = true;
+        var n = Math.min(skelWraps.length, found.length);
+        for (var i = 0; i < n; i++) {
+          var wrap = skelWraps[i];
+          if (wrap && wrap.parentNode === gridEl) {
+            wrap.replaceChild(cardEl(found[i]), wrap.firstChild);
+          }
+        }
+        for (var j = n; j < skelWraps.length; j++) {
+          if (skelWraps[j] && skelWraps[j].parentNode === gridEl) {
+            gridEl.removeChild(skelWraps[j]);
+          }
+        }
+        var resto = document.createDocumentFragment();
+        for (var k = n; k < found.length; k++) resto.appendChild(cardEl(found[k]));
+        gridEl.appendChild(resto);
+      } else {
+        gridEl.innerHTML = "";
+        found.forEach(function (p) { gridEl.appendChild(cardEl(p)); });
+      }
       gridEl.hidden = found.length === 0;
       zeroEl.hidden = !(searching && found.length === 0);
       if (clearBtn) clearBtn.hidden = !searching;
@@ -1879,6 +1903,13 @@
         frag.appendChild(wrap);
       }
       grid.appendChild(frag);
+      // CWV (R12 follow, 02/10 — CLS do /explorar/): memoriza os wraps dos
+      // skeletons — o PRIMEIRO preenchimento da grade os consome 1:1
+      // (aplicar()), em vez de remover tudo e recriar; assim o rodapé não
+      // pula duas vezes (down→up→down) em um reflow único ao chegar o JSON.
+      if (t.grid === "x-grid") {
+        grid.__vdvSkeletonWraps = Array.prototype.slice.call(grid.children);
+      }
       var sec = t.section && $(t.section);
       if (sec) sec.hidden = false; // ocupa o lugar do conteúdo durante o load
     });
@@ -1900,11 +1931,13 @@
     fetch(prefix + "data/products.json")
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(function (catalog) {
-        clearSkeletons();
+        // CWV (R12 follow, 02/10 — CLS do /explorar/): aqui os skeletons do
+        // /explorar/ NÃO são limpos antes — o initExplorar os consome 1:1 no
+        // primeiro aplicar() e o clearSkeletons de baixo só limpa sobras.
         renderStaticLinks(catalog.bot_username || DEFAULT_BOT);
-        if (page === "produto") initProduto(catalog);
-        else if (page === "explorar") initExplorar(catalog);
-        else if (page === "favoritos") initFavoritos(catalog);
+        if (page === "produto") { clearSkeletons(); initProduto(catalog); }
+        else if (page === "explorar") { initExplorar(catalog); clearSkeletons(); }
+        else if (page === "favoritos") { clearSkeletons(); initFavoritos(catalog); }
         else if (page === "home") {
           initHome(catalog);
           // VDV-20260912-01: abertura da HOME é sinal operacional sem
