@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-03T21:41:49Z",
+  "generated_at": "2026-10-03T22:05:25Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 36,
+  "total": 35,
   "products": [
     {
       "id": "75fd1fd0-296e-4672-a0c1-7c37730aee92",
@@ -105,43 +105,6 @@
         "tipo": "whatsapp",
         "nome": "Ana Maria",
         "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Saia%20Longa%20Mescla%20Clara%20com%20Caimento%20Leve%22%0APre%C3%A7o%3A%20R%24%2025%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/6ac0bbb6-964f-4659-bfda-52bbd5e385ec/"
-      }
-    },
-    {
-      "id": "ab5497f7-08ee-446a-9f7e-72c8f16d1ef8",
-      "title": "Vestido Saída de Praia em Tricô Vazado",
-      "description": "Peça em tricô vazado, com modelagem ajustada, alças largas e decote arredondado. O desenho da trama combina pontos abertos e detalhes geométricos na cintura, criando um visual moderno e elegante. Ideal para usar como saída de praia, sobre biquíni ou em produções leves de verão.",
-      "category": {
-        "slug": "vestido",
-        "name": "Vestido",
-        "group": {
-          "slug": "moda_e_malharia",
-          "name": "Moda e Malharia"
-        }
-      },
-      "price": "22.00",
-      "minimum_order": 1,
-      "offer_type": "varejo",
-      "availability": "pronta_entrega",
-      "quantity": 200,
-      "days_since_confirmation": 16,
-      "seller_name": "Ana Maria",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/ab5497f7-08ee-446a-9f7e-72c8f16d1ef8.jpg",
-      "images": [
-        "assets/products/ab5497f7-08ee-446a-9f7e-72c8f16d1ef8.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "image_thumb": "assets/products/thumb/ab5497f7-08ee-446a-9f7e-72c8f16d1ef8.webp",
-      "offer_owner_name": "Ana Maria",
-      "authorization_confirmed": true,
-      "supplier_slug": "ana-maria-65dc1758",
-      "supplier_official": false,
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Ana Maria",
-        "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Sa%C3%ADda%20de%20Praia%20em%20Tric%C3%B4%20Vazado%22%0APre%C3%A7o%3A%20R%24%2022%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/ab5497f7-08ee-446a-9f7e-72c8f16d1ef8/"
       }
     },
     {
@@ -1348,7 +1311,7 @@
     {
       "slug": "moda_e_malharia",
       "name": "Moda e Malharia",
-      "total": 32
+      "total": 31
     }
   ]
 }
