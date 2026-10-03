@@ -932,3 +932,43 @@ a.chip-page {
 @media (min-width: 720px) {
   .vitrine-destaque { grid-template-columns: 144px 1fr; padding: var(--sp-5); }
 }
+
+/* ---- Fatia 50 (VDV-20261003-06) — sugestões durante a digitação ---- */
+.searchbar { position: relative; }
+.sg-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 4px 0 0;
+  padding: 4px 0;
+  list-style: none;
+  background: var(--vdv-surface);
+  border: 1px solid var(--vdv-border);
+  border-radius: var(--r-2);
+  box-shadow: var(--shadow-md);
+  z-index: 40;
+  max-height: 17rem;
+  overflow-y: auto;
+}
+.sg-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  padding: 9px 12px;
+  cursor: pointer;
+  font-size: var(--fs-card);
+  color: var(--vdv-text);
+}
+.sg-item.sg-ativo { background: rgba(37, 99, 235, .09); }
+.sg-titulo {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sg-meta {
+  font-size: var(--fs-xs);
+  color: var(--vdv-text-muted);
+  white-space: nowrap;
+}

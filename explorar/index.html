@@ -112,7 +112,7 @@
       });
     });
   </script>
-  <link rel="stylesheet" href="../assets/css/vdv.min.css?v=20261003-2">
+  <link rel="stylesheet" href="../assets/css/vdv.min.css?v=20261003-3">
 </head>
 <body data-page="explorar">
   <header class="topbar" id="top">
@@ -138,7 +138,12 @@
 
     <div class="searchbar">
       <input id="search" type="search" placeholder="O que você procura? Ex.: blusa de inverno"
-             autocomplete="off" aria-label="Buscar produto">
+             autocomplete="off" aria-label="Buscar produto"
+             role="combobox" aria-haspopup="listbox" aria-expanded="false"
+             aria-controls="x-sg">
+      <!-- Fatia 50 (VDV-20261003-06, mestre §15) — sugestões durante a
+           digitação (produtos/categorias do JSON já carregado). -->
+      <ul id="x-sg" class="sg-list" role="listbox" hidden></ul>
       <button id="clear-search" class="btn btn-ghost" hidden>Limpar busca</button>
     </div>
 
@@ -189,7 +194,7 @@
     <a href="../#procura" id="bb-procura"><span class="bb-ico" aria-hidden="true">💬</span>Procura</a>
   </nav>
 
-  <script src="../assets/js/vdv.min.js?v=20261003-2"></script>
+  <script src="../assets/js/vdv.min.js?v=20261003-3"></script>
   <noscript>
     Gerenciamento de consentimento de cookies por <a href="https://www.termsfeed.com/">TermsFeed</a>.
   </noscript>

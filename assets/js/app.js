@@ -498,6 +498,117 @@
     return by[keys[0]];
   }
 
+  // Fatia 50 (VDV-20261003-06, mestre §15) — sugestões durante a digitação:
+  // casamento client-side sobre o products.json já carregado — produtos
+  // (título) + categorias (nome e nome do grupo). Combobox leve e teclável
+  // (setas/Enter/Esc), sem lib externa. onEscolha(sugestao) decide a
+  // navegação de cada página. Sem telemetria nova: a escolha de produto
+  // cai no product_view / track de clique já existentes, e a categoria
+  // cai na telemetria de search da própria página.
+  var SG_CAP = 6;        // itens totais na lista aberta
+  var SG_PROD_CAP = 4;   // teto de produtos (deixa espaço para categorias)
+  function wireSugestoes(input, listEl, products, onEscolha) {
+    if (!input || !listEl) return;
+    var itens = [];
+    var ativo = -1;
+    function fechar() {
+      itens = [];
+      ativo = -1;
+      listEl.hidden = true;
+      listEl.innerHTML = "";
+      input.setAttribute("aria-expanded", "false");
+      input.removeAttribute("aria-activedescendant");
+    }
+    function escolher(i) {
+      var s = itens[i];
+      fechar();
+      if (s) onEscolha(s);
+    }
+    function setAtivo(i) {
+      if (!itens.length) return;
+      ativo = (i + itens.length) % itens.length;
+      Array.prototype.forEach.call(listEl.children, function (li, k) {
+        li.classList.toggle("sg-ativo", k === ativo);
+        li.setAttribute("aria-selected", String(k === ativo));
+      });
+      input.setAttribute("aria-activedescendant", listEl.children[ativo].id);
+    }
+    function render() {
+      var termo = input.value.trim().toLowerCase();
+      if (!termo) { fechar(); return; }
+      itens = [];
+      var vistos = {};
+      products.forEach(function (p) {
+        var c = p.category || {};
+        var g = c.group || {};
+        if (g.slug && g.name &&
+            g.name.toLowerCase().indexOf(termo) !== -1 &&
+            !vistos["g:" + g.slug]) {
+          vistos["g:" + g.slug] = true;
+          itens.push({ kind: "grupo", label: g.name, slug: g.slug, meta: "categoria" });
+        }
+        if (c.slug && c.name && c.slug !== "outro" &&
+            c.name.toLowerCase().indexOf(termo) !== -1 &&
+            !vistos["c:" + c.slug]) {
+          vistos["c:" + c.slug] = true;
+          itens.push({
+            kind: "categoria",
+            label: c.name,
+            slug: c.slug,
+            group: g.slug || "",
+            meta: g.name ? "em " + g.name : "categoria"
+          });
+        }
+      });
+      var nProd = 0;
+      products.forEach(function (p) {
+        if (itens.length >= SG_CAP || nProd >= SG_PROD_CAP) return;
+        if ((p.title || "").toLowerCase().indexOf(termo) !== -1) {
+          itens.push({ kind: "produto", p: p });
+          nProd += 1;
+        }
+      });
+      itens = itens.slice(0, SG_CAP);
+      if (!itens.length) { fechar(); return; }
+      listEl.innerHTML = "";
+      itens.forEach(function (s, i) {
+        var li = document.createElement("li");
+        li.setAttribute("role", "option");
+        li.id = input.id + "-sg-" + i;
+        li.setAttribute("aria-selected", "false");
+        if (s.kind === "produto") {
+          li.className = "sg-item sg-produto";
+          li.innerHTML =
+            '<span class="sg-titulo">' + esc(s.p.title) + "</span>" +
+            '<span class="sg-meta">' + esc(s.p.seller_name || "") +
+            (s.p.price ? " · " + fmtPriceText(s.p) : "") + "</span>";
+        } else {
+          li.className = "sg-item sg-categoria";
+          li.innerHTML =
+            '<span class="sg-titulo">' + esc(s.label) + "</span>" +
+            '<span class="sg-meta">' + esc(s.meta) + "</span>";
+        }
+        li.addEventListener("mousedown", function (ev) {
+          ev.preventDefault(); // a escolha acontece antes do blur fechar a lista
+          escolher(i);
+        });
+        listEl.appendChild(li);
+      });
+      ativo = -1;
+      listEl.hidden = false;
+      input.setAttribute("aria-expanded", "true");
+    }
+    input.addEventListener("input", render);
+    input.addEventListener("blur", fechar);
+    input.addEventListener("keydown", function (ev) {
+      if (!itens.length) return;
+      if (ev.key === "ArrowDown") { ev.preventDefault(); setAtivo(ativo + 1); }
+      else if (ev.key === "ArrowUp") { ev.preventDefault(); setAtivo(ativo - 1); }
+      else if (ev.key === "Enter") { if (ativo >= 0) { ev.preventDefault(); escolher(ativo); } }
+      else if (ev.key === "Escape") { fechar(); }
+    });
+  }
+
   function cardImgPlaceholder() {
     var ph = document.createElement("div");
     ph.className = "card-imgph";
@@ -965,6 +1076,28 @@
         qt.hidden = false;
       }
     }
+
+    // Fatia 50 — sugestões na busca da Home: produto navega (com snapshot de
+    // retorno), categoria/grupo aplicam o filtro equivalente do bloco de
+    // Categorias (validado contra o catálogo — sugestão que não existe mais
+    // é ignorada, nunca filtro órfão).
+    wireSugestoes(input, $("search-sg"), products, function (s) {
+      if (s.kind === "produto") {
+        saveHomeState();
+        window.location.href = "produto/index.html?id=" + encodeURIComponent(s.p.id);
+        return;
+      }
+      if (s.kind === "grupo") {
+        selectedCategory = groups[s.slug] ? s.slug : "";
+      } else {
+        var gSel = groups[s.group];
+        if (!gSel || !gSel.subs[s.slug]) return;
+        selectedCategory = s.group;
+      }
+      selectedSubcategory = s.kind === "categoria" ? s.slug : "";
+      renderCatBlock();
+      renderSearch();
+    });
 
     function setBrowseVisibility(searching) {
       // VDV-20260916-05 — o bloco de categorias NÃO some durante a busca: os
@@ -1890,6 +2023,28 @@
         aplicar();
       });
     }
+
+    // Fatia 50 — sugestões na busca do /explorar/: produto navega (snapshot
+    // de retorno), categoria/grupo preenchem os selects equivalentes.
+    wireSugestoes(input, $("x-sg"), products, function (s) {
+      if (s.kind === "produto") {
+        saveExplorarState();
+        window.location.href = "../produto/index.html?id=" + encodeURIComponent(s.p.id);
+        return;
+      }
+      if (s.kind === "grupo") {
+        if (!groups[s.slug]) return;
+        grp = s.slug;
+        sub = "";
+      } else {
+        var gSg = groups[s.group];
+        if (!gSg || !gSg.subs[s.slug]) return;
+        grp = s.group;
+        sub = s.slug;
+      }
+      syncControles();
+      aplicar();
+    });
 
     // Filtros preservados ao voltar (reuso do snapshot da Home/Vitrine).
     function saveExplorarState() {
