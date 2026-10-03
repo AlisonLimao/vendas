@@ -142,11 +142,31 @@ a.brand:focus-visible { outline: 2px solid var(--vdv-accent, #f59e0b); outline-o
 main { max-width: var(--container); margin: 0 auto; padding: 1rem; }
 
 h1 { font-size: var(--fs-h1); margin: .25rem 0; }
-h2 { font-size: var(--fs-h2); margin: 1.1rem 0 .65rem; }
+/* Fatia 53 (plano 16, mestre §37): títulos de seção com presença — 21-22px,
+ * tracking negativo; conteúdo a 20-24px do título (§20). */
+h2 { font-size: 1.35rem; margin: 0 0 1.25rem; letter-spacing: -.02em; }
 
-/* Respiro de vitrine (Home 2.0): seções separadas, títulos editoriais. */
-main > section { margin-top: 1.9rem; }
+/* Respiro de vitrine (Home 2.0): seções separadas, títulos editoriais.
+ * Fatia 53 (§20/§21): 56-72px mobile, 72-96px desktop — direção, não régua. */
+main > section { margin-top: 3.5rem; }
 main > section:first-of-type { margin-top: .5rem; }
+@media (min-width: 720px) {
+  main > section { margin-top: 4.5rem; }
+}
+
+/* Fatia 53 (§39/§40) — assinatura visual recorrente dos TÍTULOS DE SEÇÃO:
+ * curto traço ciano identificando cada porta da vitrine. Repete padrão
+ * (organiza), nunca vira decoração — só em h2 filhos diretos de section na
+ * Home; blocos de CTA e páginas de produto seguem sem o traço. */
+body[data-page="home"] main > section > h2::before {
+  content: "";
+  display: inline-block;
+  width: 1.1rem; height: 3px;
+  border-radius: var(--r-full);
+  background: var(--vdv-accent);
+  margin: 0 .55rem .28rem 0;
+  vertical-align: middle;
+}
 
 /* -------------------------------------------------------------------- hero */
 /* VDV-20260905-09 — vitrine antes de explicação: título curto + busca, e a
@@ -778,6 +798,18 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
 /* Reserva o espaço da barra fixa para ela não cobrir o rodapé. */
 @media (max-width: 719px) {
   body { padding-bottom: calc(4.2rem + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* Fatia 53 (§22) — ambientação por fundo, muito sutil: a faixa de VITRINES
+ * (momento de participação do fornecedor) leva tinta ciano quase imperceptível;
+ * nunca faixa colorida pesada. Dark ganha a própria tinta mais visível. */
+#section-vitrines {
+  padding: 1.5rem 1.25rem;
+  border-radius: var(--radius-lg);
+  background: rgba(37, 99, 235, .04);
+}
+@media (prefers-color-scheme: dark) {
+  #section-vitrines { background: rgba(37, 99, 235, .1); }
 }
 
 /* Pill de confiança (VDV-20260916-04): "O VDV não recebe o pagamento —
