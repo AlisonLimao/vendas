@@ -43,10 +43,9 @@ assert(
   "1. 'Acabou de chegar' antes de 'Categorias' no HTML"
 );
 assert(
-  !/hero-strip/.test(html) &&
-    /class="hero-actions"/.test(html) &&
-    !/data-deep-link="procura"[^>]*class="btn[^"]*"[^>]*>[^<]*Criar uma Procura<\/a>\s*<\/div>\s*<div class="searchbar/.test(html),
-  "1. hero sem faixa institucional e sem botão de Procura"
+  !/hero-strip/.test(html) && !/hero-actions/.test(html) &&
+    !/Explorar ofertas/.test(html),
+  "1. hero sem faixa institucional e sem CTA de exploração (Fatia 51: a busca é a porta, §9)"
 );
 
 // 2. Trilho de grupo removido (HTML e JS).
@@ -108,7 +107,6 @@ assert(
 );
 assert(
   /<a href="explorar\/">Explorar<\/a>/.test(html) &&
-    /class="btn btn-primary" href="explorar\/">Explorar ofertas/.test(html) &&
     /href="explorar\/">Explorar a vitrine inteira/.test(html) &&
     /href="explorar\/" id="bb-explorar"/.test(html) &&
     /href="favoritos\/" id="bb-favoritos"/.test(html),
