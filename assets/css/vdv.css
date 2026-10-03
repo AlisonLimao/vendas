@@ -662,6 +662,11 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
   background: var(--vdv-bg); border: 1px solid var(--vdv-border);
 }
 
+/* Descrição da vitrine (F4 — VDV-20261002-01): texto curto do dono no
+   cabeçalho da página de fornecedor, discretamente abaixo do nome/local.
+   Opcional — sem descrição, a regra não é usada. */
+.supplier-desc { margin: .35rem 0 0; color: var(--vdv-text-muted); }
+
 /* Topbar compacta em telas estreitas (página de produto tem 3 elementos). */
 @media (max-width: 560px) {
   .brand small { display: none; }
