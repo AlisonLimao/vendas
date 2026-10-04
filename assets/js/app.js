@@ -427,6 +427,37 @@
   // (ordem do exportador, published_at DESC) com distribuição entre
   // categorias (round-robin), cap fixo, sem ranking inventado e sem rotação.
   // Exclui os ids já exibidos (invariante "sem duplicar card na tela").
+  // Fatia 56 (plano 17, mestre §13/§24/§26/§65) — dentro de cada bucket de
+  // categoria, os produtos passam a ALTERNAR fornecedor (round-robin por
+  // supplier_slug): a mesma modelagem não empilha o mesmo anunciante.
+  // Diversidade funciona POR BLOCO, como preferência — nunca esconde produto,
+  // nunca penaliza fornecedor globalmente; bucket com < 3 itens ou 1 único
+  // fornecedor sai como veio (§65/§66: fallback = ordem original).
+  function alternarFornecedoresDoBucket(bucket) {
+    var filas = {}; // supplier_slug -> fila de produtos, na ordem publicada
+    var ordem = []; // filas na ordem da primeira aparição
+    bucket.forEach(function (p) {
+      var s = p.supplier_slug || "_sem_fornecedor";
+      if (!filas[s]) { filas[s] = []; ordem.push(filas[s]); }
+      filas[s].push(p);
+    });
+    if (ordem.length < 2 || bucket.length < 3) return bucket;
+    var alternado = [];
+    var round = 0;
+    while (true) {
+      var progressou = false;
+      for (var c = 0; c < ordem.length; c++) {
+        if (ordem[c].length > round) {
+          alternado.push(ordem[c][round]);
+          progressou = true;
+        }
+      }
+      if (!progressou) break;
+      round += 1;
+    }
+    return alternado;
+  }
+
   function pickExplorar(products, excludeIds, cap) {
     var buckets = [];
     var byCat = {};
@@ -435,6 +466,12 @@
       var slug = (p.category && p.category.slug) || "_sem_categoria";
       if (!byCat[slug]) { byCat[slug] = []; buckets.push(byCat[slug]); }
       byCat[slug].push(p);
+    });
+    buckets.forEach(function (bucket) {
+      var alternado = alternarFornecedoresDoBucket(bucket);
+      // aplicação in-place: buckets são os próprios arrays de byCat
+      for (var i = 0; i < alternado.length; i++) bucket[i] = alternado[i];
+      bucket.length = alternado.length;
     });
     var picked = [];
     var round = 0;
@@ -920,7 +957,43 @@
     if (showRecentStrip) {
       products.slice(0, NOVIDADES_CAP).forEach(function (p) { recentesIds[p.id] = true; });
     }
-    var explorarCards = pickExplorar(products, recentesIds, EXPLORAR_CAP);
+    // Fatia 56 (plano 17, mestre §27/§46/§47) — a SELEÇÃO do destaque diário
+    // (LCG intocado) sobe para que o grid de explorar possa deduplicar por ID
+    // real o que as thumbs do bloco exibem: produto em destaque não reaparece
+    // imediatamente no grid seguinte. A COMPOSIÇÃO do bloco continua no mesmo
+    // lugar da página (mais abaixo).
+    var sectionDestaque = $("section-destaque");
+    var destaque = sectionDestaque ? pickDestaqueDiario(products) : null;
+    var usadosNoDestaque = {};
+    if (destaque && destaque.imgs.length) {
+      var idByThumb = {};
+      products.forEach(function (p) {
+        if (p.image_thumb && !idByThumb[p.image_thumb]) idByThumb[p.image_thumb] = p.id;
+      });
+      destaque.imgs.forEach(function (src) {
+        if (idByThumb[src]) usadosNoDestaque[idByThumb[src]] = true;
+      });
+    }
+    var excluidos = Object.assign({}, recentesIds, usadosNoDestaque);
+    var explorarCards = pickExplorar(products, excluidos, EXPLORAR_CAP);
+    // Fatia 56 (mestre §28/§29) — vizinhança do bloco de fornecedor: quando
+    // há alternativa elegível, os produtos do fornecedor destacado não ficam
+    // nas posições FINAIS do grid imediatamente antes do bloco (troca a dose
+    // final por fornecedores diferentes; preferência, não restrição).
+    if (destaque && explorarCards.length > 1) {
+      var corte = explorarCards.length;
+      while (corte > 0 &&
+             (explorarCards[corte - 1].supplier_slug || "") === destaque.slug) {
+        corte -= 1;
+      }
+      var doseDestaque = explorarCards.slice(corte);
+      var doseDiversa = explorarCards.slice(corte - doseDestaque.length, corte);
+      if (doseDestaque.length && doseDestaque.length <= corte) {
+        explorarCards = explorarCards
+          .slice(0, corte - doseDestaque.length)
+          .concat(doseDestaque, doseDiversa);
+      }
+    }
     var showExplorar = explorarCards.length > 0;
     sectionExplorar.hidden = !showExplorar;
     if (showExplorar) fill($("grid-explorar"), explorarCards);
@@ -955,9 +1028,9 @@
 
     // Fatia 49 (mestre §23) — bloco editorial "Conheça esta vitrine" que quebra
     // a monotonia do catálogo e valoriza o anunciante: real por definição
-    // (vitrine com produtos e foto no ar), destaque pelo rodízio diário.
-    var sectionDestaque = $("section-destaque");
-    var destaque = sectionDestaque ? pickDestaqueDiario(products) : null;
+    // (vitrine com produtos e foto no ar). Fatia 56: a seleção (LCG diário)
+    // aconteceu antes da montagem do explorar (mestre §46) — aqui fica só a
+    // composição do momento editorial.
     if (destaque) {
       var dEl = $("vitrine-destaque");
       dEl.innerHTML = "";

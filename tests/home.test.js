@@ -75,7 +75,7 @@ assert(
   /function pickExplorar\(products, excludeIds, cap\)/.test(js) &&
     /if \(excludeIds\[p\.id\]\) return;/.test(js) &&
     /push\(buckets\[b\]\[round\]\)/.test(js),
-  "4. pickExplorar: round-robin por categoria, exclui novidades"
+  "4. pickExplorar v2: round-robin por categoria + alternância de fornecedor no bucket, exclui novidades e destaque"
 );
 assert(
   /fill\(\$\("grid-explorar"\), explorarCards\)/.test(js),
@@ -91,9 +91,9 @@ assert(
 );
 assert(
   /products\.slice\(0, NOVIDADES_CAP\)/.test(js) &&
-    /pickExplorar\(products, recentesIds, EXPLORAR_CAP\)/.test(js) &&
+    /pickExplorar\(products, excluidos, EXPLORAR_CAP\)/.test(js) &&
     /suppliers\.slice\(0, VITRINES_CAP\)/.test(js),
-  "5. caps aplicados em novidades, explorar e vitrines"
+  "5. caps aplicados em novidades, explorar e vitrines (explorar exclui destaque também — Fatia 56)"
 );
 
 // 6. R5: grade completa e favoritos saem da Home (páginas /explorar/ e
