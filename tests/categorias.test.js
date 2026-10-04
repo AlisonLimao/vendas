@@ -58,7 +58,9 @@ assert(
   "2. raiz nunca vira link condicional (navegação foi para o nível 2)"
 );
 assert(js.includes('"⚡ Pronta entrega"'), "2. chip ⚡ no nível 1");
-assert(js.includes('className = "cat-row cat-row-l1"'), "2. nível 1 em cat-row própria");
+// Fatia 54 (plano 16, §23): o nível 1 saiu da cat-row e virou PORTAS DE
+// ENTRADA (.cat-portas, cartões leves) — segue FILTRO com os mesmos data-*.
+assert(js.includes('className = "cat-portas"'), "2. nível 1 em grade de portas");
 
 // 3. Nível 2: Tudo em <categoria> + filhos + link da página.
 assert(js.includes('"Tudo em " + current.name'), "3. Tudo em <categoria>");

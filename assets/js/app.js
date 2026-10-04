@@ -471,10 +471,14 @@
         slug: p.supplier_slug,
         city: p.city || "",
         thumb: "",
+        imgs: [],
         n: 0
       });
       g.n += 1;
-      if (!g.thumb && p.image_thumb) g.thumb = p.image_thumb;
+      if (p.image_thumb && g.imgs.length < 3) {
+        g.thumb = g.thumb || p.image_thumb;
+        if (g.imgs.indexOf(p.image_thumb) === -1) g.imgs.push(p.image_thumb);
+      }
     });
     var keys = Object.keys(by).filter(function (k) { return by[k].n >= 1; });
     if (!keys.length) return null;
@@ -801,11 +805,15 @@
     function renderCatBlock() {
       catChips.innerHTML = "";
       if (!showCategorias) return;
+      // Fatia 54 (plano 16, mestre §23/§24) — nível 1 como PORTAS DE ENTRADA:
+      // cartões leves em grade (nome + contagem + ), presença visual maior
+      // que os termos rápidos (§24). Continuam FILTRO — mesmos atributos
+      // data-* e mesma semântica de antes; nada de lógica nova.
       var row1 = document.createElement("div");
-      row1.className = "cat-row cat-row-l1";
+      row1.className = "cat-portas";
       var allChip = document.createElement("button");
       allChip.type = "button";
-      allChip.className = "chip chip-all";
+      allChip.className = "porta porta-all";
       allChip.setAttribute("aria-pressed", "false");
       allChip.setAttribute("data-all", "1");
       allChip.textContent = "Toda a vitrine";
@@ -823,10 +831,12 @@
         .forEach(function (gr) {
           var chip = document.createElement("button");
           chip.type = "button";
-          chip.className = "chip chip-group";
+          chip.className = "porta";
           chip.setAttribute("aria-pressed", "false");
           chip.setAttribute("data-group", gr.slug);
-          chip.textContent = gr.name + " (" + gr.n + ")";
+          chip.innerHTML = '<span class="porta-name">' + esc(gr.name) +
+            "</span>" + '<span class="porta-n">' + gr.n +
+            (gr.n > 1 ? " anúncios" : " anúncio") + "</span>";
           chip.addEventListener("click", function () {
             selectedCategory = selectedCategory === gr.slug ? "" : gr.slug;
             selectedSubcategory = "";
@@ -838,7 +848,7 @@
       if (hasPronta) {
         var availChip = document.createElement("button");
         availChip.type = "button";
-        availChip.className = "chip";
+        availChip.className = "porta";
         availChip.setAttribute("aria-pressed", "false");
         availChip.setAttribute("data-avail", AVAIL_FILTER.value);
         availChip.textContent = AVAIL_FILTER.label;
@@ -955,12 +965,17 @@
         track("abrir_vitrine", { fornecedor_slug: destaque.slug, event_category: "navegacao" });
         telemetria("supplier_view", { supplier: destaque.slug });
       }
-      if (destaque.thumb) {
+      // Fatia 54 (plano 16, mestre §25/§26) — MOMENTO EDITORIAL: foto
+      // protagonista 4:5, nome forte, local + contagem, até 2 produtos
+      // auxiliares reais (thumbs da própria vitrine) e CTA textual. Rodízio
+      // diário igualitário intacto (§18) — só a composição muda.
+      var dFoto = destaque.imgs[0] || destaque.thumb;
+      if (dFoto) {
         var dLink = document.createElement("a");
         dLink.className = "vd-photo";
         dLink.href = "fornecedor/" + encodeURIComponent(destaque.slug) + "/";
         var dImg = document.createElement("img");
-        dImg.src = prefix + destaque.thumb;
+        dImg.src = prefix + dFoto;
         dImg.alt = destaque.name + " — produtos no VDV";
         dImg.loading = "lazy";
         dImg.addEventListener("click", vitrineDestaqueTrack);
@@ -977,13 +992,30 @@
       dMeta.className = "vd-meta";
       dMeta.textContent = "Monte Sião e região · " + destaque.n +
         (destaque.n > 1 ? " produtos" : " produto");
+      dBody.appendChild(dName);
+      dBody.appendChild(dMeta);
+      if (destaque.imgs.length > 1) {
+        var dThumbs = document.createElement("div");
+        dThumbs.className = "vd-thumbs";
+        destaque.imgs.slice(1, 3).forEach(function (src) {
+          var tLink = document.createElement("a");
+          tLink.className = "vd-thumb";
+          tLink.href = "fornecedor/" + encodeURIComponent(destaque.slug) + "/";
+          var tImg = document.createElement("img");
+          tImg.src = prefix + src;
+          tImg.alt = "";
+          tImg.loading = "lazy";
+          tLink.addEventListener("click", vitrineDestaqueTrack);
+          tLink.appendChild(tImg);
+          dThumbs.appendChild(tLink);
+        });
+        dBody.appendChild(dThumbs);
+      }
       var dCta = document.createElement("a");
       dCta.className = "vd-cta";
       dCta.href = "fornecedor/" + encodeURIComponent(destaque.slug) + "/";
       dCta.textContent = "Ver vitrine completa →";
       dCta.addEventListener("click", vitrineDestaqueTrack);
-      dBody.appendChild(dName);
-      dBody.appendChild(dMeta);
       dBody.appendChild(dCta);
       dEl.appendChild(dBody);
       sectionDestaque.hidden = false;
