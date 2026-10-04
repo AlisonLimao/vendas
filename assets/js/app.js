@@ -1021,9 +1021,12 @@
       sectionDestaque.hidden = false;
     }
 
-    // R14 (VDV-20260925-01) — "Procuras do VDV": demandas publicadas no bot.
-    // Fetch SEPARADO e best-effort — 404/erro deixa a seção oculta e NUNCA
-    // interfere na renderização dos produtos (independência do feed novo).
+    // R14 (VDV-20260925-01) — demandas publicadas no bot. Fatia 55 (plano 16,
+    // mestre §32): a Procura é DEMAUDA REAL — sai o card de foto (que nunca
+    // foi do produto; usava placeholder) e entra a LISTA EDITORIAL textual:
+    // dito do comprador como citação + contexto em linha. Fetch SEPARADO e
+    // best-effort — 404/erro deixa a seção oculta e NUNCA interfere na
+    // renderização dos produtos (independência do feed novo).
     fetch(prefix + "data/procuras.json")
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(function (procurasCatalog) {
@@ -1034,29 +1037,20 @@
         sectionProcuras.hidden = procuras.length === 0;
         if (!procuras.length) return;
         gridProcuras.innerHTML = "";
-        procuras.slice(0, 8).forEach(function (pr) {
+        procuras.slice(0, 6).forEach(function (pr) {
           var a = document.createElement("a");
-          a.className = "card";
+          a.className = "procura-line";
           a.href = "procura/" + encodeURIComponent(pr.id) + "/";
-          var img = document.createElement("img");
-          img.src = pr.image_thumb || pr.image || "assets/vdv-banner-share-1200x630.jpg";
-          img.alt = "Foto de referência da procura";
-          img.loading = "lazy";
-          a.appendChild(img);
-          var body = document.createElement("div");
-          body.className = "card-body";
           var desc = String(pr.description || "");
           if (desc.length > 90) desc = desc.slice(0, 89) + "…";
           var preco = pr.price_min
             ? "R$ " + pr.price_min.replace(".", ",") + " – R$ " + pr.price_max.replace(".", ",")
             : "até R$ " + pr.price_max.replace(".", ",");
-          body.innerHTML =
-            '<h3 class="card-title">' + esc(desc) + "</h3>" +
-            '<p class="card-meta">' +
-            esc(pr.category && pr.category.name ? pr.category.name : "") +
-            " · " + esc(pr.quantity) + " un · " + esc(preco) + "</p>" +
-            '<p class="card-more">Ver detalhes <span aria-hidden="true">→</span></p>';
-          a.appendChild(body);
+          a.innerHTML =
+            '<span class="procura-quote">“' + esc(desc) + "”</span>" +
+            '<span class="procura-loc">' +
+            (pr.category && pr.category.name ? esc(pr.category.name) + " · " : "") +
+            esc(pr.quantity) + " un · " + esc(preco) + "</span>";
           a.addEventListener("click", function () {
             track("abrir_procura", { procura_id: pr.id, event_category: "navegacao" });
           });

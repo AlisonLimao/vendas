@@ -113,16 +113,17 @@ assert(
   "6. alvos de navegação apontam para /explorar/ e /favoritos/"
 );
 
-// 6b. R8: Procura com presença honesta — bloco ÚNICO com entrada explicativa
-//     (mestre item 26) + item permanente de navegação (topnav e bottombar
-//     levam AO BLOCO; o deep link para o bot fica só no CTA do bloco).
+// 6b. R8 + Fatia 55 (plano 16, §45): Procura com presença honesta — agora no
+//     FINAL INTEGRADO da Home (.finale-demand com id=procura) + item
+//     permanente de navegação (topnav e bottombar levam AO BLOCO; o deep link
+//     para o bot fica só no CTA do bloco).
 assert(
-  /<section class="cta-procura" id="procura">/.test(html) &&
+  /<div class="finale-demand" id="procura">/.test(html) &&
     html.match(/data-deep-link="procura"/g).length === 3,
-  "6b. bloco único de Procura (id=procura); deep link nos 3 CTAs contextuais (bloco, zero-result, catálogo vazio)"
+  "6b. demanda real no final integrado (id=procura); deep link nos 3 CTAs contextuais (final, zero-result, catálogo vazio)"
 );
 assert(
-  /Não encontrou o que precisava\?<\/h2>/.test(html) &&
+  /<strong>Não encontrou o que precisava\?<\/strong>/.test(html) &&
     /Diga o que procura e deixe sua necessidade visível para fornecedores da região/.test(html),
   "6b. entrada do bloco explica antes de enviar para fora da página"
 );
@@ -134,6 +135,20 @@ assert(
 assert(
   /scroll-margin-top: 4rem/.test(css),
   "6b. âncora #procura reserva espaço da topbar sticky"
+);
+// 6c. Fatia 55 (mestre §33/§45): final integrado substitui os blocos
+//     separados (confiança + cta-seller + resumo de Como funciona).
+assert(
+  /<section id="section-final">/.test(html) &&
+    /<h2>Encontre\. Confira\. Converse direto\.<\/h2>/.test(html) &&
+    /<ul class="finale-facts" aria-label="Por que confiar">/.test(html) &&
+    /<h2>Seu produto também pode estar aqui\.<\/h2>/.test(html),
+  "6c. final integrado: fechamento em três camadas (fatos → demanda → vendedor)"
+);
+assert(
+  !/id="section-confianca"/.test(html) && !/class="cta-seller"/.test(html) &&
+    !/class="how-summary"/.test(html) && !/class="how-steps"/.test(html),
+  "6c. nenhum resíduo dos blocos separados no markup"
 );
 
 // 7. Modo busca esconde explorar junto com as outras faixas editoriais.
@@ -154,18 +169,19 @@ assert(
 );
 
 // 9. R10: Telegram nunca define a plataforma na copy pública —
-//    "fale direto com quem vende" no og/meta e na confiança; canal só nos
-//    botões de contato (que são fato, não definição).
+//    "fale direto com quem vende" no og/meta; a confiança virou FATOS do
+//    final integrado (Fatia 55: trust-lead e o resumo de passos saíram da
+//    copy); canal só nos botões de contato (que são fato, não definição).
 assert(
   html.includes("Fale direto com quem vende — sem taxa de plataforma") &&
-    html.includes("a negociação acontece direto com quem vende"),
-  "9. og/meta e confiança sem Telegram como definição (R10)"
+    /<h2>Encontre\. Confira\. Converse direto\.<\/h2>/.test(html) &&
+    html.includes("✓ Negociação direta"),
+  "9. og/meta e final integrado sem Telegram como definição (R10)"
 );
 assert(
-  html.includes("Fale direto com quem está vendendo.") &&
-    html.includes("a negociação é direta entre você e quem vende") &&
+  html.includes("a negociação é direta entre você e quem vende") &&
     !/pelo Telegram/.test(html),
-  "9. Converse/trust/footer sem 'pelo Telegram' (R10)"
+  "9. final/footer sem 'pelo Telegram' (R10)"
 );
 
 // 10. R11: dados estruturados — JSON-LD WebSite + Organization na Home

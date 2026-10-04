@@ -139,7 +139,7 @@
       });
     });
   </script>
-  <link rel="stylesheet" href="assets/css/vdv.min.css?v=20261003-7">
+  <link rel="stylesheet" href="assets/css/vdv.min.css?v=20261003-8">
 </head>
 <body data-page="home">
   <header class="topbar" id="top">
@@ -266,12 +266,14 @@
       <div class="chips" id="chips-vitrines"></div>
     </section>
 
-    <!-- R14 (VDV-20260925-01) — "Procuras do VDV": demandas publicadas no bot
-         (modalidade Procura), exportadas em data/procuras.json. Oculta até o
-         JS carregar; fetch é best-effort (404/erro → seção fica oculta). -->
+    <!-- R14 (VDV-20260925-01) — demandas publicadas no bot (modalidade
+         Procura), exportadas em data/procuras.json. Fatia 55 (plano 16,
+         mestre §32): título pela linguagem da gente — a seção mostra o que
+         compradores reais estão buscando. Render textual (lista editorial),
+         oculta até o JS carregar; fetch é best-effort (404/erro → oculta). -->
     <section id="section-procuras" hidden>
-      <h2>Procuras do VDV</h2>
-      <div class="grid" id="grid-procuras"></div>
+      <h2>O que estão buscando</h2>
+      <div class="procura-list" id="grid-procuras"></div>
     </section>
 
     <!-- R5 (VDV-20260923-01, mestre itens 16-17) — as seções "Explore a
@@ -290,60 +292,37 @@
       </div>
     </section>
 
-    <!-- VDV-20260905-09 — a confiança desce: a primeira dobra é produto.
-         Explicação + selos vêm DEPOIS dos produtos (desejo → confiança → ação). -->
-    <section id="section-confianca">
-      <p class="trust-lead">Cada anúncio mostra <strong>quem está vendendo</strong>, a <strong>disponibilidade</strong> e as <strong>condições</strong> — e a negociação acontece direto com quem vende.</p>
-      <!-- VDV-20260916-04 — modelo de confiança explícito: o VDV não fica no
-           meio do pagamento (o visitante nunca precisa adivinhar isso). -->
-      <p class="trust-pill">O VDV não recebe o pagamento — a negociação é direta entre vocês</p>
-      <ul class="trust-row" aria-label="Por que confiar">
+    <!-- Fatia 55 (plano 16, mestre §33/§45) — FINAL INTEGRADO da Home: uma
+         única seção de encerramento em três camadas (fatos de confiança →
+         demanda real → porta do vendedor), substituindo os blocos separados
+         #section-confianca, .cta-procura, .cta-seller e .how-summary. A âncora
+         permanentemente navegável (#procura) continua no final. -->
+    <section id="section-final">
+      <h2>Encontre. Confira. Converse direto.</h2>
+      <ul class="finale-facts" aria-label="Por que confiar">
         <li>✓ Anunciante identificado</li>
-        <li>✓ Disponibilidade confirmada pelo fornecedor</li>
+        <li>✓ Disponibilidade informada pelo fornecedor</li>
         <li>✓ Negociação direta</li>
-        <li>✓ Sem taxa</li>
+        <li>✓ Sem taxa de plataforma</li>
       </ul>
-    </section>
 
-    <!-- R8 (VDV-20260923-01, mestre item 26) — bloco ÚNICO de Procura na
-         Home (alvo do item permanente de navegação). A entrada explica o que
-         acontece ANTES de enviar para fora da página: a criação acontece no
-         bot, e o CTA deixa isso claro. -->
-    <section class="cta-procura" id="procura">
-      <div>
-        <h2>Não encontrou o que precisava?</h2>
-        <p>Diga o que procura e deixe sua necessidade visível para fornecedores da região — a Procura é criada pelo bot do VDV.</p>
+      <!-- R8 (VDV-20260923-01, mestre item 26) — o final explica o que é a
+           Procura ANTES de enviar para fora da página: a criação acontece no
+           bot, e o CTA deixa isso claro (deep link fica só no CTA). -->
+      <div class="finale-demand" id="procura">
+        <p><strong>Não encontrou o que precisava?</strong> Diga o que procura e deixe sua necessidade visível para fornecedores da região — a Procura é criada pelo bot do VDV.</p>
+        <a class="btn btn-primary" data-deep-link="procura" data-ga-origin="cta_home_procura" href="#">Criar uma Procura</a>
       </div>
-      <a class="btn btn-primary" data-deep-link="procura" data-ga-origin="cta_home_procura" href="#">Criar uma Procura</a>
-    </section>
 
-    <section class="cta-seller">
-      <div>
-        <!-- VDV-20260907-01 — sai a promessa de exposição ("apareça 24h"),
-             entra a promessa de demanda (interesse real já declarado). -->
-        <h2>Tem produto? Veja onde existe interesse.</h2>
-        <p>Anuncie seus modelos ou responda Procuras de compradores que já estão dizendo o que precisam.</p>
+      <div class="finale-sell">
+        <!-- VDV-20260907-01 — promessa de demanda, não de exposição. -->
+        <h2>Seu produto também pode estar aqui.</h2>
+        <p>Anuncie no bot do VDV e apareça para quem já está procurando na região.</p>
+        <div class="finale-actions">
+          <a class="btn btn-sell" data-deep-link="vender" data-ga-origin="cta_home_vender" href="#">Colocar meus produtos no VDV</a>
+          <a class="finale-link" href="como-funciona.html">Como funciona →</a>
+        </div>
       </div>
-      <a class="btn btn-sell" data-deep-link="vender" data-ga-origin="cta_home_vender" href="#">Anunciar no VDV</a>
-    </section>
-
-    <section class="how-summary">
-      <h2>Como funciona</h2>
-      <ol class="how-steps">
-        <li>
-          <span class="how-num">1</span>
-          <div><strong>Encontre</strong><p>Pesquise ou navegue pela vitrine.</p></div>
-        </li>
-        <li>
-          <span class="how-num">2</span>
-          <div><strong>Confira</strong><p>Veja anunciante, preço e disponibilidade.</p></div>
-        </li>
-        <li>
-          <span class="how-num">3</span>
-          <div><strong>Converse</strong><p>Fale direto com quem está vendendo.</p></div>
-        </li>
-      </ol>
-      <p class="how-more"><a href="como-funciona.html">Ver o passo a passo completo</a></p>
     </section>
   </main>
 
@@ -371,7 +350,7 @@
     <a href="#procura" id="bb-procura"><span class="bb-ico" aria-hidden="true">💬</span>Procura</a>
   </nav>
 
-  <script src="assets/js/vdv.min.js?v=20261003-7"></script>
+  <script src="assets/js/vdv.min.js?v=20261003-8"></script>
   <noscript>
     Gerenciamento de consentimento de cookies por <a href="https://www.termsfeed.com/">TermsFeed</a>.
   </noscript>

@@ -170,7 +170,8 @@ body[data-page="home"] main > section > h2::before {
 
 /* -------------------------------------------------------------------- hero */
 /* VDV-20260905-09 — vitrine antes de explicação: título curto + busca, e a
- * primeira dobra mostra produto. Confiança desce para #section-confianca. */
+ * primeira dobra mostra produto. Confiança desce para o final (#section-final,
+ * Fatia 55). */
 .hero {
   display: flex; flex-direction: column; gap: 1.25rem;
   padding: .75rem 0 0;
@@ -183,35 +184,6 @@ body[data-page="home"] main > section > h2::before {
 /* VDV-20260907-01 — reposicionamento: subtítulo + par de CTAs (oferta/procura)
  * logo no hero, e faixa que equaliza oferta e demanda logo abaixo. */
 .hero-sub { margin: -.35rem 0 .8rem; color: var(--vdv-text-muted); font-size: .98rem; max-width: 40rem; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin: 0 0 .35rem; }
-.hero-strip { margin: -.15rem 0 .35rem; color: var(--vdv-text-muted); font-size: .92rem; max-width: 46rem; }
-.hero-strip strong { color: var(--vdv-text); }
-.trust-row {
-  display: flex; flex-wrap: wrap; gap: .45rem .5rem;
-  margin: 0 0 .25rem; padding: 0; list-style: none;
-}
-.trust-row li {
-  display: inline-flex; align-items: center; gap: .3rem;
-  font-size: .82rem; font-weight: 600; color: var(--vdv-primary-ink);
-  background: rgba(37, 99, 235, .08);
-  border: 1px solid rgba(37, 99, 235, .18);
-  border-radius: var(--r-full); padding: .25rem .7rem;
-}
-@media (prefers-color-scheme: dark) {
-  .trust-row li { color: #93b4f8; background: rgba(37, 99, 235, .14); border-color: rgba(37, 99, 235, .35); }
-}
-
-/* Strip de confiança (desejo → confiança → ação): explicação vem DEPOIS
- * dos produtos, com selos objetivos. */
-#section-confianca {
-  padding: 1.1rem 1.2rem;
-  background: var(--vdv-surface);
-  border: 1px solid var(--vdv-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
-}
-.trust-lead { margin: 0 0 .7rem; color: var(--vdv-text-muted); max-width: 44rem; }
-.trust-lead strong { color: var(--vdv-text); }
 
 /* Banner da arte oficial (VDV-20260831-05) — card com moldura coerente.
  * No celular fica fora da primeira dobra (produto é prioridade) e some. */
@@ -255,26 +227,6 @@ body[data-page="home"] main > section > h2::before {
  * aos botões-chip, sem decoração de âncora. */
 a.chip { text-decoration: none; display: inline-block; }
 
-/* Fatia 32 (VDV-20260916-01) — trilhos horizontais de descoberta: cards
- * leves em rolagem lateral com snap. O trilho é amostra, não catálogo —
- * a grade exaustiva continua sendo "Explore a vitrine". Cards mais leves:
- * sem flags nem "Ver detalhes" (detalhe fica na página do produto), título
- * em 2 linhas no máximo (trilho de altura constante). */
-.rail {
-  display: flex; gap: .75rem;
-  overflow-x: auto; -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity;
-  padding-bottom: .4rem;
-}
-.rail > .card-wrap { flex: 0 0 auto; width: 9.5rem; scroll-snap-align: start; }
-.rail .card-body { padding: .55rem .6rem .65rem; gap: .15rem; }
-.rail .card-title {
-  font-size: .85rem;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.rail .card-price { font-size: .95rem; }
-.rail .card-more, .rail .card-flags { display: none; }
 .rail-more { margin: .5rem 0 0; font-size: .92rem; }
 .rail-more a { color: var(--vdv-accent); font-weight: 600; text-decoration: none; }
 .rail-more a:hover { text-decoration: underline; }
@@ -339,7 +291,6 @@ a.chip { text-decoration: none; display: inline-block; }
 .card-seller { font-size: .82rem; font-weight: 500; color: var(--vdv-text-muted); margin: 0; }
 .card-seller[data-seller-href] { cursor: pointer; }
 .card-seller[data-seller-href]:hover { text-decoration: underline; }
-.card-meta { font-size: .78rem; color: var(--vdv-text-muted); margin: 0; }
 .card-price { font-size: 1.2rem; font-weight: 700; color: var(--vdv-primary-ink); margin: 0; font-variant-numeric: tabular-nums; }
 .card-price small { font-size: .68em; font-weight: 600; color: var(--vdv-text-muted); }
 .card-flags { display: flex; flex-wrap: wrap; gap: .3rem; align-items: center; margin: .05rem 0 0; min-height: 1.1rem; }
@@ -470,58 +421,50 @@ a.chip { text-decoration: none; display: inline-block; }
   margin-top: 1.25rem;
 }
 
-.cta-procura {
-  margin: 2.25rem 0; padding: 1.4rem;
-  border: 1px solid rgba(37, 99, 235, .35);
-  background: rgba(37, 99, 235, .05);
-  border-radius: var(--radius-lg);
-  display: flex; flex-direction: column; gap: .75rem;
+/* Fatia 55 (plano 16, mestre §32) — demanda real como lista editorial:
+ * citação em peso médio + contexto em linha, separadores mínimos (espaço
+ * primeiro; sem cards, sem foto de placeholder). */
+.procura-list { display: flex; flex-direction: column; }
+.procura-line {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  column-gap: .6rem; row-gap: .1rem;
+  padding: .7rem .15rem;
+  border-bottom: 1px solid var(--vdv-border);
 }
-@media (prefers-color-scheme: dark) {
-  .cta-procura { background: rgba(37, 99, 235, .1); }
-}
-.cta-procura h2 { margin: 0 0 .25rem; }
-.cta-procura p { margin: 0; color: var(--vdv-text-muted); }
+.procura-line:last-child { border-bottom: 0; }
+.procura-quote { font-weight: 500; color: var(--vdv-text); }
+.procura-loc { font-size: .8rem; color: var(--vdv-text-muted); }
+.procura-line:hover .procura-quote { color: var(--vdv-accent); }
 
-/* Seção do fornecedor (Home 2.0): a segunda camada, discreta e no fim. */
-.cta-seller {
-  margin: 2.25rem 0; padding: 1.4rem;
-  border: 1px solid rgba(245, 158, 11, .45);
-  background: rgba(245, 158, 11, .06);
-  border-radius: var(--radius-lg);
-  display: flex; flex-direction: column; gap: .75rem;
+/* Fatia 55 (mestre §33/§45) — FINAL INTEGRADO da Home: um só tom de
+ * encerramento, informação direta (menos faixa colorida: sem box de
+ * border+background; só respiro e hierarquia tipográfica). */
+.finale-facts {
+  list-style: none; padding: 0; margin: 0 0 2rem;
+  display: flex; flex-direction: column; gap: .45rem;
+  color: var(--vdv-text-muted); font-size: .92rem;
 }
-.cta-seller h2 { margin: 0 0 .25rem; }
-.cta-seller p { margin: 0; color: var(--vdv-text-muted); }
+.finale-demand {
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--vdv-border);
+  display: flex; flex-direction: column; gap: .7rem;
+}
+.finale-demand strong { color: var(--vdv-text); font-weight: 600; }
+.finale-demand p { margin: 0; color: var(--vdv-text-muted); max-width: 44rem; }
+.finale-demand .btn { align-self: flex-start; }
+.finale-demand + h2 { margin-top: 3rem; }
+.finale-sell p { margin: 0 0 1rem; color: var(--vdv-text-muted); max-width: 44rem; }
+.finale-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .9rem; }
+.finale-link { font-size: .92rem; font-weight: 600; color: var(--vdv-accent); text-decoration: none; }
+.finale-link:hover { text-decoration: underline; }
 @media (prefers-color-scheme: dark) {
-  .cta-seller { background: rgba(245, 158, 11, .1); border-color: rgba(245, 158, 11, .35); }
+  .finale-facts { color: var(--vdv-text-muted); }
+  .procura-line { border-bottom-color: var(--vdv-border); }
 }
 
 /* Estado vazio positivo (Home 2.0): vazio vira ação. */
 .empty-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
 .empty-actions .btn-primary { background: var(--vdv-primary); border-color: var(--vdv-primary); color: #fff; }
-
-/* Resumo de "Como funciona" na home (Home 2.0): 3 passos compactos. */
-.how-steps {
-  list-style: none; padding: 0; margin: 0;
-  display: grid; gap: 1rem;
-  grid-template-columns: 1fr;
-}
-.how-steps li {
-  display: flex; gap: .8rem; align-items: flex-start;
-  background: var(--vdv-surface); border: 1px solid var(--vdv-border);
-  border-radius: var(--radius-lg); padding: 1rem 1.1rem;
-}
-.how-num {
-  flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
-  width: 2rem; height: 2rem; border-radius: var(--r-full);
-  background: var(--vdv-primary); color: #fff; font-weight: 800; font-size: .9rem;
-}
-.how-steps strong { display: block; font-size: .98rem; }
-.how-steps p { margin: .15rem 0 0; color: var(--vdv-text-muted); font-size: .88rem; }
-.how-more { margin: 1rem 0 0; font-size: .92rem; }
-.how-more a { color: var(--vdv-accent); font-weight: 600; text-decoration: none; }
-.how-more a:hover { text-decoration: underline; }
 
 /* Selos textuais do rodapé (Home 2.0): confiança como informação. */
 .footer-trust {
@@ -684,7 +627,7 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
 }
 .back-link:hover { text-decoration: underline; }
 /* Reivindicação de vitrine (VDV-20260910-01): link discreto do dono —
-   mesmo peso do card-meta, cor de destaque discreta, sem virar CTA. */
+   cor de destaque discreta, sem virar CTA. */
 .claim-link { color: var(--vdv-accent); text-decoration: none; font-weight: 600; }
 .claim-link:hover { text-decoration: underline; }
 
@@ -715,9 +658,9 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
   .hero-banner { flex: 1 1 45%; }
   .hero-banner img { max-width: 26rem; }
   .hero-copy h1 { font-size: 2.1rem; }
-  .cta-procura { flex-direction: row; align-items: center; justify-content: space-between; }
-  .cta-seller { flex-direction: row; align-items: center; justify-content: space-between; }
-  .how-steps { grid-template-columns: repeat(3, 1fr); }
+  .finale-facts { flex-direction: row; flex-wrap: wrap; gap: .45rem 1.4rem; }
+  .finale-demand { flex-direction: row; align-items: center; justify-content: space-between; gap: 1.5rem; }
+  .finale-demand .btn { align-self: center; }
   .prod-photo { max-width: 26rem; }
 }
 

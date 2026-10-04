@@ -37,11 +37,15 @@ assert(/vitrine de vendas de Monte Sião/.test(html), "1. h1 com a marca ampla")
 assert(!/<h1>[^<]*malharia/i.test(html), "1. h1 não pode citar malharia");
 assert(!/<title>[^<]*malharia/i.test(html), "1. title não pode citar malharia");
 
-// 2. Pill de confiança explícita na home.
+// 2. Confiança explícita na home — Fatia 55 (plano 16, mestre §33): os fatos
+//    vieram para o FINAL INTEGRADO (#section-final → .finale-facts); a pill
+//    de pagamento segue como sinal da página de produto (ver teste 5).
 assert(
-  /<p class="trust-pill">O VDV não recebe o pagamento — a negociação é direta entre vocês<\/p>/.test(html),
-  "2. pill de confiança na home"
+  /<ul class="finale-facts" aria-label="Por que confiar">[\s\S]{0,300}<li>✓ Anunciante identificado<\/li>/.test(html),
+  "2. fatos de confiança no final integrado da home"
 );
+assert(!/class="trust-pill"/.test(html),
+  "2. sem pill solta na home — final integrado (Fatia 55)");
 
 // 3. Bottom bar: 4 âncoras com os alvos esperados (R5: páginas próprias).
 assert(/<nav class="bottombar"/.test(html), "3. bottombar presente");
@@ -53,9 +57,10 @@ for (const frag of [
 ]) {
   assert(html.includes(frag), `3. bottombar deve conter ${frag}`);
 }
-// R8: o item Procura leva ao bloco único (#procura), não ao topo.
-assert(html.includes('<section class="cta-procura" id="procura">'),
-  "3. bloco único de Procura com id=procura (R8)");
+// R8: o item Procura leva ao bloco único (agora .finale-demand no final
+// integrado, Fatia 55), não ao topo.
+assert(html.includes('<div class="finale-demand" id="procura">'),
+  "3. demanda real no final integrado com id=procura (R8 + Fatia 55)");
 // 4. JS da bottom bar: scroll suave SÓ em âncoras locais (href começando com
 //    "#") — links de navegação entre páginas (explorar/, favoritos/, ../#procura)
 //    passam sem preventDefault; sem caso especial de Procura (o item leva ao
