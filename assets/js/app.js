@@ -274,6 +274,31 @@
     servico: "serviço"
   };
 
+  // VDV-20261006-01 — frente "Saldos e ponta de estoque": nota de condição
+  // (defeito/enquadramento) obrigatória nos subtipos exigentes, exibida na
+  // vitrine (transparência: nunca assumir qualidade). Fora do ramo, o campo
+  // `condition` não existe no products.json (exportador conservador).
+  var CONDITION_SALDOS = {
+    saldo_sem_defeitos: 1,
+    saldo_com_defeitos: 1,
+    ponta_de_estoque: 1,
+    outra_oportunidade: 1
+  };
+  var CONDITION_NOTE_LABELS = {
+    saldo_com_defeitos: "Defeito declarado",
+    outra_oportunidade: "Enquadramento"
+  };
+  var CONDITION_NOTE_ICON = {
+    saldo_com_defeitos: "⚠️",
+    outra_oportunidade: "ℹ️"
+  };
+
+  function conditionOf(p) {
+    var c = p.condition;
+    if (!c || !c.note || !CONDITION_SALDOS[c.subtype]) return null;
+    return c;
+  }
+
   // Fatia 26 (VDV-20260907-03): publicação assistida — o dono da oferta é o
   // vendedor exibido e quem recebe a negociação. Fallback legacy p/ JSON antigo.
   function publicationMode(p) {
@@ -1535,6 +1560,17 @@
       // de contato: o VDV não fica no meio do pagamento.
       '<p class="trust-pill">O VDV não recebe o pagamento — a negociação é direta entre vocês</p>' +
       '<p class="prod-desc">' + esc(product.description) + "</p>" +
+      // VDV-20261006-01 — nota de condição (defeito/enquadramento) do ramo de
+      // saldos, logo após a descrição. "Categoria:" nas condições já exibe o
+      // subtipo — o bloco só acrescenta a nota exigida.
+      (function () {
+        var cond = conditionOf(product);
+        if (!cond) return "";
+        var label = CONDITION_NOTE_LABELS[cond.subtype] || "Nota de condição";
+        var icon = CONDITION_NOTE_ICON[cond.subtype] || "ℹ️";
+        return '<p class="prod-note">' + icon + " <strong>" + esc(label) + ":</strong> " +
+          esc(cond.note) + "</p>";
+      })() +
       // R6 — CONDIÇÕES DA OFERTA depois da descrição (mestre item 19): a
       // decisão (nome/preço/disp/vendedor/contato) vem primeiro. Sem campo
       // estruturado de condição de pagamento — quando o anunciante escreve,

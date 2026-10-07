@@ -105,4 +105,14 @@ assert(
 assert(/vdv(\.min)?\.css\?v=[0-9]{8}-[0-9]+/.test(html), "8. CSS com ?v= na home");
 assert(/(?:vdv\.min\.js|app\.js)\?v=[0-9]{8}-[0-9]+/.test(html), "8. JS com ?v= na home");
 
-console.log("card: OK (card único 4:5 cover/contain + placeholder — VDV-20260923-01 R2)");
+// 9. VDV-20261006-01 — SEM selo "Saldo" nos cards (decisão do Alison: só a
+//    nota de condição na página do produto; o card não ganha sinal novo).
+const cardEl_src = js.match(/function cardEl\(p\) \{[\s\S]*?\n  \}/);
+const cardSignal_src = js.match(/function cardSignal\(p\) \{[\s\S]*?\n  \}/);
+assert(cardEl_src && cardSignal_src, "9. cardEl/cardSignal encontrados");
+assert(
+  !/saldo/i.test(cardEl_src[0]) && !/saldo/i.test(cardSignal_src[0]),
+  "9. cards sem selo de saldo (decisão do Alison)"
+);
+
+console.log("card.test.js: OK (card único 4:5 cover/contain + placeholder — VDV-20260923-01 R2)");

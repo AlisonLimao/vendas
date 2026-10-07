@@ -36,10 +36,21 @@ ORM:
     "days_since_confirmation": 3,
     "seller_name": "Nome público do fornecedor",
     "city": "…", "state": "MG",
-    "image": "assets/products/<uuid>.jpg"
+    "image": "assets/products/<uuid>.jpg",
+    "offer_type": "atacado|peca_unica|varejo|lote|sob_encomenda|servico",
+    "condition": {
+      "subtype": "saldo_com_defeitos",
+      "subtype_name": "Saldo com defeitos",
+      "note": "Descrição objetiva do defeito/enquadramento (≤280)"
+    }
   }]
 }
 ```
+
+`condition` aparece **só** nos 4 subtipos de saldos (`saldo_sem_defeitos`,
+`saldo_com_defeitos`, `ponta_de_estoque`, `outra_oportunidade` — VDV-20261006-01);
+`note` entra só nos 2 que exigem nota e fica `null`/ausente nos comuns. Fora do
+ramo de saldos o campo não existe.
 
 Nunca presente: contato/telefone (encriptado no banco), username ou id do
 Telegram de pessoas, procuras, dados de moderação, eventos.

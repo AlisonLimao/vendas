@@ -514,6 +514,17 @@ footer p { margin: .3rem 0; }
 .prod-facts { list-style: none; padding: 0; margin: .8rem 0; color: var(--vdv-text-muted); font-size: .92rem; }
 .prod-facts li { margin: .22rem 0; }
 .prod-desc { white-space: pre-wrap; }
+/* VDV-20261006-01 — nota de condição do ramo de saldos (defeito declarado /
+ * enquadramento): destaque suave, sem parecer erro — transparência, nunca
+ * assumir qualidade. Só aparece quando o produto tem nota. */
+.prod-note {
+  margin: .55rem 0 .8rem; padding: .55rem .7rem;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  border-left: 3px solid var(--vdv-accent);
+  background: var(--vdv-surface);
+  font-size: .92rem; color: var(--vdv-text); line-height: 1.4;
+}
+.prod-note strong { font-weight: 700; }
 .prod-seller { font-size: .9rem; color: var(--vdv-text-muted); margin: .25rem 0 0; }
 /* Canais de contato (VDV-20260905-05): os dois botões de contato (Telegram /
  * WhatsApp) no MESMO tamanho padrão, lado a lado, com as cores e logos oficiais
