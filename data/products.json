@@ -1,8 +1,52 @@
 {
-  "generated_at": "2026-10-08T21:13:39Z",
+  "generated_at": "2026-10-08T21:59:09Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 6,
+  "total": 7,
   "products": [
+    {
+      "id": "3a1b4dbc-93ca-4cce-be61-f8f171386141",
+      "title": "Regata Feminina em Modal Canelado com Decote Quadrado e Botões",
+      "description": "Regata feminina em modal canelado, com decote quadrado, alças largas e botões frontais que valorizam a peça. Versátil para o dia a dia, passeios, cafés, encontros e ambientes de trabalho informais. Combine com jeans e tênis para um look casual, com saia e sandália para uma produção delicada ou com calça de alfaiataria e acessórios para um visual sofisticado.",
+      "category": {
+        "slug": "saldo_sem_defeitos",
+        "name": "Saldo sem defeitos",
+        "group": {
+          "slug": "saldos_e_ponta_de_estoque",
+          "name": "Saldos e ponta de estoque"
+        }
+      },
+      "price": "15.00",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "pronta_entrega",
+      "quantity": 22,
+      "days_since_confirmation": 0,
+      "seller_name": "Ana Maria",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/3a1b4dbc-93ca-4cce-be61-f8f171386141.jpg",
+      "images": [
+        "assets/products/3a1b4dbc-93ca-4cce-be61-f8f171386141.jpg",
+        "assets/products/3a1b4dbc-93ca-4cce-be61-f8f171386141-2.jpg",
+        "assets/products/3a1b4dbc-93ca-4cce-be61-f8f171386141-3.jpg",
+        "assets/products/3a1b4dbc-93ca-4cce-be61-f8f171386141-4.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/3a1b4dbc-93ca-4cce-be61-f8f171386141.webp",
+      "offer_owner_name": "Ana Maria",
+      "authorization_confirmed": true,
+      "condition": {
+        "subtype": "saldo_sem_defeitos",
+        "subtype_name": "Saldo sem defeitos"
+      },
+      "supplier_slug": "ana-maria-65dc1758",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Ana Maria",
+        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Modal%20Canelado%20com%20Decote%20Quadrado%20e%20Bot%C3%B5es%22%0APre%C3%A7o%3A%20R%24%2015%2C00%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/3a1b4dbc-93ca-4cce-be61-f8f171386141/"
+      }
+    },
     {
       "id": "d3d6e8e9-8be5-4a1e-a9e4-a26e7eb5af67",
       "title": "vestido saída de praia desenhos geométricos",
