@@ -1,8 +1,47 @@
 {
-  "generated_at": "2026-10-08T21:11:28Z",
+  "generated_at": "2026-10-08T21:13:39Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 5,
+  "total": 6,
   "products": [
+    {
+      "id": "d3d6e8e9-8be5-4a1e-a9e4-a26e7eb5af67",
+      "title": "vestido saída de praia desenhos geométricos",
+      "description": "Peça em tricô vazado, com modelagem ajustada, alças largas e decote arredondado. O desenho da trama combina pontos abertos e detalhes geométricos na cintura, criando um visual moderno e elegante. Ideal para usar como saída de praia, sobre biquíni ou em produções leves de verão.",
+      "category": {
+        "slug": "vestido",
+        "name": "Vestido",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
+      },
+      "price": "22.00",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "pronta_entrega",
+      "quantity": 200,
+      "days_since_confirmation": 0,
+      "seller_name": "Ana Maria",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/d3d6e8e9-8be5-4a1e-a9e4-a26e7eb5af67.jpg",
+      "images": [
+        "assets/products/d3d6e8e9-8be5-4a1e-a9e4-a26e7eb5af67.jpg",
+        "assets/products/d3d6e8e9-8be5-4a1e-a9e4-a26e7eb5af67-2.jpg",
+        "assets/products/d3d6e8e9-8be5-4a1e-a9e4-a26e7eb5af67-3.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/d3d6e8e9-8be5-4a1e-a9e4-a26e7eb5af67.webp",
+      "offer_owner_name": "Ana Maria",
+      "authorization_confirmed": true,
+      "supplier_slug": "ana-maria-65dc1758",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Ana Maria",
+        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22vestido%20sa%C3%ADda%20de%20praia%20desenhos%20geom%C3%A9tricos%22%0APre%C3%A7o%3A%20R%24%2022%2C00%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/d3d6e8e9-8be5-4a1e-a9e4-a26e7eb5af67/"
+      }
+    },
     {
       "id": "75fd1fd0-296e-4672-a0c1-7c37730aee92",
       "title": "Top Cropped drapeado com foil",
