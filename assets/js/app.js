@@ -399,10 +399,8 @@
     return url.href;
   }
 
-  function whatsappShareUrl(product) {
-    var msg = product.title + " — " + fmtPriceText(product) + "\n" + shareUrl(product, "whatsapp");
-    return "https://wa.me/?text=" + encodeURIComponent(msg);
-  }
+  // (VDV-20261008-08 9ª) whatsappShareUrl removido — o Divulgar nunca mais
+  // aponta a wa.me; o wa.me fica só nos canais de CONTATO (outro caminho).
 
   /* Logos oficiais dos canais (VDV-20260905-05) — SVG inline (24x24,
    * preenchimento currentColor; cores da marca ficam no CSS). Paths do
@@ -1640,13 +1638,14 @@
       '<p class="prod-price">' + fmtPrice(product) + "</p>" +
       // VDV-20261008-08 (correção Alison) — divulgação COMPACTA logo após o
       // preço (perto = a pessoa acha sem rolar): 2.6rem, Compartilhar
-      // (#share-wa, href wa.me preservado como fallback do handler) +
-      // Copiar link com confirmação. GA compartilhar_produto e a separação
-      // COMPARTILHAR ≠ CONTATO (share vs contact_click R12) intactos.
+      // (#share-wa — 9ª: href = URL do próprio produto, NUNCA wa.me; o
+      // handler sobrepõe com preventDefault) + Copiar link com confirmação.
+      // GA compartilhar_produto e a separação COMPARTILHAR ≠ CONTATO
+      // (share vs contact_click R12) intactos.
       '<span class="action-label">Divulgar</span>' +
       '<div class="share-compact">' +
-      '<a class="btn-share share-web" target="_blank" rel="noopener" href="' +
-      esc(whatsappShareUrl(product)) + '" id="share-wa">' +
+      '<a class="btn-share share-web" href="' +
+      esc(shareUrl(product, "compartilhamento")) + '" id="share-wa">' +
       ICON_SHARE + "<span>Compartilhar</span></a>" +
       '<button type="button" class="btn-share share-copy" id="copy-link-btn">' +
       ICON_LINK + '<span data-copy-label="Copiar link">Copiar link</span></button>' +
@@ -1893,39 +1892,52 @@
         bloco.parentNode.insertBefore(el, bloco.nextSibling);
         setTimeout(function () { el.remove(); }, 10000);
       }
-      // VDV-20261008-08 (8ª, spec do Alison): navegador sem suporte a
-      // compartilhar arquivos → nota + download da foto em exibição (nunca
-      // abrir por link, nunca wa.me automático).
+      // VDV-20261008-08 (9ª, spec do Alison / prompt mestre W3C-MDN-web.dev):
+      // navegador sem suporte a compartilhar arquivos → nota + download da
+      // foto em exibição (nunca abrir por link, nunca wa.me automático).
+      function nomeArquivo() {
+        return "vdv-" + product.id +
+          (fotoSelecionada > 0 ? "-" + (fotoSelecionada + 1) : "") + ".jpg";
+      }
       function baixarFoto() {
         var src = prefix + (photos[fotoSelecionada] || photos[0]);
         var a = document.createElement("a");
         a.href = src;
-        a.download = "vdv-" + product.id +
-          (fotoSelecionada > 0 ? "-" + (fotoSelecionada + 1) : "") + ".jpg";
+        a.download = nomeArquivo();
         document.body.appendChild(a);
         a.click();
         a.parentNode.removeChild(a);
       }
 
-      // VDV-20261008-08 (5ª correção Alison): a foto PREPARA em fundo — na
-      // abertura da página e em cada troca de slide (pintar). No toque, o
-      // navigator.share é chamado na MESMA hora (gesto vivo): buscar a foto
-      // dentro do clique expirava a ativação do usuário nos navegadores
-      // lentos (3G/4G = segundos) e o menu era recusado.
+      // VDV-20261008-08 (9ª, prompt mestre W3C/MDN/web.dev): a foto PREPARA em
+      // fundo — na abertura e em cada troca de slide (pintar) — para o
+      // navigator.share abrir na MESMA hora do toque (fetch dentro do clique
+      // expira a ativação do gesto). Com proteção de CORRIDA (troca rápida de
+      // slides: preparo antigo não sobrescreve a seleção nova) e CACHE por
+      // src (nada de reconverter a mesma foto). Integridade: rejeita blob
+      // vazio.
+      var seqPreparo = 0; // nº do preparo em curso — descarta resultado velho
+      var srcDe = null; // src do arquivoPronto em cache (anti-reconversão)
       function prepararFoto() {
         var src = prefix + (photos[fotoSelecionada] || photos[0]);
+        if (!src) { arquivoPronto = null; srcDe = null; return; }
+        if (srcDe === src) return; // já em cache (anti-reconversão)
+        var pedido = ++seqPreparo;
         fetch(src)
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.blob();
           })
           .then(function (blob) {
-            arquivoPronto = new File([blob],
-              "vdv-" + product.id +
-                (fotoSelecionada > 0 ? "-" + (fotoSelecionada + 1) : "") + ".jpg",
+            if (pedido !== seqPreparo) return; // corrida: seleção já mudou
+            if (!blob || !blob.size) throw new Error("vazio");
+            arquivoPronto = new File([blob], nomeArquivo(),
               { type: blob.type || "image/jpeg" });
+            srcDe = src;
           })
-          .catch(function () { arquivoPronto = null; }); // clique refaz
+          .catch(function () {
+            if (pedido === seqPreparo) { arquivoPronto = null; srcDe = null; }
+          }); // o toque seguinte refaz a tentativa
       }
       prepararFoto(); // página aberta: foto principal já preparada
 
@@ -1938,18 +1950,29 @@
         });
         telemetria("share", { product: product.id });
         sinal("share", { product: product.id });
-        // VDV-20261008-08 (8ª, spec do Alison): Divulgar compartilha a FOTO em
-        // exibição como ARQUIVO no menu nativo do aparelho — sem link, sem
-        // prévia, sem wa.me automático, sem cópia:
-        //   navigator.share({ files: [arquivoDaImagemSelecionada] }) — forma
-        //   documentada (MDN);
-        //   foto ainda preparando em fundo → nota "toque de novo";
-        //   sem suporte a arquivos → nota + baixar a foto;
+        // VDV-20261008-08 (9ª, spec do Alison / prompt mestre W3C-MDN-web.dev):
+        // Divulgar compartilha a FOTO em exibição como ARQUIVO com CAMINHO DE
+        // RETORNO — o link direto do anúncio vai DENTRO do text (4ª: url+files
+        // quebra no Chrome Android):
+        //   canShare(payload) → menu nativo com a foto anexada + legenda com
+        //     título, preço e link;
+        //   share existe MAS arquivos não permitidos → menu nativo com
+        //     texto+link (a foto fica à mão: toque longo nela para salvar);
+        //   sem share nenhum (navegador interno de apps) → nota + baixar a
+        //     foto (o Copiar link ao lado cobre o envio manual);
+        //   foto ainda preparando → nota "toque de novo" (nada navega);
         //   AbortError (fechou o menu) → nada acontece.
+        // Limitação da spec (W3C): o app de DESTINO pode descartar a legenda —
+        // a entrega real é confirmada no celular (matriz de teste do Alison).
         ev.preventDefault(); // Divulgar nunca navega: ou menu, ou nota/baixar
+        var dados = {
+          title: product.title,
+          text: product.title + " — " + fmtPriceText(product),
+          url: shareUrl(product, "compartilhamento")
+        };
         if (!(navigator.share && navigator.canShare)) {
-          nota("Este navegador não suporta compartilhar fotos — " +
-            "baixei a foto para você enviar pelo app.");
+          nota("Este navegador não tem o menu de compartilhar — " +
+            "baixei a foto embaixo (ou use Copiar link ao lado).");
           baixarFoto();
           return;
         }
@@ -1961,13 +1984,21 @@
         var comFoto = {
           files: [arquivoPronto],
           title: product.title,
-          text: (product.title + " — " + fmtPriceText(product)) // sem link
+          text: (product.title + " — " + fmtPriceText(product)) +
+            "\n\nVeja mais fotos e fale com o fornecedor:\n" +
+            shareUrl(product, "compartilhamento")
+            // link de retorno DENTRO do text (4ª) — sem campo url com foto
         };
         if (!navigator.canShare(comFoto)) {
-          nota("Este navegador não permite anexar fotos — " +
-            "baixei a foto para você enviar pelo app.");
-          baixarFoto();
-          return;
+          // Cenário C: sem anexo, o menu nativo segue com texto+link; a foto
+          // fica à mão (toque longo nela para salvar).
+          nota("Este navegador não permite anexar fotos — o menu abre com " +
+            "o texto e o link; toque longo na foto para salvá-la.");
+          return navigator.share(dados).catch(function (err) {
+            if (err && err.name === "AbortError") return; // fechou o menu
+            nota("O navegador recusou o menu (" +
+              ((err && err.name) || "erro") + ") — toque de novo.");
+          });
         }
         return navigator.share(comFoto).catch(function (err) {
           if (err && err.name === "AbortError") return; // fechou o menu

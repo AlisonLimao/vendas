@@ -83,8 +83,8 @@ assert(
   "4. shareUrl monta ``?o=`` na URL"
 );
 assert(
-  /shareUrl\(product, "whatsapp"\)/.test(js),
-  "4. wa.me compartilha a URL com ?o=whatsapp"
+  !/shareUrl\(product, "whatsapp"\)/.test(js),
+  "4. 9ª: Divulgar não tem mais stream wa.me (o wa.me é só do CONTATO)"
 );
 assert(
   /shareUrl\(product, "compartilhamento"\)/.test(js),
