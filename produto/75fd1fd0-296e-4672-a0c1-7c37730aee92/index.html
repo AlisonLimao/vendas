@@ -19,7 +19,7 @@
 <meta property="og:url" content="https://vitrinedevenda.com.br/produto/75fd1fd0-296e-4672-a0c1-7c37730aee92/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://vitrinedevenda.com.br/produto/75fd1fd0-296e-4672-a0c1-7c37730aee92/">
-  <link rel="stylesheet" href="../../assets/css/vdv.min.css?v=20261008-2"><script type="application/ld+json">
+  <link rel="stylesheet" href="../../assets/css/vdv.min.css?v=20261008-3"><script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Product",
@@ -105,13 +105,13 @@
 (function () {
   var reduz = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var atual = 0; // foto em exibição — candidata ao compartilhar (VDV-20260911-07)
   var gal = document.getElementById("prod-gallery");
   var track = gal && gal.querySelector(".gallery-track");
   if (gal && track) {
     var n = track.children.length;
     var thumbs = gal.querySelectorAll(".prod-thumb");
     var counter = gal.querySelector(".gallery-count");
-    var atual = 0;
     var raf = null;
     function pintar(i) {
       atual = i;
@@ -164,17 +164,94 @@
   }
   var share = document.getElementById("share-wa");
   if (share) {
+    // VDV-20261008-08 (correção Alison): a foto em EXIBIÇÃO vai anexada como
+    // arquivo (VDV-20260911-07, mesma dinâmica) — isso personaliza o
+    // compartilhamento. Espelho da dinâmica, 3 vias:
+    //   celular (pointer coarse + canShare files) → share com File;
+    //   desktop → foto vira PNG no clipboard + nota + wa.me em nova aba;
+    //   qualquer fallback → wa.me de sempre.
+    // Foto da posição `atual`: nos slides da galeria; 1 foto → img única.
+    function fotoSrc() {
+      var img = track
+        ? track.querySelector(".gallery-slide:nth-child(" + (atual + 1) + ") img")
+        : document.querySelector("img.prod-photo");
+      return img ? img.currentSrc || img.src : null;
+    }
+    function textoShare() {
+      return share.getAttribute("data-share-text") || document.title;
+    }
+    function urlShare() {
+      return share.getAttribute("data-share-url") || share.href;
+    }
+    function desktopShare(blob) {
+      var colar = !!(navigator.clipboard && window.ClipboardItem);
+      var img = new Image();
+      var objUrl = URL.createObjectURL(blob);
+      img.onload = function () {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        canvas.getContext("2d").drawImage(img, 0, 0);
+        URL.revokeObjectURL(objUrl);
+        canvas.toBlob(function (png) {
+          if (png && colar) {
+            navigator.clipboard
+              .write([new ClipboardItem({ "image/png": png })])
+              .then(function () {
+                var nota = document.createElement("span");
+                nota.className = "copied-note";
+                nota.textContent =
+                  "📷 Foto copiada! Abra a conversa do WhatsApp e cole com Ctrl+V.";
+                var bloco = share.parentNode; // .share-compact
+                if (bloco && bloco.parentNode) {
+                  bloco.parentNode.insertBefore(nota, bloco.nextSibling);
+                  setTimeout(function () { nota.remove(); }, 10000);
+                }
+              })
+              .catch(function () { /* clipboard recusado: só o link */ });
+          }
+          window.open(share.href, "_blank", "noopener");
+        }, "image/png");
+      };
+      img.onerror = function () {
+        URL.revokeObjectURL(objUrl);
+        window.location.href = share.href; // foto ilegível: wa.me de sempre
+      };
+      img.src = objUrl;
+    }
     share.addEventListener("click", function (e) {
-      if (!navigator.share) return;
+      var comArquivos = !!(window.matchMedia &&
+        window.matchMedia("(pointer: coarse)").matches) &&
+        navigator.share && navigator.canShare;
+      if (!comArquivos) return; // desktop: deixa o <a> wa.me navegar natural
+      var src = fotoSrc();
+      if (!src) return; // foto ilegível: fallback natural (wa.me)
       e.preventDefault();
-      navigator.share({
-        title: document.title,
-        text: share.getAttribute("data-share-text") || document.title,
-        url: share.getAttribute("data-share-url") || share.href
-      }).catch(function (err) {
-        if (err && err.name === "AbortError") return;
-        window.open(share.href, "_blank", "noopener");
-      });
+      var pid = (window.location.pathname.match(/produto\/([^/]+)\//) || [])[1] ||
+        "produto";
+      var nome = "vdv-" + pid + (atual > 0 ? "-" + (atual + 1) : "") + ".jpg";
+      fetch(src)
+        .then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.blob();
+        })
+        .then(function (blob) {
+          var arquivo = new File([blob], nome, { type: blob.type || "image/jpeg" });
+          if (!navigator.canShare({ files: [arquivo] })) {
+            desktopShare(blob); // suporte a arquivos ausente: via desktop
+            return null;
+          }
+          return navigator.share({
+            files: [arquivo],
+            title: document.title,
+            text: textoShare(),
+            url: urlShare()
+          });
+        })
+        .catch(function (err) {
+          if (err && err.name === "AbortError") return;
+          window.location.href = share.href;
+        });
     });
   }
   var copiar = document.getElementById("copy-link-btn");
