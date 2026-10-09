@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-09T10:05:00Z",
+  "generated_at": "2026-10-09T11:14:43Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 10,
+  "total": 9,
   "products": [
     {
       "id": "3a1b4dbc-93ca-4cce-be61-f8f171386141",
@@ -85,36 +85,6 @@
         "nome": "Ana Maria",
         "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22vestido%20sa%C3%ADda%20de%20praia%20desenhos%20geom%C3%A9tricos%22%0APre%C3%A7o%3A%20R%24%2022%2C00%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/d3d6e8e9-8be5-4a1e-a9e4-a26e7eb5af67/"
       }
-    },
-    {
-      "id": "75fd1fd0-296e-4672-a0c1-7c37730aee92",
-      "title": "Top Cropped drapeado com foil",
-      "description": "Top Cropped em tricô drapeado torcido com estampa metalizada em foil",
-      "category": {
-        "slug": "outro",
-        "name": "Outro",
-        "group": {
-          "slug": "moda_e_malharia",
-          "name": "Moda e Malharia"
-        }
-      },
-      "price": "29.98",
-      "minimum_order": 5,
-      "offer_type": "atacado",
-      "availability": "em_producao",
-      "quantity": 50,
-      "days_since_confirmation": 13,
-      "seller_name": "Baggio Tricô",
-      "city": "Monte Sião MG",
-      "state": "MG",
-      "image": "assets/products/75fd1fd0-296e-4672-a0c1-7c37730aee92.jpg",
-      "images": [
-        "assets/products/75fd1fd0-296e-4672-a0c1-7c37730aee92.jpg"
-      ],
-      "publication_mode": "own_offer",
-      "image_thumb": "assets/products/thumb/75fd1fd0-296e-4672-a0c1-7c37730aee92.webp",
-      "supplier_slug": "baggio-trico",
-      "supplier_official": true
     },
     {
       "id": "9f22576b-b542-4666-a3be-6e70157c0817",
@@ -384,7 +354,7 @@
     {
       "slug": "moda_e_malharia",
       "name": "Moda e Malharia",
-      "total": 8
+      "total": 7
     }
   ]
 }
