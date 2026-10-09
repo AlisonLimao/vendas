@@ -7,7 +7,7 @@
  *   4. nota escapada com esc() (nada de HTML cru);
  *   5. sem nota → nenhum bloco (nenhum campo vazio renderiza);
  *   6. CSS .prod-note na fonte E no minificado (regenerados juntos);
- *   7. ?v=20261006-1 nas páginas de mão e no CSS_VERSION do exportador.
+ *   7. ?v=20261008-1 nas páginas de mão e no CSS_VERSION do exportador.
  * Rodar: node tests/condicao_63.test.js */
 "use strict";
 
@@ -81,7 +81,7 @@ assert(
 assert(/\.prod-note\s*\{/.test(css), "6. .prod-note na fonte");
 assert(/\.prod-note\{/.test(cssMin), "6. .prod-note no vdv.min.css");
 
-// 7. cache-busting 20261006-1 nas páginas de mão + no exportador.
+// 7. cache-busting 20261008-1 nas páginas de mão + no exportador.
 const paginas = [
   "../index.html", "../anunciar.html", "../como-funciona.html", "../termos.html",
   "../privacidade.html", "../explorar/index.html", "../favoritos/index.html",
@@ -89,15 +89,15 @@ const paginas = [
 ];
 paginas.forEach(function (p) {
   const html = fs.readFileSync(path.join(__dirname, p), "utf8");
-  assert(/v=20261006-1/.test(html), "7. ?v=20261006-1 em " + p);
+  assert(/v=20261008-1/.test(html), "7. ?v=20261008-1 em " + p);
 });
 const exporter = fs.readFileSync(
   path.join(__dirname, "..", "..", "projeto_telegram", "scripts", "export_catalogo_web.py"),
   "utf8"
 );
 assert(
-  /CSS_VERSION = "20261006-1"/.test(exporter),
-  "7. CSS_VERSION do exportador em 20261006-1"
+  /CSS_VERSION = "20261008-1"/.test(exporter),
+  "7. CSS_VERSION do exportador em 20261008-1"
 );
 
 // 8. minificados regenerados JUNTOS com as fontes (prod-note também no min.js).

@@ -20,7 +20,12 @@ assert(card.indexOf("card-price") < card.indexOf("card-title"),
 assert(card.indexOf("card-title") < card.indexOf("card-seller"),
   "1a. título antes do fornecedor");
 assert(!card.includes("card-more"), "1b. 'Ver detalhes' fora do card (§12)");
-assert(!card.includes("card-meta"), "1c. cidade/categoria só na página do produto (§49)");
+// 1c. Prompt mestre homepage (VDV-20261008-07, Etapa 5) SUPEROU o §49 da
+//     Fatia 52: o card voltou a levar fornecedor E cidade quando disponíveis
+//     (.card-meta) — sempre DEPOIS do .card-seller, nunca competindo.
+assert(card.indexOf("card-meta") > card.indexOf("card-title") &&
+    card.indexOf("card-meta") < card.indexOf("card-flags"),
+  "1c. card-meta (fornecedor · cidade) entre o título e os sinais (Etapa 5)");
 
 // 2. §18/§19: UM sinal de disponibilidade por card.
 assert(/function cardSignal\(/.test(js), "2. cardSignal (1 badge por card)");

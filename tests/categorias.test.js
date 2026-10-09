@@ -58,9 +58,12 @@ assert(
   "2. raiz nunca vira link condicional (navegação foi para o nível 2)"
 );
 assert(js.includes('"⚡ Pronta entrega"'), "2. chip ⚡ no nível 1");
-// Fatia 54 (plano 16, §23): o nível 1 saiu da cat-row e virou PORTAS DE
-// ENTRADA (.cat-portas, cartões leves) — segue FILTRO com os mesmos data-*.
-assert(js.includes('className = "cat-portas"'), "2. nível 1 em grade de portas");
+// Prompt mestre homepage (VDV-20261008-07, Etapa 3): o nível 1 saiu das
+// PORTAS DE ENTRADA e voltou a CHIPS COMPACTOS (.cat-row-l1, classe .chip,
+// fundo discreto / azul institucional no ativo) — segue FILTRO com os
+// mesmos data-*.
+assert(js.includes('className = "cat-row cat-row-l1"'), "2. nível 1 em chips compactos (cat-row)");
+assert(!/cat-portas/.test(js), "2a. portas de entrada extintas do JS");
 
 // 3. Nível 2: Tudo em <categoria> + filhos + link da página.
 assert(js.includes('"Tudo em " + current.name'), "3. Tudo em <categoria>");

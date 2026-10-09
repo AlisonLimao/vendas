@@ -57,8 +57,11 @@ assert(!/\.trust-row|\.trust-lead|#section-confianca/.test(css),
   "3b. CSS de confiança antigo removido");
 assert(!/\.hero-actions|\.hero-strip/.test(css),
   "3c. CSS morto do hero removido (Fatia 51)");
-assert(!/\.card-meta\s*\{|\.rail \{/.test(css),
-  "3d. .card-meta e .rail mortos removidos");
+// 3d. .rail morto removido — o .card-meta voltou a VIVER no card (prompt
+//     mestre homepage, VDV-20261008-07 Etapa 5: fornecedor · cidade), então
+//     só o .rail segue na lista dos mortos.
+assert(!/\.rail \{/.test(css),
+  "3d. .rail morto removido (.card-meta é vivo desde a Etapa 5)");
 assert(/\.rail-more/.test(css), "3e. .rail-more (em uso) preservado");
 assert(/\.trust-pill\s*\{/.test(css), "3f. .trust-pill preservada (página de produto)");
 

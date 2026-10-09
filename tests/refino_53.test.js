@@ -13,8 +13,10 @@ assert(/h2\s*\{[^}]*font-size:\s*1\.35rem/.test(css), "1. h2 de seção ~21px");
 assert(/@media \(min-width: 720px\)[\s\S]{0,300}\.hero-copy h1 \{ font-size: 2\.1rem/.test(css),
   "1a. hero desktop ~34px");
 
-// 2. §20: respiro 56-72px mobile / 72-96px desktop entre seções.
-assert(/main > section\s*\{\s*margin-top:\s*3\.5rem/.test(css), "2. seções a 56px mobile");
+// 2. Respiro entre seções — Fatia 53 (72px desktop) com o mobile REDUZIDO
+//    pelo prompt mestre homepage (VDV-20261008-07, Etapa 2: menos vazio no
+//    celular — descoberta em primeiro lugar): 2.25rem mobile / 4.5rem desktop.
+assert(/main > section\s*\{\s*margin-top:\s*2\.25rem/.test(css), "2. seções a 36px mobile (Etapa 2)");
 assert(/@media \(min-width: 720px\)\s*\{\s*main > section\s*\{\s*margin-top:\s*4\.5rem/.test(css),
   "2a. seções a 72px desktop");
 assert(/h2\s*\{[^}]*margin:\s*0 0 1\.25rem/.test(css), "2b. título→conteúdo ~20px");

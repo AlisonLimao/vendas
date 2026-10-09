@@ -515,6 +515,47 @@
     return picked;
   }
 
+  // Prompt mestre homepage (VDV-20261008-07, Etapa 4) — rodízio POR VISITA em
+  // "Acabou de chegar": a seção segue HONESTA (pool = só os mais recentes,
+  // já aptos pela exportação — status/moderação/disponibilidade são do BANCO)
+  // e a exposição se distribui: seed POR VISITA (nova a cada entrada sem
+  // snapshot; a seed de antes é reusada ao VOLTAR de um produto — a vitrine
+  // não mexe por baixo do visitante), amostragem sem reposição com peso
+  // decrescente (recência priorizada), ordem do conjunto também varia e os
+  // fornecedores se alternam (mesma lei do explorar, sem concentração).
+  // Poucos produtos (pool <= cap) → ordem de chegada intacta. Sem
+  // rastreamento pessoal: a seed vive só no sessionStorage da aba.
+  var NOVIDADES_POOL = 16;   // janela de recentes que alimenta o rodízio
+  function lcgRng(seed) {
+    var s = (seed >>> 0) || 1;
+    return function () {
+      s = (s * 1664525 + 1013904223) >>> 0;
+      return s / 4294967296;
+    };
+  }
+  function pickNovidades(products, seed) {
+    var pool = products.slice(0, NOVIDADES_POOL);
+    if (pool.length <= NOVIDADES_CAP) return pool;
+    var rng = lcgRng(seed);
+    var candidatos = pool.slice();
+    var picked = [];
+    while (picked.length < NOVIDADES_CAP && candidatos.length) {
+      // peso decrescente: posição 0 (mais recente) pesa mais que a última
+      var total = (candidatos.length * (candidatos.length + 1)) / 2;
+      var r = rng() * total;
+      var idx = 0;
+      for (var i = 0; i < candidatos.length; i++) {
+        r -= candidatos.length - i;
+        if (r <= 0) { idx = i; break; }
+      }
+      picked.push(candidatos.splice(idx, 1)[0]); // sem reposição: sem duplicata
+    }
+    for (var j = picked.length - 1; j > 0; j--) {
+      var k = Math.floor(rng() * (j + 1));
+      var t = picked[j]; picked[j] = picked[k]; picked[k] = t;
+    }
+    return alternarFornecedoresDoBucket(picked);
+  }
   // Fatia 49 (mestre §23) — destaque editorial de vitrine: regra REAL de
   // seleção = rodízio diário igualitário entre fornecedores (seed derivada
   // da data — estável no dia, muda de dia a dia; todos os fornecedores
@@ -742,13 +783,23 @@
     body.innerHTML =
       '<p class="card-price">' + fmtPrice(p) + "</p>" +
       '<p class="card-title">' + esc(p.title) + "</p>" +
-      (p.seller_name
-        ? '<span class="card-seller"' +
-          (p.supplier_slug
-            ? ' data-seller-href="' + esc(prefix + "fornecedor/" + p.supplier_slug + "/") + '"'
-            : "") +
-          ">" +
-          esc(p.seller_name) + "</span>"
+      // VDV-20261008-07 (Etapa 5) — fornecedor E cidade quando disponíveis:
+      // a cidade é a informação "perto de mim" da vitrine regional (nunca
+      // inventada: só entra com produto que a tem; o clique nela cai no link
+      // do card, o do nome segue indo à vitrine do fornecedor).
+      ((p.seller_name || p.city) ? '<p class="card-meta">' +
+        (p.seller_name
+          ? '<span class="card-seller"' +
+            (p.supplier_slug
+              ? ' data-seller-href="' + esc(prefix + "fornecedor/" + p.supplier_slug + "/") + '"'
+              : "") +
+            ">" +
+            esc(p.seller_name) + "</span>"
+          : "") +
+        (p.city
+          ? '<span class="card-city">' + (p.seller_name ? "· " : "") + esc(p.city) + "</span>"
+          : "") +
+        "</p>"
         : "") +
       '<p class="card-flags">' + cardSignal(p) + "</p>";
     a.appendChild(body);
@@ -794,9 +845,24 @@
     var hasPronta = products.some(function (p) { return p.availability === "pronta_entrega"; });
     var showRecentStrip = products.length >= RECENT_STRIP_MIN;
     sectionRecent.hidden = !showRecentStrip;
-    // Fatia 32 — trilho horizontal: mais cards do que a antiga faixa de 4,
-    // mas com teto (a grade exaustiva continua sendo "Explore a vitrine").
-    if (showRecentStrip) fill($("grid-recent"), products.slice(0, NOVIDADES_CAP));
+    // Prompt mestre homepage (VDV-20261008-07, Etapa 4) — seed do rodízio das
+    // novidades: entrada nova/recarga = seed nova; snapshot de retorno
+    // (voltar de um produto/explorar) REUSA a seed de antes — mesmo conjunto
+    // e mesma ordem, navegação estável. Peeking SEM remover (a restauração
+    // do fim da initHome consome o snapshot depois).
+    var rotSeed = 0;
+    try {
+      var rawSeed = sessionStorage.getItem(HOME_STATE_KEY);
+      if (rawSeed) {
+        var peek = JSON.parse(rawSeed);
+        if (peek && typeof peek.rot === "number") rotSeed = peek.rot >>> 0;
+      }
+    } catch (e) { /* modo privado: seed nova a cada visita */ }
+    if (!rotSeed) rotSeed = (Math.random() * 4294967296) >>> 0;
+    // Fatia 32 + Etapa 4 — faixa em grade com rodízio por visita (a honesta
+    // "ordem de chegada" intacta quando o catálogo é pequeno demais).
+    var novidadesCards = showRecentStrip ? pickNovidades(products, rotSeed) : [];
+    if (showRecentStrip) fill($("grid-recent"), novidadesCards);
 
     // VDV-20260916-05 — contagem por grupo/sub em uma passada (reusada pelo
     // bloco único de categorias e pelo trilho de grupo da Fatia 32).
@@ -867,15 +933,16 @@
     function renderCatBlock() {
       catChips.innerHTML = "";
       if (!showCategorias) return;
-      // Fatia 54 (plano 16, mestre §23/§24) — nível 1 como PORTAS DE ENTRADA:
-      // cartões leves em grade (nome + contagem + ), presença visual maior
-      // que os termos rápidos (§24). Continuam FILTRO — mesmos atributos
-      // data-* e mesma semântica de antes; nada de lógica nova.
+      // Prompt mestre homepage (VDV-20261008-07, Etapa 3) — nível 1 volta a
+      // CHIPS COMPACTOS logo abaixo da busca (as portas de entrada da Fatia 54
+      // cedem: o mestre pede categorias leves e selecionáveis, não cartões).
+      // Segue FILTRO com os mesmos data-*, mesma toggle e mesmo ⚡ — só a
+      // apresentação muda; contagem fica no nível 2 (chips mais enxutos).
       var row1 = document.createElement("div");
-      row1.className = "cat-portas";
+      row1.className = "cat-row cat-row-l1";
       var allChip = document.createElement("button");
       allChip.type = "button";
-      allChip.className = "porta porta-all";
+      allChip.className = "chip chip-group";
       allChip.setAttribute("aria-pressed", "false");
       allChip.setAttribute("data-all", "1");
       allChip.textContent = "Toda a vitrine";
@@ -893,12 +960,10 @@
         .forEach(function (gr) {
           var chip = document.createElement("button");
           chip.type = "button";
-          chip.className = "porta";
+          chip.className = "chip";
           chip.setAttribute("aria-pressed", "false");
           chip.setAttribute("data-group", gr.slug);
-          chip.innerHTML = '<span class="porta-name">' + esc(gr.name) +
-            "</span>" + '<span class="porta-n">' + gr.n +
-            (gr.n > 1 ? " anúncios" : " anúncio") + "</span>";
+          chip.textContent = gr.name;
           chip.addEventListener("click", function () {
             selectedCategory = selectedCategory === gr.slug ? "" : gr.slug;
             selectedSubcategory = "";
@@ -910,7 +975,7 @@
       if (hasPronta) {
         var availChip = document.createElement("button");
         availChip.type = "button";
-        availChip.className = "porta";
+        availChip.className = "chip";
         availChip.setAttribute("aria-pressed", "false");
         availChip.setAttribute("data-avail", AVAIL_FILTER.value);
         availChip.textContent = AVAIL_FILTER.label;
@@ -979,9 +1044,9 @@
     // faixa "Acabou de chegar" (invariante "sem duplicar card na tela").
     var sectionExplorar = $("section-explorar");
     var recentesIds = {};
-    if (showRecentStrip) {
-      products.slice(0, NOVIDADES_CAP).forEach(function (p) { recentesIds[p.id] = true; });
-    }
+    // R4 — a dedupe do explorar usa os ids ROTACIONADOS (VDV-20261008-07):
+    // o que entrou no rodízio desta visita não repete no grid seguinte.
+    novidadesCards.forEach(function (p) { recentesIds[p.id] = true; });
     // Fatia 56 (plano 17, mestre §27/§46/§47) — a SELEÇÃO do destaque diário
     // (LCG intocado) sobe para que o grid de explorar possa deduplicar por ID
     // real o que as thumbs do bloco exibem: produto em destaque não reaparece
@@ -1314,7 +1379,8 @@
           q: input.value,
           cat: selectedSubcategory,
           grp: selectedCategory,
-          avail: activeAvail
+          avail: activeAvail,
+          rot: rotSeed  // VDV-20261008-07 — a volta do produto não mexe na ordem
         }));
       } catch (e) { /* modo privado: sem snapshot, a Home abre do zero */ }
     }

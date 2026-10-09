@@ -139,7 +139,7 @@
       });
     });
   </script>
-  <link rel="stylesheet" href="assets/css/vdv.min.css?v=20261006-1">
+  <link rel="stylesheet" href="assets/css/vdv.min.css?v=20261008-1">
 </head>
 <body data-page="home">
   <header class="topbar" id="top">
@@ -202,29 +202,31 @@
 
     <p id="status" class="status" role="status"></p>
 
+    <!-- Prompt mestre homepage (VDV-20261008-07, Etapas 2-3) — Categorias SOBE
+         para logo abaixo da busca: a dobra vira procura → seleção de universo
+         → produto. Bloco único em 2 níveis (VDV-20260921-01), nível 2 só com
+         raiz ativa (gate >= 5 do exportador via catalog.category_pages); a
+         árvore deriva dos produtos (taxonomia exportada = fonte de verdade).
+         O bloco NÃO some durante a busca (o filtro ativo precisa continuar
+         acessível na tela). -->
+    <section id="section-categorias">
+      <h2>Categorias</h2>
+      <div class="cat-block" id="chips-categorias"></div>
+    </section>
+
     <!-- R4 (VDV-20260923-01, mestre item 13): a faixa institucional do topo
          ("Tem produto ou capacidade...") saiu — a primeira dobra é produto; a
          conversa com o vendedor fica no bloco "Anunciar" depois da confiança. -->
 
     <!-- Fatia 32 / R4 — "Acabou de chegar": descoberta leve em grade (≤6 no
          celular / ≤8 no desktop via CSS), "Ver tudo" desce para a vitrine.
-         Só aparece com catálogo que sustenta a faixa (>= 5). -->
+         Só aparece com catálogo que sustenta a faixa (>= 5). Rodízio POR
+         VISITA desde VDV-20261008-07 (Etapa 4): pool = os mais recentes já
+         aptos (BANCO), seed por visita + estabilidade ao voltar do produto. -->
     <section id="section-novidades" hidden>
       <h2>Acabou de chegar</h2>
       <div class="grid grid-novidades" id="grid-recent"></div>
       <p class="rail-more"><a href="explorar/">Explorar a vitrine inteira &rarr;</a></p>
-    </section>
-
-    <!-- VDV-20260921-01 (Bloco 1) — taxonomia navegável em 2 níveis, um só
-         ponto de navegação: nível 1 = "Toda a vitrine" + raízes da taxonomia
-         (grupos); nível 2, só com raiz ativa = "Tudo em <categoria>" + filhos
-         diretos + link para a página estática quando existe (gate >= 5 do
-         exportador, via catalog.category_pages). A árvore deriva dos produtos
-         (taxonomia exportada é a fonte de verdade). O bloco NÃO some durante
-         a busca (o filtro ativo precisa continuar acessível na tela). -->
-    <section id="section-categorias">
-      <h2>Categorias</h2>
-      <div class="cat-block" id="chips-categorias"></div>
     </section>
 
     <section id="results" hidden>
@@ -350,7 +352,7 @@
     <a href="#procura" id="bb-procura"><span class="bb-ico" aria-hidden="true">💬</span>Procura</a>
   </nav>
 
-  <script src="assets/js/vdv.min.js?v=20261006-1"></script>
+  <script src="assets/js/vdv.min.js?v=20261008-1"></script>
   <noscript>
     Gerenciamento de consentimento de cookies por <a href="https://www.termsfeed.com/">TermsFeed</a>.
   </noscript>

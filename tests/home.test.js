@@ -36,11 +36,12 @@ const html = fs.readFileSync(
   "utf8"
 );
 
-// 1. Primeira dobra é produto: novidades vem antes de categorias; hero sem
-//    CTA de Procura e sem a faixa institucional do topo.
+// 1. Primeira dobra (prompt mestre homepage, VDV-20261008-07 Etapa 2):
+//    busca → CATEGORIAS → novidades (chips de categoria sobem para logo
+//    abaixo da busca); hero sem CTA de Procura e sem faixa institucional.
 assert(
-  html.indexOf('id="section-novidades"') < html.indexOf('id="section-categorias"'),
-  "1. 'Acabou de chegar' antes de 'Categorias' no HTML"
+  html.indexOf('id="section-categorias"') < html.indexOf('id="section-novidades"'),
+  "1. 'Categorias' logo abaixo da busca, antes de 'Acabou de chegar' (Etapa 2-3)"
 );
 assert(
   !/hero-strip/.test(html) && !/hero-actions/.test(html) &&
@@ -89,11 +90,16 @@ assert(
     /var VITRINES_CAP = 4;/.test(js),
   "5. caps NOVIDADES/EXPLORAR=8 e VITRINES=4"
 );
+// Rodízio por visita (VDV-20261008-07, Etapa 4): pool de recentes, seed por
+// visita com estabilidade no retorno (rot no snapshot), ponderação decrescente
+// e alternância de fornecedor — a seção segue honesta (cap/estados no BANCO).
 assert(
-  /products\.slice\(0, NOVIDADES_CAP\)/.test(js) &&
-    /pickExplorar\(products, excluidos, EXPLORAR_CAP\)/.test(js) &&
-    /suppliers\.slice\(0, VITRINES_CAP\)/.test(js),
-  "5. caps aplicados em novidades, explorar e vitrines (explorar exclui destaque também — Fatia 56)"
+  /var NOVIDADES_POOL = 16;/.test(js) &&
+    /function pickNovidades\(products, seed\)/.test(js) &&
+    /pickNovidades\(products, rotSeed\)/.test(js) &&
+    /novidadesCards\.forEach\(function \(p\) \{ recentesIds\[p\.id\] = true; \}\)/.test(js) &&
+    /rot: rotSeed/.test(js),
+  "5. rodízio das novidades: pool 16, seed por visita e estável no retorno; dedupe do explorar usa os rotacionados"
 );
 
 // 6. R5: grade completa e favoritos saem da Home (páginas /explorar/ e
