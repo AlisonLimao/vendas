@@ -1637,6 +1637,19 @@
       galeriaHtml +
       '<h1 class="prod-title">' + esc(product.title) + "</h1>" +
       '<p class="prod-price">' + fmtPrice(product) + "</p>" +
+      // VDV-20261008-08 (correção Alison) — divulgação COMPACTA logo após o
+      // preço (perto = a pessoa acha sem rolar): 2.6rem, Compartilhar
+      // (#share-wa, href wa.me preservado como fallback do handler) +
+      // Copiar link com confirmação. GA compartilhar_produto e a separação
+      // COMPARTILHAR ≠ CONTATO (share vs contact_click R12) intactos.
+      '<span class="action-label">Divulgar</span>' +
+      '<div class="share-compact">' +
+      '<a class="btn-share share-web" target="_blank" rel="noopener" href="' +
+      esc(whatsappShareUrl(product)) + '" id="share-wa">' +
+      ICON_SHARE + "<span>Compartilhar</span></a>" +
+      '<button type="button" class="btn-share share-copy" id="copy-link-btn">' +
+      ICON_LINK + '<span data-copy-label="Copiar link">Copiar link</span></button>' +
+      "</div>" +
       // Fase 0 do "gostei": favoritar pela página do produto (o estado vive
       // no localStorage junto com os corações dos cards — sincronizados).
       '<button type="button" class="prod-like' + (ehFavorito(product.id) ? " is-liked" : "") +
@@ -1683,19 +1696,6 @@
         ? "<li>Categoria: " + esc(product.category.name) + "</li>"
         : "") +
       "</ul>" +
-      // VDV-20261008-08 — divulgação COMPACTA (mestre necessidade 1): linha
-      // única, botões de 2.6rem — Compartilhar (#share-wa, href wa.me de
-      // sempre preservado como fallback do handler abaixo) + Copiar link com
-      // confirmação visual. GA compartilhar_produto e a separação
-      // COMPARTILHAR ≠ CONTATO (share vs contact_click R12) intactos.
-      '<span class="action-label">Divulgar</span>' +
-      '<div class="share-compact">' +
-      '<a class="btn-share share-web" target="_blank" rel="noopener" href="' +
-      esc(whatsappShareUrl(product)) + '" id="share-wa">' +
-      ICON_SHARE + "<span>Compartilhar</span></a>" +
-      '<button type="button" class="btn-share share-copy" id="copy-link-btn">' +
-      ICON_LINK + '<span data-copy-label="Copiar link">Copiar link</span></button>' +
-      "</div>" +
       '<p class="prod-seller">A negociação acontece direto no bot, sem cadastro neste site.</p>' +
       // Fatia 29 (VDV-20260908-03) — comentários de visitantes: seção com os
       // comentários APROVADOS (vêm do export, só name/text/date) + CTA para
@@ -1930,21 +1930,16 @@
         });
         telemetria("share", { product: product.id });
         sinal("share", { product: product.id });
-        // VDV-20260911-07 — a foto em exibição vai ANEXADA na conversa (Web
-        // Share API Level 2, celular): mais dinâmico que o preview do link,
-        // que é gerado pelo servidor do WhatsApp a partir da og:image fixa do
-        // export e não pode variar por quem compartilha.
-        // VDV-20260911-07c — a via de arquivos fica restrita a TELA DE TOQUE:
-        // o Chrome/Edge do Windows TAMBÉM tem navigator.share com arquivos,
-        // mas abre o painel nativo do Windows (sem WhatsApp Web lá — relato
-        // do Alison). pointer: coarse = celular/tablet; desktop com mouse
-        // (mesmo com tela touch, o ponteiro primário é fino) vai pro clipboard.
-        var comArquivos = !!(window.matchMedia &&
-          window.matchMedia("(pointer: coarse)").matches) &&
-          navigator.share && navigator.canShare;
-        ev.preventDefault();
+        // VDV-20261008-08 (2ª correção Alison) — nunca abrir o WhatsApp direto
+        // no CELULAR: o menu nativo (com FOTO se o navegador suportar, com
+        // texto+link quando não) é o comportamento esperado. Desktop
+        // (ponteiro fino) mantém a via clipboard VDV-20260911-07b; celular
+        // sem navigator.share → <a> wa.me natural.
+        var coarse = !!(window.matchMedia &&
+          window.matchMedia("(pointer: coarse)").matches);
+        var comArquivos = coarse && navigator.share && navigator.canShare;
         if (!comArquivos) {
-          // Desktop: copia a foto e abre o WhatsApp para colar (Ctrl+V).
+          if (coarse) return; // celular sem share: navegação natural
           fetch(prefix + (photos[fotoSelecionada] || photos[0]))
             .then(function (r) {
               if (!r.ok) throw new Error("HTTP " + r.status);
@@ -1954,30 +1949,35 @@
             .catch(function () { window.location.href = share.href; });
           return;
         }
+        ev.preventDefault(); // não navegar: o menu nativo assume daqui
         var src = prefix + (photos[fotoSelecionada] || photos[0]);
         var nome = "vdv-" + product.id +
           (fotoSelecionada > 0 ? "-" + (fotoSelecionada + 1) : "") + ".jpg";
-        var arquivo = null;
         fetch(src)
           .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.blob(); })
           .then(function (blob) {
-            arquivo = new File([blob], nome, { type: blob.type || "image/jpeg" });
-            if (!navigator.canShare({ files: [arquivo] })) {
-              desktopShare(blob); // suporte a arquivos ausente: via desktop
-              return null;
-            }
-            return navigator.share({
-              files: [arquivo],
+            var arquivo = new File([blob], nome, { type: blob.type || "image/jpeg" });
+            var dados = {
               title: product.title,
               text: product.title + " — " + fmtPriceText(product),
               url: shareUrl(product, "compartilhamento")
-            });
+            };
+            if (!navigator.canShare({ files: [arquivo] })) {
+              return navigator.share(dados); // MENU com texto + link
+            }
+            dados.files = [arquivo];
+            return navigator.share(dados);
           })
           .catch(function (e) {
             // AbortError = pessoa fechou o menu de compartilhamento (nada a
-            // fazer); qualquer outra falha cai no fallback de sempre.
+            // fazer); qualquer outra falha → menu por texto+link; sem menu
+            // nenhuma → fallback wa.me de sempre.
             if (e && e.name === "AbortError") return;
-            window.location.href = share.href;
+            navigator.share({
+              title: product.title,
+              text: product.title + " — " + fmtPriceText(product),
+              url: shareUrl(product, "compartilhamento")
+            }).catch(function () { window.location.href = share.href; });
           });
       });
     }

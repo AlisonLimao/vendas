@@ -141,4 +141,24 @@ assert(
   "estática: fallback wa.me nas falhas, nunca no cancelamento"
 );
 
+// 7. VDV-20261008-08 (2ª correção Alison) — celular SEM suporte a arquivos
+//    abre o MENU nativo (texto+link), nunca o WhatsApp direto.
+assert(
+  /if \(!navigator\.canShare\(\{ files: \[arquivo\] \}\)\) \{\s*return navigator\.share\(dados\); \/\/ MENU/.test(inline) &&
+    /dados\.files = \[arquivo\];/.test(inline),
+  "estática: sem suporte a arquivos → menu com texto+link (não WhatsApp direto)"
+);
+assert(
+  /if \(!navigator\.canShare\(\{ files: \[arquivo\] \}\)\) \{\s*return navigator\.share\(dados\); \/\/ MENU/.test(js) &&
+    /dados\.files = \[arquivo\];/.test(js),
+  "dinâmica: mesma cadência menu-arquivo → menu-URL → wa.me"
+);
+
+// 8. O bloco Divulgar fica logo APÓS O PREÇO (relato: botão longe demais).
+assert(
+  /prod-price.*[\s\S]{0,240}action-label">Divulgar<\/span>/i.test(js) ||
+    js.indexOf('class="share-compact"') < js.indexOf('class="prod-facts prod-disp"'),
+  "dinâmica: Divulgar perto do topo, junto do preço"
+);
+
 console.log("share_photo: OK (Web Share com arquivos + fallback wa.me + foto selecionada)");
