@@ -411,6 +411,16 @@
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>';
   var ICON_WHATSAPP =
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>';
+  /* VDV-20261008-08 — ícones utilitários da divulgação compacta e das setas
+   * da galeria (mesmo molde dos logos: viewBox 24, currentColor). */
+  var ICON_SHARE =
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>';
+  var ICON_LINK =
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>';
+  var ICON_ARROW_PREV =
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>';
+  var ICON_ARROW_NEXT =
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>';
 
   function fmtPriceText(p) {
     return priceLine(p, false);
@@ -1531,15 +1541,45 @@
     // (Web Share API Level 2; o preview do link em si não muda — ele é gerado
     // pelo servidor do WhatsApp a partir da og:image fixa do export).
     var fotoSelecionada = 0;
-    var thumbs = photos.length > 1
-      ? '<div class="prod-thumbs" role="group" aria-label="Fotos do produto">' +
+    // VDV-20261008-08 — navegação por gestos (mesmo modelo da página estática):
+    // track com scroll-snap (swipe = rolagem nativa, gestos verticais intactos),
+    // contador discreto, setas no desktop, teclado, miniaturas sincronizadas.
+    // Principal eager (carregada primeiro), extras lazy (requisito 11). 1 foto
+    // → só a imagem de sempre (requisito 8). Slides têm só imagens — nada no
+    // gesto abre link/contato por engano (requisito 9).
+    var galeriaHtml;
+    if (photos.length > 1) {
+      galeriaHtml =
+        '<div class="prod-gallery" id="prod-gallery">' +
+        '<div class="gallery-stage">' +
+        '<div class="gallery-track" tabindex="0" role="group" aria-label="Fotos do produto — deslize ou use as setas">' +
+        Array.prototype.map.call(photos, function (src, i) {
+          return '<div class="gallery-slide"><img class="prod-photo"' +
+            (i === 0 ? ' id="prod-photo-main"' : "") +
+            ' width="640" height="640"' + (i > 0 ? ' loading="lazy"' : "") +
+            ' decoding="async" src="' + esc(prefix + src) + '" alt="' +
+            esc(product.title) + '"></div>';
+        }).join("") +
+        "</div>" +
+        '<span class="gallery-count" aria-hidden="true">1/' + photos.length + "</span>" +
+        '<button type="button" class="gallery-arrow gallery-arrow-prev" data-dir="prev" aria-label="Foto anterior">' +
+        ICON_ARROW_PREV + "</button>" +
+        '<button type="button" class="gallery-arrow gallery-arrow-next" data-dir="next" aria-label="Próxima foto">' +
+        ICON_ARROW_NEXT + "</button>" +
+        "</div>" +
+        '<div class="prod-thumbs" role="group" aria-label="Fotos do produto">' +
         Array.prototype.map.call(photos, function (src, i) {
           return '<button type="button" class="prod-thumb' + (i === 0 ? " is-active" : "") +
-            '" data-src="' + esc(prefix + src) + '" aria-label="Ver foto ' + (i + 1) + '">' +
+            '" aria-label="Ver foto ' + (i + 1) + '">' +
             '<img loading="lazy" src="' + esc(prefix + src) + '" alt=""></button>';
         }).join("") +
-        "</div>"
-      : "";
+        "</div></div>";
+    } else {
+      galeriaHtml =
+        '<img class="prod-photo" id="prod-photo-main" width="640" height="640"' +
+        ' decoding="async" src="' + esc(prefix + photos[0]) +
+        '" alt="' + esc(product.title) + '">';
+    }
     // Fatia 26: modo assistido com contato comercial do dono → canal único do
     // dono (href pronto no export, valor cru só dentro do href). Sem contato,
     // cai no deep link do bot (nunca mostra canal do publicador como se fosse
@@ -1594,11 +1634,7 @@
       "</div></div>";
 
     main.innerHTML =
-      '<div class="prod-gallery">' +
-      '<img class="prod-photo" id="prod-photo-main" loading="lazy" width="640" height="640" src="' +
-      esc(prefix + photos[0]) + '" alt="' + esc(product.title) + '">' +
-      thumbs +
-      "</div>" +
+      galeriaHtml +
       '<h1 class="prod-title">' + esc(product.title) + "</h1>" +
       '<p class="prod-price">' + fmtPrice(product) + "</p>" +
       // Fase 0 do "gostei": favoritar pela página do produto (o estado vive
@@ -1647,12 +1683,19 @@
         ? "<li>Categoria: " + esc(product.category.name) + "</li>"
         : "") +
       "</ul>" +
-      // VDV-20260910-02 — divulgação em bloco próprio, mesmo padrão de botão
-      // dos canais de contato. GA #share-wa / compartilhar_produto intacto.
+      // VDV-20261008-08 — divulgação COMPACTA (mestre necessidade 1): linha
+      // única, botões de 2.6rem — Compartilhar (#share-wa, href wa.me de
+      // sempre preservado como fallback do handler abaixo) + Copiar link com
+      // confirmação visual. GA compartilhar_produto e a separação
+      // COMPARTILHAR ≠ CONTATO (share vs contact_click R12) intactos.
       '<span class="action-label">Divulgar</span>' +
-      '<div class="action-grid"><a class="btn-channel share" target="_blank" rel="noopener" href="' +
+      '<div class="share-compact">' +
+      '<a class="btn-share share-web" target="_blank" rel="noopener" href="' +
       esc(whatsappShareUrl(product)) + '" id="share-wa">' +
-      ICON_WHATSAPP + "<span>Compartilhar este produto</span></a></div>" +
+      ICON_SHARE + "<span>Compartilhar</span></a>" +
+      '<button type="button" class="btn-share share-copy" id="copy-link-btn">' +
+      ICON_LINK + '<span data-copy-label="Copiar link">Copiar link</span></button>' +
+      "</div>" +
       '<p class="prod-seller">A negociação acontece direto no bot, sem cadastro neste site.</p>' +
       // Fatia 29 (VDV-20260908-03) — comentários de visitantes: seção com os
       // comentários APROVADOS (vêm do export, só name/text/date) + CTA para
@@ -1759,21 +1802,65 @@
       });
     }
 
-    var mainPhoto = main.querySelector("#prod-photo-main");
-    Array.prototype.forEach.call(main.querySelectorAll(".prod-thumb"), function (btn) {
-      btn.addEventListener("click", function () {
-        if (mainPhoto && btn.getAttribute("data-src")) {
-          mainPhoto.src = btn.getAttribute("data-src");
-        }
-        // VDV-20260911-07: a foto em exibição vira a candidata ao compartilhar.
-        var idx = Array.prototype.indexOf.call(main.querySelectorAll(".prod-thumb"), btn);
-        if (idx !== -1) fotoSelecionada = idx;
-        Array.prototype.forEach.call(main.querySelectorAll(".prod-thumb"), function (b) {
-          b.classList.remove("is-active");
+    // Troca da foto principal ao tocar a miniatura — VDV-20260903-03, agora
+    // via track com scroll-snap (VDV-20261008-08): navegação por gestos,
+    // contador, setas e teclado; miniaturas e foto principal sincronizadas.
+    var track = main.querySelector(".gallery-track");
+    if (track && photos.length > 1) {
+      var total = photos.length;
+      var counter = main.querySelector(".gallery-count");
+      var reduz = window.matchMedia &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var rafNav = null;
+      function pintar(i) {
+        fotoSelecionada = i; // VDV-20260911-07: exibida = candidata ao share
+        if (counter) counter.textContent = (i + 1) + "/" + total;
+        Array.prototype.forEach.call(main.querySelectorAll(".prod-thumb"), function (b, k) {
+          b.classList[i === k ? "add" : "remove"]("is-active");
         });
-        btn.classList.add("is-active");
+      }
+      function animar(destino) {
+        // Transição programática de 250 ms (mestre: 200–300 ms); movimento
+        // reduzido → posicionamento imediato. O swipe em si é rolagem
+        // nativa do track (gesture do dedo) — não passa por aqui.
+        if (rafNav) cancelAnimationFrame(rafNav);
+        if (reduz) { track.scrollLeft = destino; return; }
+        var ini = track.scrollLeft, t0 = performance.now(), dur = 250;
+        function passo(t) {
+          var p = Math.min(1, (t - t0) / dur);
+          p = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+          track.scrollLeft = ini + (destino - ini) * p;
+          if (p < 1) rafNav = requestAnimationFrame(passo);
+        }
+        rafNav = requestAnimationFrame(passo);
+      }
+      function ir(i) {
+        i = Math.max(0, Math.min(total - 1, i));
+        animar(i * track.clientWidth);
+        pintar(i);
+      }
+      var esperaSync = null;
+      track.addEventListener("scroll", function () {
+        if (esperaSync) clearTimeout(esperaSync);
+        esperaSync = setTimeout(function () {
+          var i = Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+          i = Math.max(0, Math.min(total - 1, i));
+          if (i !== fotoSelecionada) pintar(i);
+        }, 80);
+      }, { passive: true });
+      track.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowLeft") { e.preventDefault(); ir(fotoSelecionada - 1); }
+        else if (e.key === "ArrowRight") { e.preventDefault(); ir(fotoSelecionada + 1); }
       });
-    });
+      Array.prototype.forEach.call(main.querySelectorAll(".gallery-arrow"), function (b) {
+        b.addEventListener("click", function () {
+          ir(fotoSelecionada + (b.getAttribute("data-dir") === "prev" ? -1 : 1));
+        });
+      });
+      Array.prototype.forEach.call(main.querySelectorAll(".prod-thumb"), function (btn, k) {
+        btn.addEventListener("click", function () { ir(k); });
+      });
+    }
 
     var cta = main.querySelector('.btn-channel.tg');
     if (cta) {
@@ -1892,6 +1979,42 @@
             if (e && e.name === "AbortError") return;
             window.location.href = share.href;
           });
+      });
+    }
+
+    // VDV-20261008-08 — "Copiar link" com confirmação visual (rotulo acende
+    // "Link copiado ✓" por 2,5s). Origem ``?o=compartilhamento`` igual ao
+    // share nativo. GA próprio (categoria compartilhamento) — sem novo tipo
+    // na ponte de telemetria (mesmo critério da Fatia 32).
+    var copiarLink = main.querySelector("#copy-link-btn");
+    if (copiarLink) {
+      copiarLink.addEventListener("click", function () {
+        var url = shareUrl(product, "compartilhamento");
+        var rotulo = copiarLink.querySelector("[data-copy-label]");
+        function pronto() {
+          copiarLink.classList.add("is-copied");
+          if (rotulo) rotulo.textContent = "Link copiado ✓";
+          setTimeout(function () {
+            copiarLink.classList.remove("is-copied");
+            if (rotulo) rotulo.textContent = "Copiar link";
+          }, 2500);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(pronto);
+        } else {
+          var t = document.createElement("textarea");
+          t.value = url;
+          document.body.appendChild(t);
+          t.select();
+          try { document.execCommand("copy"); pronto(); } catch (e) {}
+          t.parentNode.removeChild(t);
+        }
+        track("copiar_link_produto", {
+          produto_id: product.id,
+          event_category: "compartilhamento",
+          event_label: product.id,
+          transport_type: "beacon"
+        });
       });
     }
 

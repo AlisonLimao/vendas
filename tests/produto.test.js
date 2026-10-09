@@ -41,7 +41,9 @@ const tpl = m[1];
 
 // 1. Ordem de decisão (mestre item 19).
 const ordem = [
-  ["prod-gallery", /prod-gallery/],
+  // VDV-20261008-08: a galeria (track+gestos) é montada em `galeriaHtml` e
+  // entra como primeiro elemento do innerHTML — o marcador é a própria var.
+  ["galeriaHtml", /galeriaHtml/],
   ["prod-title", /prod-title/],
   ["prod-price", /prod-price/],
   ["prod-disp", /prod-facts prod-disp/],

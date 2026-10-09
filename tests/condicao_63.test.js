@@ -87,18 +87,19 @@ const paginas = [
   "../privacidade.html", "../explorar/index.html", "../favoritos/index.html",
   "../produto/index.html",
 ];
-paginas.forEach(function (p) {
-  const html = fs.readFileSync(path.join(__dirname, p), "utf8");
-  assert(/v=20261008-1/.test(html), "7. ?v=20261008-1 em " + p);
-});
 const exporter = fs.readFileSync(
   path.join(__dirname, "..", "..", "projeto_telegram", "scripts", "export_catalogo_web.py"),
   "utf8"
 );
-assert(
-  /CSS_VERSION = "20261008-1"/.test(exporter),
-  "7. CSS_VERSION do exportador em 20261008-1"
-);
+// 7. Invariante (VDV-20261008-08): as páginas shell linkam EXATAMENTE o
+//    ?v= da CSS_VERSION do exportador — ao subir a versão num ciclo, os
+//    dois lados andam juntos (nada de snapshot quebrado a cada bump).
+const versao = (exporter.match(/CSS_VERSION = "([^"]+)"/) || [])[1];
+assert(versao, "7. CSS_VERSION definido no exportador");
+paginas.forEach(function (p) {
+  const html = fs.readFileSync(path.join(__dirname, p), "utf8");
+  assert(html.indexOf("v=" + versao) !== -1, "7. ?v=" + versao + " em " + p);
+});
 
 // 8. minificados regenerados JUNTOS com as fontes (prod-note também no min.js).
 assert(
