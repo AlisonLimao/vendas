@@ -19,7 +19,7 @@
 <meta property="og:url" content="https://vitrinedevenda.com.br/produto/c32621ec-0751-414f-a092-63d5a5c13bdf/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://vitrinedevenda.com.br/produto/c32621ec-0751-414f-a092-63d5a5c13bdf/">
-  <link rel="stylesheet" href="../../assets/css/vdv.min.css?v=20261008-4"><script type="application/ld+json">
+  <link rel="stylesheet" href="../../assets/css/vdv.min.css?v=20261008-5"><script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Product",
@@ -228,6 +228,17 @@
     function urlShare() {
       return share.getAttribute("data-share-url") || share.href;
     }
+    // VDV-20261008-08 (3ª correção Alison): cada degrau da cadeia DIZ o que
+    // aconteceu — sem foto anexada não é mais um silêncio; é uma nota curta.
+    function nota(msg) {
+      var bloco = share.parentNode; // .share-compact
+      if (!bloco || !bloco.parentNode) return;
+      var el = document.createElement("span");
+      el.className = "copied-note";
+      el.textContent = msg;
+      bloco.parentNode.insertBefore(el, bloco.nextSibling);
+      setTimeout(function () { el.remove(); }, 10000);
+    }
     function desktopShare(blob) {
       var colar = !!(navigator.clipboard && window.ClipboardItem);
       var img = new Image();
@@ -243,15 +254,7 @@
             navigator.clipboard
               .write([new ClipboardItem({ "image/png": png })])
               .then(function () {
-                var nota = document.createElement("span");
-                nota.className = "copied-note";
-                nota.textContent =
-                  "📷 Foto copiada! Abra a conversa do WhatsApp e cole com Ctrl+V.";
-                var bloco = share.parentNode; // .share-compact
-                if (bloco && bloco.parentNode) {
-                  bloco.parentNode.insertBefore(nota, bloco.nextSibling);
-                  setTimeout(function () { nota.remove(); }, 10000);
-                }
+                nota("📷 Foto copiada! Abra a conversa do WhatsApp e cole com Ctrl+V.");
               })
               .catch(function () { /* clipboard recusado: só o link */ });
           }
@@ -306,6 +309,8 @@
             url: urlShare()
           };
           if (!navigator.canShare({ files: [arquivo] })) {
+            nota("Este navegador não permite anexar a foto — " +
+              "o menu vai abrir com o texto e o link.");
             return navigator.share(dados); // MENU com texto + link
           }
           dados.files = [arquivo];
@@ -313,6 +318,7 @@
         })
         .catch(function (err) {
           if (err && err.name === "AbortError") return;
+          nota("Não consegui anexar a foto agora — abrindo o menu com o texto e o link.");
           navigator.share({ title: document.title, text: textoShare(), url: urlShare() })
             .catch(function () { window.location.href = share.href; });
         });
