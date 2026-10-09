@@ -95,12 +95,13 @@ assert(
   "GA + telemetria share marcados nos dois caminhos"
 );
 
-// 5. VDV-20261008-08 (correção Alison) — a nota "Foto copiada" ancora no
-//    bloco compacto (share.parentNode), não no action-grid removido.
+// 5. VDV-20261008-08 (correção Alison) — as notas de confirmação ancoram no
+//    bloco compacto (share.parentNode, helper nota()), não no action-grid.
 assert(
-  js.includes("var grid = share.parentNode; // .share-compact") &&
-    !/nota, grid\.nextSibling/.test(js) === false,
-  "nota desktop ancora no bloco Divulgar compacto vigente"
+  /function nota\(msg\) \{/.test(js) &&
+    js.includes("var bloco = share.parentNode; // .share-compact") &&
+    !js.includes("var grid = main.querySelector(\".action-grid\")"),
+  "notas ancoram no bloco Divulgar compacto vigente (helper nota)"
 );
 
 // 6. A ESTÁTICA (script inline do exportador) leva a foto em exibição na
@@ -144,12 +145,12 @@ assert(
 // 7. VDV-20261008-08 (2ª correção Alison) — celular SEM suporte a arquivos
 //    abre o MENU nativo (texto+link), nunca o WhatsApp direto.
 assert(
-  /if \(!navigator\.canShare\(\{ files: \[arquivo\] \}\)\) \{\s*return navigator\.share\(dados\); \/\/ MENU/.test(inline) &&
+  /if \(!navigator\.canShare\(\{ files: \[arquivo\] \}\)\) \{[\s\S]{0,200}?return navigator\.share\(dados\); \/\/ MENU/.test(inline) &&
     /dados\.files = \[arquivo\];/.test(inline),
   "estática: sem suporte a arquivos → menu com texto+link (não WhatsApp direto)"
 );
 assert(
-  /if \(!navigator\.canShare\(\{ files: \[arquivo\] \}\)\) \{\s*return navigator\.share\(dados\); \/\/ MENU/.test(js) &&
+  /if \(!navigator\.canShare\(\{ files: \[arquivo\] \}\)\) \{[\s\S]{0,200}?return navigator\.share\(dados\); \/\/ MENU/.test(js) &&
     /dados\.files = \[arquivo\];/.test(js),
   "dinâmica: mesma cadência menu-arquivo → menu-URL → wa.me"
 );

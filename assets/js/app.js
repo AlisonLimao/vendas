@@ -1884,6 +1884,17 @@
       // a foto em exibição é convertida e copiada para o CLIPBOARD; o wa.me
       // abre em nova aba e a pessoa cola a foto na conversa (Ctrl+V). Sem
       // clipboard (navegador velho) → wa.me de sempre, sem copiar nada.
+      // VDV-20261008-08 (3ª correção Alison): cada degrau da cadeia DIZ o que
+      // aconteceu — nota curta ao anexar (ou ao não conseguir).
+      function nota(msg) {
+        var bloco = share.parentNode; // .share-compact (VDV-20261008-08)
+        if (!bloco || !bloco.parentNode) return;
+        var el = document.createElement("span");
+        el.className = "copied-note";
+        el.textContent = msg;
+        bloco.parentNode.insertBefore(el, bloco.nextSibling);
+        setTimeout(function () { el.remove(); }, 10000);
+      }
       function desktopShare(blob) {
         var colar = navigator.clipboard && window.ClipboardItem;
         var img = new Image();
@@ -1899,15 +1910,7 @@
               navigator.clipboard
                 .write([new ClipboardItem({ "image/png": png })])
                 .then(function () {
-                  var nota = document.createElement("span");
-                  nota.className = "copied-note";
-                  nota.textContent =
-                    "📷 Foto copiada! Abra a conversa do WhatsApp e cole com Ctrl+V.";
-                  var grid = share.parentNode; // .share-compact (VDV-20261008-08)
-                  if (grid && grid.parentNode) {
-                    grid.parentNode.insertBefore(nota, grid.nextSibling);
-                    setTimeout(function () { nota.remove(); }, 10000);
-                  }
+                  nota("📷 Foto copiada! Abra a conversa do WhatsApp e cole com Ctrl+V.");
                 })
                 .catch(function () { /* clipboard recusado: só o link */ });
             }
@@ -1963,6 +1966,7 @@
               url: shareUrl(product, "compartilhamento")
             };
             if (!navigator.canShare({ files: [arquivo] })) {
+              nota("Este navegador não permite anexar a foto — o menu vai abrir com o texto e o link.");
               return navigator.share(dados); // MENU com texto + link
             }
             dados.files = [arquivo];
@@ -1973,6 +1977,7 @@
             // fazer); qualquer outra falha → menu por texto+link; sem menu
             // nenhuma → fallback wa.me de sempre.
             if (e && e.name === "AbortError") return;
+            nota("Não consegui anexar a foto agora — abrindo o menu com o texto e o link.");
             navigator.share({
               title: product.title,
               text: product.title + " — " + fmtPriceText(product),
