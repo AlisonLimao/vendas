@@ -21,31 +21,30 @@ const js = fs.readFileSync(
   "utf8"
 );
 
-// 1. Gate de suporte: a via de arquivos exige TELA DE TOQUE (pointer: coarse)
-//    — o Chrome/Edge do Windows também tem navigator.share com arquivos, mas
-//    abre o painel nativo do Windows (sem WhatsApp Web lá, VDV-20260911-07c).
-//    Desktop (ponteiro fino) → via clipboard.
+// 1. Gate de suporte (5ª correção Alison): o menu nativo abre SEMPRE que o
+//    navegador tem navigator.share — qualquer ponteiro (Edge/Comet do Windows
+//    têm o painel nativo de escolher; o gate coarse do 07c foi revertido).
+//    `coarse` só fica no RAMO SEM share (celular → <a> natural).
 assert(
   js.includes('window.matchMedia("(pointer: coarse)").matches') &&
-    js.includes("var comArquivos =") &&
-    js.includes("ev.preventDefault();") &&
-    js.includes("if (!comArquivos) {"),
-  "a via de arquivos só vale em tela de toque; desktop vai pro clipboard"
+    /if \(!\(navigator\.share && navigator\.canShare\)\) \{/.test(js) &&
+    js.includes("ev.preventDefault();"),
+  "o menu nativo abre sempre que há navigator.share (sem gate de toque)"
 );
 assert(
   js.includes("navigator.canShare(comFoto)"),
   "depois do fetch, canShare(comFoto) decide entre share com foto e fallback"
 );
 assert(
-  js.includes("navigator.share({") &&
-    js.includes("files: [arquivo]") &&
+  js.includes("navigator.share(comFoto)") &&
+    js.includes("files: [arquivoPronto]") &&
     js.includes('url: shareUrl(product, "compartilhamento")'),
   "o compartilhamento leva o arquivo + título + URL da página do produto"
 );
 
 // 2. Fallback em toda falha, EXCETO cancelamento do menu (AbortError).
 assert(
-  /if \(e && e\.name === "AbortError"\) return;/.test(js),
+  /if \(err && err\.name === "AbortError"\) return;/.test(js),
   "cancelar o menu de compartilhamento não pode disparar o fallback"
 );
 assert(
@@ -132,7 +131,8 @@ assert(
   "estática: via desktop copia a foto (PNG) com nota de confirmação"
 );
 assert(
-  /var nome = "vdv-"/.test(inline) &&
+  inline.includes("window.location.pathname.match") &&
+    inline.includes('"vdv-" + pid + (atual > 0 ? "-" + (atual + 1) : "")') &&
     /\(atual > 0 \? "-" \+ \(atual \+ 1\) : ""\)/.test(inline),
   "estática: nome do arquivo distingue a foto (vdv-<id>-N.jpg)"
 );
@@ -142,23 +142,34 @@ assert(
   "estática: fallback wa.me nas falhas, nunca no cancelamento"
 );
 
-// 7. VDV-20261008-08 (2ª/4ª correção Alison) — celular SEM suporte a arquivos
-//    abre o MENU nativo (texto+link), nunca o WhatsApp direto; COM suporte, o
-//    link vai no TEXTO (Chrome Android não passa url junto com files — 4ª).
+// 7. VDV-20261008-08 (4ª/5ª correção Alison) — COM foto: link no TEXTO (Chrome
+//    Android não passa url junto com files); SEM foto (não chegou em fundo /
+//    anexo recusado): MENU com texto+link aberto NA HORA do toque — o share é
+//    chamado sincronicamente no clique (busca dentro do clique expirava a
+//    ativação do gesto: navegador recusava o menu → WhatsApp direto).
 assert(
-  /var comFoto = \{[\s\S]{0,180}?files: \[arquivo\],[\s\S]{0,300}?urlShare\(\)/.test(inline) &&
-    /if \(navigator\.canShare\(comFoto\)\) \{\s*return navigator\.share\(comFoto\);/.test(inline),
-  "estática: link no texto quando vai foto (url+files quebra no Chrome Android)"
+  /var arquivoPronto = null;/.test(inline) &&
+    /function prepararFoto\(\)/.test(inline) &&
+    /var comFoto = \{[\s\S]{0,180}?files: \[arquivoPronto\],[\s\S]{0,300}?urlShare\(\)/.test(inline) &&
+    /if \(navigator\.canShare\(comFoto\)\) \{\s*return navigator\.share\(comFoto\)/.test(inline),
+  "estática: foto prepara em fundo e vai com link no texto"
 );
 assert(
-  /var comFoto = \{[\s\S]{0,180}?files: \[arquivo\],[\s\S]{0,300}?shareUrl\(product, "compartilhamento"\)/.test(js) &&
-    /if \(navigator\.canShare\(comFoto\)\) \{\s*return navigator\.share\(comFoto\);/.test(js),
-  "dinâmica: link no texto quando vai foto (url+files quebra no Chrome Android)"
+  /var arquivoPronto = null;/.test(js) &&
+    /function prepararFoto\(\)/.test(js) &&
+    /var comFoto = \{[\s\S]{0,180}?files: \[arquivoPronto\],[\s\S]{0,300}?shareUrl\(product, "compartilhamento"\)/.test(js) &&
+    /if \(navigator\.canShare\(comFoto\)\) \{\s*return navigator\.share\(comFoto\)/.test(js),
+  "dinâmica: foto prepara em fundo e vai com link no texto"
 );
 assert(
-  /return navigator\.share\(dados\); \/\/ MENU com texto/.test(inline) &&
-    /return navigator\.share\(dados\); \/\/ MENU com texto/.test(js),
-  "sem suporte a arquivos: menu com texto+link (nunca WhatsApp direto)"
+  /prepararFoto\(\); \/\/ foto do slide em fundo/.test(inline) &&
+    Array.prototype.some.call([js], (x) => /prepararFoto\(\); \/\/ foto do slide/.test(x)),
+  "troca de slide prepara a nova foto em fundo (pintar)"
+);
+assert(
+  /prepararFoto\(\);\s*return navigator\.share\(dados\)/.test(inline) &&
+    /prepararFoto\(\);\s*return navigator\.share\(dados\)/.test(js),
+  "menu com texto+link abre na hora quando a foto não chegou (gesto vivo)"
 );
 
 // 8. O bloco Divulgar fica logo APÓS O PREÇO (relato: botão longe demais).

@@ -52,8 +52,8 @@ assert(/pointer: coarse/.test(exporter) &&
   /function desktopShare\(blob\)/.test(exporter) &&
   /copied-note/.test(exporter),
   "1f. estática: mesma 3 vias da dinâmica (arquivo / clipboard / wa.me)");
-assert(/var nome = "vdv-" \+ pid/.test(exporter) &&
-  /\(atual > 0 \? "-" \+ \(atual \+ 1\) : ""\)/.test(exporter),
+assert(/arquivoPronto = new File\(\[blob\],/.test(exporter) &&
+  /"vdv-" \+ pid \+ \(atual > 0 \? "-" \+ \(atual \+ 1\) : ""\)/.test(exporter),
   "1g. estática: nome do arquivo distingue a foto (vdv-<id>-N.jpg)");
 
 // ── 2. EXPORTADOR — contatos lado a lado (mestre necessidade 2) ───────────

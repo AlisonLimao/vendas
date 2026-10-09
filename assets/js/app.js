@@ -1541,6 +1541,7 @@
     // (Web Share API Level 2; o preview do link em si não muda — ele é gerado
     // pelo servidor do WhatsApp a partir da og:image fixa do export).
     var fotoSelecionada = 0;
+    var arquivoPronto = null; // File da foto atual, preparado em fundo (5ª corr.)
     // VDV-20261008-08 — navegação por gestos (mesmo modelo da página estática):
     // track com scroll-snap (swipe = rolagem nativa, gestos verticais intactos),
     // contador discreto, setas no desktop, teclado, miniaturas sincronizadas.
@@ -1814,6 +1815,7 @@
       var rafNav = null;
       function pintar(i) {
         fotoSelecionada = i; // VDV-20260911-07: exibida = candidata ao share
+        prepararFoto(); // foto do slide em fundo — clique abre o menu na hora
         if (counter) counter.textContent = (i + 1) + "/" + total;
         Array.prototype.forEach.call(main.querySelectorAll(".prod-thumb"), function (b, k) {
           b.classList[i === k ? "add" : "remove"]("is-active");
@@ -1924,6 +1926,27 @@
         img.src = objUrl;
       }
 
+      // VDV-20261008-08 (5ª correção Alison): a foto PREPARA em fundo — na
+      // abertura da página e em cada troca de slide (pintar). No toque, o
+      // navigator.share é chamado na MESMA hora (gesto vivo): buscar a foto
+      // dentro do clique expirava a ativação do usuário nos navegadores
+      // lentos (3G/4G = segundos) e o menu era recusado → WhatsApp direto.
+      function prepararFoto() {
+        var src = prefix + (photos[fotoSelecionada] || photos[0]);
+        fetch(src)
+          .then(function (r) {
+            if (!r.ok) throw new Error("HTTP " + r.status);
+            return r.blob();
+          })
+          .then(function (blob) {
+            arquivoPronto = new File([blob],
+              "vdv-" + product.id + (fotoSelecionada > 0 ? "-" + (fotoSelecionada + 1) : "") + ".jpg",
+              { type: blob.type || "image/jpeg" });
+          })
+          .catch(function () { arquivoPronto = null; }); // clique refaz
+      }
+      prepararFoto(); // página aberta: foto principal já preparada
+
       share.addEventListener("click", function (ev) {
         track("compartilhar_produto", {
           produto_id: product.id,
@@ -1933,15 +1956,14 @@
         });
         telemetria("share", { product: product.id });
         sinal("share", { product: product.id });
-        // VDV-20261008-08 (2ª correção Alison) — nunca abrir o WhatsApp direto
-        // no CELULAR: o menu nativo (com FOTO se o navegador suportar, com
-        // texto+link quando não) é o comportamento esperado. Desktop
-        // (ponteiro fino) mantém a via clipboard VDV-20260911-07b; celular
-        // sem navigator.share → <a> wa.me natural.
+        // VDV-20261008-08 (5ª correção Alison) — o MENU nativo ("escolher por
+        // onde compartilhar") abre SEMPRE que o navegador tem navigator.share,
+        // em QUALQUER ponteiro: Edge/Comet do Windows têm o painel nativo e
+        // estavam trancados no gate coarse do 07c (revertido a pedido). Sem
+        // share: desktop → clipboard 07b; celular → <a> wa.me natural.
         var coarse = !!(window.matchMedia &&
           window.matchMedia("(pointer: coarse)").matches);
-        var comArquivos = coarse && navigator.share && navigator.canShare;
-        if (!comArquivos) {
+        if (!(navigator.share && navigator.canShare)) {
           if (coarse) return; // celular sem share: navegação natural
           fetch(prefix + (photos[fotoSelecionada] || photos[0]))
             .then(function (r) {
@@ -1953,48 +1975,36 @@
           return;
         }
         ev.preventDefault(); // não navegar: o menu nativo assume daqui
-        var src = prefix + (photos[fotoSelecionada] || photos[0]);
-        var nome = "vdv-" + product.id +
-          (fotoSelecionada > 0 ? "-" + (fotoSelecionada + 1) : "") + ".jpg";
-        fetch(src)
-          .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.blob(); })
-          .then(function (blob) {
-            var arquivo = new File([blob], nome, { type: blob.type || "image/jpeg" });
-            var dados = {
-              title: product.title,
-              text: product.title + " — " + fmtPriceText(product),
-              url: shareUrl(product, "compartilhamento")
-            };
-            // VDV-20261008-08 (4ª correção Alison): Chrome no Android não
-            // passa `url` junto com `files` no share (só aceitou no Chrome
-            // 127) — com url o share falha e o menu abre SEM a foto. Conserto
-            // canônico: com FOTO, o link entra no TEXTO (WhatsApp mostra
-            // clicável; preview vem da og:image). canShare recebe o payload
-            // EXATO que será passado (undefined/combos derrubam a checagem).
-            var comFoto = {
-              files: [arquivo],
-              title: product.title,
-              text: (product.title + " — " + fmtPriceText(product)) +
-                "\n" + shareUrl(product, "compartilhamento")
-            };
-            if (navigator.canShare(comFoto)) {
-              return navigator.share(comFoto); // MENU com FOTO + link no texto
-            }
-            nota("Este navegador não permite anexar a foto — o menu vai abrir com o texto e o link.");
-            return navigator.share(dados); // MENU com texto + link
-          })
-          .catch(function (e) {
-            // AbortError = pessoa fechou o menu de compartilhamento (nada a
-            // fazer); qualquer outra falha → menu por texto+link; sem menu
-            // nenhuma → fallback wa.me de sempre.
-            if (e && e.name === "AbortError") return;
-            nota("Não consegui anexar a foto agora — abrindo o menu com o texto e o link.");
-            navigator.share({
-              title: product.title,
-              text: product.title + " — " + fmtPriceText(product),
-              url: shareUrl(product, "compartilhamento")
-            }).catch(function () { window.location.href = share.href; });
-          });
+        var dados = {
+          title: product.title,
+          text: product.title + " — " + fmtPriceText(product),
+          url: shareUrl(product, "compartilhamento")
+        };
+        // FOTO PREPARADA EM FUNDO (prepararFoto na abertura + em cada troca de
+        // slide — pintar). Com foto em mãos, o link vai no TEXTO (Chrome no
+        // Android não passa `url` junto com `files` — só no Chrome 127; o
+        // preview da conversa vem da og:image). canShare recebe o payload EXATO.
+        if (arquivoPronto) {
+          var comFoto = {
+            files: [arquivoPronto],
+            title: product.title,
+            text: (product.title + " — " + fmtPriceText(product)) +
+              "\n" + shareUrl(product, "compartilhamento")
+          };
+          if (navigator.canShare(comFoto)) {
+            return navigator.share(comFoto).catch(function (err) {
+              if (err && err.name === "AbortError") return; // fechou o menu
+            });
+          }
+          nota("Este navegador não permite anexar a foto — o menu vai abrir com o texto e o link.");
+        }
+        // Foto ainda não chegou: menu com texto+link NA HORA (gesto vivo) — e
+        // prepararFoto segue para o próximo toque.
+        prepararFoto();
+        return navigator.share(dados).catch(function (err) {
+          if (err && err.name === "AbortError") return;
+          window.location.href = share.href; // share recusado: wa.me de sempre
+        });
       });
     }
 
