@@ -48,8 +48,8 @@ assert(
   "cancelar o menu de compartilhamento não pode disparar o fallback"
 );
 assert(
-  (js.match(/window\.location\.href = share\.href;/g) || []).length >= 2,
-  "fallback wa.me deve existir para falha de fetch (celular e desktop)"
+  (js.match(/window\.location\.href = share\.href;/g) || []).length === 2,
+  "wa.me por código só na via desktop (falha de fetch/foto ilegível) — 2 saídas"
 );
 
 // 2b. VDV-20260911-07b — desktop (sem Web Share de arquivos): a foto vai pelo
@@ -138,8 +138,8 @@ assert(
 );
 assert(
   /if \(err && err\.name === "AbortError"\) return;/.test(inline) &&
-    (inline.match(/window\.location\.href = share\.href;/g) || []).length >= 2,
-  "estática: fallback wa.me nas falhas, nunca no cancelamento"
+    (inline.match(/window\.location\.href = share\.href;/g) || []).length === 2,
+  "estática: fallback wa.me só na via desktop, nunca no cancelamento"
 );
 
 // 7. VDV-20261008-08 (4ª/5ª correção Alison) — COM foto: link no TEXTO (Chrome
@@ -177,6 +177,20 @@ assert(
   /prod-price.*[\s\S]{0,240}action-label">Divulgar<\/span>/i.test(js) ||
     js.indexOf('class="share-compact"') < js.indexOf('class="prod-facts prod-disp"'),
   "dinâmica: Divulgar perto do topo, junto do preço"
+);
+
+// 9. VDV-20261008-08 (6ª correção Alison) — diagnóstico no toque (a nota DIZ
+//    qual caminho o navegador pegou; página velha em cache = nota não sai) e
+//    menu recusado NUNCA navega ao wa.me: mostra o nome do erro e pede novo
+//    toque (que tem ativação de gesto nova).
+assert(
+  /nota\("toque: menu="/.test(js) && /nota\("toque: menu="/.test(inline),
+  "o toque diz qual caminho o navegador pegou (versão + estado da foto)"
+);
+assert(
+  (js.match(/O navegador recusou o menu/g) || []).length === 2 &&
+    (inline.match(/O navegador recusou o menu/g) || []).length === 2,
+  "menu recusado (com foto e sem) avisa pelo nome do erro em vez de navegar"
 );
 
 console.log("share_photo: OK (Web Share com arquivos + fallback wa.me + foto selecionada)");

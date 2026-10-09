@@ -1961,6 +1961,12 @@
         // em QUALQUER ponteiro: Edge/Comet do Windows têm o painel nativo e
         // estavam trancados no gate coarse do 07c (revertido a pedido). Sem
         // share: desktop → clipboard 07b; celular → <a> wa.me natural.
+        // VDV-20261008-08 (6ª correção Alison): diagnóstico no toque — a nota
+        // DIZ qual caminho o navegador pegou (e prova que a página é a versão
+        // nova; página velha em cache = nota não aparece).
+        nota("toque: menu=" +
+          ((navigator.share && navigator.canShare) ? "sim" : "não") +
+          " · foto=" + (arquivoPronto ? "pronta" : "prep."));
         var coarse = !!(window.matchMedia &&
           window.matchMedia("(pointer: coarse)").matches);
         if (!(navigator.share && navigator.canShare)) {
@@ -1994,6 +2000,14 @@
           if (navigator.canShare(comFoto)) {
             return navigator.share(comFoto).catch(function (err) {
               if (err && err.name === "AbortError") return; // fechou o menu
+              nota("A foto não foi anexada (" +
+                ((err && err.name) || "erro") +
+                ") — abrindo o menu com texto e link.");
+              return navigator.share(dados).catch(function (err2) {
+                if (err2 && err2.name === "AbortError") return;
+                nota("O navegador recusou o menu (" +
+                  ((err2 && err2.name) || "erro") + ") — toque de novo.");
+              });
             });
           }
           nota("Este navegador não permite anexar a foto — o menu vai abrir com o texto e o link.");
@@ -2003,7 +2017,10 @@
         prepararFoto();
         return navigator.share(dados).catch(function (err) {
           if (err && err.name === "AbortError") return;
-          window.location.href = share.href; // share recusado: wa.me de sempre
+          // VDV-20261008-08 (6ª): menu recusado pelo navegador NUNCA navega
+          // ao wa.me por conta própria — o toque seguinte tem ativação nova.
+          nota("O navegador recusou o menu (" +
+            ((err && err.name) || "erro") + ") — toque de novo.");
         });
       });
     }
