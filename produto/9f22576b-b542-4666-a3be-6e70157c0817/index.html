@@ -19,7 +19,7 @@
 <meta property="og:url" content="https://vitrinedevenda.com.br/produto/9f22576b-b542-4666-a3be-6e70157c0817/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://vitrinedevenda.com.br/produto/9f22576b-b542-4666-a3be-6e70157c0817/">
-  <link rel="stylesheet" href="../../assets/css/vdv.min.css?v=20261008-5"><script type="application/ld+json">
+  <link rel="stylesheet" href="../../assets/css/vdv.min.css?v=20261008-6"><script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Product",
@@ -310,13 +310,22 @@
             text: textoShare(),
             url: urlShare()
           };
-          if (!navigator.canShare({ files: [arquivo] })) {
-            nota("Este navegador não permite anexar a foto — " +
-              "o menu vai abrir com o texto e o link.");
-            return navigator.share(dados); // MENU com texto + link
+          // VDV-20261008-08 (4ª correção Alison): Chrome no Android não passa
+          // `url` junto com `files` no share (só aceitou no Chrome 127) — com
+          // url o share falha e o menu abre SEM a foto. Conserto canônico: com
+          // FOTO, o link entra no TEXTO (WhatsApp mostra clicável; preview vem
+          // da og:image). canShare recebe o payload EXATO que será passado.
+          var comFoto = {
+            files: [arquivo],
+            title: document.title,
+            text: textoShare() + "\n" + urlShare()
+          };
+          if (navigator.canShare(comFoto)) {
+            return navigator.share(comFoto); // MENU com FOTO + link no texto
           }
-          dados.files = [arquivo];
-          return navigator.share(dados);
+          nota("Este navegador não permite anexar a foto — " +
+            "o menu vai abrir com o texto e o link.");
+          return navigator.share(dados); // MENU com texto + link
         })
         .catch(function (err) {
           if (err && err.name === "AbortError") return;
