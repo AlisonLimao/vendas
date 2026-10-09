@@ -48,8 +48,8 @@ assert(
   "cancelar o menu de compartilhamento não pode disparar o fallback"
 );
 assert(
-  (js.match(/window\.location\.href = share\.href;/g) || []).length === 2,
-  "wa.me por código só na via desktop (falha de fetch/foto ilegível) — 2 saídas"
+  (js.match(/window\.location\.href = share\.href;/g) || []).length === 3,
+  "wa.me por código: 2 na via desktop + 1 no ramo sem-share (com nota antes) — menu recusado nunca navega"
 );
 
 // 2b. VDV-20260911-07b — desktop (sem Web Share de arquivos): a foto vai pelo
@@ -138,8 +138,8 @@ assert(
 );
 assert(
   /if \(err && err\.name === "AbortError"\) return;/.test(inline) &&
-    (inline.match(/window\.location\.href = share\.href;/g) || []).length === 2,
-  "estática: fallback wa.me só na via desktop, nunca no cancelamento"
+    (inline.match(/window\.location\.href = share\.href;/g) || []).length === 3,
+  "estática: wa.me por código nas 3 saídas remanescentes (desktop ×2 + sem-share com nota)"
 );
 
 // 7. VDV-20261008-08 (4ª/5ª correção Alison) — COM foto: link no TEXTO (Chrome
@@ -191,6 +191,15 @@ assert(
   (js.match(/O navegador recusou o menu/g) || []).length === 2 &&
     (inline.match(/O navegador recusou o menu/g) || []).length === 2,
   "menu recusado (com foto e sem) avisa pelo nome do erro em vez de navegar"
+);
+
+// 10. VDV-20261008-08 (7ª correção Alison) — no celular SEM navigator.share
+//     (ex.: navegador interno de apps), a nota DIZ antes de abrir por link:
+//     o caso "não tem menu nativo" nunca é silêncio.
+assert(
+  /Este navegador não tem o menu de compartilhar/.test(js) &&
+    /Este navegador não tem o menu de compartilhar/.test(inline),
+  "sem share no celular: nota antes da saída por link (navegadores internos de apps dizem o caso)"
 );
 
 console.log("share_photo: OK (Web Share com arquivos + fallback wa.me + foto selecionada)");

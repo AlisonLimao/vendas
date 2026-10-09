@@ -1970,7 +1970,15 @@
         var coarse = !!(window.matchMedia &&
           window.matchMedia("(pointer: coarse)").matches);
         if (!(navigator.share && navigator.canShare)) {
-          if (coarse) return; // celular sem share: navegação natural
+          if (coarse) {
+            // VDV-20261008-08 (7ª): sem share NENHUM (ex.: navegador interno
+            // de apps, que não tem menu nativo), a saída por link é
+            // inevitável — mas fica a nota visível, nunca silêncio.
+            ev.preventDefault();
+            nota("Este navegador não tem o menu de compartilhar (menu=não) — abrindo por link.");
+            setTimeout(function () { window.location.href = share.href; }, 1200);
+            return;
+          }
           fetch(prefix + (photos[fotoSelecionada] || photos[0]))
             .then(function (r) {
               if (!r.ok) throw new Error("HTTP " + r.status);
