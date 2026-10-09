@@ -19,7 +19,7 @@
 <meta property="og:url" content="https://vitrinedevenda.com.br/produto/75fbc39b-b454-458c-bb19-a7f8b31cd040/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://vitrinedevenda.com.br/produto/75fbc39b-b454-458c-bb19-a7f8b31cd040/">
-  <link rel="stylesheet" href="../../assets/css/vdv.min.css?v=20261008-7"><script type="application/ld+json">
+  <link rel="stylesheet" href="../../assets/css/vdv.min.css?v=20261008-8"><script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Product",
@@ -306,6 +306,12 @@ Guias 4 e 5: R$ 70,00 cada 140,0 o par | Guias 3 e 6: R$ 85,00 cada 170,00 o par
       //     NA HORA (a foto não bloqueia o menu);
       //   desktop SEM share → clipboard PNG + nota + wa.me (07b);
       //   sem share nenhum no celular → navegação natural do <a> wa.me.
+      // VDV-20261008-08 (6ª correção Alison): diagnóstico no toque — a nota
+      // DIZ qual caminho o navegador pegou (e prova que a página é a versão
+      // nova; página velha em cache = nota não aparece).
+      nota("toque: menu=" +
+        ((navigator.share && navigator.canShare) ? "sim" : "não") +
+        " · foto=" + (arquivoPronto ? "pronta" : "prep."));
       var coarse = !!(window.matchMedia &&
         window.matchMedia("(pointer: coarse)").matches);
       if (!(navigator.share && navigator.canShare)) {
@@ -340,6 +346,14 @@ Guias 4 e 5: R$ 70,00 cada 140,0 o par | Guias 3 e 6: R$ 85,00 cada 170,00 o par
         if (navigator.canShare(comFoto)) {
           return navigator.share(comFoto).catch(function (err) {
             if (err && err.name === "AbortError") return; // fechou o menu
+            nota("A foto não foi anexada (" +
+              ((err && err.name) || "erro") +
+              ") — abrindo o menu com texto e link.");
+            return navigator.share(dados).catch(function (err2) {
+              if (err2 && err2.name === "AbortError") return;
+              nota("O navegador recusou o menu (" +
+                ((err2 && err2.name) || "erro") + ") — toque de novo.");
+            });
           });
         }
         nota("Este navegador não permite anexar a foto — " +
@@ -350,7 +364,10 @@ Guias 4 e 5: R$ 70,00 cada 140,0 o par | Guias 3 e 6: R$ 85,00 cada 170,00 o par
       prepararFoto();
       return navigator.share(dados).catch(function (err) {
         if (err && err.name === "AbortError") return;
-        window.location.href = share.href; // share recusado: wa.me de sempre
+        // VDV-20261008-08 (6ª): menu recusado pelo navegador NUNCA navega ao
+        // wa.me por conta própria — o toque seguinte tem ativação nova.
+        nota("O navegador recusou o menu (" +
+          ((err && err.name) || "erro") + ") — toque de novo.");
       });
     });
   }
