@@ -19,7 +19,7 @@
 <meta property="og:url" content="https://vitrinedevenda.com.br/produto/75fd1fd0-296e-4672-a0c1-7c37730aee92/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://vitrinedevenda.com.br/produto/75fd1fd0-296e-4672-a0c1-7c37730aee92/">
-  <link rel="stylesheet" href="../../assets/css/vdv.min.css?v=20261008-6"><script type="application/ld+json">
+  <link rel="stylesheet" href="../../assets/css/vdv.min.css?v=20261008-7"><script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Product",
@@ -106,6 +106,7 @@
   var reduz = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var atual = 0; // foto em exibição — candidata ao compartilhar (VDV-20260911-07)
+  var arquivoPronto = null; // File da foto atual, preparado em fundo (5ª corr.)
   var gal = document.getElementById("prod-gallery");
   var track = gal && gal.querySelector(".gallery-track");
   if (gal && track) {
@@ -115,6 +116,7 @@
     var raf = null;
     function pintar(i) {
       atual = i;
+      prepararFoto(); // foto do slide em fundo — clique abre o menu na hora
       if (counter) counter.textContent = (i + 1) + "/" + n;
       Array.prototype.forEach.call(thumbs, function (b, k) {
         b.classList[i === k ? "add" : "remove"]("is-active");
@@ -183,6 +185,30 @@
     function urlShare() {
       return share.getAttribute("data-share-url") || share.href;
     }
+    // VDV-20261008-08 (5ª correção Alison): a foto PREPARA em fundo — chamada
+    // na abertura da página e em cada troca de slide (pintar). No toque, o
+    // navigator.share é chamado na MESMA hora (gesto vivo); buscar a foto
+    // dentro do clique expirava a ativação do usuário nos navegadores lentos
+    // (rede 3G/4G = segundos) e o menu era recusado → WhatsApp direto.
+    function prepararFoto() {
+      var src = fotoSrc();
+      if (!src) { arquivoPronto = null; return; }
+      fetch(src)
+        .then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.blob();
+        })
+        .then(function (blob) {
+          var pid =
+            (window.location.pathname.match(/produto\/([^/]+)\//) || [])[1] ||
+            "produto";
+          arquivoPronto = new File([blob],
+            "vdv-" + pid + (atual > 0 ? "-" + (atual + 1) : "") + ".jpg",
+            { type: blob.type || "image/jpeg" });
+        })
+        .catch(function () { arquivoPronto = null; }); // clique refaz a tentativa
+    }
+    prepararFoto(); // página aberta: foto principal já preparada
     // VDV-20261008-08 (3ª correção Alison): cada degrau da cadeia DIZ o que
     // aconteceu — sem foto anexada não é mais um silêncio; é uma nota curta.
     function nota(msg) {
@@ -223,18 +249,22 @@
       img.src = objUrl;
     }
     share.addEventListener("click", function (e) {
-      // VDV-20261008-08 (2ª correção Alison): nunca abrir o WhatsApp direto
-      // no CELULAR — o menu nativo ("escolher por onde compartilhar") é o
-      // padrão que o Alison validou. Cadência:
-      //   toque + share + canShare(files) → menu com a FOTO ANEXADA;
-      //   toque + share, sem suporte a arquivos → menu com texto + link (a
-      //     foto não bloqueia o menu — erro antigo abria o WhatsApp direto);
-      //   desktop (ponteiro fino) → clipboard PNG + nota + wa.me (07b).
-      //   sem share nenhum → navegação natural do <a> wa.me.
+      // VDV-20261008-08 (5ª correção Alison): o menu nativo ("escolher por
+      // onde compartilhar") abre SEMPRE que o navegador tem navigator.share —
+      // em qualquer ponteiro (Edge/Comet do Windows têm o painel nativo e
+      // estavam trancados no gate coarse do 07c, revertido a pedido) e na
+      // MESMA hora do toque — sem fetch dentro do clique: buscar a foto no
+      // clique expirava a ativação do usuário (rede lenta = segundos) e o
+      // navegador recusava o menu → abria o WhatsApp direto. Cadência:
+      //   navegador com navigator.share + foto preparada em fundo +
+      //     canShare(payload) → menu com a FOTO ANEXADA (link no texto — 4ª);
+      //   foto não chegou a tempo ou anexo recusado → menu com texto + link
+      //     NA HORA (a foto não bloqueia o menu);
+      //   desktop SEM share → clipboard PNG + nota + wa.me (07b);
+      //   sem share nenhum no celular → navegação natural do <a> wa.me.
       var coarse = !!(window.matchMedia &&
         window.matchMedia("(pointer: coarse)").matches);
-      var comArquivos = coarse && navigator.share && navigator.canShare;
-      if (!comArquivos) {
+      if (!(navigator.share && navigator.canShare)) {
         if (coarse) return; // celular sem share: <a> wa.me natural
         var src = fotoSrc();
         if (!src) return; // foto ilegível: fallback natural (wa.me)
@@ -248,44 +278,36 @@
         return;
       }
       e.preventDefault(); // não navegar: o menu nativo assume daqui
-      var pid = (window.location.pathname.match(/produto\/([^/]+)\//) || [])[1] ||
-        "produto";
-      var nome = "vdv-" + pid + (atual > 0 ? "-" + (atual + 1) : "") + ".jpg";
-      fetch(fotoSrc())
-        .then(function (r) {
-          if (!r.ok) throw new Error("HTTP " + r.status);
-          return r.blob();
-        })
-        .then(function (blob) {
-          var arquivo = new File([blob], nome, { type: blob.type || "image/jpeg" });
-          var dados = {
-            title: document.title,
-            text: textoShare(),
-            url: urlShare()
-          };
-          // VDV-20261008-08 (4ª correção Alison): Chrome no Android não passa
-          // `url` junto com `files` no share (só aceitou no Chrome 127) — com
-          // url o share falha e o menu abre SEM a foto. Conserto canônico: com
-          // FOTO, o link entra no TEXTO (WhatsApp mostra clicável; preview vem
-          // da og:image). canShare recebe o payload EXATO que será passado.
-          var comFoto = {
-            files: [arquivo],
-            title: document.title,
-            text: textoShare() + "\n" + urlShare()
-          };
-          if (navigator.canShare(comFoto)) {
-            return navigator.share(comFoto); // MENU com FOTO + link no texto
-          }
-          nota("Este navegador não permite anexar a foto — " +
-            "o menu vai abrir com o texto e o link.");
-          return navigator.share(dados); // MENU com texto + link
-        })
-        .catch(function (err) {
-          if (err && err.name === "AbortError") return;
-          nota("Não consegui anexar a foto agora — abrindo o menu com o texto e o link.");
-          navigator.share({ title: document.title, text: textoShare(), url: urlShare() })
-            .catch(function () { window.location.href = share.href; });
-        });
+      var dados = {
+        title: document.title,
+        text: textoShare(),
+        url: urlShare()
+      };
+      // FOTO PREPARADA EM FUNDO (prepararFoto na abertura + em cada troca de
+      // slide — pintar). Com foto em mãos, o link vai no TEXTO (Chrome no
+      // Android não passa `url` junto com `files` — só no Chrome 127; preview
+      // da conversa vem da og:image). canShare recebe o payload EXATO.
+      if (arquivoPronto) {
+        var comFoto = {
+          files: [arquivoPronto],
+          title: document.title,
+          text: textoShare() + "\n" + urlShare()
+        };
+        if (navigator.canShare(comFoto)) {
+          return navigator.share(comFoto).catch(function (err) {
+            if (err && err.name === "AbortError") return; // fechou o menu
+          });
+        }
+        nota("Este navegador não permite anexar a foto — " +
+          "o menu vai abrir com o texto e o link.");
+      }
+      // Foto ainda não chegou: menu com texto+link NA HORA (gesto vivo) — e
+      // prepararFoto segue para o próximo toque.
+      prepararFoto();
+      return navigator.share(dados).catch(function (err) {
+        if (err && err.name === "AbortError") return;
+        window.location.href = share.href; // share recusado: wa.me de sempre
+      });
     });
   }
   var copiar = document.getElementById("copy-link-btn");
