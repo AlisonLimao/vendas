@@ -47,11 +47,11 @@ assert(/function fotoSrc\(\)/.test(exporter) &&
   /gallery-slide:nth-child\(" \+ \(atual \+ 1\) \+\ "\) img/.test(exporter) &&
   /document\.querySelector\("img\.prod-photo"\)/.test(exporter),
   "1e. estática: foto compartilhada = slide em exibição (ou a única)");
-assert(/pointer: coarse/.test(exporter) &&
-  /canShare\(comFoto\)/.test(exporter) &&
-  /function desktopShare\(blob\)/.test(exporter) &&
-  /copied-note/.test(exporter),
-  "1f. estática: mesma 3 vias da dinâmica (arquivo / clipboard / wa.me)");
+assert(/canShare\(comFoto\)/.test(exporter) &&
+  /function baixarFoto\(\)/.test(exporter) &&
+  /copied-note/.test(exporter) &&
+  !/window\.location\.href = share\.href;/.test(exporter),
+  "1f. estática: menu nativo com arquivo (sem wa.me por código — 8ª, spec do Alison)");
 assert(/arquivoPronto = new File\(\[blob\],/.test(exporter) &&
   /"vdv-" \+ pid \+ \(atual > 0 \? "-" \+ \(atual \+ 1\) : ""\)/.test(exporter),
   "1g. estática: nome do arquivo distingue a foto (vdv-<id>-N.jpg)");

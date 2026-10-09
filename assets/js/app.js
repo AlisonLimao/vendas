@@ -1882,12 +1882,8 @@
 
     var share = main.querySelector("#share-wa");
     if (share) {
-      // VDV-20260911-07b — desktop (navegadores sem Web Share de ARQUIVOS):
-      // a foto em exibição é convertida e copiada para o CLIPBOARD; o wa.me
-      // abre em nova aba e a pessoa cola a foto na conversa (Ctrl+V). Sem
-      // clipboard (navegador velho) → wa.me de sempre, sem copiar nada.
-      // VDV-20261008-08 (3ª correção Alison): cada degrau da cadeia DIZ o que
-      // aconteceu — nota curta ao anexar (ou ao não conseguir).
+      // VDV-20261008-08 (8ª, spec do Alison): cada degrau da cadeia DIZ o que
+      // aconteceu — nota curta ao anexar, ao não conseguir, ou ao baixar.
       function nota(msg) {
         var bloco = share.parentNode; // .share-compact (VDV-20261008-08)
         if (!bloco || !bloco.parentNode) return;
@@ -1897,40 +1893,25 @@
         bloco.parentNode.insertBefore(el, bloco.nextSibling);
         setTimeout(function () { el.remove(); }, 10000);
       }
-      function desktopShare(blob) {
-        var colar = navigator.clipboard && window.ClipboardItem;
-        var img = new Image();
-        var objUrl = URL.createObjectURL(blob);
-        img.onload = function () {
-          var canvas = document.createElement("canvas");
-          canvas.width = img.naturalWidth;
-          canvas.height = img.naturalHeight;
-          canvas.getContext("2d").drawImage(img, 0, 0);
-          URL.revokeObjectURL(objUrl);
-          canvas.toBlob(function (png) {
-            if (png && colar) {
-              navigator.clipboard
-                .write([new ClipboardItem({ "image/png": png })])
-                .then(function () {
-                  nota("📷 Foto copiada! Abra a conversa do WhatsApp e cole com Ctrl+V.");
-                })
-                .catch(function () { /* clipboard recusado: só o link */ });
-            }
-            window.open(share.href, "_blank", "noopener");
-          }, "image/png");
-        };
-        img.onerror = function () {
-          URL.revokeObjectURL(objUrl);
-          window.location.href = share.href; // foto ilegível: wa.me de sempre
-        };
-        img.src = objUrl;
+      // VDV-20261008-08 (8ª, spec do Alison): navegador sem suporte a
+      // compartilhar arquivos → nota + download da foto em exibição (nunca
+      // abrir por link, nunca wa.me automático).
+      function baixarFoto() {
+        var src = prefix + (photos[fotoSelecionada] || photos[0]);
+        var a = document.createElement("a");
+        a.href = src;
+        a.download = "vdv-" + product.id +
+          (fotoSelecionada > 0 ? "-" + (fotoSelecionada + 1) : "") + ".jpg";
+        document.body.appendChild(a);
+        a.click();
+        a.parentNode.removeChild(a);
       }
 
       // VDV-20261008-08 (5ª correção Alison): a foto PREPARA em fundo — na
       // abertura da página e em cada troca de slide (pintar). No toque, o
       // navigator.share é chamado na MESMA hora (gesto vivo): buscar a foto
       // dentro do clique expirava a ativação do usuário nos navegadores
-      // lentos (3G/4G = segundos) e o menu era recusado → WhatsApp direto.
+      // lentos (3G/4G = segundos) e o menu era recusado.
       function prepararFoto() {
         var src = prefix + (photos[fotoSelecionada] || photos[0]);
         fetch(src)
@@ -1940,7 +1921,8 @@
           })
           .then(function (blob) {
             arquivoPronto = new File([blob],
-              "vdv-" + product.id + (fotoSelecionada > 0 ? "-" + (fotoSelecionada + 1) : "") + ".jpg",
+              "vdv-" + product.id +
+                (fotoSelecionada > 0 ? "-" + (fotoSelecionada + 1) : "") + ".jpg",
               { type: blob.type || "image/jpeg" });
           })
           .catch(function () { arquivoPronto = null; }); // clique refaz
@@ -1956,87 +1938,45 @@
         });
         telemetria("share", { product: product.id });
         sinal("share", { product: product.id });
-        // VDV-20261008-08 (5ª correção Alison) — o MENU nativo ("escolher por
-        // onde compartilhar") abre SEMPRE que o navegador tem navigator.share,
-        // em QUALQUER ponteiro: Edge/Comet do Windows têm o painel nativo e
-        // estavam trancados no gate coarse do 07c (revertido a pedido). Sem
-        // share: desktop → clipboard 07b; celular → <a> wa.me natural.
-        // VDV-20261008-08 (6ª correção Alison): diagnóstico no toque — a nota
-        // DIZ qual caminho o navegador pegou (e prova que a página é a versão
-        // nova; página velha em cache = nota não aparece).
-        nota("toque: menu=" +
-          ((navigator.share && navigator.canShare) ? "sim" : "não") +
-          " · foto=" + (arquivoPronto ? "pronta" : "prep."));
-        var coarse = !!(window.matchMedia &&
-          window.matchMedia("(pointer: coarse)").matches);
+        // VDV-20261008-08 (8ª, spec do Alison): Divulgar compartilha a FOTO em
+        // exibição como ARQUIVO no menu nativo do aparelho — sem link, sem
+        // prévia, sem wa.me automático, sem cópia:
+        //   navigator.share({ files: [arquivoDaImagemSelecionada] }) — forma
+        //   documentada (MDN);
+        //   foto ainda preparando em fundo → nota "toque de novo";
+        //   sem suporte a arquivos → nota + baixar a foto;
+        //   AbortError (fechou o menu) → nada acontece.
+        ev.preventDefault(); // Divulgar nunca navega: ou menu, ou nota/baixar
         if (!(navigator.share && navigator.canShare)) {
-          if (coarse) {
-            // VDV-20261008-08 (7ª): sem share NENHUM (ex.: navegador interno
-            // de apps, que não tem menu nativo), a saída por link é
-            // inevitável — mas fica a nota visível, nunca silêncio.
-            ev.preventDefault();
-            nota("Este navegador não tem o menu de compartilhar (menu=não) — abrindo por link.");
-            setTimeout(function () { window.location.href = share.href; }, 1200);
-            return;
-          }
-          fetch(prefix + (photos[fotoSelecionada] || photos[0]))
-            .then(function (r) {
-              if (!r.ok) throw new Error("HTTP " + r.status);
-              return r.blob();
-            })
-            .then(desktopShare)
-            .catch(function () { window.location.href = share.href; });
+          nota("Este navegador não suporta compartilhar fotos — " +
+            "baixei a foto para você enviar pelo app.");
+          baixarFoto();
           return;
         }
-        ev.preventDefault(); // não navegar: o menu nativo assume daqui
-        var dados = {
-          title: product.title,
-          text: product.title + " — " + fmtPriceText(product),
-          url: shareUrl(product, "compartilhamento")
-        };
-        // FOTO PREPARADA EM FUNDO (prepararFoto na abertura + em cada troca de
-        // slide — pintar). Com foto em mãos, o link vai no TEXTO (Chrome no
-        // Android não passa `url` junto com `files` — só no Chrome 127; o
-        // preview da conversa vem da og:image). canShare recebe o payload EXATO.
-        if (arquivoPronto) {
-          var comFoto = {
-            files: [arquivoPronto],
-            title: product.title,
-            text: (product.title + " — " + fmtPriceText(product)) +
-              "\n" + shareUrl(product, "compartilhamento")
-          };
-          if (navigator.canShare(comFoto)) {
-            return navigator.share(comFoto).catch(function (err) {
-              if (err && err.name === "AbortError") return; // fechou o menu
-              nota("A foto não foi anexada (" +
-                ((err && err.name) || "erro") +
-                ") — abrindo o menu com texto e link.");
-              return navigator.share(dados).catch(function (err2) {
-                if (err2 && err2.name === "AbortError") return;
-                nota("O navegador recusou o menu (" +
-                  ((err2 && err2.name) || "erro") + ") — toque de novo.");
-              });
-            });
-          }
-          nota("Este navegador não permite anexar a foto — o menu vai abrir com o texto e o link.");
+        if (!arquivoPronto) {
+          prepararFoto(); // fica pronto para o próximo toque
+          nota("A foto ainda está preparando — toque de novo em um instante.");
+          return;
         }
-        // Foto ainda não chegou: menu com texto+link NA HORA (gesto vivo) — e
-        // prepararFoto segue para o próximo toque.
-        prepararFoto();
-        return navigator.share(dados).catch(function (err) {
-          if (err && err.name === "AbortError") return;
-          // VDV-20261008-08 (6ª): menu recusado pelo navegador NUNCA navega
-          // ao wa.me por conta própria — o toque seguinte tem ativação nova.
-          nota("O navegador recusou o menu (" +
+        var comFoto = {
+          files: [arquivoPronto],
+          title: product.title,
+          text: (product.title + " — " + fmtPriceText(product)) // sem link
+        };
+        if (!navigator.canShare(comFoto)) {
+          nota("Este navegador não permite anexar fotos — " +
+            "baixei a foto para você enviar pelo app.");
+          baixarFoto();
+          return;
+        }
+        return navigator.share(comFoto).catch(function (err) {
+          if (err && err.name === "AbortError") return; // fechou o menu
+          nota("Compartilhar não funcionou (" +
             ((err && err.name) || "erro") + ") — toque de novo.");
         });
       });
     }
 
-    // VDV-20261008-08 — "Copiar link" com confirmação visual (rotulo acende
-    // "Link copiado ✓" por 2,5s). Origem ``?o=compartilhamento`` igual ao
-    // share nativo. GA próprio (categoria compartilhamento) — sem novo tipo
-    // na ponte de telemetria (mesmo critério da Fatia 32).
     var copiarLink = main.querySelector("#copy-link-btn");
     if (copiarLink) {
       copiarLink.addEventListener("click", function () {
