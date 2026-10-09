@@ -33,8 +33,8 @@ assert(
   "a via de arquivos só vale em tela de toque; desktop vai pro clipboard"
 );
 assert(
-  js.includes("navigator.canShare({ files: [arquivo] })"),
-  "depois do fetch, canShare({files}) decide entre share e fallback"
+  js.includes("navigator.canShare(comFoto)"),
+  "depois do fetch, canShare(comFoto) decide entre share com foto e fallback"
 );
 assert(
   js.includes("navigator.share({") &&
@@ -122,7 +122,7 @@ assert(
 assert(
   /var atual = 0; \/\/ foto em exibição/.test(exporter) &&
     /pointer: coarse/.test(inline) &&
-    /canShare\(\{ files: \[arquivo\] \}\)/.test(inline),
+    /canShare\(comFoto\)/.test(inline),
   "estática: gate de toque + canShare de arquivos (mesma dinâmica)"
 );
 assert(
@@ -142,17 +142,23 @@ assert(
   "estática: fallback wa.me nas falhas, nunca no cancelamento"
 );
 
-// 7. VDV-20261008-08 (2ª correção Alison) — celular SEM suporte a arquivos
-//    abre o MENU nativo (texto+link), nunca o WhatsApp direto.
+// 7. VDV-20261008-08 (2ª/4ª correção Alison) — celular SEM suporte a arquivos
+//    abre o MENU nativo (texto+link), nunca o WhatsApp direto; COM suporte, o
+//    link vai no TEXTO (Chrome Android não passa url junto com files — 4ª).
 assert(
-  /if \(!navigator\.canShare\(\{ files: \[arquivo\] \}\)\) \{[\s\S]{0,200}?return navigator\.share\(dados\); \/\/ MENU/.test(inline) &&
-    /dados\.files = \[arquivo\];/.test(inline),
-  "estática: sem suporte a arquivos → menu com texto+link (não WhatsApp direto)"
+  /var comFoto = \{[\s\S]{0,180}?files: \[arquivo\],[\s\S]{0,300}?urlShare\(\)/.test(inline) &&
+    /if \(navigator\.canShare\(comFoto\)\) \{\s*return navigator\.share\(comFoto\);/.test(inline),
+  "estática: link no texto quando vai foto (url+files quebra no Chrome Android)"
 );
 assert(
-  /if \(!navigator\.canShare\(\{ files: \[arquivo\] \}\)\) \{[\s\S]{0,200}?return navigator\.share\(dados\); \/\/ MENU/.test(js) &&
-    /dados\.files = \[arquivo\];/.test(js),
-  "dinâmica: mesma cadência menu-arquivo → menu-URL → wa.me"
+  /var comFoto = \{[\s\S]{0,180}?files: \[arquivo\],[\s\S]{0,300}?shareUrl\(product, "compartilhamento"\)/.test(js) &&
+    /if \(navigator\.canShare\(comFoto\)\) \{\s*return navigator\.share\(comFoto\);/.test(js),
+  "dinâmica: link no texto quando vai foto (url+files quebra no Chrome Android)"
+);
+assert(
+  /return navigator\.share\(dados\); \/\/ MENU com texto/.test(inline) &&
+    /return navigator\.share\(dados\); \/\/ MENU com texto/.test(js),
+  "sem suporte a arquivos: menu com texto+link (nunca WhatsApp direto)"
 );
 
 // 8. O bloco Divulgar fica logo APÓS O PREÇO (relato: botão longe demais).

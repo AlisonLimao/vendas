@@ -48,7 +48,7 @@ assert(/function fotoSrc\(\)/.test(exporter) &&
   /document\.querySelector\("img\.prod-photo"\)/.test(exporter),
   "1e. estática: foto compartilhada = slide em exibição (ou a única)");
 assert(/pointer: coarse/.test(exporter) &&
-  /canShare\(\{ files: \[arquivo\] \}\)/.test(exporter) &&
+  /canShare\(comFoto\)/.test(exporter) &&
   /function desktopShare\(blob\)/.test(exporter) &&
   /copied-note/.test(exporter),
   "1f. estática: mesma 3 vias da dinâmica (arquivo / clipboard / wa.me)");

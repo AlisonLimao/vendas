@@ -1965,12 +1965,23 @@
               text: product.title + " — " + fmtPriceText(product),
               url: shareUrl(product, "compartilhamento")
             };
-            if (!navigator.canShare({ files: [arquivo] })) {
-              nota("Este navegador não permite anexar a foto — o menu vai abrir com o texto e o link.");
-              return navigator.share(dados); // MENU com texto + link
+            // VDV-20261008-08 (4ª correção Alison): Chrome no Android não
+            // passa `url` junto com `files` no share (só aceitou no Chrome
+            // 127) — com url o share falha e o menu abre SEM a foto. Conserto
+            // canônico: com FOTO, o link entra no TEXTO (WhatsApp mostra
+            // clicável; preview vem da og:image). canShare recebe o payload
+            // EXATO que será passado (undefined/combos derrubam a checagem).
+            var comFoto = {
+              files: [arquivo],
+              title: product.title,
+              text: (product.title + " — " + fmtPriceText(product)) +
+                "\n" + shareUrl(product, "compartilhamento")
+            };
+            if (navigator.canShare(comFoto)) {
+              return navigator.share(comFoto); // MENU com FOTO + link no texto
             }
-            dados.files = [arquivo];
-            return navigator.share(dados);
+            nota("Este navegador não permite anexar a foto — o menu vai abrir com o texto e o link.");
+            return navigator.share(dados); // MENU com texto + link
           })
           .catch(function (e) {
             // AbortError = pessoa fechou o menu de compartilhamento (nada a
