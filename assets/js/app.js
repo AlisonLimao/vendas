@@ -1903,7 +1903,7 @@
                   nota.className = "copied-note";
                   nota.textContent =
                     "📷 Foto copiada! Abra a conversa do WhatsApp e cole com Ctrl+V.";
-                  var grid = main.querySelector(".action-grid");
+                  var grid = share.parentNode; // .share-compact (VDV-20261008-08)
                   if (grid && grid.parentNode) {
                     grid.parentNode.insertBefore(nota, grid.nextSibling);
                     setTimeout(function () { nota.remove(); }, 10000);

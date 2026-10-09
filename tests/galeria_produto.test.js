@@ -41,11 +41,26 @@ assert(/prefers-reduced-motion/.test(exporter) &&
 assert(/Math\.round\(track\.scrollLeft \/ Math\.max\(1, track\.clientWidth\)\)/.test(exporter),
   "1d. estática: scroll do swipe sincroniza contador/miniaturas (requisito 4)");
 
+// ── 1e. EXPORTADOR — foto em EXIBIÇÃO vai anexada como arquivo (restauração
+//        VDV-20260911-07/-07b/-07c na estática — correção do Alison) ───────
+assert(/function fotoSrc\(\)/.test(exporter) &&
+  /gallery-slide:nth-child\(" \+ \(atual \+ 1\) \+\ "\) img/.test(exporter) &&
+  /document\.querySelector\("img\.prod-photo"\)/.test(exporter),
+  "1e. estática: foto compartilhada = slide em exibição (ou a única)");
+assert(/pointer: coarse/.test(exporter) &&
+  /canShare\(\{ files: \[arquivo\] \}\)/.test(exporter) &&
+  /function desktopShare\(blob\)/.test(exporter) &&
+  /copied-note/.test(exporter),
+  "1f. estática: mesma 3 vias da dinâmica (arquivo / clipboard / wa.me)");
+assert(/var nome = "vdv-" \+ pid/.test(exporter) &&
+  /\(atual > 0 \? "-" \+ \(atual \+ 1\) : ""\)/.test(exporter),
+  "1g. estática: nome do arquivo distingue a foto (vdv-<id>-N.jpg)");
+
 // ── 2. EXPORTADOR — contatos lado a lado (mestre necessidade 2) ───────────
 assert(/tg_direct_html/.test(exporter) &&
   /Falar com .* no Telegram/.test(exporter),
   "2. estática: botão t.me DIRETO quando telegram_contact existe");
-assert(/base_tg_html = \(\n\s*cc_html if cc_html else/.test(exporter),
+assert(/base_tg_html = \(\r?\n\s*cc_html if cc_html else/.test(exporter),
   "2a. estática: precedência cc assistido > t.me direto > deep link (espelha a dinâmica)");
 assert(/channels_html = base_tg_html \+ wa_html/.test(exporter),
   "2b. estática: WhatsApp entra junto no grid (lado a lado, sem botão morto)");

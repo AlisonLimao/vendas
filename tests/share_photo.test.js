@@ -95,4 +95,50 @@ assert(
   "GA + telemetria share marcados nos dois caminhos"
 );
 
+// 5. VDV-20261008-08 (correção Alison) — a nota "Foto copiada" ancora no
+//    bloco compacto (share.parentNode), não no action-grid removido.
+assert(
+  js.includes("var grid = share.parentNode; // .share-compact") &&
+    !/nota, grid\.nextSibling/.test(js) === false,
+  "nota desktop ancora no bloco Divulgar compacto vigente"
+);
+
+// 6. A ESTÁTICA (script inline do exportador) leva a foto em exibição na
+//    conversa — mesma dinâmica 07/07b/07c: fotoSrc (slide atual / img única),
+//    gate pointer: coarse, canShare({files}), desktopShare no clipboard e
+//    fallback wa.me fora do AbortError.
+const exporter = fs.readFileSync(
+  path.join(__dirname, "..", "..", "projeto_telegram", "scripts", "export_catalogo_web.py"),
+  "utf8"
+);
+const inline = (exporter.match(/_PROD_PAGE_SCRIPT = """<script>([\s\S]*?)<\/script>"""/) || [])[1] || "";
+assert(
+  /function fotoSrc\(\)/.test(inline) &&
+    /gallery-slide:nth-child\(" \+ \(atual \+ 1\) \+\ "\) img/.test(inline) &&
+    /img\.prod-photo/.test(inline),
+  "estática: a foto compartilhada é o slide em exibição (ou a única)"
+);
+assert(
+  /var atual = 0; \/\/ foto em exibição/.test(exporter) &&
+    /pointer: coarse/.test(inline) &&
+    /canShare\(\{ files: \[arquivo\] \}\)/.test(inline),
+  "estática: gate de toque + canShare de arquivos (mesma dinâmica)"
+);
+assert(
+  /function desktopShare\(blob\)/.test(inline) &&
+    inline.includes('new ClipboardItem({ "image/png": png })') &&
+    /copied-note/.test(inline),
+  "estática: via desktop copia a foto (PNG) com nota de confirmação"
+);
+assert(
+  /var nome = "vdv-"/.test(inline) &&
+    /\(atual > 0 \? "-" \+ \(atual \+ 1\) : ""\)/.test(inline),
+  "estática: nome do arquivo distingue a foto (vdv-<id>-N.jpg)"
+);
+assert(
+  /if \(err && err\.name === "AbortError"\) return;/.test(inline) &&
+    (inline.match(/window\.location\.href = share\.href;/g) || []).length >= 2,
+  "estática: fallback wa.me nas falhas, nunca no cancelamento"
+);
+
 console.log("share_photo: OK (Web Share com arquivos + fallback wa.me + foto selecionada)");
