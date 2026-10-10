@@ -2518,32 +2518,87 @@
       if (a) saveExplorarState();
     });
 
+    // VDV-20261010-02 (F4) — busca compartilhável: o form GET do /explorar/ e
+    // o searchform do header (individuais, desktop) chegam aqui com ?q= — e,
+    // se o link compartilhado carregar filtro, grp/sub. A URL explícita
+    // prefere ao snapshot interno (quem compartilhou ditou o contexto — sem
+    // restauração de scroll, que pularia o usuário para o meio da lista);
+    // ?o= não colide (whitelist separada, ORIGEM_PARAMS, app.js:88).
+    var urlDriven = false;
     try {
-      var raw = sessionStorage.getItem(HOME_STATE_KEY);
-      if (raw) {
-        sessionStorage.removeItem(HOME_STATE_KEY);
-        var snap = JSON.parse(raw);
-        if (snap && typeof snap === "object") {
-          q = typeof snap.q === "string" ? snap.q.toLowerCase() : "";
-          grp = typeof snap.grp === "string" ? snap.grp : "";
-          sub = typeof snap.cat === "string" ? snap.cat : "";
-          avail = snap.avail === AVAIL_FILTER.value ? snap.avail : "";
-          tipo = Object.prototype.hasOwnProperty.call(tipos, snap.tipo)
-            ? snap.tipo : "";
-          ordem = snap.ordem === "preco" ? "preco" : "recentes";
-          if (grp && !groups[grp]) { grp = ""; sub = ""; }
-          if (sub) {
-            var gs = groups[grp];
-            if (!gs || !gs.subs[sub] || sub === grp) sub = "";
-          }
-          syncControles();
-          aplicar();
-          if (snap.scrollY) {
-            requestAnimationFrame(function () { window.scrollTo(0, snap.scrollY); });
+      var params = new URLSearchParams(window.location.search);
+      var urlQ = params.get("q");
+      var urlGrp = params.get("grp");
+      var urlSub = params.get("sub");
+      if (typeof urlQ === "string" && urlQ.trim()) {
+        q = urlQ.replace(/\s+/g, " ").trim().toLowerCase();
+        urlDriven = true;
+      }
+      if (urlGrp && groups[urlGrp]) {
+        grp = urlGrp;
+        sub = "";
+        urlDriven = true;
+      }
+      if (urlSub) {
+        // Slugs inválidos (não existentes no catálogo) são ignorados —
+        // nunca mostrar "0 ofertas" com filtro que já não existe.
+        var gOwner = "";
+        if (urlGrp && groups[urlGrp] && groups[urlGrp].subs[urlSub]) {
+          gOwner = urlGrp;
+        } else if (!urlGrp) {
+          Object.keys(groups).some(function (gk) {
+            if (groups[gk].subs[urlSub]) { gOwner = gk; return true; }
+            return false;
+          });
+        }
+        if (gOwner) { grp = gOwner; sub = urlSub; urlDriven = true; }
+      }
+    } catch (e) { /* sem URLSearchParams: segue com estado limpo */ }
+
+    if (!urlDriven) {
+      try {
+        var raw = sessionStorage.getItem(HOME_STATE_KEY);
+        if (raw) {
+          sessionStorage.removeItem(HOME_STATE_KEY);
+          var snap = JSON.parse(raw);
+          if (snap && typeof snap === "object") {
+            q = typeof snap.q === "string" ? snap.q.toLowerCase() : "";
+            grp = typeof snap.grp === "string" ? snap.grp : "";
+            sub = typeof snap.cat === "string" ? snap.cat : "";
+            avail = snap.avail === AVAIL_FILTER.value ? snap.avail : "";
+            tipo = Object.prototype.hasOwnProperty.call(tipos, snap.tipo)
+              ? snap.tipo : "";
+            ordem = snap.ordem === "preco" ? "preco" : "recentes";
+            if (grp && !groups[grp]) { grp = ""; sub = ""; }
+            if (sub) {
+              var gs = groups[grp];
+              if (!gs || !gs.subs[sub] || sub === grp) sub = "";
+            }
+            syncControles();
+            aplicar();
+            if (snap.scrollY) {
+              requestAnimationFrame(function () { window.scrollTo(0, snap.scrollY); });
+            }
           }
         }
-      }
-    } catch (e) { /* snapshot inválido: segue com estado limpo */ }
+      } catch (e) { /* snapshot inválido: segue com estado limpo */ }
+    }
+
+    if (urlDriven) {
+      syncControles();
+      aplicar();
+    }
+
+    // (F4) Primeira aplicação — chegada direta sem snapshot (searchform das
+    // individuais, topnav de outra página, URL limpa) também preenche a
+    // grade; antes, o grid só preenchia quando um snapshot interno (Home →
+    // explorar) disparava o aplicar(). Direto: grade completa com o catálogo.
+    if (!urlDriven) {
+      try {
+        var raw2 = sessionStorage.getItem(HOME_STATE_KEY);
+        if (!raw2) aplicar();
+      } catch (e) { aplicar(); }
+    }
   }
 
   // ---------------------------------------------------------- favoritos (R5)
