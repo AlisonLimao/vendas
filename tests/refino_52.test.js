@@ -39,13 +39,13 @@ assert(/\.card\s*\{[\s\S]{0,200}background:\s*transparent/.test(css), "3a. card 
 assert(!/\.card\s*\{[^}]*box-shadow/.test(css), "3b. sombra sumiu do card");
 assert(!/\.card:hover\s*\{[^}]*box-shadow/.test(css), "3c. hover sem sombra pesada");
 
-// 4. §16/§17: nome médio (500), fornecedor discreto como assinatura.
-assert(/\.card-title\s*\{[^}]*font-weight:\s*500/.test(css), "4. título peso médio");
+// 4. §16/§17: nome forte (Redesign 10/10: 600 — hierarquia foto → preço → nome).
+assert(/\.card-title\s*\{[^}]*font-weight:\s*600/.test(css), "4. título peso forte");
 assert(/\.card-seller\s*\{[^}]*color:\s*var\(--vdv-text-muted\)/.test(css),
   "4a. fornecedor discreto (não compete com preço)");
 
-// 5. §37: preço 18-22px, mais forte que o nome.
-assert(/\.card-price\s*\{[^}]*font-size:\s*1\.2rem/.test(css), "5. preço em ~19px");
+// 5. §37 + Redesign 10/10: preço mais forte e maior (1.32rem, peso 800).
+assert(/\.card-price\s*\{[^}]*font-size:\s*1\.32rem/.test(css), "5. preço ~21px");
 
 // 6. skeleton espelha a nova ordem (preço primeiro) — sem CLS no encaixe 1:1.
 assert(js.indexOf("sk-line-price") < js.indexOf("sk-line-title"),

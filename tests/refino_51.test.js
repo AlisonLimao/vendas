@@ -10,11 +10,11 @@ const root = path.join(__dirname, "..");
 const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const css = fs.readFileSync(path.join(root, "assets", "css", "vdv.css"), "utf8");
 
-// 1. Copy do mestre §8 no hero.
-assert(html.includes("Encontre produtos e oportunidades de Monte Sião e região."),
-  "1. título do mestre");
-assert(html.includes("Produtos, serviços e ofertas direto de quem está vendendo."),
-  "1a. subtexto do mestre");
+// 1. Copy do hero — Redesign 10/10 (VDV-20261010-04): título curto é o CONVITE
+//    à busca (uma linha); o sub diz o que a vitrine é, sem tom institucional.
+assert(html.includes("O que você procura, tem aqui."), "1. título convite (redesign)");
+assert(html.includes("Produtos, serviços e oportunidades direto de quem está vendendo em Monte Sião e região."),
+  "1a. sub do redesign");
 
 // 2. §9: CTA "Explorar ofertas" REMOVIDO (busca + grid já exercem a função).
 assert(!html.includes("Explorar ofertas"), "2. sem CTA de exploração no hero");
@@ -34,7 +34,7 @@ assert(/\.qt-term\s*\{[\s\S]{0,80}border:\s*0/.test(css), "4. atalho sem borda")
 assert(/\.qt-term \+ \.qt-term::before/.test(css), "4a. separador · entre atalhos");
 assert(!/\.qt-term\s*\{[^}]*padding:\s*2px 11px/.test(css), "4b. sem pill antiga");
 
-// 5. hierarquia: h1 maior que antes (≥1.7rem).
-assert(/font-size:\s*1\.75rem; line-height: 1\.2/.test(css), "5. h1 do hero em 28px");
+// 5. hierarquia: h1 maior (Redesign 10/10: 1.85rem/1.18 — convite em uma linha).
+assert(/font-size:\s*1\.85rem; line-height:\s*1\.18/.test(css), "5. h1 do hero (redesign)");
 
 console.log("refino_51: todos os testes passaram ✔");
