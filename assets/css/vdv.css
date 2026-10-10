@@ -80,6 +80,19 @@
    * mexer em layout junto com tokens; a avaliação de 1280px entra com a
    * Home reestruturada (R4), junto da decisão de colunas da grade. */
   --container: 72rem;
+
+  /* Navegação universal (VDV-20261010-02, F1): alvos e alturas do chrome
+   * fixo. --header-h = altura medida da topbar pós-F2/F3 (refinar se medir
+   * diferente); --bottombar-h tokeniza o valor já usado no respiro do body
+   * (ex-4.2rem hardcoded); --fs-caption sobe os rótulos da bottombar de .68
+   * para .75rem (legibilidade mínima AA); --nav-gutter é o respiro lateral
+   * do chrome (topbar/searchform). */
+  --touch-min: 2.75rem;         /* 44px — alvos de toque da navegação */
+  --header-h: 3.75rem;
+  --header-h-compact: 3.25rem;  /* ≤560px */
+  --bottombar-h: 4.2rem;
+  --fs-caption: .75rem;
+  --nav-gutter: 1rem;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -108,12 +121,20 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* VDV-20261010-02 (F1) — âncoras (``#procura``, ``#top``) pousam ABAIXO do
+   topbar sticky em toda a vitrine: regra global substitui o scroll-margin
+   pontual de #procura (ex-:977) — qualquer âncora navegada de outra página
+   (bottombar → ``{r}#procura``) reserva a altura do chrome fixo. */
+html { scroll-padding-top: calc(var(--header-h) + var(--sp-2)); }
+
 h1, h2 { font-weight: 700; letter-spacing: -0.02em; }
 
 /* ------------------------------------------------------------------ topbar */
 .topbar {
   display: flex; align-items: center; justify-content: space-between; gap: .5rem;
-  padding: .65rem 1rem;
+  /* Alinhamento ao conteúdo (VDV-20261010-02 F1): nas telas largas o chrome
+   * acompanha o --container do main (max() mantém o gutter nas estreitas). */
+  padding: .65rem max(var(--nav-gutter), calc((100% - var(--container)) / 2 + var(--nav-gutter)));
   background: var(--vdv-surface);
   border-bottom: 1px solid var(--vdv-border);
   position: sticky; top: 0; z-index: 10;
@@ -138,6 +159,28 @@ a.brand:focus-visible { outline: 2px solid var(--vdv-accent, #f59e0b); outline-o
 }
 .topnav a:hover { color: var(--vdv-primary-ink); }
 .topbar .btn-sell { margin-left: 0; }
+
+/* VDV-20261010-02 (F1) — busca compacta no header das páginas individuais
+   (decisão (c)): form GET → /explorar/?q= (initExplorar faz o prefill, F4).
+   Só desktop ≥720px — no celular a descoberta vive na bottombar e o header
+   fica compacto (mesma fórmula da topnav ≤560px). */
+.searchform { display: none; }
+@media (min-width: 720px) {
+  .searchform { display: flex; align-items: center; }
+  .searchform input {
+    width: 13rem; max-width: 32vw;
+    height: var(--touch-min);
+    padding: 0 .75rem;
+    border: 1px solid var(--vdv-border);
+    border-radius: var(--r-full);
+    font: inherit; font-size: .9rem;
+    color: var(--vdv-text);
+    background: var(--vdv-bg);
+  }
+  .searchform input:focus-visible {
+    outline: 2px solid var(--vdv-accent); outline-offset: 2px;
+  }
+}
 
 main { max-width: var(--container); margin: 0 auto; padding: 1rem; }
 
@@ -845,8 +888,9 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
   display: flex; flex-direction: column; align-items: center; gap: .15rem;
   flex: 1; max-width: 6rem;
   padding: .35rem .25rem; border-radius: var(--radius);
+  min-height: var(--touch-min);
   text-decoration: none; color: var(--vdv-text-muted);
-  font-size: .68rem; font-weight: 600; text-align: center;
+  font-size: var(--fs-caption); font-weight: 600; text-align: center;
 }
 .bottombar a .bb-ico { font-size: 1.15rem; line-height: 1; }
 .bottombar a:hover { color: var(--vdv-primary-ink); }
@@ -857,7 +901,7 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
 }
 /* Reserva o espaço da barra fixa para ela não cobrir o rodapé. */
 @media (max-width: 719px) {
-  body { padding-bottom: calc(4.2rem + env(safe-area-inset-bottom, 0px)); }
+  body { padding-bottom: calc(var(--bottombar-h) + env(safe-area-inset-bottom, 0px)); }
 }
 
 /* Fatia 53 (§22) — ambientação por fundo, muito sutil: a faixa de VITRINES
@@ -972,9 +1016,9 @@ a.chip-page {
 .chip-x { font-weight: 600; color: var(--vdv-primary-ink); }
 .chip-x span { margin-left: .15rem; font-weight: 700; }
 
-/* R8 (VDV-20260923-01) — o item permanente de navegação leva ao bloco único
-   de Procura; topbar é sticky, então a âncora reserva espaço para o título. */
-#procura { scroll-margin-top: 4rem; }
+/* R8 — o item permanente de navegação leva ao bloco único de Procura; o
+   respiro da âncora agora é GLOBAL (scroll-padding-top no html, F1 de
+   VDV-20261010-02) — a regra pontual de #procura saiu daqui. */
 
 /* ---- Prompt mestre homepage (VDV-20261008-07, Etapa 3) — CHIPS COMPACTOS ---- */
 /* Categorias logo abaixo da busca: chips compactos e selecionáveis — altura

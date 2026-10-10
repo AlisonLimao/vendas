@@ -71,7 +71,8 @@ assert(js.includes('track("abrir_procura"') || js.includes("abrir_procura"),
   "4a. sinais de navegação intactos");
 assert(html.match(/data-deep-link="procura"/g).length === 3,
   "4b. exatamente 3 deep links de procura (final, zero-result, catálogo vazio)");
-assert(/scroll-margin-top: 4rem/.test(css), "4c. âncora #procura com respiro da topbar");
+assert(/scroll-padding-top/.test(css) && !/scroll-margin-top: 4rem/.test(css),
+  "4c. âncoras com respiro da topbar (scroll-padding global)");
 assert(/#section-empty/.test(html) || /<section id="section-empty"/.test(html),
   "4d. estado vazio real preservado (§34 ADEQUADO)");
 

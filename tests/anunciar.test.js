@@ -45,7 +45,7 @@ assert(/<a href="anunciar\.html">Anunciar<\/a> · <a href="como-funciona\.html">
        /<a href="\.\.\/anunciar\.html">Anunciar<\/a> · <a href="\.\.\/como-funciona\.html">/.test(fav) &&
        /<a href="anunciar\.html">Anunciar<\/a> · <a href="como-funciona\.html">/.test(cfunc),
   "4. footers com link Anunciar");
-assert(/<a href="\.\.\/\.\.\/anunciar\.html">Anunciar<\/a>/.test(exporter),
-  "4. topnav das páginas geradas ganha Anunciar (exportador)");
+assert(/anunciar\.html">Anunciar<\/a>/.test(exporter),
+  "4. topnav das páginas geradas ganha Anunciar (helper do exportador)");
 
 console.log("anunciar: OK (página Anunciar — VDV-20260923-01 R9)");

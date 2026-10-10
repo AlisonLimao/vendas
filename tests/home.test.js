@@ -139,8 +139,8 @@ assert(
   "6b. navegação permanente: topnav e bottombar apontam ao bloco"
 );
 assert(
-  /scroll-margin-top: 4rem/.test(css),
-  "6b. âncora #procura reserva espaço da topbar sticky"
+  /scroll-padding-top/.test(css) && !/scroll-margin-top: 4rem/.test(css),
+  "6b. âncoras reservam altura da topbar sticky (scroll-padding global)"
 );
 // 6c. Fatia 55 (mestre §33/§45): final integrado substitui os blocos
 //     separados (confiança + cta-seller + resumo de Como funciona).
