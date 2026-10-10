@@ -116,16 +116,20 @@
 </head>
 <body data-page="explorar">
   <header class="topbar" id="top">
-    <a class="btn btn-ghost" href="../">&larr; Vitrine</a>
-    <a class="brand" href="../" aria-label="VDV — voltar à vitrine">
+    <a class="brand" href="../">
       <span class="logo" aria-hidden="true">VDV</span>
-      <div>
+      <span class="brand-text">
         <strong>Vitrine de Vendas</strong>
         <small>Estoques locais em circulação</small>
-      </div>
+      </span>
     </a>
+    <nav class="topnav" aria-label="Navegação principal">
+      <a href="../explorar/" data-nav="explorar">Explorar</a>
+      <a href="../#procura" data-nav="procura">Procura</a>
+      <a href="../como-funciona.html">Como funciona</a>
+    </nav>
     <!-- R9 (VDV-20260923-01) — jornada I: entender o benefício na /anunciar.html antes de ir ao bot. -->
-    <a class="btn btn-sell" href="../anunciar.html">Quero vender</a>
+    <a class="btn btn-ghost" href="../anunciar.html">Anunciar</a>
   </header>
 
   <main>
@@ -136,16 +140,21 @@
     <h1>Explorar a vitrine</h1>
     <p class="hero-sub">Todo o catálogo do VDV em um só lugar — busque, filtre e fale direto com quem vende.</p>
 
-    <div class="searchbar">
-      <input id="search" type="search" placeholder="O que você procura? Ex.: blusa de inverno"
-             autocomplete="off" aria-label="Buscar produto"
-             role="combobox" aria-haspopup="listbox" aria-expanded="false"
-             aria-controls="x-sg">
+    <!-- VDV-20261010-02 (F2) — a busca de /explorar/ é compartilhável: form
+         GET nativo (sem JS funciona o submit; o JS prefill ?q= na entrada,
+         F4). Sem name= o input não participaria da submissão. -->
+    <form action="./" method="get">
+      <div class="searchbar">
+        <input id="search" name="q" type="search" placeholder="O que você procura? Ex.: blusa de inverno"
+               autocomplete="off" aria-label="Buscar produto"
+               role="combobox" aria-haspopup="listbox" aria-expanded="false"
+               aria-controls="x-sg">
       <!-- Fatia 50 (VDV-20261003-06, mestre §15) — sugestões durante a
            digitação (produtos/categorias do JSON já carregado). -->
       <ul id="x-sg" class="sg-list" role="listbox" hidden></ul>
-      <button id="clear-search" class="btn btn-ghost" hidden>Limpar busca</button>
-    </div>
+      <button type="button" id="clear-search" class="btn btn-ghost" hidden>Limpar busca</button>
+      </div>
+    </form>
 
     <div class="filter-bar">
       <select id="x-grupo" aria-label="Filtrar por categoria">

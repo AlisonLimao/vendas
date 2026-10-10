@@ -1727,6 +1727,10 @@
       "</div></div>";
 
     main.innerHTML =
+      // VDV-20261010-02 (F2) — back-link no main (padrão universal); o shell
+      // estático traz o mesmo elemento para o estado sem JS (pré-hidratação).
+      '<a class="back-link" href="' + prefix + '." data-ga-origin="produto_voltar">' +
+      "&larr; Voltar para a vitrine</a>" +
       galeriaHtml +
       '<h1 class="prod-title">' + esc(product.title) + "</h1>" +
       '<p class="prod-price">' + fmtPrice(product) + "</p>" +

@@ -116,20 +116,28 @@
   <link rel="stylesheet" href="../assets/css/vdv.min.css?v=20261010-2">
 </head>
 <body data-page="produto">
-  <header class="topbar">
-    <a class="btn btn-ghost" href=".." data-ga-origin="produto_voltar">&larr; Vitrine</a>
+  <header class="topbar" id="top">
+    <!-- VDV-20261010-02 (F2) — sem back no header (decisão (a)): retorno pela
+         marca + .back-link no main (o main é substituído pelo app.js na
+         hidratação, então o back vive no shell E no template do app.js). -->
     <!-- VDV-20260909-02 — a marca volta à vitrine (a Home restaura o estado do feed). -->
-    <a class="brand" href=".." aria-label="VDV — voltar à vitrine">
+    <a class="brand" href="..">
       <span class="logo" aria-hidden="true">VDV</span>
-      <div>
+      <span class="brand-text">
         <strong>Vitrine de Vendas</strong>
         <small>Estoques locais em circulação</small>
-      </div>
+      </span>
     </a>
+    <nav class="topnav" aria-label="Navegação principal">
+      <a href="../explorar/" data-nav="explorar">Explorar</a>
+      <a href="../#procura" data-nav="procura">Procura</a>
+      <a href="../como-funciona.html">Como funciona</a>
+    </nav>
     <a class="btn btn-sell" data-deep-link="vender" data-ga-origin="produto_topo_vender" href="#">Quero vender</a>
   </header>
 
   <main id="produto-main">
+    <a class="back-link" href=".." data-ga-origin="produto_voltar">&larr; Voltar para a vitrine</a>
     <p id="status" class="status" role="status">Carregando…</p>
   </main>
 

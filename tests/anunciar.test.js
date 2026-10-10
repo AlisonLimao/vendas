@@ -38,8 +38,10 @@ assert(/<link rel="canonical" href="https:\/\/vitrinedevenda\.com\.br\/anunciar\
 // 4. Entradas no menu/footer: header da Home e de /explorar/ e /favoritos/,
 //    footers das páginas à mão e topnav das páginas geradas (exportador).
 assert(/href="anunciar\.html">Anunciar<\/a>/.test(home), "4. header da Home aponta à página");
-assert(/href="\.\.\/anunciar\.html">Quero vender<\/a>/.test(expl) &&
-       /href="\.\.\/anunciar\.html">Quero vender<\/a>/.test(fav), "4. Quero vender aponta à página");
+// VDV-20261010-02 (F2): com o header canônico, o CTA das eletivas é
+// "Anunciar" (a conversão de venda vive no produto: Quero vender deep-link).
+assert(/\.\.\/anunciar\.html">Anunciar<\/a>/.test(expl) &&
+       /\.\.\/anunciar\.html">Anunciar<\/a>/.test(fav), "4. CTA Anunciar no header (explorar/favoritos)");
 assert(/<a href="anunciar\.html">Anunciar<\/a> · <a href="como-funciona\.html">/.test(home) &&
        /<a href="\.\.\/anunciar\.html">Anunciar<\/a> · <a href="\.\.\/como-funciona\.html">/.test(expl) &&
        /<a href="\.\.\/anunciar\.html">Anunciar<\/a> · <a href="\.\.\/como-funciona\.html">/.test(fav) &&

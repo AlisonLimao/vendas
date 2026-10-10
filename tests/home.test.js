@@ -112,7 +112,7 @@ assert(
   "6. grade completa e favoritos saem da Home (R5)"
 );
 assert(
-  /<a href="explorar\/">Explorar<\/a>/.test(html) &&
+  /<a href="explorar\/" data-nav="explorar">Explorar<\/a>/.test(html) &&
     /href="explorar\/">Explorar a vitrine inteira/.test(html) &&
     /href="explorar\/" id="bb-explorar"/.test(html) &&
     /href="favoritos\/" id="bb-favoritos"/.test(html),
@@ -134,7 +134,7 @@ assert(
   "6b. entrada do bloco explica antes de enviar para fora da página"
 );
 assert(
-  /<a href="#procura">Procura<\/a>/.test(html) &&
+  /<a href="#procura" data-nav="procura">Procura<\/a>/.test(html) &&
     /href="#procura" id="bb-procura"/.test(html),
   "6b. navegação permanente: topnav e bottombar apontam ao bloco"
 );
