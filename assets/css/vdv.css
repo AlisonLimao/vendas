@@ -762,11 +762,12 @@ footer p { margin: .3rem 0; }
   display: grid; gap: .6rem; margin-top: .5rem;
   grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
 }
-/* Redesign (10/10) — CTA SOLO da vitrine do fornecedor ("Falar no
- * WhatsApp"): o auto-fit estica o único item pela largura toda (tira
- * ~1150px no desktop). Um botão de contato tem largura de gesto de dedo,
- * não de salão — cap e alinhamento ao conteúdo. */
-.action-grid > .btn-channel:only-child { max-width: 26rem; }
+/* Redesign (10/10) — CTA SOLO na vitrine do fornecedor ("Falar no
+ * WhatsApp") e nas geradas ("Monte sua vitrine também no VDV", contato da
+ * Procura): o auto-fit estica o único item pela largura toda (~1150px no
+ * desktop). Um botão de contato/CTA tem largura de gesto de dedo, não de
+ * salão — cap e alinhamento ao conteúdo, vale para qualquer tipo. */
+.action-grid > :only-child { max-width: 26rem; }
 /* VDV-20260911-07b — desktop: aviso "foto copiada, cole na conversa"
  * (a via Web Share de arquivos não existe no desktop; lá a foto vai pelo
  * clipboard + WhatsApp Web). Some sozinho após 10s. */
