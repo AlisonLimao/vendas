@@ -785,7 +785,7 @@
         seller_name: p.seller_name
       });
     });
-    a.appendChild(cardMedia(p));
+    a.appendChild(cardGallery(p));
     var body = document.createElement("div");
     body.className = "card-body";
     body.innerHTML =
@@ -831,6 +831,100 @@
     grid.innerHTML = "";
     list.forEach(function (p) { grid.appendChild(cardEl(p)); });
   }
+
+  /* VDV-20261010-01 — galeria universal nos cards: com >1 foto, o card monta
+   * o MESMO mecanismo da página do produto (scroll-snap nativo — swipe,
+   * teclado e tap-vs-swipe funcionam até sem JS, porque é o navegador quem
+   * rola). Extras nascem com data-img, sem <img> até a interação (hidratação
+   * sob demanda); dots aria-hidden, não interativos. 1 foto → imagem de
+   * sempre (cardMedia), zero controles. */
+  function cardGallery(p) {
+    if (!p.image) return cardImgPlaceholder();
+    var photos = Array.isArray(p.images) ? p.images : [];
+    if (photos.length <= 1) return cardMedia(p);
+    var gal = document.createElement("div");
+    gal.className = "card-gal";
+    var track = document.createElement("div");
+    track.className = "card-gal-track";
+    track.tabIndex = 0;
+    if (isImpressao3d(p)) track.dataset.contain = "1"; // extras também em "contain"
+    track.setAttribute("role", "group");
+    track.setAttribute("aria-label", "Fotos do produto — deslize");
+    var principal = Object.assign({}, p, { image: photos[0] });
+    var slide0 = document.createElement("div");
+    slide0.className = "card-gal-slide";
+    slide0.appendChild(cardMedia(principal));
+    track.appendChild(slide0);
+    Array.prototype.forEach.call(photos.slice(1), function (src) {
+      var slide = document.createElement("div");
+      slide.className = "card-gal-slide";
+      slide.setAttribute("data-img", prefix + src);
+      track.appendChild(slide);
+    });
+    var dots = document.createElement("div");
+    dots.className = "card-gal-dots";
+    dots.setAttribute("aria-hidden", "true");
+    for (var k = 0; k < photos.length; k++) dots.appendChild(document.createElement("i"));
+    dots.firstChild.classList.add("is-on");
+    gal.appendChild(track);
+    gal.appendChild(dots);
+    return gal;
+  }
+
+  /* Delegação ÚNICA (capture no document) da galeria dos cards — nenhum
+   * listener por card: hidratação sob demanda das extras (data-img → src na
+   * primeira interação com o track, prefetch do slide seguinte p/ swipe
+   * fluido) e sincronia dos dots com o scroll. Erro de foto extra → o slide
+   * fica com o fundo neutro do track (não apaga o produto — espírito R3). */
+  function cardGalIndice(track) {
+    return Math.max(0, Math.min(track.children.length - 1,
+      Math.round(track.scrollLeft / Math.max(1, track.clientWidth))));
+  }
+  function cardGalHidratarAte(track, fim) {
+    var slides = track.children;
+    var limite = Math.min(slides.length - 1, Math.max(1, fim));
+    for (var k = 1; k <= limite; k++) {
+      var slide = slides[k];
+      if (slide.classList.contains("is-ready")) continue;
+      slide.classList.add("is-ready");
+      var src = slide.getAttribute("data-img");
+      var img = document.createElement("img");
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.alt = ""; // decorativa: o alt do produto está no slide principal
+      if (src) img.src = src;
+      if (track.dataset.contain) img.className = "card-img-contain";
+      slide.appendChild(img);
+    }
+  }
+  function cardGalPintarDots(track) {
+    var box = track.parentElement &&
+      track.parentElement.querySelector(".card-gal-dots");
+    if (!box) return;
+    var idx = cardGalIndice(track);
+    Array.prototype.forEach.call(box.children, function (dot, k) {
+      dot.classList.toggle("is-on", k === idx);
+    });
+  }
+  document.addEventListener("pointerdown", function (ev) {
+    var t = ev.target;
+    if (!(t instanceof Element)) return;
+    var track = t.closest(".card-gal-track");
+    if (track) cardGalHidratarAte(track, cardGalIndice(track) + 1);
+  }, true);
+  document.addEventListener("mouseover", function (ev) {
+    var t = ev.target;
+    if (!(t instanceof Element)) return;
+    var track = t.closest(".card-gal-track");
+    if (track) cardGalHidratarAte(track, 1);
+  }, true);
+  document.addEventListener("scroll", function (ev) {
+    var t = ev.target;
+    if (t instanceof Element && t.classList.contains("card-gal-track")) {
+      cardGalHidratarAte(t, cardGalIndice(t) + 1);
+      cardGalPintarDots(t);
+    }
+  }, { capture: true, passive: true });
 
   // ------------------------------------------------------------------ home
   function initHome(catalog) {

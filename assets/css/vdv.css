@@ -288,6 +288,44 @@ a.chip { text-decoration: none; display: inline-block; }
   font-size: .8rem; letter-spacing: .08em; text-transform: uppercase;
   border-radius: var(--radius-lg);
 }
+/* VDV-20261010-01 — galeria universal nos cards: MESMA física da galeria do
+ * produto (.gallery-track, VDV-20261008-08) — track horizontal com scroll-snap
+ * (swipe = rolagem nativa, funciona até sem JS; gesto vertical da página
+ * intacto; arrasto suprime o click e o tap simples abre o anúncio). Extras:
+ * cards JS-montados nascem com data-img (hidratação sob demanda na primeira
+ * interação — app.js, delegação capture); estáticos usam loading="lazy"
+ * nativo. Dots discretos (aria-hidden, não interativos — nunca botão dentro
+ * de <a>) sincronizados com o scroll quando há JS. */
+.card-gal { position: relative; }
+.card-gal-track {
+  display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+  scroll-snap-stop: always; scrollbar-width: none;
+  -webkit-overflow-scrolling: touch; border-radius: var(--radius-lg);
+  background: var(--vdv-bg); outline-offset: 4px;
+}
+.card-gal-track::-webkit-scrollbar { display: none; }
+.card-gal-slide {
+  flex: 0 0 100%; min-width: 100%; scroll-snap-align: center;
+  scroll-snap-stop: always; display: flex; justify-content: center;
+}
+.card-gal-slide img {
+  width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block;
+  background: var(--vdv-bg);
+}
+.card-gal-dots {
+  position: absolute; right: .5rem; bottom: .5rem; z-index: 2;
+  display: flex; gap: .28rem; align-items: center;
+  padding: .2rem .45rem; border-radius: var(--r-full);
+  background: rgba(15, 23, 42, .4); pointer-events: none;
+}
+.card-gal-dots i {
+  width: 6px; height: 6px; border-radius: var(--r-full);
+  background: rgba(255, 255, 255, .45); transition: background .15s;
+}
+.card-gal-dots i.is-on { background: #fff; }
+@media (prefers-reduced-motion: reduce) {
+  .card-gal-track { scroll-behavior: auto; }
+}
 .card-body { padding: .6rem .15rem 0; display: flex; flex-direction: column; gap: .2rem; flex: 1; }
 .card-title { font-size: var(--fs-card); font-weight: 500; margin: 0; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .card-seller { font-size: .82rem; font-weight: 500; color: var(--vdv-text-muted); margin: 0; }
