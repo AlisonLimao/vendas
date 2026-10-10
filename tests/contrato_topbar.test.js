@@ -128,4 +128,43 @@ assert(/class="back-link" [\s\S]{0,80}data-ga-origin="produto_voltar"/.test(js) 
   js.indexOf('data-ga-origin="produto_voltar"') !== -1,
   "app.js: back-link do produto hidratado preserva data-ga-origin");
 
-console.log("contrato_topbar: OK (header/navegação universal — VDV-20261010-02, F2)");
+// --- páginas geradas commitadas (exportador Python) --------------------------
+// F3 (VDV-20261010-02): produto/fornecedor/categoria geradas seguem o MESMO
+// contrato dos shells. Amostradas vivas (os paths de categoria/fornecedor
+// mudam com o catálogo real — o padrão abaixo não fixa uuid/slug).
+var GERADAS = [];
+["produto", "fornecedor", "categoria"].forEach(function (dir) {
+  var base = path.join(R, dir);
+  if (!fs.existsSync(base)) return;
+  fs.readdirSync(base, { withFileTypes: true }).forEach(function (d) {
+    if (!d.isDirectory()) return;
+    var p = path.join(dir, d.name, "index.html");
+    var html = fs.readFileSync(path.join(R, p), "utf8");
+    if (html.indexOf("location.replace") !== -1) return; // stub = redirect
+    GERADAS.push({ path: p, html: html, tipo: dir });
+  });
+});
+assert(GERADAS.length > 0, "ao menos 1 página gerada viva commitada");
+GERADAS.forEach(function (e) {
+  var n = e.path, html = e.html, produto = e.tipo === "produto";
+  assert(CANON_NAV.test(html), n + ": topnav com aria-label");
+  assert(/<a href="[^"]*explorar\/" data-nav="explorar">Explorar<\/a>/.test(html),
+    n + ": item Explorar do topnav");
+  assert(/Estoques locais em circulação/.test(html), n + ": <small> da marca");
+  assert(/<form class="searchform" role="search" action="[^"]*explorar\/" method="get">/.test(html),
+    n + ": searchform desktop (form GET)");
+  assert(/<body data-page="(?:produto|fornecedor|categoria|procura)">/.test(html),
+    n + ": data-page");
+  assert(/class="back-link" href="[^"]*"/.test(html), n + ": back-link no main");
+  var temBottombar = /class="bottombar"/.test(html);
+  assert(temBottombar === !produto,
+    n + ": bottombar " + (produto ? "ausente (prod-sticky)" : "presente"));
+  assert(/vdv\.min\.css\?v=20261010-2/.test(html), n + ": CSS com ?v=20261010-2");
+  if (produto) {
+    assert(/data-deep-link="vender"[^>]*href="https:\/\/t\.me\/vitrine_vendasbot\?start=vitrine">\s*Quero vender<\/a>/.test(html),
+      n + ": Quero vender aponta ao fluxo de anúncio (sem JS)");
+    assert(!/btn-sell[^>]*href="#">Quero vender/.test(html), n + ": sem CTA morto");
+  }
+});
+
+console.log("contrato_topbar: OK (header/navegação universal — VDV-20261010-02, F2+F3)");
