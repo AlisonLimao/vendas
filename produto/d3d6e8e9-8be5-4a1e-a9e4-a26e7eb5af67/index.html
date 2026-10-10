@@ -42,15 +42,23 @@
 </script>
 </head>
 <body data-page="produto">
-<header class="topbar">
+<header class="topbar" id="top">
   <a class="brand" href="../../">
-    <span class="logo">VDV</span>
-    <strong>Vitrine de Vendas</strong>
+    <span class="logo" aria-hidden="true">VDV</span>
+    <span class="brand-text">
+      <strong>Vitrine de Vendas</strong>
+      <small>Estoques locais em circulação</small>
+    </span>
   </a>
-  <nav class="topnav">
-    <a href="../../anunciar.html">Anunciar</a>
+  <nav class="topnav" aria-label="Navegação principal">
+    <a href="../../explorar/" data-nav="explorar">Explorar</a>
+    <a href="../../#procura" data-nav="procura">Procura</a>
     <a href="../../como-funciona.html">Como funciona</a>
   </nav>
+  <form class="searchform" role="search" action="../../explorar/" method="get">
+    <input type="search" name="q" placeholder="Buscar na vitrine" aria-label="Buscar produto">
+  </form>
+  <a class="btn btn-sell" data-deep-link="vender" data-ga-origin="produto_topo_vender" href="https://t.me/vitrine_vendasbot?start=vitrine">Quero vender</a>
 </header>
 <main>
   <a class="back-link" href="../../">&larr; Voltar para a vitrine</a>
@@ -80,7 +88,7 @@
   <ul class="prod-facts prod-disp">
     <li>📦 Pronta entrega</li>
     <li>200 un disponíveis</li>
-    <li>✅ Disponibilidade confirmada há 1 dia pelo fornecedor</li>
+    <li>✅ Disponibilidade confirmada há 2 dias pelo fornecedor</li>
   </ul>
   <div class="seller-card">
     <span class="seller-avatar" aria-hidden="true">AM</span>

@@ -20,16 +20,24 @@
 <link rel="canonical" href="https://vitrinedevenda.com.br/fornecedor/imprima-3d/">
   <link rel="stylesheet" href="../../assets/css/vdv.min.css?v=20261010-2">
 </head>
-<body>
-<header class="topbar">
+<body data-page="fornecedor">
+<header class="topbar" id="top">
   <a class="brand" href="../../">
-    <span class="logo">VDV</span>
-    <strong>Vitrine de Vendas</strong>
+    <span class="logo" aria-hidden="true">VDV</span>
+    <span class="brand-text">
+      <strong>Vitrine de Vendas</strong>
+      <small>Estoques locais em circulação</small>
+    </span>
   </a>
-  <nav class="topnav">
-    <a href="../../anunciar.html">Anunciar</a>
+  <nav class="topnav" aria-label="Navegação principal">
+    <a href="../../explorar/" data-nav="explorar">Explorar</a>
+    <a href="../../#procura" data-nav="procura">Procura</a>
     <a href="../../como-funciona.html">Como funciona</a>
   </nav>
+  <form class="searchform" role="search" action="../../explorar/" method="get">
+    <input type="search" name="q" placeholder="Buscar na vitrine" aria-label="Buscar produto">
+  </form>
+  <a class="btn btn-ghost" href="../../anunciar.html">Anunciar</a>
 </header>
 <main>
   <a class="back-link" href="../../">&larr; Voltar para a vitrine</a>
@@ -66,6 +74,12 @@
 <footer>
   <p>VDV — Vitrine de Vendas de Monte Sião · negociação direta com quem vende.</p>
 </footer>
+<nav class="bottombar" aria-label="Navegação do celular">
+    <a href="../../" id="bb-inicio"><span class="bb-ico" aria-hidden="true">🏠</span>Início</a>
+    <a href="../../explorar/" id="bb-explorar"><span class="bb-ico" aria-hidden="true">🔎</span>Explorar</a>
+    <a href="../../favoritos/" id="bb-favoritos"><span class="bb-ico" aria-hidden="true">❤️</span>Favoritos</a>
+    <a href="../../#procura" id="bb-procura"><span class="bb-ico" aria-hidden="true">💬</span>Procura</a>
+  </nav>
 
 </body>
 </html>
