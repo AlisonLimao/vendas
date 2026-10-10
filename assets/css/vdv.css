@@ -708,8 +708,17 @@ footer p { margin: .3rem 0; }
  * WhatsApp) no MESMO tamanho padrão, lado a lado, com as cores e logos oficiais
  * dos canais — o visitante identifica o canal pela marca antes de ler. */
 .contact-channels {
-  display: grid; gap: .6rem; margin-top: 1.25rem;
-  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.25rem;
+}
+/* Redesign (10/10) — o par (ou solista) de contato da página de produto
+ * com o mesmo teto de gesto do .action-grid: com 1 canal, o botão
+ * esticava a largura INTEIRA do conteúdo (~740px no desktop); com os 2,
+ * cada um a ~365px de coluna fr. Flex com basis 9.5rem + teto 26rem:
+ * lado a lado no mobile (VDV-20260905-05 preservado), largura de gesto
+ * no desktop. */
+.contact-channels > * {
+  flex: 1 1 9.5rem;
+  max-width: 26rem;
 }
 .btn-channel {
   display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
@@ -759,15 +768,19 @@ footer p { margin: .3rem 0; }
   text-transform: uppercase; color: var(--vdv-text-muted);
 }
 .action-grid {
-  display: grid; gap: .6rem; margin-top: .5rem;
-  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .5rem;
 }
-/* Redesign (10/10) — CTA SOLO na vitrine do fornecedor ("Falar no
- * WhatsApp") e nas geradas ("Monte sua vitrine também no VDV", contato da
- * Procura): o auto-fit estica o único item pela largura toda (~1150px no
- * desktop). Um botão de contato/CTA tem largura de gesto de dedo, não de
- * salão — cap e alinhamento ao conteúdo, vale para qualquer tipo. */
-.action-grid > :only-child { max-width: 26rem; }
+.action-grid > * {
+  flex: 1 1 9.5rem;
+  /* Redesign (10/10) — CTAs de contato em largura de GESTO de dedo, não de
+   * salão. Em grid com `1fr`, o solista esticava pela largura toda (~1150px
+   * no desktop: "Falar no WhatsApp" do fornecedor, "Monte sua vitrine também
+   * no VDV") e, com 2 contatos (WhatsApp + Telegram da Procura), cada um a
+   * ~574px. Flex com basis 9.5rem + teto de 26rem: mobile guarda 2 contatos
+   * lado a lado (largura natural), desktop dá a cada botão no máximo
+   * 26rem — vale para qualquer quantidade. */
+  max-width: 26rem;
+}
 /* VDV-20260911-07b — desktop: aviso "foto copiada, cole na conversa"
  * (a via Web Share de arquivos não existe no desktop; lá a foto vai pelo
  * clipboard + WhatsApp Web). Some sozinho após 10s. */
