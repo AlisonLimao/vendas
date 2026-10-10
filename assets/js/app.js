@@ -866,6 +866,20 @@
     dots.setAttribute("aria-hidden", "true");
     for (var k = 0; k < photos.length; k++) dots.appendChild(document.createElement("i"));
     dots.firstChild.classList.add("is-on");
+    // VDV-20261010-03 — setas da galeria nos cards (desktop): MESMA galeria
+    // universal (navegam o mesmo track scroll-snap, sem segunda lógica).
+    // span role=button — nunca elemento interativo HTML aninhado ao link do
+    // card (o clique na seta NÃO abre o anúncio: delegação capture com
+    // stopPropagation+preventDefault). Só existem no markup com >1 foto.
+    for (var dir = -1; dir <= 1; dir += 2) {
+      var s = document.createElement("span");
+      s.className = "card-gal-arrow " + (dir < 0 ? "card-gal-prev" : "card-gal-next");
+      s.setAttribute("role", "button");
+      s.setAttribute("tabindex", "0");
+      s.setAttribute("aria-label", dir < 0 ? "Foto anterior" : "Próxima foto");
+      s.textContent = dir < 0 ? "‹" : "›";
+      gal.appendChild(s);
+    }
     gal.appendChild(track);
     gal.appendChild(dots);
     return gal;
@@ -925,6 +939,44 @@
       cardGalPintarDots(t);
     }
   }, { capture: true, passive: true });
+
+  /* Setas da galeria dos cards (VDV-20261010-03) — navegam o MESMO track
+   * (scroll-snap): rola 1 slide, hidrata até o próximo e os dots se
+   * recolocam pelo handler de scroll acima. Delegação capture no document
+   * (mesmo padrão das outras; stopPropagation impede o <a> do card de
+   * abrir o anúncio; preventDefault para o <a href="#"> do card vazio). */
+  function cardGalRolar(track, dir) {
+    if (!track || !track.children.length) return;
+    var largura = Math.max(1, track.clientWidth);
+    var alvo = Math.max(0, Math.min(
+      (track.children.length - 1) * largura,
+      track.scrollLeft + dir * largura
+    ));
+    cardGalHidratarAte(track, Math.max(1, Math.round(alvo / largura) + (dir > 0 ? 1 : 0)));
+    track.scrollBy({ left: alvo - track.scrollLeft, behavior: "smooth" });
+    cardGalPintarDots(track);
+  }
+  document.addEventListener("click", function (ev) {
+    var t = ev.target;
+    if (!(t instanceof Element)) return;
+    var s = t.closest(".card-gal-arrow");
+    if (!s) return;
+    ev.stopPropagation();
+    ev.preventDefault();
+    var track = t.closest(".card-gal-track");
+    if (!track) track = s.parentElement.querySelector(".card-gal-track");
+    cardGalRolar(track, s.classList.contains("card-gal-prev") ? -1 : 1);
+  }, true);
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key !== "Enter" && ev.key !== " ") return;
+    var t = ev.target;
+    if (!(t instanceof Element)) return;
+    var s = t.closest(".card-gal-arrow");
+    if (!s) return;
+    ev.stopPropagation();
+    ev.preventDefault();
+    cardGalRolar(t.closest(".card-gal-track"), s.classList.contains("card-gal-prev") ? -1 : 1);
+  }, true);
 
   // ------------------------------------------------------------------ home
   function initHome(catalog) {

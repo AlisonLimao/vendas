@@ -94,3 +94,45 @@ assert((exporter.match(/_card_gallery_html\(p\)/g) || []).length === 3,
   "9. exportador: _card_gallery_html nos 3 templates estáticos (related/fornecedor/categoria)");
 
 console.log("cards_galeria.test.js — tudo conforme (VDV-20261010-01)");
+
+/* ── 10. SETAS DA GALERIA NO CARD (VDV-20261010-03) ─────────────────────────
+ * Desktop com mouse/hover: setas discretas navegam o MESMO track
+ * (scroll-snap) sem abrir o anúncio; teclado: focáveis (Enter/Space) e
+ * :focus-within as revela; celular intocado (swipe nativo; sem seta em
+ * pointer coarse); >1 foto = setas existem; 1 foto = zero controles;
+ * span role=button (nunca elemento interativo aninhado ao link do card);
+ * estáticos (helper Python): mesmas classes; 1 script de página (não por
+ * card) e só quando a página tem galeria multi-foto. */
+assert(js.includes("card-gal-arrow") &&
+  /card-gal-arrow " \+ \(dir < 0 \? "card-gal-prev" : "card-gal-next"\)/.test(js) &&
+  /s\.setAttribute\("role", "button"\)/.test(js) &&
+  /s\.setAttribute\("tabindex", "0"\)/.test(js) &&
+  js.includes('"Foto anterior"') && js.includes('"Próxima foto"'),
+  "10. app.js: setas span role=button (prev/next, aria-label)");
+(function () {
+  var i = js.indexOf("function cardGallery"), j = js.indexOf("function fill ", i);
+  if (j === -1) j = js.indexOf("function cardGalIndice", i);
+  assert(!/<button/.test(js.slice(i, j)),
+    "10a. app.js: nenhum botão aninhado à galeria (span somente)");
+})();
+assert(/addEventListener\("click", function \(ev\) \{[\s\S]*?\.card-gal-arrow[\s\S]*?stopPropagation\(\)[\s\S]*?preventDefault\(\)[\s\S]*?cardGalRolar\(/.test(js) &&
+  /addEventListener\("keydown", function \(ev\) \{[\s\S]*?cardGalRolar\(/.test(js) &&
+  /track\.scrollBy\(\{ left:[\s\S]*?behavior: "smooth" \}\)/.test(js),
+  "10b. app.js: delegação capture (click + Enter/Space) → cardGalRolar");
+assert(css.includes(".card-gal-arrow") &&
+  /\(min-width: 720px\) and \(hover: hover\) and \(pointer: fine\)/.test(css) &&
+  /\.card:hover \.card-gal-arrow[\s\S]*?\.card:focus-within \.card-gal-arrow/.test(css) &&
+  /\.card-gal-arrow:focus-visible/.test(css),
+  "10c. css: setas desktop-only, hover/:focus-within revelam, foco visível");
+assert(function () {
+  var g = exporter.slice(exporter.indexOf("def _card_gallery_html"),
+    exporter.indexOf("def _related_card_html"));
+  return g.includes("card-gal-arrow card-gal-prev") &&
+    g.includes("card-gal-arrow card-gal-next") &&
+    g.includes('role="button" tabindex="0"') &&
+    g.includes("Foto anterior") && g.includes("Próxima foto");
+}(), "10d. exportador: mesmo markup de setas no helper dos estáticos");
+if (!exporter.includes("CARD_GAL_STATIC_SCRIPT")) {
+  throw new Error("10e. exportador falta CARD_GAL_STATIC_SCRIPT");
+}
+console.log("cards_galeria.test.js — tudo conforme (VDV-20261010-01 + setas VDV-20261010-03)");

@@ -366,6 +366,29 @@ a.chip { text-decoration: none; display: inline-block; }
   background: rgba(255, 255, 255, .45); transition: background .15s;
 }
 .card-gal-dots i.is-on { background: #fff; }
+/* VDV-20261010-03 — setas da galeria nos cards (desktop): MESMA galeria
+ * universal (rolam o track scroll-snap; span role=button — nunca botão/aninhado
+ * dentro do <a> do card). Só no markup com >1 foto; mouse/hover-only:
+ * escondidas em ponteiro coarse (celular: swipe já rola) e no mobile.
+ * Foco visível + :focus-within as revelam (navegação por teclado). */
+.card-gal-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  z-index: 3; display: none;
+  width: var(--touch-min); height: var(--touch-min);
+  align-items: center; justify-content: center; border-radius: var(--r-full);
+  background: rgba(15, 23, 42, .55); color: #fff;
+  font-size: 1.15rem; line-height: 1; font-weight: 700; user-select: none;
+  box-shadow: var(--shadow-sm); cursor: pointer;
+}
+.card-gal-prev { left: .5rem; }
+.card-gal-next { right: .5rem; }
+.card-gal-arrow:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+@media (min-width: 720px) and (hover: hover) and (pointer: fine) {
+  .card-gal-arrow { display: flex; opacity: 0; visibility: hidden; transition: opacity .15s; }
+  .card:hover .card-gal-arrow,
+  .card:focus-within .card-gal-arrow { opacity: .92; visibility: visible; }
+  .card-gal-arrow:hover { opacity: 1; }
+}
 @media (prefers-reduced-motion: reduce) {
   .card-gal-track { scroll-behavior: auto; }
 }
