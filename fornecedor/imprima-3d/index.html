@@ -57,7 +57,7 @@
   <section>
     <div class="grid">
     <a class="card" data-cat="impressao_3d" href="../../produto/9f22576b-b542-4666-a3be-6e70157c0817/">
-      <div class="card-gal"><div class="card-gal-track" tabindex="0" role="group" aria-label="Fotos do produto — deslize"><div class="card-gal-slide"><img src="../../assets/products/9f22576b-b542-4666-a3be-6e70157c0817.jpg" decoding="async" alt="Animais Aquáticos Articulados 3D – Axolote e Tubarões"></div><div class="card-gal-slide"><img src="../../assets/products/9f22576b-b542-4666-a3be-6e70157c0817-2.jpg" loading="lazy" decoding="async" alt=""></div><div class="card-gal-slide"><img src="../../assets/products/9f22576b-b542-4666-a3be-6e70157c0817-3.jpg" loading="lazy" decoding="async" alt=""></div><div class="card-gal-slide"><img src="../../assets/products/9f22576b-b542-4666-a3be-6e70157c0817-4.jpg" loading="lazy" decoding="async" alt=""></div><div class="card-gal-slide"><img src="../../assets/products/9f22576b-b542-4666-a3be-6e70157c0817-5.jpg" loading="lazy" decoding="async" alt=""></div></div><div class="card-gal-dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i><i></i></div></div>
+      <div class="card-gal"><span class="card-gal-arrow card-gal-prev" role="button" tabindex="0" aria-label="Foto anterior">‹</span><span class="card-gal-arrow card-gal-next" role="button" tabindex="0" aria-label="Próxima foto">›</span><div class="card-gal-track" tabindex="0" role="group" aria-label="Fotos do produto — deslize"><div class="card-gal-slide"><img src="../../assets/products/9f22576b-b542-4666-a3be-6e70157c0817.jpg" decoding="async" alt="Animais Aquáticos Articulados 3D – Axolote e Tubarões"></div><div class="card-gal-slide"><img src="../../assets/products/9f22576b-b542-4666-a3be-6e70157c0817-2.jpg" loading="lazy" decoding="async" alt=""></div><div class="card-gal-slide"><img src="../../assets/products/9f22576b-b542-4666-a3be-6e70157c0817-3.jpg" loading="lazy" decoding="async" alt=""></div><div class="card-gal-slide"><img src="../../assets/products/9f22576b-b542-4666-a3be-6e70157c0817-4.jpg" loading="lazy" decoding="async" alt=""></div><div class="card-gal-slide"><img src="../../assets/products/9f22576b-b542-4666-a3be-6e70157c0817-5.jpg" loading="lazy" decoding="async" alt=""></div></div><div class="card-gal-dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i><i></i></div></div>
       <div class="card-body">
         <h3 class="card-title">Animais Aquáticos Articulados 3D – Axolote e Tubarões</h3>
         <p class="card-meta">Pronta entrega</p>
@@ -80,6 +80,57 @@
     <a href="../../favoritos/" id="bb-favoritos"><span class="bb-ico" aria-hidden="true">❤️</span>Favoritos</a>
     <a href="../../#procura" id="bb-procura"><span class="bb-ico" aria-hidden="true">💬</span>Procura</a>
   </nav>
-
+<script>
+(function () {
+  function galIndice(track) {
+    return Math.max(0, Math.min(track.children.length - 1,
+      Math.round(track.scrollLeft / Math.max(1, track.clientWidth))));
+  }
+  function pintarDots(track) {
+    var box = track.parentElement &&
+      track.parentElement.querySelector(".card-gal-dots");
+    if (!box) return;
+    var idx = galIndice(track);
+    Array.prototype.forEach.call(box.children, function (dot, k) {
+      dot.classList.toggle("is-on", k === idx);
+    });
+  }
+  function rolar(track, dir) {
+    if (!track || !track.children.length) return;
+    var largura = Math.max(1, track.clientWidth);
+    var alvo = Math.max(0, Math.min(
+      (track.children.length - 1) * largura,
+      track.scrollLeft + dir * largura
+    ));
+    track.scrollBy({ left: alvo - track.scrollLeft, behavior: "smooth" });
+    pintarDots(track);
+  }
+  document.addEventListener("scroll", function (ev) {
+    var t = ev.target;
+    if (t instanceof Element && t.classList.contains("card-gal-track")) {
+      pintarDots(t);
+    }
+  }, { capture: true, passive: true });
+  function noArquivo(ev) {
+    var t = ev.target;
+    if (!(t instanceof Element)) return false;
+    var s = t.closest(".card-gal-arrow");
+    if (!s) return false;
+    ev.stopPropagation();
+    ev.preventDefault();
+    var gal = s.closest(".card-gal");
+    if (gal) {
+      rolar(gal.querySelector(".card-gal-track"),
+        s.classList.contains("card-gal-prev") ? -1 : 1);
+    }
+    return true;
+  }
+  document.addEventListener("click", function (ev) { noArquivo(ev); }, true);
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key !== "Enter" && ev.key !== " ") return;
+    noArquivo(ev);
+  }, true);
+})();
+</script>
 </body>
 </html>

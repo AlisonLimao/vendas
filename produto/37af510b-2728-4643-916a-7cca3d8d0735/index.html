@@ -140,7 +140,7 @@ Pix: R$ 79,90 — 6,98% de desconto</p>
       </div>
     </a>
     <a class="card" href="../../produto/d3d6e8e9-8be5-4a1e-a9e4-a26e7eb5af67/">
-      <div class="card-gal"><div class="card-gal-track" tabindex="0" role="group" aria-label="Fotos do produto — deslize"><div class="card-gal-slide"><img src="../../assets/products/d3d6e8e9-8be5-4a1e-a9e4-a26e7eb5af67.jpg" decoding="async" alt="vestido saída de praia desenhos geométricos"></div><div class="card-gal-slide"><img src="../../assets/products/d3d6e8e9-8be5-4a1e-a9e4-a26e7eb5af67-2.jpg" loading="lazy" decoding="async" alt=""></div><div class="card-gal-slide"><img src="../../assets/products/d3d6e8e9-8be5-4a1e-a9e4-a26e7eb5af67-3.jpg" loading="lazy" decoding="async" alt=""></div></div><div class="card-gal-dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div></div>
+      <div class="card-gal"><span class="card-gal-arrow card-gal-prev" role="button" tabindex="0" aria-label="Foto anterior">‹</span><span class="card-gal-arrow card-gal-next" role="button" tabindex="0" aria-label="Próxima foto">›</span><div class="card-gal-track" tabindex="0" role="group" aria-label="Fotos do produto — deslize"><div class="card-gal-slide"><img src="../../assets/products/d3d6e8e9-8be5-4a1e-a9e4-a26e7eb5af67.jpg" decoding="async" alt="vestido saída de praia desenhos geométricos"></div><div class="card-gal-slide"><img src="../../assets/products/d3d6e8e9-8be5-4a1e-a9e4-a26e7eb5af67-2.jpg" loading="lazy" decoding="async" alt=""></div><div class="card-gal-slide"><img src="../../assets/products/d3d6e8e9-8be5-4a1e-a9e4-a26e7eb5af67-3.jpg" loading="lazy" decoding="async" alt=""></div></div><div class="card-gal-dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div></div>
       <div class="card-body">
         <h3 class="card-title">vestido saída de praia desenhos geométricos</h3>
         <p class="card-meta">Pronta entrega</p>
@@ -387,6 +387,57 @@ Pix: R$ 79,90 — 6,98% de desconto</p>
       }
     });
   }
+})();
+</script><script>
+(function () {
+  function galIndice(track) {
+    return Math.max(0, Math.min(track.children.length - 1,
+      Math.round(track.scrollLeft / Math.max(1, track.clientWidth))));
+  }
+  function pintarDots(track) {
+    var box = track.parentElement &&
+      track.parentElement.querySelector(".card-gal-dots");
+    if (!box) return;
+    var idx = galIndice(track);
+    Array.prototype.forEach.call(box.children, function (dot, k) {
+      dot.classList.toggle("is-on", k === idx);
+    });
+  }
+  function rolar(track, dir) {
+    if (!track || !track.children.length) return;
+    var largura = Math.max(1, track.clientWidth);
+    var alvo = Math.max(0, Math.min(
+      (track.children.length - 1) * largura,
+      track.scrollLeft + dir * largura
+    ));
+    track.scrollBy({ left: alvo - track.scrollLeft, behavior: "smooth" });
+    pintarDots(track);
+  }
+  document.addEventListener("scroll", function (ev) {
+    var t = ev.target;
+    if (t instanceof Element && t.classList.contains("card-gal-track")) {
+      pintarDots(t);
+    }
+  }, { capture: true, passive: true });
+  function noArquivo(ev) {
+    var t = ev.target;
+    if (!(t instanceof Element)) return false;
+    var s = t.closest(".card-gal-arrow");
+    if (!s) return false;
+    ev.stopPropagation();
+    ev.preventDefault();
+    var gal = s.closest(".card-gal");
+    if (gal) {
+      rolar(gal.querySelector(".card-gal-track"),
+        s.classList.contains("card-gal-prev") ? -1 : 1);
+    }
+    return true;
+  }
+  document.addEventListener("click", function (ev) { noArquivo(ev); }, true);
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key !== "Enter" && ev.key !== " ") return;
+    noArquivo(ev);
+  }, true);
 })();
 </script>
 </body>
