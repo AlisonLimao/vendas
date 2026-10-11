@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-10T23:34:12Z",
+  "generated_at": "2026-10-11T10:34:19Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 9,
+  "total": 10,
   "products": [
     {
       "id": "3a1b4dbc-93ca-4cce-be61-f8f171386141",
@@ -103,7 +103,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 1,
+      "days_since_confirmation": 2,
       "seller_name": "Imprima 3D",
       "city": "Monte Sião",
       "state": "MG",
@@ -128,6 +128,46 @@
       }
     },
     {
+      "id": "c32621ec-0751-414f-a092-63d5a5c13bdf",
+      "title": "Dragões Articulados 3D – Gamer e Floral",
+      "description": "Dragões articulados produzidos em impressão 3D, com movimentos flexíveis e acabamento detalhado. Disponíveis em dois modelos: Gamer, nas cores branco, preto e azul, e Floral, nas cores branco e rosa. Peças decorativas e colecionáveis, ideais para presente ou decoração. Valor: R$ 40,00 cada.",
+      "category": {
+        "slug": "impressao_3d",
+        "name": "Impressão 3D",
+        "group": {
+          "slug": "impressao_3d",
+          "name": "Impressão 3D"
+        }
+      },
+      "price": "40.00",
+      "minimum_order": 1,
+      "offer_type": "varejo",
+      "availability": "pronta_entrega",
+      "quantity": 10,
+      "days_since_confirmation": 0,
+      "seller_name": "Imprima 3D",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf.jpg",
+      "images": [
+        "assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf.jpg",
+        "assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf-2.jpg",
+        "assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf-3.jpg",
+        "assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf-4.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf.webp",
+      "offer_owner_name": "Imprima 3D",
+      "authorization_confirmed": true,
+      "supplier_slug": "imprima-3d",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Imprima 3D",
+        "link": "https://wa.me/5535992031487?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Drag%C3%B5es%20Articulados%203D%20%E2%80%93%20Gamer%20e%20Floral%22%0APre%C3%A7o%3A%20R%24%2040%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/c32621ec-0751-414f-a092-63d5a5c13bdf/"
+      }
+    },
+    {
       "id": "7d97b507-44ca-4ed7-889e-0e6284c46644",
       "title": "Vestido Longo de Tricô Vazado com Decote V",
       "description": "Vestido longo feminino em tricô vazado, com decote V, alças largas e diferentes desenhos rendados distribuídos ao longo da peça. A combinação de pontos cria textura e um visual elegante, leve e sofisticado. Possui forro para mais conforto e segurança no uso. Preço: R$ 85,90. No Pix: R$ 79,90 — 6,98% de desconto.",
@@ -144,7 +184,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 1,
+      "days_since_confirmation": 2,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -181,7 +221,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 1,
+      "days_since_confirmation": 2,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -218,7 +258,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 1,
+      "days_since_confirmation": 2,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -255,7 +295,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 1,
+      "days_since_confirmation": 2,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -292,7 +332,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 1,
+      "days_since_confirmation": 2,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -329,7 +369,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 1,
+      "days_since_confirmation": 2,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
