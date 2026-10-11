@@ -424,6 +424,30 @@
     return priceLine(p, false);
   }
 
+  // VDV-20261011-01 (pedido do Alison): linha "Fornecedor:" na legenda de
+  // compartilhamento — assistido → dono da oferta (offer_owner_name, que só
+  // existe com a autorização confirmada no banco; NUNCA o operador que
+  // digitou); demais anúncios → seller_name. Sem nome público → "" (a linha
+  // é omitida, nada inventado). Espelho de _share_supplier_name (exportador;
+  // drift fechado pelos testes dos dois lados).
+  function shareSupplierName(p) {
+    if (p.publication_mode === "assisted_for_third_party") {
+      var dono = (p.offer_owner_name || "").trim();
+      if (dono) return dono;
+    }
+    return (p.seller_name || "").trim();
+  }
+
+  // Molde da legenda (mockup do Alison): título / Preço / Fornecedor em
+  // linhas separadas — o script anexa "\n\nVeja mais fotos e fale com o
+  // fornecedor:\n\n" + URL (?o=compartilhamento), igual na estática.
+  function shareLegend(p) {
+    var linha = p.title + "\n\nPreço: " + fmtPriceText(p);
+    var nome = shareSupplierName(p);
+    if (nome) linha += "\n\nFornecedor: " + nome;
+    return linha;
+  }
+
   function renderStaticLinks(bot) {
     window.__VDV_BOT__ = bot;
     Array.prototype.forEach.call(document.querySelectorAll("[data-deep-link]"), function (el) {
@@ -2115,9 +2139,12 @@
         // Limitação da spec (W3C): o app de DESTINO pode descartar a legenda —
         // a entrega real é confirmada no celular (matriz de teste do Alison).
         ev.preventDefault(); // Divulgar nunca navega: ou menu, ou nota/baixar
+        // VDV-20261011-01 (pedido do Alison): legenda em linhas — título,
+        // Preço: e linha "Fornecedor:" (dono da oferta em assistido; nunca o
+        // operador). shareLegend é o mesmo molde do data-share-text estático.
         var dados = {
           title: product.title,
-          text: product.title + " — " + fmtPriceText(product),
+          text: shareLegend(product),
           url: shareUrl(product, "compartilhamento")
         };
         if (!(navigator.share && navigator.canShare)) {
@@ -2134,8 +2161,8 @@
         var comFoto = {
           files: [arquivoPronto],
           title: product.title,
-          text: (product.title + " — " + fmtPriceText(product)) +
-            "\n\nVeja mais fotos e fale com o fornecedor:\n" +
+          text: shareLegend(product) +
+            "\n\nVeja mais fotos e fale com o fornecedor:\n\n" +
             shareUrl(product, "compartilhamento")
             // link de retorno DENTRO do text (4ª) — sem campo url com foto
         };

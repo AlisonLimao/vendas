@@ -43,12 +43,32 @@ assert(
 // 2. Payload principal (Cenário A, forma da 4ª): files + title + text COM o
 //    link de retorno DENTRO do text — e SEM campo url junto com files.
 assert(
-  /var comFoto = \{[\s\S]{0,200}?files: \[arquivoPronto\],\s*title: product\.title,\s*text: \(product\.title \+ " — " \+ fmtPriceText\(product\)\) \+\s*"[\s\S]{0,8}Veja mais fotos e fale com o fornecedor:[\s\S]{0,8}" \+\s*shareUrl\(product, "compartilhamento"\)/.test(js),
+  /var comFoto = \{[\s\S]{0,200}?files: \[arquivoPronto\],\s*title: product\.title,\s*text: shareLegend\(product\) \+\s*"\\n\\nVeja mais fotos e fale com o fornecedor:\\n\\n" \+\s*shareUrl\(product, "compartilhamento"\)/.test(js),
   "dinâmica: share({ files, text com link de retorno }) — link no text (4ª)"
 );
 assert(
   /return navigator\.share\(comFoto\)\.catch\(function \(err\) \{/.test(js),
   "share(comFoto) é chamado no clique (forma documentada)"
+);
+
+// 2b. VDV-20261011-01 (pedido do Alison): a legenda de compartilhamento
+//     nomeia o FORNECEDOR — shareLegend é o mesmo molde do data-share-text
+//     estático (título / Preço: / Fornecedor:; linha OMITIDA sem nome
+//     público — nada inventado). Em assistido, offer_owner_name (dono da
+//     oferta, autorizado no banco; NUNCA o operador); nos demais,
+//     seller_name.
+assert(
+  /function shareSupplierName\(p\) \{[\s\S]{0,300}?publication_mode === "assisted_for_third_party"[\s\S]{0,200}?offer_owner_name[\s\S]{0,200}?seller_name[\s\S]{0,40}?\}/.test(js),
+  "legenda: nome do fornecedor — assistido → offer_owner_name; demais → seller_name"
+);
+assert(
+  /function shareLegend\(p\) \{\s*var linha = p\.title \+ "\\n\\nPreço: " \+ fmtPriceText\(p\);\s*var nome = shareSupplierName\(p\);\s*if \(nome\) linha \+= "\\n\\nFornecedor: " \+ nome;\s*return linha;\s*\}/.test(js),
+  "legenda: molde em linhas — título / Preço: / Fornecedor: (linha omitida sem nome)"
+);
+assert(
+  /text: shareLegend\(product\),/.test(js) &&
+    /url: shareUrl\(product, "compartilhamento"\)/.test(js),
+  "Cenário C (dados) usa o mesmo molde da legenda"
 );
 
 // 3. Cancelamento (AbortError) não mostra erro; falha real mostra nota.
@@ -160,6 +180,18 @@ assert(
   /function urlShare\(\)/.test(inline) &&
     /files: \[arquivoPronto\],\s*title: document\.title,\s*text: textoShare\(\) \+\s*"[\s\S]{0,8}Veja mais fotos e fale com o fornecedor:[\s\S]{0,8}" \+\s*urlShare\(\)/.test(inline),
   "estática: payload com a foto e o link de retorno DENTRO do text (sem campo url)"
+);
+// VDV-20261011-01: o data-share-text estático vem do MESMO molde da
+// interativa — _share_legend_text (título / Preço: / Fornecedor:), com a
+// regra do nome espelhada em _share_supplier_name (assistido → dono; demais
+// → seller_name; linha omitida sem nome público). O textoShare() do inline
+// lê o atributo gerado pelo exportador.
+assert(
+  /def _share_supplier_name\(/.test(exporter) &&
+    /assisted_for_third_party"[\s\S]{0,120}?offer_owner_name[\s\S]{0,160}?seller_name/.test(exporter.slice(exporter.indexOf("def _share_supplier_name")), exporter.indexOf("def _share_legend_text")) &&
+    /def _share_legend_text\(/.test(exporter) &&
+    /share_text_attr = esc_html\(_share_legend_text\(product\)\)/.test(exporter),
+  "estática: data-share-text do mesmo molde (_share_legend_text/_share_supplier_name)"
 );
 assert(
   /url: urlShare\(\)/.test(inline) &&
