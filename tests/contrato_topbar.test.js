@@ -159,7 +159,7 @@ GERADAS.forEach(function (e) {
   var temBottombar = /class="bottombar"/.test(html);
   assert(temBottombar === !produto,
     n + ": bottombar " + (produto ? "ausente (prod-sticky)" : "presente"));
-  assert(/vdv\.min\.css\?v=20261010-2/.test(html), n + ": CSS com ?v=20261010-2");
+  assert(/vdv\.min\.css\?v=20261011-1/.test(html), n + ": CSS com ?v=20261011-1");
   if (produto) {
     assert(/data-deep-link="vender"[^>]*href="https:\/\/t\.me\/vitrine_vendasbot\?start=vitrine">\s*Quero vender<\/a>/.test(html),
       n + ": Quero vender aponta ao fluxo de anúncio (sem JS)");
