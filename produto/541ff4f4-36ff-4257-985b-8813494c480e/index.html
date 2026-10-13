@@ -446,6 +446,47 @@ Consulte as cores disponíveis pelo WhatsApp ou Telegram.</p>
     noArquivo(ev);
   }, true);
 })();
+</script><script>
+(function () {
+  var SINAL = "https://api.vitrinedevenda.com.br/sinal";
+  var pid = (window.location.pathname.match(/produto\/([^/]+)\//) || [])[1] || "";
+  if (!pid || !navigator.sendBeacon) return;
+  var ORIGEM_PARAMS = {
+    whatsapp: "compartilhamento_whatsapp",
+    facebook: "compartilhamento_facebook",
+    google: "compartilhamento_google",
+    seller_share: "seller_share",
+    compartilhamento: "compartilhamento"
+  };
+  var origem = "web";
+  try {
+    var p = new URL(window.location.href).searchParams.get("o");
+    if (p && ORIGEM_PARAMS[p]) origem = ORIGEM_PARAMS[p];
+  } catch (e) { /* silêncio */ }
+  function sinal(tipo, extras) {
+    try {
+      var payload = { type: tipo, origin: origem, product: pid };
+      if (extras) {
+        if (extras.channel) payload.channel = extras.channel;
+        if (extras.category) payload.category = extras.category;
+      }
+      navigator.sendBeacon(SINAL, JSON.stringify(payload));
+    } catch (e) { /* silêncio — telemetria nunca atrapalha a vitrine */ }
+  }
+  sinal("page_view");
+  Array.prototype.forEach.call(
+    document.querySelectorAll('.btn-channel'),
+    function (b) {
+      b.addEventListener("click", function () {
+        sinal("contact_click", {
+          channel: b.classList.contains("wa") ? "whatsapp" : "telegram"
+        });
+      });
+    }
+  );
+  var share = document.getElementById("share-wa");
+  if (share) share.addEventListener("click", function () { sinal("share"); });
+})();
 </script>
 </body>
 </html>
