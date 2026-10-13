@@ -22,6 +22,100 @@
   <meta property="og:image:alt" content="VDV — Vitrine de Vendas de Monte Sião. Produtos, serviços e oportunidades da região.">
   <meta property="og:locale" content="pt_BR">
   <meta name="twitter:card" content="summary_large_image">
+  <!-- M-08/F1 (doc 24) — o link "Preferências de cookies" já existia no
+       rodapé mas era inócuo (sem banner/terms-feed). Bloco idêntico ao das
+       páginas instrumentadas (consent default-denied + lazy GA + banner);
+       zero-JS das estáticas intocado. -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    function vdvGrantAnalyticsAndTrackPage() {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted'
+      });
+      if (window.__vdvAnalyticsPageTrackedAfterConsent) return;
+      window.__vdvAnalyticsPageTrackedAfterConsent = true;
+      gtag('event', 'page_view', {
+        page_title: document.title,
+        page_location: window.location.href,
+        page_path: window.location.pathname + window.location.search
+      });
+    }
+
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied',
+      'wait_for_update': 500
+    });
+  </script>
+  <!-- CWV (R12, 02/10) — gtag fora do caminho crítico (padrão do Home).
+       dataLayer enfileira gtag('js')/gtag('config') até a lib chegar em
+       idle/primeira interação; consent default-denied acima intacta. -->
+  <script>
+    (function () {
+      function vdvLoadGA() {
+        if (window.__vdvGaLoaded) return;
+        window.__vdvGaLoaded = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-P22B9BLHBR';
+        document.head.appendChild(s);
+      }
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(vdvLoadGA, { timeout: 4000 });
+      } else {
+        setTimeout(vdvLoadGA, 3000);
+      }
+      window.addEventListener('mouseover', vdvLoadGA, { once: true, passive: true });
+      window.addEventListener('touchstart', vdvLoadGA, { once: true, passive: true });
+    })();
+  </script>
+  <script>
+    gtag('js', new Date());
+    gtag('config', 'G-P22B9BLHBR', {
+      'anonymize_ip': true
+    });
+  </script>
+  <script
+    type="text/javascript" defer
+    src="https://www.termsfeed.com/public/cookie-consent/4.2.0/cookie-consent.js"
+    charset="UTF-8"></script>
+  <script type="text/javascript" charset="UTF-8">
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.cookieconsent || !window.cookieconsent.run) return;
+      cookieconsent.run({
+        "notice_banner_type": "simple",
+        "consent_type": "express",
+        "palette": "dark",
+        "language": "pt",
+        "website_name": "VDV — Vitrine de Vendas",
+        "open_preferences_center_selector": "#open_preferences_center",
+        "page_load_consent_levels": ["strictly-necessary"],
+        "notice_banner_reject_button_hide": false,
+        "preferences_center_close_button_hide": false,
+        "page_refresh_confirmation_buttons": false,
+        "callbacks": {
+          "scripts_specific_loaded": function(level) {
+            switch(level) {
+              case 'tracking':
+                vdvGrantAnalyticsAndTrackPage();
+                break;
+              case 'targeting':
+                gtag('consent', 'update', {
+                  'ad_storage': 'granted',
+                  'ad_user_data': 'granted',
+                  'ad_personalization': 'granted'
+                });
+                break;
+            }
+          }
+        },
+        "callbacks_force": true
+      });
+    });
+  </script>
   <link rel="stylesheet" href="assets/css/vdv.min.css?v=20261011-1">
 </head>
 <body data-page="institucional">
@@ -79,5 +173,8 @@
   </footer>
 
   <script src="assets/js/vdv.min.js?v=20261011-1"></script>
+  <noscript>
+    Gerenciamento de consentimento de cookies por <a href="https://www.termsfeed.com/">TermsFeed</a>.
+  </noscript>
 </body>
 </html>
