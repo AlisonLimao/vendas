@@ -24,16 +24,98 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
+
+    // [B-2 14/10] Nada sai para o Google antes de aceite afirmativo: sem
+    // gtag.js, sem pings de consent mode, sem cookie, sem evento. A lib é
+    // carregada SOMENTE pelo callback de aceite (TermsFeed, nível
+    // "tracking") — antes disso a fila do dataLayer fica vazia.
+    function vdvLoadGA() {
+      if (window.__vdvGaLoaded) return;
+      window.__vdvGaLoaded = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-P22B9BLHBR';
+      document.head.appendChild(s);
+    }
+
+    // [B-4 14/10] Revogação: o TermsFeed 4.2.0 não tem callback de deny — o
+    // polling abaixo detecta o downgrade do nível "tracking" no cookie
+    // cookie_consent_level e bloqueia a medição (consent update denied),
+    // apaga os cookies _ga/_ga_* acessíveis pelo site (domínio e caminho
+    // respectados) e NÃO toca os cookies essenciais do gerenciador. Apagar
+    // cookie não retira dados já recebidos pelo Google; um NOVO aceite
+    // reativa a medição (callback re-enfileira o config).
+    var __vdvTrackingPrev = null;
+    function vdvRevokeCleanup() {
+      window['ga-disable-G-P22B9BLHBR'] = true;
+      // [B-4 14/10, fix 3] Com analytics_storage denied o gtag ainda emite
+      // cookieless pings (scroll, sessao) com gcs=G100, cid efemero e sem
+      // cookies - comportamento padrao do consent-mode do Google. ga-disable
+      // corta TODA medição futura; o re-aceite abaixo reabilita.
+      gtag('consent', 'update', {
+        'analytics_storage': 'denied'
+      });
+      window.__vdvGaConfigured = false;
+      var host = window.location.hostname;
+      var bare = host.replace(/^www\./, '');
+      var suffixes = ['', ';domain=' + host, ';domain=.' + bare];
+      var names = [];
+      try {
+        var parts = document.cookie.split(/;\s*/);
+        for (var i = 0; i < parts.length; i++) {
+          if (parts[i].lastIndexOf('_ga', 0) === 0 && parts[i].indexOf('=') >= 3) {
+            var n = parts[i].slice(0, parts[i].indexOf('='));
+            if (n && names.indexOf(n) === -1) names.push(n);
+          }
+        }
+      } catch (e) { /* silêncio */ }
+      for (var j = 0; j < names.length; j++) {
+        for (var d = 0; d < suffixes.length; d++) {
+          document.cookie = names[j] + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/' + suffixes[d];
+        }
+      }
+    }
+    // [B-4 14/10, fix] O cookie cookie_consent_level do TermsFeed 4.2.0 é
+    // JSON URL-encoded ({...,"tracking":false,...}) — "tracking" existe como
+    // CHAVE sempre; indexOf('tracking') daria falso positivo constante. O
+    // ativo é obj.tracking === true; sem parse (cookie ausente/corrompido)
+    // fail-closed: nada medido.
+    setInterval(function () {
+      try {
+        var m = document.cookie.match(/(?:^|;\s*)cookie_consent_level=([^;]*)/);
+        var ativo = false;
+        if (m) {
+          try {
+            var obj = JSON.parse(decodeURIComponent(m[1]));
+            ativo = !!(obj && obj.tracking === true);
+          } catch (e2) { ativo = false; }
+        }
+        // [B-4 14/10, fix 2] Boot com tracking:false tambem limpa: o polling
+        // só limpava na TRANSIÇÃO true->false; salvar e recarregar dentro da
+        // janela de 1 s deixava cookies _ga órfãos na carga seguinte.
+        // Boot com tracking:false é idempotente (remove sobras; nunca essenciais).
+        if ((__vdvTrackingPrev === null || __vdvTrackingPrev) && !ativo) vdvRevokeCleanup();
+        __vdvTrackingPrev = ativo;
+      } catch (e) { /* silêncio */ }
+    }, 1000);
+
+    // [B-2 14/10] Só roda com aceite. page_view único via config fields —
+    // page_location/path SEM querystring nem fragmento (o ?o= de origem e
+    // buscas não vão ao Google). Re-aceite na mesma página não re-enfileira
+    // o config (sem page_view duplicado; o update reativa a medição).
     function vdvGrantAnalyticsAndTrackPage() {
       gtag('consent', 'update', {
         'analytics_storage': 'granted'
       });
-      if (window.__vdvAnalyticsPageTrackedAfterConsent) return;
-      window.__vdvAnalyticsPageTrackedAfterConsent = true;
-      gtag('event', 'page_view', {
-        page_title: document.title,
-        page_location: window.location.href,
-        page_path: window.location.pathname + window.location.search
+      window['ga-disable-G-P22B9BLHBR'] = false;  /* fix 3: re-aceite reabilita */
+      if (window.__vdvGaConfigured) return;
+      window.__vdvGaConfigured = true;
+      vdvLoadGA();
+      gtag('js', new Date());
+      gtag('config', 'G-P22B9BLHBR', {
+        anonymize_ip: true,
+        page_location: window.location.origin + window.location.pathname,
+        page_path: window.location.pathname
       });
     }
 
@@ -45,35 +127,10 @@
       'wait_for_update': 500
     });
   </script>
-  <script>
-    (function () {
-      // CWV (R12 rollout, 02/10) — gtag fora do caminho crítico (padrão
-      // aplicado no Home: score 67→95). O dataLayer enfileira gtag('js')/
-      // gtag('config') até a lib chegar em idle/primeira interação; a camada
-      // de consent default-denied acima permanece intacta.
-      function vdvLoadGA() {
-        if (window.__vdvGaLoaded) return;
-        window.__vdvGaLoaded = true;
-        var s = document.createElement("script");
-        s.async = true;
-        s.src = "https://www.googletagmanager.com/gtag/js?id=G-P22B9BLHBR";
-        document.head.appendChild(s);
-      }
-      if ("requestIdleCallback" in window) {
-        requestIdleCallback(vdvLoadGA, { timeout: 4000 });
-      } else {
-        setTimeout(vdvLoadGA, 3000);
-      }
-      window.addEventListener("mouseover", vdvLoadGA, { once: true, passive: true });
-      window.addEventListener("touchstart", vdvLoadGA, { once: true, passive: true });
-    })();
-  </script>
-  <script>
-    gtag('js', new Date());
-    gtag('config', 'G-P22B9BLHBR', {
-      'anonymize_ip': true
-    });
-  </script>
+  <!-- [B-2 14/10] Lazy-load incondicional e gtag('js')/'config' inline
+       REMOVIDOS (ordem do dono): nada toca a rede do Google sem aceite.
+       Corrige de passada o loader vazio de termos/privacidade (o antigo
+       lazy ali tinha corpo vazio — GA nunca carregava nessas páginas). -->
   <script
     type="text/javascript" defer
     src="https://www.termsfeed.com/public/cookie-consent/4.2.0/cookie-consent.js"
@@ -88,24 +145,24 @@
         "language": "pt",
         "website_name": "VDV — Vitrine de Vendas",
         "open_preferences_center_selector": "#open_preferences_center",
-        "page_load_consent_levels": ["strictly-necessary"],
+"page_load_consent_levels": ["strictly-necessary"],
+        // [B-1 14/10, item 3] Retira a categoria de publicidade (targeting) do
+        // banner E do cartão de preferências — opção oficial do TermsFeed 4.2.0
+        // (notice_banner_purposes_levels): categorias fora da lista não são
+        // exibidas nem concedidas pelo aceite total. Aguarda ok do dono antes da
+        // publicação (ver doc 48 §6/§7).
+        "notice_banner_purposes_levels": ["strictly-necessary", "functionality", "tracking"],
         "notice_banner_reject_button_hide": false,
         "preferences_center_close_button_hide": false,
         "page_refresh_confirmation_buttons": false,
         "callbacks": {
+          // [B-1 14/10] Publicidade (nível "targeting") SEM beneficiário:
+          // não concede ad_storage/ad_user_data/ad_personalization — nem por
+          // aceite em analytics. A categoria, se listada pelo centro de
+          // preferências do TermsFeed, é no-op (nenhum script existe para
+          // ligar); limitação documentada no doc 46.
           "scripts_specific_loaded": function(level) {
-            switch(level) {
-              case 'tracking':
-                vdvGrantAnalyticsAndTrackPage();
-                break;
-              case 'targeting':
-                gtag('consent', 'update', {
-                  'ad_storage': 'granted',
-                  'ad_user_data': 'granted',
-                  'ad_personalization': 'granted'
-                });
-                break;
-            }
+            if (level === 'tracking') vdvGrantAnalyticsAndTrackPage();
           }
         },
         "callbacks_force": true
