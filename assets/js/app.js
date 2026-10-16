@@ -1372,10 +1372,14 @@
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(function (procurasCatalog) {
         var procuras = procurasCatalog.procuras || [];
-        var sectionProcuras = $("section-procuras");
+        var sectionProcuras = $("procuras");
         var gridProcuras = $("grid-procuras");
         if (!sectionProcuras || !gridProcuras) return;
         sectionProcuras.hidden = procuras.length === 0;
+        // VDV-20261016-04 (Parte A): chegou a home com #procura (ex.: voltando
+        // de uma página interna)? A seção só decide visível/oculta AQUI (após
+        // o fetch) — é o momento de rolar para o destino correto.
+        if (location.hash === "#procura") goProcura();
         if (!procuras.length) return;
         gridProcuras.innerHTML = "";
         procuras.slice(0, 6).forEach(function (pr) {
@@ -1384,9 +1388,19 @@
           a.href = "procura/" + encodeURIComponent(pr.id) + "/";
           var desc = String(pr.description || "");
           if (desc.length > 90) desc = desc.slice(0, 89) + "…";
-          var preco = pr.price_min
-            ? "R$ " + pr.price_min.replace(".", ",") + " – R$ " + pr.price_max.replace(".", ",")
-            : "até R$ " + pr.price_max.replace(".", ",");
+          // VDV-20261016-04 — orçamento é opcional (entrada 0 no bot): sem
+          // price_max o segmento de preço some da linha (categoria · N un);
+          // com preço, exibição atual preservada (nunca preço fictício de
+          // valor zero).
+          var preco = "";
+          if (pr.price_max) {
+            preco = pr.price_min
+              ? "R$ " + pr.price_min.replace(".", ",") + " – R$ " + pr.price_max.replace(".", ",")
+              : "até R$ " + pr.price_max.replace(".", ",");
+          }
+          var locTexto = pr.category && pr.category.name ? esc(pr.category.name) + " · " : "";
+          locTexto += esc(pr.quantity) + " un";
+          if (preco) locTexto += " · " + preco;
           // VDV-20261016-02 — miniatura de referência ao lado da citação:
           // thumb WebP priorizada e original como fallback (mesmo padrão de
           // cardMedia); sem foto → lista editorial textual da Fatia 55 intacta.
@@ -1415,9 +1429,7 @@
             pic.appendChild(img);
           }
           var locHTML =
-            '<span class="procura-loc">' +
-            (pr.category && pr.category.name ? esc(pr.category.name) + " · " : "") +
-            esc(pr.quantity) + " un · " + esc(preco) + "</span>";
+            '<span class="procura-loc">' + esc(locTexto) + "</span>";
           if (pic) {
             a.classList.add("procura-line--media");
             var body = document.createElement("span");
@@ -2734,6 +2746,47 @@
     renderFavoritos();
   }
 
+  // ------------------------------------------------- navegação Procura (VDV-20261016-04)
+  // Parte A: o botão "Procura" (topnav e bottombar) leva a "O que estão
+  // buscando" (#procuras) quando há demandas publicadas; sem Procuras, ao
+  // bloco de criação (#procura, no final). Funciona por clique (home),
+  // hashchange (volto de páginas internas com #procura) e ao fim do fetch de
+  // procuras.json — quando a seção decide visível/oculta de verdade. A âncora
+  // nativa não serve: a seção começa hidden e o fetch é assíncrono.
+  function procuraNavTarget() {
+    var section = $("procuras");
+    if (section && !section.hidden) return section;
+    return $("procura");
+  }
+  function goProcura() {
+    var target = procuraNavTarget();
+    if (!target) return false;
+    var reduceMotion = window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+    return true;
+  }
+  function initProcuraNav() {
+    if (document.body.getAttribute("data-page") !== "home") return;
+    document.addEventListener("click", function (ev) {
+      var link = ev.target &&
+        ev.target.closest && ev.target.closest('a[href$="#procura"]');
+      if (!link) return;
+      var href = link.getAttribute("href") || "";
+      // Só âncora LOCAL da home (#procura). Links `{rel}#procura` vindo de
+      // páginas internas navegam de verdade e são cobertos pelo hashchange /
+      // pelo re-check ao fim do fetch.
+      if (href !== "#procura") return;
+      ev.preventDefault();
+      if (goProcura() && history.replaceState) {
+        history.replaceState(null, "", "#procura");
+      }
+    });
+    window.addEventListener("hashchange", function () {
+      if (location.hash === "#procura") goProcura();
+    });
+  }
+
   // ------------------------------------------------- bottom bar (VDV-20260916-04)
   // VDV-20260916-04 — navegação mobile fixa. R5 (VDV-20260923-01): Explorar e
   // Favoritos viram páginas próprias — links de navegação (href sem "#")
@@ -2765,6 +2818,12 @@
       // R8 (VDV-20260923-01): Procura não tem caso especial — o item leva ao
       // bloco único (#procura) que explica ANTES de sair da página; o deep
       // link para o bot só existe no CTA do bloco (com telemetria própria).
+      // VDV-20261016-04 (Parte A): #procura na home roteia pelo DESTINO
+      // dinâmico (seção "O que estão buscando" ⇢ fallback bloco de criação).
+      if (hash === "#procura") {
+        goProcura();
+        return;
+      }
       var target = $(hash.slice(1));
       if (!target || target.hidden) return;
       target.scrollIntoView(scrollOpt);
@@ -2830,6 +2889,7 @@
   // ------------------------------------------------------------------ boot
   document.addEventListener("DOMContentLoaded", function () {
     initBottombar();
+    initProcuraNav();
     var page = document.body.getAttribute("data-page");
     renderSkeletons(page);
     fetch(prefix + "data/products.json")
