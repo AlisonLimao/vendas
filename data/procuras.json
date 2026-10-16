@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T20:21:58Z",
+  "generated_at": "2026-10-16T21:07:22Z",
   "bot_username": "vitrine_vendasbot",
   "total": 1,
   "procuras": [
@@ -18,7 +18,10 @@
       "published_at": "2026-10-16T18:39:47Z",
       "expires_at": "2026-10-23T18:39:47Z",
       "image": "assets/procuras/b3936a11-68d2-4ff1-9438-f6aa52607988.jpg",
-      "image_thumb": "assets/procuras/thumb/b3936a11-68d2-4ff1-9438-f6aa52607988.webp"
+      "image_thumb": "assets/procuras/thumb/b3936a11-68d2-4ff1-9438-f6aa52607988.webp",
+      "whatsapp": {
+        "link": "https://wa.me/5535991925662?text=Ol%C3%A1%21%20Vi%20a%20sua%20procura%20no%20VDV%20%28procuro%20pra%20aluguel%20stoll%20502%207.2%20ou%206.2%29%3A%20https%3A//vitrinedevenda.com.br/procura/b3936a11-68d2-4ff1-9438-f6aa52607988/"
+      }
     }
   ]
 }
