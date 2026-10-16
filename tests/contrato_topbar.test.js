@@ -132,6 +132,14 @@ assert(/class="back-link" [\s\S]{0,80}data-ga-origin="produto_voltar"/.test(js) 
 // F3 (VDV-20261010-02): produto/fornecedor/categoria geradas seguem o MESMO
 // contrato dos shells. Amostradas vivas (os paths de categoria/fornecedor
 // mudam com o catálogo real — o padrão abaixo não fixa uuid/slug).
+// Versão: invariância com a CSS_VERSION do exportador (mesma mecânica do
+// teste 7 do condicao_63 — VDV-20261008-08; nunca hard-code de ?v).
+var exportador = fs.readFileSync(
+  path.join(R, "..", "projeto_telegram", "scripts", "export_catalogo_web.py"),
+  "utf8"
+);
+var versao = (exportador.match(/CSS_VERSION = "([^"]+)"/) || [])[1];
+assert(versao, "CSS_VERSION definido no exportador");
 var GERADAS = [];
 ["produto", "fornecedor", "categoria"].forEach(function (dir) {
   var base = path.join(R, dir);
@@ -159,7 +167,7 @@ GERADAS.forEach(function (e) {
   var temBottombar = /class="bottombar"/.test(html);
   assert(temBottombar === !produto,
     n + ": bottombar " + (produto ? "ausente (prod-sticky)" : "presente"));
-  assert(/vdv\.min\.css\?v=20261011-1/.test(html), n + ": CSS com ?v=20261011-1");
+  assert(new RegExp("vdv\\.min\\.css\\?v=" + versao).test(html), n + ": CSS com ?v=" + versao);
   if (produto) {
     assert(/data-deep-link="vender"[^>]*href="https:\/\/t\.me\/vitrine_vendasbot\?start=vitrine">\s*Quero vender<\/a>/.test(html),
       n + ": Quero vender aponta ao fluxo de anúncio (sem JS)");
