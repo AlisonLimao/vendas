@@ -1387,11 +1387,53 @@
           var preco = pr.price_min
             ? "R$ " + pr.price_min.replace(".", ",") + " – R$ " + pr.price_max.replace(".", ",")
             : "até R$ " + pr.price_max.replace(".", ",");
-          a.innerHTML =
-            '<span class="procura-quote">“' + esc(desc) + "”</span>" +
+          // VDV-20261016-02 — miniatura de referência ao lado da citação:
+          // thumb WebP priorizada e original como fallback (mesmo padrão de
+          // cardMedia); sem foto → lista editorial textual da Fatia 55 intacta.
+          // Rótulo PROCURA distingue demanda de produto à venda.
+          var pic = null;
+          if (pr.image_thumb || pr.image) {
+            pic = document.createElement("span");
+            pic.className = "procura-thumb";
+            var img = document.createElement("img");
+            img.loading = "lazy";
+            img.alt = "Foto de referência da procura";
+            img.src = prefix + (pr.image_thumb || pr.image);
+            if (pr.image && pr.image_thumb && pr.image !== pr.image_thumb) {
+              img.setAttribute("data-fallback-src", prefix + pr.image);
+            }
+            img.addEventListener("error", function () {
+              var fb = img.getAttribute("data-fallback-src");
+              if (fb) {
+                img.removeAttribute("data-fallback-src");
+                img.removeAttribute("srcset");
+                img.src = fb;
+                return;
+              }
+              pic.remove(); // nem thumb nem original: linha volta a ser textual
+            });
+            pic.appendChild(img);
+          }
+          var locHTML =
             '<span class="procura-loc">' +
             (pr.category && pr.category.name ? esc(pr.category.name) + " · " : "") +
             esc(pr.quantity) + " un · " + esc(preco) + "</span>";
+          if (pic) {
+            a.classList.add("procura-line--media");
+            var body = document.createElement("span");
+            body.className = "procura-body";
+            body.innerHTML =
+              '<span class="procura-tag">Procura</span>' +
+              '<span class="procura-quote">“' + esc(desc) + "”</span>" +
+              locHTML;
+            a.appendChild(pic);
+            a.appendChild(body);
+          } else {
+            a.innerHTML =
+              '<span class="procura-tag">Procura</span>' +
+              '<span class="procura-quote">“' + esc(desc) + "”</span>" +
+              locHTML;
+          }
           a.addEventListener("click", function () {
             track("abrir_procura", { procura_id: pr.id, event_category: "navegacao" });
           });

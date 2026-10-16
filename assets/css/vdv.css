@@ -556,6 +556,26 @@ a.chip { text-decoration: none; display: inline-block; }
 .procura-loc { font-size: .8rem; color: var(--vdv-text-muted); }
 .procura-line:hover .procura-quote { color: var(--vdv-accent); }
 
+/* VDV-20261016-02 — miniatura de referência na home: coluna de imagem 4:3
+ * (contain — não corta máquinas/roupas), thumb WebP priorizada e original
+ * de fallback; sem foto → lista editorial textual da Fatia 55 intacta.
+ * Rótulo PROCURA distingue demanda de produto à venda. */
+.procura-tag {
+  font-size: .65rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .05em; color: var(--vdv-text-muted);
+}
+.procura-line--media { align-items: center; flex-wrap: nowrap; column-gap: .8rem; }
+.procura-thumb { flex: 0 0 auto; width: 7rem; }
+.procura-thumb img {
+  display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: contain;
+  border-radius: var(--r-2); border: 1px solid var(--vdv-border);
+  background: var(--vdv-bg);
+}
+.procura-body {
+  flex: 1; min-width: 0; display: flex;
+  flex-direction: column; row-gap: .1rem;
+}
+
 /* Fatia 55 (mestre §33/§45) — FINAL INTEGRADO da Home: um só tom de
  * encerramento, informação direta (menos faixa colorida: sem box de
  * border+background; só respiro e hierarquia tipográfica). */
