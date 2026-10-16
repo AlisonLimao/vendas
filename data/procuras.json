@@ -1,6 +1,24 @@
 {
-  "generated_at": "2026-10-16T11:51:22Z",
+  "generated_at": "2026-10-16T18:43:49Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 0,
-  "procuras": []
+  "total": 1,
+  "procuras": [
+    {
+      "id": "b3936a11-68d2-4ff1-9438-f6aa52607988",
+      "description": "procuro pra aluguel stoll 502 7.2 ou 6.2",
+      "category": {
+        "slug": "maquinas_equipamentos",
+        "name": "Máquinas e Equipamentos"
+      },
+      "quantity": 1,
+      "deadline": "2026-10-30",
+      "price_max": "10.00",
+      "accepts_similar": false,
+      "status": "active",
+      "published_at": "2026-10-16T18:39:47Z",
+      "expires_at": "2026-10-23T18:39:47Z",
+      "image": "assets/procuras/b3936a11-68d2-4ff1-9438-f6aa52607988.jpg",
+      "image_thumb": "assets/procuras/thumb/b3936a11-68d2-4ff1-9438-f6aa52607988.webp"
+    }
+  ]
 }
