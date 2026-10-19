@@ -856,6 +856,19 @@
     list.forEach(function (p) { grid.appendChild(cardEl(p)); });
   }
 
+  /* VDV-20261019-02 — rotação do destaque: pick UNIFORME ALEATÓRIO por
+   * carregamento de página (espec 57 §4). Decisão ANTES do render — a foto
+   * não troca durante a mesma leitura; Math.random local, sem storage e
+   * sem rede (nada de consentimento). Sem image_thumbs/divergência → null
+   * (rotação desligada, card fica como hoje: destaque = photos[0]). */
+  function destaquePara(p) {
+    var photos = Array.isArray(p.images) ? p.images : [];
+    var thumbs = Array.isArray(p.image_thumbs) ? p.image_thumbs : [];
+    if (photos.length < 2 || thumbs.length !== photos.length) return null;
+    var k = Math.floor(Math.random() * photos.length);
+    return { k: k, image: photos[k], image_thumb: thumbs[k] };
+  }
+
   /* VDV-20261010-01 — galeria universal nos cards: com >1 foto, o card monta
    * o MESMO mecanismo da página do produto (scroll-snap nativo — swipe,
    * teclado e tap-vs-swipe funcionam até sem JS, porque é o navegador quem
@@ -866,6 +879,8 @@
     if (!p.image) return cardImgPlaceholder();
     var photos = Array.isArray(p.images) ? p.images : [];
     if (photos.length <= 1) return cardMedia(p);
+    var dest = destaquePara(p);
+    var ordem = dest ? photos.slice(dest.k).concat(photos.slice(0, dest.k)) : photos;
     var gal = document.createElement("div");
     gal.className = "card-gal";
     var track = document.createElement("div");
@@ -874,12 +889,14 @@
     if (isImpressao3d(p)) track.dataset.contain = "1"; // extras também em "contain"
     track.setAttribute("role", "group");
     track.setAttribute("aria-label", "Fotos do produto — deslize");
-    var principal = Object.assign({}, p, { image: photos[0] });
+    var principal = dest
+      ? Object.assign({}, p, { image: dest.image, image_thumb: dest.image_thumb })
+      : Object.assign({}, p, { image: photos[0] });
     var slide0 = document.createElement("div");
     slide0.className = "card-gal-slide";
     slide0.appendChild(cardMedia(principal));
     track.appendChild(slide0);
-    Array.prototype.forEach.call(photos.slice(1), function (src) {
+    Array.prototype.forEach.call(ordem.slice(1), function (src) {
       var slide = document.createElement("div");
       slide.className = "card-gal-slide";
       slide.setAttribute("data-img", prefix + src);
@@ -888,7 +905,7 @@
     var dots = document.createElement("div");
     dots.className = "card-gal-dots";
     dots.setAttribute("aria-hidden", "true");
-    for (var k = 0; k < photos.length; k++) dots.appendChild(document.createElement("i"));
+    for (var k = 0; k < ordem.length; k++) dots.appendChild(document.createElement("i"));
     dots.firstChild.classList.add("is-on");
     // VDV-20261010-03 — setas da galeria nos cards (desktop): MESMA galeria
     // universal (navegam o mesmo track scroll-snap, sem segunda lógica).
