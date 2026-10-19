@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T20:50:17Z",
+  "generated_at": "2026-10-19T21:04:19Z",
   "bot_username": "vitrine_vendasbot",
   "total": 13,
   "products": [
@@ -54,11 +54,11 @@
         }
       },
       "price": "15.00",
-      "minimum_order": 6,
+      "minimum_order": 2,
       "offer_type": "atacado",
       "availability": "pronta_entrega",
       "quantity": 22,
-      "days_since_confirmation": 10,
+      "days_since_confirmation": 0,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
@@ -82,7 +82,7 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Ana Maria",
-        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Modal%20Canelado%20com%20Decote%20Quadrado%20e%20Bot%C3%B5es%22%0APre%C3%A7o%3A%20R%24%2015%2C00%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/3a1b4dbc-93ca-4cce-be61-f8f171386141/"
+        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Modal%20Canelado%20com%20Decote%20Quadrado%20e%20Bot%C3%B5es%22%0APre%C3%A7o%3A%20R%24%2015%2C00%20%28m%C3%ADn.%202%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/3a1b4dbc-93ca-4cce-be61-f8f171386141/"
       }
     },
     {
