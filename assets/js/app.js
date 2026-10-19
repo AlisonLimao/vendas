@@ -869,6 +869,20 @@
     return { k: k, image: photos[k], image_thumb: thumbs[k] };
   }
 
+  /* VDV-20261019-03 — enquadramento adaptativo do quadro 4:5 (espec 58 §2):
+   * foto longe do alvo (|r − alvo| > VD_CONTAIN_TOL) vira contain — produto
+   * INTEIRO, sem deformar —; dentro da tolerância segue cover editorial.
+   * Medição no listener load (o destaque usa loading=lazy: o evento é
+   * obrigatório, o append no DOM não basta). Alvo por quadro: 0.8 no
+   * protagonista (4:5), 1 nas thumbs (1:1). */
+  var VD_CONTAIN_TOL = 0.15;
+  function vdContain(img, alvo) {
+    if (!img.naturalWidth || !img.naturalHeight) return;
+    if (Math.abs(img.naturalWidth / img.naturalHeight - alvo) > VD_CONTAIN_TOL) {
+      img.classList.add("vd-contain");
+    }
+  }
+
   /* VDV-20261010-01 — galeria universal nos cards: com >1 foto, o card monta
    * o MESMO mecanismo da página do produto (scroll-snap nativo — swipe,
    * teclado e tap-vs-swipe funcionam até sem JS, porque é o navegador quem
@@ -1336,6 +1350,7 @@
         dImg.src = prefix + dFoto;
         dImg.alt = destaque.name + " — produtos no VDV";
         dImg.loading = "lazy";
+        dImg.addEventListener("load", function () { vdContain(dImg, 0.8); });
         dImg.addEventListener("click", vitrineDestaqueTrack);
         dLink.appendChild(dImg);
         dEl.appendChild(dLink);
@@ -1363,6 +1378,7 @@
           tImg.src = prefix + src;
           tImg.alt = "";
           tImg.loading = "lazy";
+          tImg.addEventListener("load", function () { vdContain(tImg, 1); });
           tLink.addEventListener("click", vitrineDestaqueTrack);
           tLink.appendChild(tImg);
           dThumbs.appendChild(tLink);

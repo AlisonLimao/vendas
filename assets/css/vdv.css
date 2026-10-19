@@ -1186,6 +1186,14 @@ a.chip-page {
   object-fit: cover;
   border-radius: var(--r-2);
 }
+/* VDV-20261019-03 — enquadramento adaptativo (espec 58): foto longe do
+   4:5 além da tolerância ganha contain (produto INTEIRO, sem deformar);
+   vocabulário do card-img-contain (:323). Classe aplicada no listener
+   load por vdContain() — medida da proporção real. */
+.vd-photo img.vd-contain {
+  object-fit: contain;
+  padding: .4rem;
+}
 .vd-name {
   display: block;
   font-size: 1.3rem;
@@ -1206,6 +1214,10 @@ a.chip-page {
   width: 3.2rem; height: 3.2rem;
   aspect-ratio: 1/1; object-fit: cover;
   border-radius: var(--r-1); display: block;
+}
+.vd-thumb img.vd-contain {
+  object-fit: contain;
+  padding: .2rem;
 }
 .vd-cta { font-size: var(--fs-small); color: var(--vdv-accent); }
 .vd-cta:hover { text-decoration: underline; }
