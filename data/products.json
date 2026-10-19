@@ -1,8 +1,46 @@
 {
-  "generated_at": "2026-10-19T20:34:15Z",
+  "generated_at": "2026-10-19T20:50:17Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 12,
+  "total": 13,
   "products": [
+    {
+      "id": "198739e2-ac9a-4694-bf81-55d5f56e4258",
+      "title": "Vestido Saida de praia",
+      "description": "Tricô vazado em Formas geométricas com tamanho midi soltinho e despojado a combinação perfeita pra sua praia consulte cores e tamanhos \nMe chame no WhatsApp e tire suas dúvidas",
+      "category": {
+        "slug": "vestido",
+        "name": "Vestido",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
+      },
+      "price": "20.00",
+      "minimum_order": 2,
+      "offer_type": "atacado",
+      "availability": "pronta_entrega",
+      "quantity": 200,
+      "days_since_confirmation": 0,
+      "seller_name": "Ana Maria",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/198739e2-ac9a-4694-bf81-55d5f56e4258.jpg",
+      "images": [
+        "assets/products/198739e2-ac9a-4694-bf81-55d5f56e4258.jpg",
+        "assets/products/198739e2-ac9a-4694-bf81-55d5f56e4258-2.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/198739e2-ac9a-4694-bf81-55d5f56e4258.webp",
+      "offer_owner_name": "Ana Maria",
+      "authorization_confirmed": true,
+      "supplier_slug": "ana-maria-65dc1758",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Ana Maria",
+        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Saida%20de%20praia%22%0APre%C3%A7o%3A%20R%24%2020%2C00%20%28m%C3%ADn.%202%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/198739e2-ac9a-4694-bf81-55d5f56e4258/"
+      }
+    },
     {
       "id": "3a1b4dbc-93ca-4cce-be61-f8f171386141",
       "title": "Regata Feminina em Modal Canelado com Decote Quadrado e Botões",
@@ -471,7 +509,7 @@
     {
       "slug": "moda_e_malharia",
       "name": "Moda e Malharia",
-      "total": 8
+      "total": 9
     }
   ]
 }
