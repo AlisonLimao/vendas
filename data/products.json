@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T21:16:28Z",
+  "generated_at": "2026-10-19T23:11:43Z",
   "bot_username": "vitrine_vendasbot",
   "total": 14,
   "products": [
@@ -33,6 +33,12 @@
       ],
       "publication_mode": "assisted_for_third_party",
       "image_thumb": "assets/products/thumb/4ed8873b-5fbd-49f2-be47-6c4ad559eb17.webp",
+      "image_thumbs": [
+        "assets/products/thumb/4ed8873b-5fbd-49f2-be47-6c4ad559eb17.webp",
+        "assets/products/thumb/4ed8873b-5fbd-49f2-be47-6c4ad559eb17-2.webp",
+        "assets/products/thumb/4ed8873b-5fbd-49f2-be47-6c4ad559eb17-3.webp",
+        "assets/products/thumb/4ed8873b-5fbd-49f2-be47-6c4ad559eb17-4.webp"
+      ],
       "offer_owner_name": "Ana Maria",
       "authorization_confirmed": true,
       "condition": {
@@ -75,6 +81,10 @@
       ],
       "publication_mode": "assisted_for_third_party",
       "image_thumb": "assets/products/thumb/198739e2-ac9a-4694-bf81-55d5f56e4258.webp",
+      "image_thumbs": [
+        "assets/products/thumb/198739e2-ac9a-4694-bf81-55d5f56e4258.webp",
+        "assets/products/thumb/198739e2-ac9a-4694-bf81-55d5f56e4258-2.webp"
+      ],
       "offer_owner_name": "Ana Maria",
       "authorization_confirmed": true,
       "supplier_slug": "ana-maria-65dc1758",
@@ -115,6 +125,12 @@
       ],
       "publication_mode": "assisted_for_third_party",
       "image_thumb": "assets/products/thumb/3a1b4dbc-93ca-4cce-be61-f8f171386141.webp",
+      "image_thumbs": [
+        "assets/products/thumb/3a1b4dbc-93ca-4cce-be61-f8f171386141.webp",
+        "assets/products/thumb/3a1b4dbc-93ca-4cce-be61-f8f171386141-2.webp",
+        "assets/products/thumb/3a1b4dbc-93ca-4cce-be61-f8f171386141-3.webp",
+        "assets/products/thumb/3a1b4dbc-93ca-4cce-be61-f8f171386141-4.webp"
+      ],
       "offer_owner_name": "Ana Maria",
       "authorization_confirmed": true,
       "condition": {
@@ -160,6 +176,13 @@
       ],
       "publication_mode": "assisted_for_third_party",
       "image_thumb": "assets/products/thumb/9f22576b-b542-4666-a3be-6e70157c0817.webp",
+      "image_thumbs": [
+        "assets/products/thumb/9f22576b-b542-4666-a3be-6e70157c0817.webp",
+        "assets/products/thumb/9f22576b-b542-4666-a3be-6e70157c0817-2.webp",
+        "assets/products/thumb/9f22576b-b542-4666-a3be-6e70157c0817-3.webp",
+        "assets/products/thumb/9f22576b-b542-4666-a3be-6e70157c0817-4.webp",
+        "assets/products/thumb/9f22576b-b542-4666-a3be-6e70157c0817-5.webp"
+      ],
       "offer_owner_name": "Imprima 3D",
       "authorization_confirmed": true,
       "supplier_slug": "imprima-3d",
@@ -200,6 +223,12 @@
       ],
       "publication_mode": "assisted_for_third_party",
       "image_thumb": "assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf.webp",
+      "image_thumbs": [
+        "assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf.webp",
+        "assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf-2.webp",
+        "assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf-3.webp",
+        "assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf-4.webp"
+      ],
       "offer_owner_name": "Imprima 3D",
       "authorization_confirmed": true,
       "supplier_slug": "imprima-3d",
@@ -239,6 +268,11 @@
       ],
       "publication_mode": "assisted_for_third_party",
       "image_thumb": "assets/products/thumb/81980328-4254-44f2-9618-98d96a527fab.webp",
+      "image_thumbs": [
+        "assets/products/thumb/81980328-4254-44f2-9618-98d96a527fab.webp",
+        "assets/products/thumb/81980328-4254-44f2-9618-98d96a527fab-2.webp",
+        "assets/products/thumb/81980328-4254-44f2-9618-98d96a527fab-3.webp"
+      ],
       "offer_owner_name": "Imprima 3D",
       "authorization_confirmed": true,
       "supplier_slug": "imprima-3d",
@@ -316,6 +350,12 @@
       ],
       "publication_mode": "assisted_for_third_party",
       "image_thumb": "assets/products/thumb/e7c24080-4de3-4117-9621-b67099e14e1a.webp",
+      "image_thumbs": [
+        "assets/products/thumb/e7c24080-4de3-4117-9621-b67099e14e1a.webp",
+        "assets/products/thumb/e7c24080-4de3-4117-9621-b67099e14e1a-2.webp",
+        "assets/products/thumb/e7c24080-4de3-4117-9621-b67099e14e1a-3.webp",
+        "assets/products/thumb/e7c24080-4de3-4117-9621-b67099e14e1a-4.webp"
+      ],
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
       "supplier_slug": "sarah-trico",
