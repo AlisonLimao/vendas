@@ -114,6 +114,27 @@ Fornecedor: Ana Maria" data-share-url="https://vitrinedevenda.com.br/produto/3a1
     <li>Pedido mín.: 2 un</li>
     <li>Categoria: Saldo sem defeitos</li>
   </ul>
+  <section class="prod-related" aria-label="Continue explorando">
+    <h2>Continue explorando</h2>
+    <div class="grid">
+    <a class="card" href="../../produto/4ed8873b-5fbd-49f2-be47-6c4ad559eb17/">
+      <div class="card-gal"><span class="card-gal-arrow card-gal-prev" role="button" tabindex="0" aria-label="Foto anterior">‹</span><span class="card-gal-arrow card-gal-next" role="button" tabindex="0" aria-label="Próxima foto">›</span><div class="card-gal-track" tabindex="0" role="group" aria-label="Fotos do produto — deslize"><div class="card-gal-slide"><img src="../../assets/products/4ed8873b-5fbd-49f2-be47-6c4ad559eb17.jpg" decoding="async" alt="Blusa Feminina em Tricô Leve com Manga Japonesa"></div><div class="card-gal-slide"><img src="../../assets/products/4ed8873b-5fbd-49f2-be47-6c4ad559eb17-2.jpg" loading="lazy" decoding="async" alt=""></div><div class="card-gal-slide"><img src="../../assets/products/4ed8873b-5fbd-49f2-be47-6c4ad559eb17-3.jpg" loading="lazy" decoding="async" alt=""></div><div class="card-gal-slide"><img src="../../assets/products/4ed8873b-5fbd-49f2-be47-6c4ad559eb17-4.jpg" loading="lazy" decoding="async" alt=""></div></div><div class="card-gal-dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i></div></div>
+      <div class="card-body">
+        <h3 class="card-title">Blusa Feminina em Tricô Leve com Manga Japonesa</h3>
+        <p class="card-meta">Pronta entrega</p>
+        <p class="card-price">R$ 12,00 <small>· Varejo</small></p>
+      </div>
+    </a>
+    <a class="card" href="../../produto/198739e2-ac9a-4694-bf81-55d5f56e4258/">
+      <div class="card-gal"><span class="card-gal-arrow card-gal-prev" role="button" tabindex="0" aria-label="Foto anterior">‹</span><span class="card-gal-arrow card-gal-next" role="button" tabindex="0" aria-label="Próxima foto">›</span><div class="card-gal-track" tabindex="0" role="group" aria-label="Fotos do produto — deslize"><div class="card-gal-slide"><img src="../../assets/products/198739e2-ac9a-4694-bf81-55d5f56e4258.jpg" decoding="async" alt="Vestido Saida de praia"></div><div class="card-gal-slide"><img src="../../assets/products/198739e2-ac9a-4694-bf81-55d5f56e4258-2.jpg" loading="lazy" decoding="async" alt=""></div></div><div class="card-gal-dots" aria-hidden="true"><i class="is-on"></i><i></i></div></div>
+      <div class="card-body">
+        <h3 class="card-title">Vestido Saida de praia</h3>
+        <p class="card-meta">Pronta entrega</p>
+        <p class="card-price">R$ 20,00 / peça <small>· Mínimo: 2 peças</small></p>
+      </div>
+    </a>
+    </div>
+  </section>
   <p class="prod-more">
     <a href="../index.html?id=3a1b4dbc-93ca-4cce-be61-f8f171386141">Ver na vitrine interativa</a>
   </p>
@@ -351,6 +372,57 @@ Fornecedor: Ana Maria" data-share-url="https://vitrinedevenda.com.br/produto/3a1
       }
     });
   }
+})();
+</script><script>
+(function () {
+  function galIndice(track) {
+    return Math.max(0, Math.min(track.children.length - 1,
+      Math.round(track.scrollLeft / Math.max(1, track.clientWidth))));
+  }
+  function pintarDots(track) {
+    var box = track.parentElement &&
+      track.parentElement.querySelector(".card-gal-dots");
+    if (!box) return;
+    var idx = galIndice(track);
+    Array.prototype.forEach.call(box.children, function (dot, k) {
+      dot.classList.toggle("is-on", k === idx);
+    });
+  }
+  function rolar(track, dir) {
+    if (!track || !track.children.length) return;
+    var largura = Math.max(1, track.clientWidth);
+    var alvo = Math.max(0, Math.min(
+      (track.children.length - 1) * largura,
+      track.scrollLeft + dir * largura
+    ));
+    track.scrollBy({ left: alvo - track.scrollLeft, behavior: "smooth" });
+    pintarDots(track);
+  }
+  document.addEventListener("scroll", function (ev) {
+    var t = ev.target;
+    if (t instanceof Element && t.classList.contains("card-gal-track")) {
+      pintarDots(t);
+    }
+  }, { capture: true, passive: true });
+  function noArquivo(ev) {
+    var t = ev.target;
+    if (!(t instanceof Element)) return false;
+    var s = t.closest(".card-gal-arrow");
+    if (!s) return false;
+    ev.stopPropagation();
+    ev.preventDefault();
+    var gal = s.closest(".card-gal");
+    if (gal) {
+      rolar(gal.querySelector(".card-gal-track"),
+        s.classList.contains("card-gal-prev") ? -1 : 1);
+    }
+    return true;
+  }
+  document.addEventListener("click", function (ev) { noArquivo(ev); }, true);
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key !== "Enter" && ev.key !== " ") return;
+    noArquivo(ev);
+  }, true);
 })();
 </script><script>
 (function () {

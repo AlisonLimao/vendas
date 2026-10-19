@@ -1,8 +1,52 @@
 {
-  "generated_at": "2026-10-19T21:04:19Z",
+  "generated_at": "2026-10-19T21:16:28Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 13,
+  "total": 14,
   "products": [
+    {
+      "id": "4ed8873b-5fbd-49f2-be47-6c4ad559eb17",
+      "title": "Blusa Feminina em Tricô Leve com Manga Japonesa",
+      "description": "Versátil e cheia de estilo, essa blusa em tricô apresenta textura mesclada, gola redonda e mangas japonesas que proporcionam um caimento natural e confortável. Sua modelagem permite combinações com jeans, calças de alfaiataria, shorts e saias. Ideal para o trabalho, passeios e momentos descontraídos, é uma peça prática para criar looks casuais, modernos e elegantes em diferentes ocasiões.",
+      "category": {
+        "slug": "saldo_sem_defeitos",
+        "name": "Saldo sem defeitos",
+        "group": {
+          "slug": "saldos_e_ponta_de_estoque",
+          "name": "Saldos e ponta de estoque"
+        }
+      },
+      "price": "12.00",
+      "minimum_order": 1,
+      "offer_type": "varejo",
+      "availability": "pronta_entrega",
+      "quantity": 5,
+      "days_since_confirmation": 0,
+      "seller_name": "Ana Maria",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/4ed8873b-5fbd-49f2-be47-6c4ad559eb17.jpg",
+      "images": [
+        "assets/products/4ed8873b-5fbd-49f2-be47-6c4ad559eb17.jpg",
+        "assets/products/4ed8873b-5fbd-49f2-be47-6c4ad559eb17-2.jpg",
+        "assets/products/4ed8873b-5fbd-49f2-be47-6c4ad559eb17-3.jpg",
+        "assets/products/4ed8873b-5fbd-49f2-be47-6c4ad559eb17-4.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/4ed8873b-5fbd-49f2-be47-6c4ad559eb17.webp",
+      "offer_owner_name": "Ana Maria",
+      "authorization_confirmed": true,
+      "condition": {
+        "subtype": "saldo_sem_defeitos",
+        "subtype_name": "Saldo sem defeitos"
+      },
+      "supplier_slug": "ana-maria-65dc1758",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Ana Maria",
+        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Tric%C3%B4%20Leve%20com%20Manga%20Japonesa%22%0APre%C3%A7o%3A%20R%24%2012%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/4ed8873b-5fbd-49f2-be47-6c4ad559eb17/"
+      }
+    },
     {
       "id": "198739e2-ac9a-4694-bf81-55d5f56e4258",
       "title": "Vestido Saida de praia",
