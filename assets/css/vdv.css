@@ -550,6 +550,9 @@ a.chip { text-decoration: none; display: inline-block; }
   column-gap: .6rem; row-gap: .1rem;
   padding: .7rem .15rem;
   border-bottom: 1px solid var(--vdv-border);
+  /* VDV-20261018-01 — o card inteiro é <a>: sem sublinhado (padrão dos
+   * cards de produto; underline continua no hover, via .procura-quote). */
+  text-decoration: none;
 }
 .procura-line:last-child { border-bottom: 0; }
 .procura-quote { font-weight: 500; color: var(--vdv-text); }
@@ -940,6 +943,18 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
   font-size: .8rem !important;
   padding: .4rem .8rem !important;
   margin: 0 !important;
+}
+/* VDV-20261018-01 — decisão binária: "Eu recuso" vira botão SECUNDÁRIO
+ * (contorno) para não competir visualmente com "Concordo" (ambos herdavam
+ * o amarelo da lib). A MECÂNICA de consentimento não muda — só apresentação.
+ * !important necessário: a lib injeta o próprio <style> depois do vdv.css. */
+.termsfeed-com---nb .cc-nb-reject {
+  background: transparent !important;
+  color: var(--vdv-text) !important;
+  border: 1px solid var(--vdv-border) !important;
+}
+.termsfeed-com---nb .cc-nb-reject:hover {
+  background: rgba(91, 100, 114, .08) !important;
 }
 @media (max-width: 640px) {
   /* No celular a faixa continua fina: quebra em 2 linhas no máximo

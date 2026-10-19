@@ -1379,7 +1379,8 @@
         // VDV-20261016-04 (Parte A): chegou a home com #procura (ex.: voltando
         // de uma página interna)? A seção só decide visível/oculta AQUI (após
         // o fetch) — é o momento de rolar para o destino correto.
-        if (location.hash === "#procura") goProcura();
+        // VDV-20261018-01: deep link #procuras (link direto à seção) idem.
+        if (isProcuraHash(location.hash)) goProcura();
         if (!procuras.length) return;
         gridProcuras.innerHTML = "";
         procuras.slice(0, 6).forEach(function (pr) {
@@ -2750,9 +2751,16 @@
   // Parte A: o botão "Procura" (topnav e bottombar) leva a "O que estão
   // buscando" (#procuras) quando há demandas publicadas; sem Procuras, ao
   // bloco de criação (#procura, no final). Funciona por clique (home),
-  // hashchange (volto de páginas internas com #procura) e ao fim do fetch de
+  // hashchange (volto de páginas internas) e ao fim do fetch de
   // procuras.json — quando a seção decide visível/oculta de verdade. A âncora
   // nativa não serve: a seção começa hidden e o fetch é assíncrono.
+  // VDV-20261018-01: deep links para os DOIS hashes — quem abrir um link com
+  // #procuras (link direto à seção) também pousa na seção quando ela fica
+  // visível; a âncora nativa não rola (seção hidden no load, fetch async).
+  var PROCURA_HASHES = "#procura|#procuras";
+  function isProcuraHash(hash) {
+    return hash === "#procura" || hash === "#procuras";
+  }
   function procuraNavTarget() {
     var section = $("procuras");
     if (section && !section.hidden) return section;
@@ -2770,20 +2778,20 @@
     if (document.body.getAttribute("data-page") !== "home") return;
     document.addEventListener("click", function (ev) {
       var link = ev.target &&
-        ev.target.closest && ev.target.closest('a[href$="#procura"]');
+        ev.target.closest && ev.target.closest('a[href$="#procura"], a[href$="#procuras"]');
       if (!link) return;
       var href = link.getAttribute("href") || "";
-      // Só âncora LOCAL da home (#procura). Links `{rel}#procura` vindo de
-      // páginas internas navegam de verdade e são cobertos pelo hashchange /
-      // pelo re-check ao fim do fetch.
-      if (href !== "#procura") return;
+      // Só âncora LOCAL da home (#procura/#procuras). Links `{rel}#procura`
+      // vindo de páginas internas navegam de verdade e são cobertos pelo
+      // hashchange / pelo re-check ao fim do fetch.
+      if (href !== "#procura" && href !== "#procuras") return;
       ev.preventDefault();
       if (goProcura() && history.replaceState) {
-        history.replaceState(null, "", "#procura");
+        history.replaceState(null, "", href);
       }
     });
     window.addEventListener("hashchange", function () {
-      if (location.hash === "#procura") goProcura();
+      if (isProcuraHash(location.hash)) goProcura();
     });
   }
 
@@ -2820,7 +2828,8 @@
       // link para o bot só existe no CTA do bloco (com telemetria própria).
       // VDV-20261016-04 (Parte A): #procura na home roteia pelo DESTINO
       // dinâmico (seção "O que estão buscando" ⇢ fallback bloco de criação).
-      if (hash === "#procura") {
+      // VDV-20261018-01: os dois hashes da procura roteiam pelo destino.
+      if (isProcuraHash(hash)) {
         goProcura();
         return;
       }

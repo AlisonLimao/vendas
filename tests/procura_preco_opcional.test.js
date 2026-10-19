@@ -7,8 +7,9 @@
  *      (contrato do exportador sem valor fictício);
  *   3. navegação: seção "O que estão buscando" é o destino dinâmico
  *      (procuraNavTarget) e o bloco de criação (#procura) regra de fallback;
- *   4. cliques em a[href="#procura"] são interceptados na home e a rolagem
- *      acontece também ao fim do fetch de procuras.json (hash na chegada);
+ *   4. cliques em âncoras locais da procura (#procura e #procuras) são
+ *      interceptados na home e a rolagem acontece também ao fim do fetch de
+ *      procuras.json (hash na chegada);
  *   5. o bloco de criação mantém id="procura" + CTA "Criar uma Procura"
  *      (deep link + origem de analytics) e min em par (strings do ciclo no
  *      vdv.min.js).
@@ -58,13 +59,19 @@ assert(html.includes('id="procura"'),
   "3. bloco de criação preserva id=\"procura\"");
 
 // --- 3b. interceptação + hash na chegada ----------------------------------- #
-assert(js.includes("a[href$=\"#procura\"]") && js.includes('href !== "#procura"'),
-  "3b. clique em âncora local #procura interceptado (somente âncora local)");
-assert(js.includes('if (hash === "#procura") {') &&
+// VDV-20261018-01: deep link aceita os DOIS hashes (#procura e #procuras) —
+// o card da home e a seção dividem o mesmo roteamento.
+assert(js.includes('a[href$="#procura"], a[href$="#procuras"]'),
+  "3b. clique em âncora local interceptado para os dois hashes");
+assert(js.includes('href !== "#procura" && href !== "#procuras"'),
+  "3b. guard do clique cobre os dois hashes (somente âncora local)");
+assert(js.includes('if (isProcuraHash(hash)) {') &&
   js.includes("goProcura();"),
-  "3b. bottombar roteia #procura pelo destino dinâmico (goProcura)");
-assert(js.includes('if (location.hash === "#procura") goProcura();'),
+  "3b. bottombar roteia os hashes da procura pelo destino dinâmico (goProcura)");
+assert(js.includes('if (isProcuraHash(location.hash)) goProcura();'),
   "3b. hash na chegada rola após o fetch decidir a visibilidade");
+assert(js.includes('return hash === "#procura" || hash === "#procuras";'),
+  "3b. isProcuraHash é a fonte única dos dois hashes");
 
 // --- 5. bloco de criação intacto + min em par ------------------------------- #
 assert(html.includes('data-deep-link="procura"'),
