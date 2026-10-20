@@ -1,8 +1,54 @@
 {
-  "generated_at": "2026-10-20T01:16:50Z",
+  "generated_at": "2026-10-20T01:26:13Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 15,
+  "total": 16,
   "products": [
+    {
+      "id": "b39c71aa-4170-4ad2-abf6-868815fa016d",
+      "title": "Blusa Feminina em Tricô Canelado com Estampa de Ursinho",
+      "description": "Estilo, conforto e personalidade em uma peça cheia de charme! Blusa feminina em tricô com textura canelada, mangas curtas, gola redonda e acabamento ajustado na barra. Disponível em duas versões com estampas de ursinho, que trazem um toque moderno e descontraído. Perfeita para combinar com jeans, shorts ou saias, criando looks casuais e estilosos para o dia a dia, passeios e momentos especiais. Modelos disponíveis em quantidade limitada!",
+      "category": {
+        "slug": "saldo_sem_defeitos",
+        "name": "Saldo sem defeitos",
+        "group": {
+          "slug": "saldos_e_ponta_de_estoque",
+          "name": "Saldos e ponta de estoque"
+        }
+      },
+      "price": "15.00",
+      "minimum_order": 1,
+      "offer_type": "varejo",
+      "availability": "pronta_entrega",
+      "quantity": 50,
+      "days_since_confirmation": 0,
+      "seller_name": "Ana Maria",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/b39c71aa-4170-4ad2-abf6-868815fa016d.jpg",
+      "images": [
+        "assets/products/b39c71aa-4170-4ad2-abf6-868815fa016d.jpg",
+        "assets/products/b39c71aa-4170-4ad2-abf6-868815fa016d-2.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/b39c71aa-4170-4ad2-abf6-868815fa016d.webp",
+      "image_thumbs": [
+        "assets/products/thumb/b39c71aa-4170-4ad2-abf6-868815fa016d.webp",
+        "assets/products/thumb/b39c71aa-4170-4ad2-abf6-868815fa016d-2.webp"
+      ],
+      "offer_owner_name": "Ana Maria",
+      "authorization_confirmed": true,
+      "condition": {
+        "subtype": "saldo_sem_defeitos",
+        "subtype_name": "Saldo sem defeitos"
+      },
+      "supplier_slug": "ana-maria-65dc1758",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Ana Maria",
+        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Tric%C3%B4%20Canelado%20com%20Estampa%20de%20Ursinho%22%0APre%C3%A7o%3A%20R%24%2015%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/b39c71aa-4170-4ad2-abf6-868815fa016d/"
+      }
+    },
     {
       "id": "756a65fa-5fed-4724-8010-81e08651ac46",
       "title": "Saia Longa Feminina em Tricô com Detalhes Vazados",
