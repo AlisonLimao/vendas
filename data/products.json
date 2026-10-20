@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-20T13:22:56Z",
+  "generated_at": "2026-10-20T13:53:08Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 16,
+  "total": 20,
   "products": [
     {
       "id": "b39c71aa-4170-4ad2-abf6-868815fa016d",
@@ -244,6 +244,43 @@
       }
     },
     {
+      "id": "6ac0bbb6-964f-4659-bfda-52bbd5e385ec",
+      "title": "Saia Longa Mescla Clara com Caimento Leve",
+      "description": "Saia longa em tom mescla claro, com modelagem confortável e caimento leve. Possui detalhe franzido na altura do quadril, que valoriza o visual e traz movimento à peça. Ideal para compor produções casuais, elegantes e confortáveis para diversas ocasiões.",
+      "category": {
+        "slug": "saia",
+        "name": "Saia",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
+      },
+      "price": "25.00",
+      "minimum_order": 1,
+      "offer_type": "varejo",
+      "availability": "pronta_entrega",
+      "quantity": 3,
+      "days_since_confirmation": 0,
+      "seller_name": "Ana Maria",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/6ac0bbb6-964f-4659-bfda-52bbd5e385ec.jpg",
+      "images": [
+        "assets/products/6ac0bbb6-964f-4659-bfda-52bbd5e385ec.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/6ac0bbb6-964f-4659-bfda-52bbd5e385ec.webp",
+      "offer_owner_name": "Ana Maria",
+      "authorization_confirmed": true,
+      "supplier_slug": "ana-maria-65dc1758",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Ana Maria",
+        "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Saia%20Longa%20Mescla%20Clara%20com%20Caimento%20Leve%22%0APre%C3%A7o%3A%20R%24%2025%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/6ac0bbb6-964f-4659-bfda-52bbd5e385ec/"
+      }
+    },
+    {
       "id": "9f22576b-b542-4666-a3be-6e70157c0817",
       "title": "Animais Aquáticos Articulados 3D – Axolote e Tubarões",
       "description": "Animais articulados produzidos em impressão 3D, com movimentos flexíveis e acabamento detalhado. Modelos disponíveis de axolote e tubarões, em diferentes cores. Peças divertidas, colecionáveis e ideais para presente ou decoração. Valor: R$ 20,00 cada.",
@@ -382,6 +419,85 @@
       }
     },
     {
+      "id": "9cf95eef-d0de-4f0c-aae3-558b90f2c7ed",
+      "title": "Blusa Feminina em Modal Trabalhado com Tranças e Relevos",
+      "description": "Blusa feminina em modal, manga curta e gola redonda, com trabalho elaborado em pontos texturizados, tranças e pequenos relevos distribuídos pela peça. O acabamento canelado na gola, mangas e barra valoriza o caimento e deixa o modelo delicado e sofisticado. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/9cf95eef-d0de-4f0c-aae3-558b90f2c7ed.jpg",
+      "images": [
+        "assets/products/9cf95eef-d0de-4f0c-aae3-558b90f2c7ed.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/9cf95eef-d0de-4f0c-aae3-558b90f2c7ed.webp",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Trabalhado%20com%20Tran%C3%A7as%20e%20Relevos%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/9cf95eef-d0de-4f0c-aae3-558b90f2c7ed/"
+      }
+    },
+    {
+      "id": "ca545589-f399-4e6b-a731-7f23be9c9f60",
+      "title": "Blusa Feminina em Modal Listrada com Gola Polo",
+      "description": "Blusa feminina em modal com listras largas, manga curta e gola polo com decote em V. Possui acabamento canelado nas mangas e na barra, com visual moderno e elegante, fácil de combinar com jeans, alfaiataria e peças casuais. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/ca545589-f399-4e6b-a731-7f23be9c9f60.jpg",
+      "images": [
+        "assets/products/ca545589-f399-4e6b-a731-7f23be9c9f60.jpg",
+        "assets/products/ca545589-f399-4e6b-a731-7f23be9c9f60-2.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/ca545589-f399-4e6b-a731-7f23be9c9f60.webp",
+      "image_thumbs": [
+        "assets/products/thumb/ca545589-f399-4e6b-a731-7f23be9c9f60.webp",
+        "assets/products/thumb/ca545589-f399-4e6b-a731-7f23be9c9f60-2.webp"
+      ],
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Listrada%20com%20Gola%20Polo%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/ca545589-f399-4e6b-a731-7f23be9c9f60/"
+      }
+    },
+    {
       "id": "62d97044-ca8e-4308-93ec-c90ec92b1f38",
       "title": "Blusa Feminina em Modal Listrada",
       "description": "Blusa feminina em modal, com listras horizontais, manga curta e gola redonda. Possui modelagem clássica, toque visual clean e acabamento contrastante na gola e nas mangas, criando uma peça versátil para combinações casuais ou mais arrumadas. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram. Fornecedor",
@@ -416,6 +532,43 @@
         "tipo": "whatsapp",
         "nome": "Sarah Tricô",
         "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Listrada%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/62d97044-ca8e-4308-93ec-c90ec92b1f38/"
+      }
+    },
+    {
+      "id": "076e6574-11d7-46c0-ae33-2e783710f4f5",
+      "title": "Blusa Feminina em Modal Jacquard Argyle",
+      "description": "Blusa feminina em modal jacquard, com desenho argyle, manga curta, gola redonda e acabamentos canelados na gola, mangas e barra. O jacquard cria o desenho diretamente na malha, trazendo um acabamento mais elaborado e sofisticado à peça. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram. Fornecedor.",
+      "category": {
+        "slug": "blusa",
+        "name": "Blusa",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
+      },
+      "price": "41.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/076e6574-11d7-46c0-ae33-2e783710f4f5.jpg",
+      "images": [
+        "assets/products/076e6574-11d7-46c0-ae33-2e783710f4f5.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/076e6574-11d7-46c0-ae33-2e783710f4f5.webp",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Jacquard%20Argyle%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/076e6574-11d7-46c0-ae33-2e783710f4f5/"
       }
     },
     {
@@ -691,7 +844,7 @@
     {
       "slug": "moda_e_malharia",
       "name": "Moda e Malharia",
-      "total": 9
+      "total": 13
     }
   ]
 }
