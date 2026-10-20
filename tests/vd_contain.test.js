@@ -66,11 +66,39 @@ const quebrada = { naturalWidth: 0, naturalHeight: 0, classList: fakeCl() };
 vdContain(quebrada, 0.8);
 assert(!quebrada.classList._tem("vd-contain"), "3. razão indisponível → sem classe e sem erro");
 
-// ---------- 4. ligação no bloco destaque (listeners load) ----------
-assert(/dImg\.addEventListener\("load", function \(\) \{ vdContain\(dImg, 0\.8\); \}\);/.test(js),
-  "4. dImg medido no listener load com alvo 0.8 (quadro 4:5)");
-assert(/tImg\.addEventListener\("load", function \(\) \{ vdContain\(tImg, 1\); \}\);/.test(js),
-  "4. tImg (thumb auxiliar) medido no listener load com alvo 1 (1:1)");
+// ---------- 4. ligação no bloco destaque (vdAoCarregar) ----------
+assert(/vdAoCarregar\(dImg, 0\.8\);/.test(js),
+  "4. dImg medido via vdAoCarregar com alvo 0.8 (quadro 4:5)");
+assert(/vdAoCarregar\(tImg, 1\);/.test(js),
+  "4. tImg (thumb auxiliar) medido via vdAoCarregar com alvo 1 (1:1)");
+// minor do revisor: foto JÁ completa (cache) não dispara load nunca mais —
+// vdAoCarregar mede na hora; só aguarda listener quando o load ainda vem.
+const mAo = js.match(/function vdAoCarregar\(img, alvo\)\s*\{([\s\S]*?)\n  \}/);
+assert(mAo, "4. vdAoCarregar(img, alvo) existe em app.js");
+const aoCarregar = eval("(function(){ var VD_CONTAIN_TOL = 0.15; return (" +
+  mAo[0].replace(/\n\s+/g, " ") + ") })()");
+
+function fakeImg(complete, w, h) {
+  var listeners = 0;
+  var img = {
+    complete: complete, naturalWidth: w, naturalHeight: h,
+    classList: fakeCl(),
+    addEventListener: function () { listeners += 1; },
+    get _listeners() { return listeners; },
+  };
+  return img;
+}
+
+// completa e fora do 4:5 (cache) → contain NA HORA, sem listener
+const cacheada = fakeImg(true, 1024, 768);
+aoCarregar(cacheada, 0.8);
+assert(cacheada.classList._tem("vd-contain"),
+  "4. foto já completa com r=1.33 → contain imediato (bug do listener)");
+assert(cacheada._listeners === 0, "4. foto já completa não registra listener");
+const lenta = fakeImg(false, 0, 0);
+aoCarregar(lenta, 0.8);
+assert(!lenta.classList._tem("vd-contain") && lenta._listeners === 1,
+  "4. foto ainda a carregar → aguarda o load (listener)");
 
 // ---------- 5. intocados ----------
 assert(/dImg\.alt = destaque\.name \+ " — produtos no VDV";/.test(js),

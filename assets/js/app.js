@@ -882,6 +882,12 @@
       img.classList.add("vd-contain");
     }
   }
+  /* minor do revisor (ciclo -03): foto já completa na hora do attach (cache) não
+   * dispara load nunca mais — mede na hora; senão, aguarda o load. */
+  function vdAoCarregar(img, alvo) {
+    if (img.complete && img.naturalWidth) vdContain(img, alvo);
+    else img.addEventListener("load", function () { vdContain(img, alvo); });
+  }
 
   /* VDV-20261010-01 — galeria universal nos cards: com >1 foto, o card monta
    * o MESMO mecanismo da página do produto (scroll-snap nativo — swipe,
@@ -1350,7 +1356,7 @@
         dImg.src = prefix + dFoto;
         dImg.alt = destaque.name + " — produtos no VDV";
         dImg.loading = "lazy";
-        dImg.addEventListener("load", function () { vdContain(dImg, 0.8); });
+        vdAoCarregar(dImg, 0.8);
         dImg.addEventListener("click", vitrineDestaqueTrack);
         dLink.appendChild(dImg);
         dEl.appendChild(dLink);
@@ -1378,7 +1384,7 @@
           tImg.src = prefix + src;
           tImg.alt = "";
           tImg.loading = "lazy";
-          tImg.addEventListener("load", function () { vdContain(tImg, 1); });
+          vdAoCarregar(tImg, 1);
           tLink.addEventListener("click", vitrineDestaqueTrack);
           tLink.appendChild(tImg);
           dThumbs.appendChild(tLink);
