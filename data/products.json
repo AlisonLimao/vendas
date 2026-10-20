@@ -1,8 +1,61 @@
 {
-  "generated_at": "2026-10-20T15:12:39Z",
+  "generated_at": "2026-10-20T17:13:31Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 19,
+  "total": 20,
   "products": [
+    {
+      "id": "cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c",
+      "title": "Regata Feminina em Ponto Fang – Saldo de Estoque",
+      "description": "Regata feminina em poliéster, produzida em ponto fang, com gola pronta de máquina e modelagem confortável. Saldo de estoque com 20 peças disponíveis, apresentando pequenos defeitos. Uma ótima oportunidade para quem procura peças de tricô com preço acessível, seja para uso próprio ou revenda. Ideal para quem busca economia e boas oportunidades de compra.",
+      "category": {
+        "slug": "saldo_com_defeitos",
+        "name": "Saldo com defeitos",
+        "group": {
+          "slug": "saldos_e_ponta_de_estoque",
+          "name": "Saldos e ponta de estoque"
+        }
+      },
+      "price": "15.00",
+      "minimum_order": 1,
+      "offer_type": "varejo",
+      "availability": "pronta_entrega",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Ana Maria",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c.jpg",
+      "images": [
+        "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c.jpg",
+        "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-2.jpg",
+        "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-3.jpg",
+        "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-4.jpg",
+        "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-5.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c.webp",
+      "image_thumbs": [
+        "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c.webp",
+        "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-2.webp",
+        "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-3.webp",
+        "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-4.webp",
+        "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-5.webp"
+      ],
+      "offer_owner_name": "Ana Maria",
+      "authorization_confirmed": true,
+      "condition": {
+        "subtype": "saldo_com_defeitos",
+        "subtype_name": "Saldo com defeitos",
+        "note": "pontos catados, fio puxado"
+      },
+      "supplier_slug": "ana-maria-65dc1758",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Ana Maria",
+        "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Ponto%20Fang%20%E2%80%93%20Saldo%20de%20Estoque%22%0APre%C3%A7o%3A%20R%24%2015%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c/"
+      }
+    },
     {
       "id": "b39c71aa-4170-4ad2-abf6-868815fa016d",
       "title": "Blusa Feminina em Tricô Meia Malha com Estampa de Ursinho",
@@ -804,6 +857,11 @@
     }
   ],
   "category_pages": [
+    {
+      "slug": "saldos_e_ponta_de_estoque",
+      "name": "Saldos e ponta de estoque",
+      "total": 5
+    },
     {
       "slug": "moda_e_malharia",
       "name": "Moda e Malharia",
