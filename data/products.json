@@ -1,8 +1,60 @@
 {
-  "generated_at": "2026-10-20T00:25:31Z",
+  "generated_at": "2026-10-20T01:16:50Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 14,
+  "total": 15,
   "products": [
+    {
+      "id": "756a65fa-5fed-4724-8010-81e08651ac46",
+      "title": "Saia Longa Feminina em Tricô com Detalhes Vazados",
+      "description": "Elegância e leveza em uma peça versátil! Saia longa em malha de tricô, com cós ajustado, detalhe franzido e caimento fluido que valoriza o movimento. O acabamento com desenhos vazados na barra traz um charme especial. Perfeita para combinar com regatas, blusas básicas ou croppeds, criando looks para passeios, viagens e ocasiões casuais. Últimas 3 peças disponíveis, saldo de estoque sem defeitos.",
+      "category": {
+        "slug": "saldo_sem_defeitos",
+        "name": "Saldo sem defeitos",
+        "group": {
+          "slug": "saldos_e_ponta_de_estoque",
+          "name": "Saldos e ponta de estoque"
+        }
+      },
+      "price": "20.00",
+      "minimum_order": 1,
+      "offer_type": "varejo",
+      "availability": "pronta_entrega",
+      "quantity": 3,
+      "days_since_confirmation": 0,
+      "seller_name": "Ana Maria",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/756a65fa-5fed-4724-8010-81e08651ac46.jpg",
+      "images": [
+        "assets/products/756a65fa-5fed-4724-8010-81e08651ac46.jpg",
+        "assets/products/756a65fa-5fed-4724-8010-81e08651ac46-2.jpg",
+        "assets/products/756a65fa-5fed-4724-8010-81e08651ac46-3.jpg",
+        "assets/products/756a65fa-5fed-4724-8010-81e08651ac46-4.jpg",
+        "assets/products/756a65fa-5fed-4724-8010-81e08651ac46-5.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46.webp",
+      "image_thumbs": [
+        "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46.webp",
+        "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46-2.webp",
+        "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46-3.webp",
+        "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46-4.webp",
+        "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46-5.webp"
+      ],
+      "offer_owner_name": "Ana Maria",
+      "authorization_confirmed": true,
+      "condition": {
+        "subtype": "saldo_sem_defeitos",
+        "subtype_name": "Saldo sem defeitos"
+      },
+      "supplier_slug": "ana-maria-65dc1758",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Ana Maria",
+        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Saia%20Longa%20Feminina%20em%20Tric%C3%B4%20com%20Detalhes%20Vazados%22%0APre%C3%A7o%3A%20R%24%2020%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/756a65fa-5fed-4724-8010-81e08651ac46/"
+      }
+    },
     {
       "id": "4ed8873b-5fbd-49f2-be47-6c4ad559eb17",
       "title": "Blusa Feminina em Tricô Leve com Manga Japonesa",
@@ -210,7 +262,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 8,
+      "days_since_confirmation": 9,
       "seller_name": "Imprima 3D",
       "city": "Monte Sião",
       "state": "MG",
