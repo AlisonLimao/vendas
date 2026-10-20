@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T11:22:50Z",
+  "generated_at": "2026-10-20T11:53:06Z",
   "bot_username": "vitrine_vendasbot",
   "total": 16,
   "products": [
@@ -354,7 +354,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 20,
-      "days_since_confirmation": 4,
+      "days_since_confirmation": 5,
       "seller_name": "Imprima 3D",
       "city": "Monte Sião",
       "state": "MG",
@@ -398,7 +398,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 4,
+      "days_since_confirmation": 5,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -435,7 +435,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 4,
+      "days_since_confirmation": 5,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
