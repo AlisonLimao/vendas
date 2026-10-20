@@ -312,12 +312,38 @@
   // VDV-20260906-02: o tipo de oferta define a leitura do preço (a categoria
   // descreve o QUE é anunciado; o tipo descreve COMO é oferecido). html=true
   // usa <small> nos cards; texto puro para o compartilhamento do WhatsApp.
+  // VDV-20261020-03: unidade de venda (kg/dz/…) — espelho de SALE_UNIT_LABELS
+  // do domínio (drift fechado pelos testes). Canônicas → sigla; "Outra" →
+  // texto como gravado. Sem valor → "" (JSON legado intocado).
+  var SALE_UNIT_LABELS = {
+    unidade: "un",
+    duzia: "dz",
+    quilo: "kg",
+    litro: "L",
+    caixa: "cx",
+  };
+  function saleUnitSufixo(p) {
+    var raw = (p.sale_unit || "").trim();
+    if (!raw) return "";
+    return Object.prototype.hasOwnProperty.call(SALE_UNIT_LABELS, raw)
+      ? SALE_UNIT_LABELS[raw]
+      : raw;
+  }
+
   function priceLine(p, html) {
     var t = offerType(p);
     var temPreco = p.price != null && p.price !== "" && isFinite(Number(p.price));
     var preco = temPreco ? "R$ " + fmtMoney(p.price) : "";
     function nota(s) {
       return html ? " <small>· " + s + "</small>" : " (" + s + ")";
+    }
+    // Unidade substitui a nota do tipo (mesma decisão do detalhe no bot).
+    var sufixo = temPreco ? saleUnitSufixo(p) : "";
+    if (sufixo) {
+      var linha = preco + " / " + sufixo;
+      if (p.minimum_order > 1)
+        linha += nota("Mínimo: " + p.minimum_order + " " + sufixo);
+      return linha;
     }
     if (t === "sob_encomenda") {
       return temPreco ? preco + nota("Sob encomenda") : "Sob encomenda";
