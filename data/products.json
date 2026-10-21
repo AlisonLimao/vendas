@@ -1,8 +1,55 @@
 {
-  "generated_at": "2026-10-21T22:44:51Z",
+  "generated_at": "2026-10-21T22:55:02Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 22,
+  "total": 23,
   "products": [
+    {
+      "id": "ec09b49f-3465-4ffe-ae72-ba4cb38bdad2",
+      "title": "Banana Maçã R$ 5,00 a dúzia.",
+      "description": "🍌 Banana-Maçã  R$ 6,00 a dúzia!\n\nSabor delicado, aroma característico e aquele gostinho especial da banana-maçã! Disponível ainda verdinha, ideal para levar para casa e acompanhar seu amadurecimento até o ponto de sua preferência.\n\nE o melhor: aqui você ainda compra por dúzia!\n\nVenha conferir na Quitanda Toninho e Ana!\n\n📍 Av. Guatemala, 149 — Jardim América, Monte Sião/MG.",
+      "category": {
+        "slug": "servicos",
+        "name": "Serviços",
+        "group": {
+          "slug": "servicos",
+          "name": "Serviços"
+        }
+      },
+      "price": "6.00",
+      "minimum_order": 1,
+      "offer_type": "varejo",
+      "availability": "pronta_entrega",
+      "quantity": 10,
+      "days_since_confirmation": 0,
+      "seller_name": "Quitanda Toninho e ana",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2.jpg",
+      "images": [
+        "assets/products/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2.jpg",
+        "assets/products/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2-2.jpg",
+        "assets/products/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2-3.jpg",
+        "assets/products/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2-4.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2.webp",
+      "sale_unit": "duzia",
+      "image_thumbs": [
+        "assets/products/thumb/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2.webp",
+        "assets/products/thumb/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2-2.webp",
+        "assets/products/thumb/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2-3.webp",
+        "assets/products/thumb/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2-4.webp"
+      ],
+      "offer_owner_name": "Quitanda Toninho e ana",
+      "authorization_confirmed": true,
+      "supplier_slug": "quitanda-toninho-e-ana",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Quitanda Toninho e ana",
+        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Banana%20Ma%C3%A7%C3%A3%20R%24%205%2C00%20a%20d%C3%BAzia.%22%0APre%C3%A7o%3A%20R%24%206%2C00%20/%20dz%20%28m%C3%ADn.%201%20dz%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2/"
+      }
+    },
     {
       "id": "9d637742-af37-419b-9e16-727f5829591c",
       "title": "Banana Prata Caipira R$ 5,00 a dúzia!",

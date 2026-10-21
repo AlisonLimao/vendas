@@ -122,6 +122,27 @@ Venha conferir de perto na Quitanda Toninho e Ana!
     
     <li>Categoria: Serviços</li>
   </ul>
+  <section class="prod-related" aria-label="Continue explorando">
+    <h2>Continue explorando</h2>
+    <div class="grid">
+    <a class="card" href="../../produto/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2/">
+      <div class="card-gal"><span class="card-gal-arrow card-gal-prev" role="button" tabindex="0" aria-label="Foto anterior">‹</span><span class="card-gal-arrow card-gal-next" role="button" tabindex="0" aria-label="Próxima foto">›</span><div class="card-gal-track" tabindex="0" role="group" aria-label="Fotos do produto — deslize"><div class="card-gal-slide"><img src="../../assets/products/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2.jpg" decoding="async" alt="Banana Maçã R$ 5,00 a dúzia."></div><div class="card-gal-slide"><img src="../../assets/products/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2-2.jpg" loading="lazy" decoding="async" alt=""></div><div class="card-gal-slide"><img src="../../assets/products/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2-3.jpg" loading="lazy" decoding="async" alt=""></div><div class="card-gal-slide"><img src="../../assets/products/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2-4.jpg" loading="lazy" decoding="async" alt=""></div></div><div class="card-gal-dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i></div></div>
+      <div class="card-body">
+        <h3 class="card-title">Banana Maçã R$ 5,00 a dúzia.</h3>
+        <p class="card-meta">Pronta entrega</p>
+        <p class="card-price">R$ 6,00 / dz</p>
+      </div>
+    </a>
+    <a class="card" href="../../produto/9d637742-af37-419b-9e16-727f5829591c/">
+      <div class="card-gal"><span class="card-gal-arrow card-gal-prev" role="button" tabindex="0" aria-label="Foto anterior">‹</span><span class="card-gal-arrow card-gal-next" role="button" tabindex="0" aria-label="Próxima foto">›</span><div class="card-gal-track" tabindex="0" role="group" aria-label="Fotos do produto — deslize"><div class="card-gal-slide"><img src="../../assets/products/9d637742-af37-419b-9e16-727f5829591c.jpg" decoding="async" alt="Banana Prata Caipira R$ 5,00 a dúzia!"></div><div class="card-gal-slide"><img src="../../assets/products/9d637742-af37-419b-9e16-727f5829591c-2.jpg" loading="lazy" decoding="async" alt=""></div><div class="card-gal-slide"><img src="../../assets/products/9d637742-af37-419b-9e16-727f5829591c-3.jpg" loading="lazy" decoding="async" alt=""></div></div><div class="card-gal-dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div></div>
+      <div class="card-body">
+        <h3 class="card-title">Banana Prata Caipira R$ 5,00 a dúzia!</h3>
+        <p class="card-meta">Pronta entrega</p>
+        <p class="card-price">R$ 5,00 / dz</p>
+      </div>
+    </a>
+    </div>
+  </section>
   <p class="prod-more">
     <a href="../index.html?id=01a1b322-fbe4-4b30-9539-55d3abe2824a">Ver na vitrine interativa</a>
   </p>
@@ -359,6 +380,57 @@ Venha conferir de perto na Quitanda Toninho e Ana!
       }
     });
   }
+})();
+</script><script>
+(function () {
+  function galIndice(track) {
+    return Math.max(0, Math.min(track.children.length - 1,
+      Math.round(track.scrollLeft / Math.max(1, track.clientWidth))));
+  }
+  function pintarDots(track) {
+    var box = track.parentElement &&
+      track.parentElement.querySelector(".card-gal-dots");
+    if (!box) return;
+    var idx = galIndice(track);
+    Array.prototype.forEach.call(box.children, function (dot, k) {
+      dot.classList.toggle("is-on", k === idx);
+    });
+  }
+  function rolar(track, dir) {
+    if (!track || !track.children.length) return;
+    var largura = Math.max(1, track.clientWidth);
+    var alvo = Math.max(0, Math.min(
+      (track.children.length - 1) * largura,
+      track.scrollLeft + dir * largura
+    ));
+    track.scrollBy({ left: alvo - track.scrollLeft, behavior: "smooth" });
+    pintarDots(track);
+  }
+  document.addEventListener("scroll", function (ev) {
+    var t = ev.target;
+    if (t instanceof Element && t.classList.contains("card-gal-track")) {
+      pintarDots(t);
+    }
+  }, { capture: true, passive: true });
+  function noArquivo(ev) {
+    var t = ev.target;
+    if (!(t instanceof Element)) return false;
+    var s = t.closest(".card-gal-arrow");
+    if (!s) return false;
+    ev.stopPropagation();
+    ev.preventDefault();
+    var gal = s.closest(".card-gal");
+    if (gal) {
+      rolar(gal.querySelector(".card-gal-track"),
+        s.classList.contains("card-gal-prev") ? -1 : 1);
+    }
+    return true;
+  }
+  document.addEventListener("click", function (ev) { noArquivo(ev); }, true);
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key !== "Enter" && ev.key !== " ") return;
+    noArquivo(ev);
+  }, true);
 })();
 </script><script>
 (function () {
