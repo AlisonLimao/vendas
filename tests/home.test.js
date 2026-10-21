@@ -37,11 +37,13 @@ const html = fs.readFileSync(
 );
 
 // 1. Primeira dobra (prompt mestre homepage, VDV-20261008-07 Etapa 2):
-//    busca → CATEGORIAS → novidades (chips de categoria sobem para logo
-//    abaixo da busca); hero sem CTA de Procura e sem faixa institucional.
+//    busca → atalhos de categoria → bandas (chips-atalho apontam os
+//    universos; bandas empilhadas por categoria — VDV-20261021-02); hero sem
+//    CTA de Procura e sem faixa institucional.
 assert(
-  html.indexOf('id="section-categorias"') < html.indexOf('id="section-novidades"'),
-  "1. 'Categorias' logo abaixo da busca, antes de 'Acabou de chegar' (Etapa 2-3)"
+  html.indexOf('id="atalhos-categorias"') > html.indexOf("searchbar") &&
+    html.indexOf('id="atalhos-categorias"') < html.indexOf('id="section-bandas"'),
+  "1. entrada por intenção: busca → chips-atalho → bandas (VDV-20261021-02)"
 );
 assert(
   !/hero-strip/.test(html) && !/hero-actions/.test(html) &&
@@ -65,41 +67,17 @@ assert(
   "3. rotação 'Em exposição agora' removida da Home"
 );
 
-// 4. "Para você explorar": seção nova + seleção honesta.
+// 4. (VDV-20261021-02) "Para você explorar" saiu da Home — as bandas
+//    ocupam o lugar; filtros de 2 níveis moram no /explorar/ (decisão 7).
 assert(
-  /id="section-explorar"/.test(html) &&
-    html.indexOf('id="section-explorar"') > html.indexOf('id="section-categorias"') &&
-    html.indexOf('id="section-explorar"') < html.indexOf('id="section-vitrines"'),
-  "4. seção explorar posicionada entre categorias e vitrines"
-);
-assert(
-  /function pickExplorar\(products, excludeIds, cap\)/.test(js) &&
-    /if \(excludeIds\[p\.id\]\) return;/.test(js) &&
-    /push\(buckets\[b\]\[round\]\)/.test(js),
-  "4. pickExplorar v2: round-robin por categoria + alternância de fornecedor no bucket, exclui novidades e destaque"
-);
-assert(
-  /fill\(\$\("grid-explorar"\), explorarCards\)/.test(js),
-  "4. grid-explorar preenchida pela seleção"
+  !/id="section-explorar"|id="grid-explorar"|pickExplorar/.test(html + js),
+  "4. seção e seleção do explorar extintas da Home (bandas herdam)"
 );
 
-// 5. Caps explícitos da R4.
+// 5. Caps restantes da R4.
 assert(
-  /var NOVIDADES_CAP = 8;/.test(js) &&
-    /var EXPLORAR_CAP = 8;/.test(js) &&
-    /var VITRINES_CAP = 4;/.test(js),
-  "5. caps NOVIDADES/EXPLORAR=8 e VITRINES=4"
-);
-// Rodízio por visita (VDV-20261008-07, Etapa 4): pool de recentes, seed por
-// visita com estabilidade no retorno (rot no snapshot), ponderação decrescente
-// e alternância de fornecedor — a seção segue honesta (cap/estados no BANCO).
-assert(
-  /var NOVIDADES_POOL = 16;/.test(js) &&
-    /function pickNovidades\(products, seed\)/.test(js) &&
-    /pickNovidades\(products, rotSeed\)/.test(js) &&
-    /novidadesCards\.forEach\(function \(p\) \{ recentesIds\[p\.id\] = true; \}\)/.test(js) &&
-    /rot: rotSeed/.test(js),
-  "5. rodízio das novidades: pool 16, seed por visita e estável no retorno; dedupe do explorar usa os rotacionados"
+  /var VITRINES_CAP = 4;/.test(js),
+  "5. cap VITRINES=4 (novidades/explorar extintos com as seções)"
 );
 
 // 6. R5: grade completa e favoritos saem da Home (páginas /explorar/ e
@@ -157,21 +135,22 @@ assert(
   "6c. nenhum resíduo dos blocos separados no markup"
 );
 
-// 7. Modo busca esconde explorar junto com as outras faixas editoriais.
+// 7. Modo busca esconde as faixas editoriais (atalhos, bandas, destaque) e
+//    mostra os resultados; grupos/exposição seguem fora.
 assert(
-  /sectionExplorar\.hidden = searching \|\| !showExplorar;/.test(js) &&
-    !/sectionGrupo|sectionExposicao/.test(js),
-  "7. setBrowseVisibility esconde explorar; grupos/exposição fora"
+  /sectionBandas\.hidden = searching/.test(js) &&
+    !/sectionGrupo|sectionExposicao/.test(js) &&
+    !/sectionExplorar/.test(js),
+  "7. setBrowseVisibility esconde bandas na busca; grupos/exposição/explorar fora"
 );
 
-// 8. Mobile: grade de novidades mostra 6 (cards 7+ ocultos), desktop mantém 8.
+console.log("home: OK (home por intenção — VDV-20261021-02)");
+
+// 8. (VDV-20261021-02) grade de novidades extinta junto com a seção — o CSS
+//    .grid-novidades sai junto.
 assert(
-  /\.grid-novidades > \.card-wrap:nth-child\(n\+7\)\s*\{\s*display:\s*none;\s*\}/.test(css),
-  "8. mobile oculta cards 7+ das novidades"
-);
-assert(
-  /@media \(min-width: 768px\)\s*\{\s*\.grid-novidades > \.card-wrap:nth-child\(n\+7\)\s*\{\s*display:\s*block;\s*\}/.test(css),
-  "8. desktop mantém os 8 cards"
+  !/\.grid-novidades/.test(css),
+  "8. CSS .grid-novidades removido junto com a seção"
 );
 
 // 9. R10: Telegram nunca define a plataforma na copy pública —
@@ -200,4 +179,3 @@ assert(
   "10. JSON-LD WebSite + Organization na Home (R11)"
 );
 
-console.log("home: OK (Home reestruturada — VDV-20260923-01 R4)");

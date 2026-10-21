@@ -17,14 +17,14 @@ const css = fs.readFileSync(path.join(root, "assets", "css", "vdv.css"), "utf8")
 assert(/id="quick-terms"/.test(html), "1. contêiner quick-terms na Home");
 assert(
   html.indexOf('id="quick-terms"') > html.indexOf("searchbar") &&
-    html.indexOf('id="quick-terms"') < html.indexOf('id="section-novidades"'),
-  "1a. termos rápidos posicionados entre busca e primeira prateleira"
+    html.indexOf('id="quick-terms"') < html.indexOf('id="atalhos-categorias"'),
+  "1a. termos rápidos posicionados entre busca e chips-atalho (VDV-20261021-02)"
 );
 assert(/id="section-destaque"/.test(html), "2. seção editorial na Home");
 assert(
-  html.indexOf('id="section-destaque"') > html.indexOf('id="section-explorar"') &&
+  html.indexOf('id="section-destaque"') > html.indexOf('id="section-bandas"') &&
     html.indexOf('id="section-destaque"') < html.indexOf('id="section-vitrines"'),
-  "2a. destaque entre 'Para você explorar' e chips de vitrines"
+  "2a. destaque após as bandas e antes dos chips de vitrines"
 );
 
 // 2. app.js: termos derivados do catálogo (filtro >= 2, exclui "outro").
