@@ -1,8 +1,57 @@
 {
-  "generated_at": "2026-10-21T17:13:55Z",
+  "generated_at": "2026-10-21T21:28:00Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 20,
+  "total": 21,
   "products": [
+    {
+      "id": "01a1b322-fbe4-4b30-9539-55d3abe2824a",
+      "title": "Banana nanica",
+      "description": "🍌 Banana cultivada sem o uso de agrotóxicos!\n\nCultivada com cuidado e pensando no bem-estar da sua família, nossa banana leva sabor e qualidade para a sua mesa. E o melhor: aqui a venda ainda é por dúzia!\n\nVenha conferir de perto na Quitanda Toninho e Ana!\n\n📍 Av. Guatemala, 149 – Jardim América, Monte Sião/MG.",
+      "category": {
+        "slug": "servicos",
+        "name": "Serviços",
+        "group": {
+          "slug": "servicos",
+          "name": "Serviços"
+        }
+      },
+      "price": "5.00",
+      "minimum_order": 1,
+      "offer_type": "varejo",
+      "availability": "pronta_entrega",
+      "quantity": 10,
+      "days_since_confirmation": 0,
+      "seller_name": "Quitanda Toninho e ana",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/01a1b322-fbe4-4b30-9539-55d3abe2824a.jpg",
+      "images": [
+        "assets/products/01a1b322-fbe4-4b30-9539-55d3abe2824a.jpg",
+        "assets/products/01a1b322-fbe4-4b30-9539-55d3abe2824a-2.jpg",
+        "assets/products/01a1b322-fbe4-4b30-9539-55d3abe2824a-3.jpg",
+        "assets/products/01a1b322-fbe4-4b30-9539-55d3abe2824a-4.jpg",
+        "assets/products/01a1b322-fbe4-4b30-9539-55d3abe2824a-5.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "image_thumb": "assets/products/thumb/01a1b322-fbe4-4b30-9539-55d3abe2824a.webp",
+      "sale_unit": "duzia",
+      "image_thumbs": [
+        "assets/products/thumb/01a1b322-fbe4-4b30-9539-55d3abe2824a.webp",
+        "assets/products/thumb/01a1b322-fbe4-4b30-9539-55d3abe2824a-2.webp",
+        "assets/products/thumb/01a1b322-fbe4-4b30-9539-55d3abe2824a-3.webp",
+        "assets/products/thumb/01a1b322-fbe4-4b30-9539-55d3abe2824a-4.webp",
+        "assets/products/thumb/01a1b322-fbe4-4b30-9539-55d3abe2824a-5.webp"
+      ],
+      "offer_owner_name": "Quitanda Toninho e ana",
+      "authorization_confirmed": true,
+      "supplier_slug": "quitanda-toninho-e-ana",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Quitanda Toninho e ana",
+        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Banana%20nanica%22%0APre%C3%A7o%3A%20R%24%205%2C00%20/%20dz%20%28m%C3%ADn.%201%20dz%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/01a1b322-fbe4-4b30-9539-55d3abe2824a/"
+      }
+    },
     {
       "id": "cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c",
       "title": "Regata Feminina em Ponto Fang – Saldo de Estoque",
@@ -171,7 +220,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 5,
-      "days_since_confirmation": 1,
+      "days_since_confirmation": 2,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
@@ -221,7 +270,7 @@
       "offer_type": "atacado",
       "availability": "pronta_entrega",
       "quantity": 200,
-      "days_since_confirmation": 1,
+      "days_since_confirmation": 2,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
@@ -263,7 +312,7 @@
       "offer_type": "atacado",
       "availability": "pronta_entrega",
       "quantity": 22,
-      "days_since_confirmation": 1,
+      "days_since_confirmation": 2,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
