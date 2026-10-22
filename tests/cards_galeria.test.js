@@ -14,10 +14,20 @@ const path = require("path");
 const root = path.join(__dirname, "..");
 const js = fs.readFileSync(path.join(root, "assets", "js", "app.js"), "utf8");
 const css = fs.readFileSync(path.join(root, "assets", "css", "vdv.css"), "utf8");
-const exporter = fs.readFileSync(
-  path.join(root, "..", "projeto_telegram", "scripts", "export_catalogo_web.py"),
-  "utf8"
-);
+// O exportador mora no projeto IRMÃO — fora do layout local (clone limpo,
+// migração de host), o caminho padrão não existe: VDV_EXPORTER_SRC aponta.
+// (Revisão VDV-20261021-02, Important 1.)
+const exporterPath = process.env.VDV_EXPORTER_SRC ||
+  path.join(root, "..", "projeto_telegram", "scripts", "export_catalogo_web.py");
+let exporter;
+try {
+  exporter = fs.readFileSync(exporterPath, "utf8");
+} catch (e) {
+  throw new Error(
+    "exportador não encontrado em " + exporterPath +
+    " — defina VDV_EXPORTER_SRC com o caminho de scripts/export_catalogo_web.py"
+  );
+}
 
 // ── 1. CONVENÇÃO ÚNICA — mesmas classes no JS (app.js) e no Python ─────────
 assert(js.includes("card-gal-track") &&
