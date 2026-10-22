@@ -84,10 +84,13 @@ assert(js.includes("gallery-track") &&
   js.includes("gallery-count"),
   "7. app.js: galeria da página individual preservada");
 
-// ── 8. RODÍZIO INDEPENDENTE — pickNovidades/pickDestaqueDiario intocado ────
-assert(js.includes("function pickNovidades") &&
-  js.includes("function pickDestaqueDiario"),
-  "8. app.js: rodízio separado da galeria do card");
+// ── 8. RODÍZIO INDEPENDENTE — destaque diário no front intocado; rodízio
+//       entre anunciantes das bandas é do EXPORTADOR (build_bands, T3 do
+//       plano 64) — o card segue render único, sem seleção própria. ────────
+assert(js.includes("function pickDestaqueDiario"),
+  "8. app.js: rodízio diário do destaque separado da galeria do card");
+assert(/def build_bands\(/.test(exporter) && /rotation = int\(now\.strftime\("%Y%m%d%H"\)\)/.test(exporter),
+  "8a. rodízio entre anunciantes das bandas é do exportador (build_bands)");
 
 // ── 9. TEMPLATES ESTÁTICOS USAM O HELPER (sem <img> único espalhado) ───────
 assert((exporter.match(/_card_gallery_html\(p\)/g) || []).length === 3,

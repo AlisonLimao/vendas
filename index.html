@@ -194,7 +194,7 @@
       });
     });
   </script>
-  <link rel="stylesheet" href="assets/css/vdv.min.css?v=20261020-1">
+  <link rel="stylesheet" href="assets/css/vdv.min.css?v=20261021-1">
 </head>
 <body data-page="home">
   <header class="topbar" id="top">
@@ -258,32 +258,26 @@
 
     <p id="status" class="status" role="status"></p>
 
-    <!-- Prompt mestre homepage (VDV-20261008-07, Etapas 2-3) — Categorias SOBE
-         para logo abaixo da busca: a dobra vira procura → seleção de universo
-         → produto. Bloco único em 2 níveis (VDV-20260921-01), nível 2 só com
-         raiz ativa (gate >= 5 do exportador via catalog.category_pages); a
-         árvore deriva dos produtos (taxonomia exportada = fonte de verdade).
-         O bloco NÃO some durante a busca (o filtro ativo precisa continuar
-         acessível na tela). -->
-    <section id="section-categorias">
-      <h2>Categorias</h2>
-      <div class="cat-block" id="chips-categorias"></div>
+    <!-- VDV-20261021-02 (espec 63) — home por INTENÇÃO: chips-atalho apontam
+         os universos (bandas empilhadas por categoria, logo abaixo); filtros de
+         2 níveis moram no /explorar/. Regras (ordem do banco, rodízio entre
+         anunciantes, selo NOVO) são todas do exportador — o JS é renderer burro. -->
+    <section id="atalhos-categorias" hidden>
+      <p class="card-meta">Categorias da vitrine</p>
+      <div class="chips" id="chips-atalhos"></div>
+    </section>
+
+    <!-- VDV-20261021-02 — bandas empilhadas por categoria: toda oferta fica
+         visível, na banda do grupo dela ("ver tudo" por banda usa a página
+         estática; o feed completo continua no /explorar/). -->
+    <section id="section-bandas" hidden>
+      <div id="bandas"></div>
+      <p class="rail-more"><a href="explorar/">Explorar a vitrine inteira &rarr;</a></p>
     </section>
 
     <!-- R4 (VDV-20260923-01, mestre item 13): a faixa institucional do topo
          ("Tem produto ou capacidade...") saiu — a primeira dobra é produto; a
          conversa com o vendedor fica no bloco "Anunciar" depois da confiança. -->
-
-    <!-- Fatia 32 / R4 — "Acabou de chegar": descoberta leve em grade (≤6 no
-         celular / ≤8 no desktop via CSS), "Ver tudo" desce para a vitrine.
-         Só aparece com catálogo que sustenta a faixa (>= 5). Rodízio POR
-         VISITA desde VDV-20261008-07 (Etapa 4): pool = os mais recentes já
-         aptos (BANCO), seed por visita + estabilidade ao voltar do produto. -->
-    <section id="section-novidades" hidden>
-      <h2>Acabou de chegar</h2>
-      <div class="grid grid-novidades" id="grid-recent"></div>
-      <p class="rail-more"><a href="explorar/">Explorar a vitrine inteira &rarr;</a></p>
-    </section>
 
     <section id="results" hidden>
       <h2 id="results-title">Resultado da busca</h2>
@@ -291,21 +285,6 @@
       <p id="results-procura" hidden>Diga o que você precisa e deixe a demanda chegar até quem vende.
         <a class="btn btn-ghost" data-deep-link="procura" data-ga-origin="cta_zero_result_procura" href="#">Criar uma Procura</a></p>
       <button id="clear-search" class="btn btn-ghost" hidden>Limpar busca</button>
-    </section>
-
-    <!-- Fatia 32 (VDV-20260916-01) — descoberta por categoria: links SÓ para
-         páginas que existem (gate >= 5 no exportador; catalog.category_pages).
-         Sem página acima do gate, a seção não aparece (nunca 404, nunca
-         inventa volume). -->
-
-    <!-- R4 (VDV-20260923-01, mestre itens 13-15) — "Para você explorar":
-         funde o antigo trilho de grupo e a rotação "Em exposição agora" em
-         uma seleção única e honesta — recência (ordem do exportador,
-         published_at DESC) com distribuição entre categorias (round-robin),
-         cap 8, sem ranking inventado e sem rotação. -->
-    <section id="section-explorar" hidden>
-      <h2>Para você explorar</h2>
-      <div class="grid" id="grid-explorar"></div>
     </section>
 
     <!-- Fatia 49 (VDV-20261003-05, mestre §23) — quebra editorial no meio da
@@ -412,7 +391,7 @@
     <a href="#procura" id="bb-procura"><span class="bb-ico" aria-hidden="true">💬</span>Procura</a>
   </nav>
 
-  <script src="assets/js/vdv.min.js?v=20261020-1"></script>
+  <script src="assets/js/vdv.min.js?v=20261021-1"></script>
   <noscript>
     Gerenciamento de consentimento de cookies por <a href="https://www.termsfeed.com/">TermsFeed</a>.
   </noscript>

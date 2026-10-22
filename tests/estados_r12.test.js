@@ -54,7 +54,7 @@ assert(
   /prefers-reduced-motion/.test(css) && /sk-pulse/.test(css),
   "2. pulso do skeleton respeita prefers-reduced-motion"
 );
-["x-grid", "grid-recent", "grid-explorar", "grid-favoritos"].forEach(function (id) {
+["x-grid", "bandas", "grid-favoritos"].forEach(function (id) {
   assert(js.includes('"' + id + '"'), "2. alvo do skeleton presente: " + id);
 });
 

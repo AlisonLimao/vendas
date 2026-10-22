@@ -37,12 +37,14 @@ assert(js.includes("g.imgs.length < 3"), "3b. teto de fotos por vitrine");
 assert(/1664525/.test(js), "4. LCG do rodízio preservado");
 assert(/seed = \(seed \* 1664525 \+ 1013904223\) >>> 0;/.test(js), "4a. LCG completo");
 
-// 5. filtro continua filtro: data-group dos chips + validação do ativo
-//    (nada de navegação nova; nunca link no nível 1).
-const catIdx = js.indexOf("function renderCatBlock");
-const cat = js.slice(catIdx, catIdx + 3400);
-assert(cat.includes('chip.setAttribute("data-group", gr.slug)'),
-  "5. chip continua FILTRO (data-group)");
-assert(!cat.includes("a.href ="), "5a. nível 1 nunca vira link");
+// 5. VDV-20261021-02 (espec 63, decisão 7): os chips da home são ÂNCORA
+//    para a banda (#banda-<slug>) — o filtro de 2 níveis mora no /explorar/.
+//    Na home não existe filtro (nem data-group, nem navegação nova).
+assert(/atalho\.href = "#banda-"/.test(js),
+  "5. chip-atalho da home é âncora para a banda (#banda-)");
+assert(!/data-group/.test(js),
+  "5a. nenhum filtro data-group na home (filtros moram no /explorar/)");
+assert(/"x-grupo"/.test(js) && /"x-sub"/.test(js),
+  "5b. filtros de 2 níveis vivos no initExplorar (/explorar/)");
 
 console.log("refino_54: todos os testes passaram ✔");

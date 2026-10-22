@@ -16,13 +16,9 @@
   // /explorar/ e /favoritos/: quem navega para um produto (ou para a outra
   // página) guarda filtros/rolagem; quem volta consome uma única vez.
   var HOME_STATE_KEY = "vdv:home-state";
-  // Faixas editoriais só entram quando há catálogo suficiente pra não
-  // duplicar card na tela (Home 2.0 — vitrine comprador-first).
-  // R4 (VDV-20260923-01, mestre itens 13-15): trilho de grupo e rotação
-  // "Em exposição agora" fundidos na seleção "Para você explorar".
-  var RECENT_STRIP_MIN = 5;  // faixa "Acabou de chegar" com >= 5 produtos
-  var NOVIDADES_CAP = 8;     // teto de cards em "Acabou de chegar" (grade)
-  var EXPLORAR_CAP = 8;      // teto de cards em "Para você explorar"
+  // VDV-20261021-02 — úwnico cap que sobrevive das faixas editoriais da
+  // R4: as bandas não têm cap no front (o exportador decide a distribuição;
+  // novidades/explorar viram bandas).
   var VITRINES_CAP = 4;      // teto de chips em "Vitrines do VDV"
   var AVAILABILITY_LABELS = {
     pronta_entrega: "Pronta entrega",
@@ -505,115 +501,6 @@
     return g === "impressao_3d" || (p.category && p.category.slug === "impressao_3d");
   }
 
-  // R4 — seleção "Para você explorar": funde o antigo trilho de grupo e a
-  // rotação "Em exposição agora" em uma seleção única e honesta — recência
-  // (ordem do exportador, published_at DESC) com distribuição entre
-  // categorias (round-robin), cap fixo, sem ranking inventado e sem rotação.
-  // Exclui os ids já exibidos (invariante "sem duplicar card na tela").
-  // Fatia 56 (plano 17, mestre §13/§24/§26/§65) — dentro de cada bucket de
-  // categoria, os produtos passam a ALTERNAR fornecedor (round-robin por
-  // supplier_slug): a mesma modelagem não empilha o mesmo anunciante.
-  // Diversidade funciona POR BLOCO, como preferência — nunca esconde produto,
-  // nunca penaliza fornecedor globalmente; bucket com < 3 itens ou 1 único
-  // fornecedor sai como veio (§65/§66: fallback = ordem original).
-  function alternarFornecedoresDoBucket(bucket) {
-    var filas = {}; // supplier_slug -> fila de produtos, na ordem publicada
-    var ordem = []; // filas na ordem da primeira aparição
-    bucket.forEach(function (p) {
-      var s = p.supplier_slug || "_sem_fornecedor";
-      if (!filas[s]) { filas[s] = []; ordem.push(filas[s]); }
-      filas[s].push(p);
-    });
-    if (ordem.length < 2 || bucket.length < 3) return bucket;
-    var alternado = [];
-    var round = 0;
-    while (true) {
-      var progressou = false;
-      for (var c = 0; c < ordem.length; c++) {
-        if (ordem[c].length > round) {
-          alternado.push(ordem[c][round]);
-          progressou = true;
-        }
-      }
-      if (!progressou) break;
-      round += 1;
-    }
-    return alternado;
-  }
-
-  function pickExplorar(products, excludeIds, cap) {
-    var buckets = [];
-    var byCat = {};
-    products.forEach(function (p) {
-      if (excludeIds[p.id]) return;
-      var slug = (p.category && p.category.slug) || "_sem_categoria";
-      if (!byCat[slug]) { byCat[slug] = []; buckets.push(byCat[slug]); }
-      byCat[slug].push(p);
-    });
-    buckets.forEach(function (bucket) {
-      var alternado = alternarFornecedoresDoBucket(bucket);
-      // aplicação in-place: buckets são os próprios arrays de byCat
-      for (var i = 0; i < alternado.length; i++) bucket[i] = alternado[i];
-      bucket.length = alternado.length;
-    });
-    var picked = [];
-    var round = 0;
-    while (picked.length < cap) {
-      var progressou = false;
-      for (var b = 0; b < buckets.length; b++) {
-        if (buckets[b].length > round) {
-          picked.push(buckets[b][round]);
-          progressou = true;
-          if (picked.length >= cap) break;
-        }
-      }
-      if (!progressou) break;
-      round += 1;
-    }
-    return picked;
-  }
-
-  // Prompt mestre homepage (VDV-20261008-07, Etapa 4) — rodízio POR VISITA em
-  // "Acabou de chegar": a seção segue HONESTA (pool = só os mais recentes,
-  // já aptos pela exportação — status/moderação/disponibilidade são do BANCO)
-  // e a exposição se distribui: seed POR VISITA (nova a cada entrada sem
-  // snapshot; a seed de antes é reusada ao VOLTAR de um produto — a vitrine
-  // não mexe por baixo do visitante), amostragem sem reposição com peso
-  // decrescente (recência priorizada), ordem do conjunto também varia e os
-  // fornecedores se alternam (mesma lei do explorar, sem concentração).
-  // Poucos produtos (pool <= cap) → ordem de chegada intacta. Sem
-  // rastreamento pessoal: a seed vive só no sessionStorage da aba.
-  var NOVIDADES_POOL = 16;   // janela de recentes que alimenta o rodízio
-  function lcgRng(seed) {
-    var s = (seed >>> 0) || 1;
-    return function () {
-      s = (s * 1664525 + 1013904223) >>> 0;
-      return s / 4294967296;
-    };
-  }
-  function pickNovidades(products, seed) {
-    var pool = products.slice(0, NOVIDADES_POOL);
-    if (pool.length <= NOVIDADES_CAP) return pool;
-    var rng = lcgRng(seed);
-    var candidatos = pool.slice();
-    var picked = [];
-    while (picked.length < NOVIDADES_CAP && candidatos.length) {
-      // peso decrescente: posição 0 (mais recente) pesa mais que a última
-      var total = (candidatos.length * (candidatos.length + 1)) / 2;
-      var r = rng() * total;
-      var idx = 0;
-      for (var i = 0; i < candidatos.length; i++) {
-        r -= candidatos.length - i;
-        if (r <= 0) { idx = i; break; }
-      }
-      picked.push(candidatos.splice(idx, 1)[0]); // sem reposição: sem duplicata
-    }
-    for (var j = picked.length - 1; j > 0; j--) {
-      var k = Math.floor(rng() * (j + 1));
-      var t = picked[j]; picked[j] = picked[k]; picked[k] = t;
-    }
-    return alternarFornecedoresDoBucket(picked);
-  }
   // Fatia 49 (mestre §23) — destaque editorial de vitrine: regra REAL de
   // seleção = rodízio diário igualitário entre fornecedores (seed derivada
   // da data — estável no dia, muda de dia a dia; todos os fornecedores
@@ -819,7 +706,7 @@
    * hierarquia visual é IMAGEM → PREÇO → NOME → FORNECEDOR. A linha "Ver
    * detalhes" saiu — o card inteiro já é o link. Cidade/categoria ficam
    * para a página do produto (menos texto, §49). */
-  function cardEl(p) {
+  function cardEl(p, opts) {
     // Fase 0 do "gostei": o card vira um wrapper (card-wrap) com o link
     // inteiro de sempre + o coração (botão FORA do <a> — button dentro de
     // link é HTML inválido e o clique dispararia a navegação).
@@ -836,6 +723,11 @@
       });
     });
     a.appendChild(cardGallery(p));
+    // VDV-20261021-02 (espec 63, decisão 4) — selo NOVO: só as bandas da
+    // home passam opts.novo; a janela é do exportador (is_new, 7 dias).
+    if (opts && opts.novo && p.is_new) {
+      a.insertAdjacentHTML("beforeend", '<span class="badge-novo">NOVO</span>');
+    }
     var body = document.createElement("div");
     body.className = "card-body";
     body.innerHTML =
@@ -1069,9 +961,10 @@
   function initHome(catalog) {
     var products = catalog.products || [];
     var status = $("status");
-    var sectionRecent = $("section-novidades");
+    var sectionBandas = $("section-bandas");
     var sectionEmpty = $("section-empty");
     var results = $("results");
+    var atalhos = $("atalhos-categorias");
 
     status.textContent = "";
 
@@ -1079,255 +972,70 @@
     // favoritos (a página /favoritos/ re-renderiza sobre ele a cada toggle).
     window.__vdvCatalogProducts = products;
 
-    // Faixas editoriais: só quando o catálogo sustenta (sem duplicar card).
-    // VDV-20260907-14: a faixa fixa "⚡ Pronta entrega" saiu do topo — pronta
-    // entrega é disponibilidade escolhida pelo anunciante, não faixa editorial;
-    // o visitante filtra pelo chip em "Explore a vitrine".
-    var hasPronta = products.some(function (p) { return p.availability === "pronta_entrega"; });
-    var showRecentStrip = products.length >= RECENT_STRIP_MIN;
-    sectionRecent.hidden = !showRecentStrip;
-    // Prompt mestre homepage (VDV-20261008-07, Etapa 4) — seed do rodízio das
-    // novidades: entrada nova/recarga = seed nova; snapshot de retorno
-    // (voltar de um produto/explorar) REUSA a seed de antes — mesmo conjunto
-    // e mesma ordem, navegação estável. Peeking SEM remover (a restauração
-    // do fim da initHome consome o snapshot depois).
-    var rotSeed = 0;
-    try {
-      var rawSeed = sessionStorage.getItem(HOME_STATE_KEY);
-      if (rawSeed) {
-        var peek = JSON.parse(rawSeed);
-        if (peek && typeof peek.rot === "number") rotSeed = peek.rot >>> 0;
-      }
-    } catch (e) { /* modo privado: seed nova a cada visita */ }
-    if (!rotSeed) rotSeed = (Math.random() * 4294967296) >>> 0;
-    // Fatia 32 + Etapa 4 — faixa em grade com rodízio por visita (a honesta
-    // "ordem de chegada" intacta quando o catálogo é pequeno demais).
-    var novidadesCards = showRecentStrip ? pickNovidades(products, rotSeed) : [];
-    if (showRecentStrip) fill($("grid-recent"), novidadesCards);
+    // VDV-20261021-02 (espec 63) — home por INTENÇÃO: busca + chips-atalho no
+    // topo e bandas empilhadas por categoria. Toda a regra (ordem fixa do
+    // banco, rodízio entre anunciantes, janela do selo NOVO) mora NO
+    // EXPORTADOR (build_bands); aqui é renderer burro sobre catalog.bands.
+    var bands = catalog.bands || [];
+    var id2p = {};
+    products.forEach(function (p) { id2p[p.id] = p; });
 
-    // VDV-20260916-05 — contagem por grupo/sub em uma passada (reusada pelo
-    // bloco único de categorias e pelo trilho de grupo da Fatia 32).
-    var groups = {};
-    products.forEach(function (p) {
-      var c = p.category || {};
-      var g = c.group || {};
-      if (!g.slug) return;
-      var gr = groups[g.slug] ||
-        (groups[g.slug] = { slug: g.slug, name: g.name || g.slug, n: 0, subs: {} });
-      gr.n += 1;
-      var sub = gr.subs[c.slug] ||
-        (gr.subs[c.slug] = { slug: c.slug, name: c.name || c.slug, n: 0 });
-      sub.n += 1;
-    });
-
-    // VDV-20260916-05 — bloco único de categorias: um só ponto de navegação na
-    // Home. Grupo em destaque — LINK para a página estática quando existe
-    // (gate >= 5 já aplicado pelo exportador em catalog.category_pages; nunca
-    // 404) ou FILTRO do grupo inteiro quando não. Subcategorias com anúncios
-    // ficam logo abaixo como filtro local com contagem; categoria raiz
-    // (group.slug === category.slug, ex.: Impressão 3D) não se repete. O bloco
-    // NÃO some durante a busca (o filtro ativo precisa continuar na tela).
-    // Zero telemetria nova: o filtro cai no telemetria("search") existente via
-    // assinatura; o link reusa o evento abrir_categoria da Fatia 32.
-    var sectionCategorias = $("section-categorias");
-    var catPages = catalog.category_pages || [];
-    var pageBySlug = {};
-    catPages.forEach(function (cp) { pageBySlug[cp.slug] = cp; });
-    var showCategorias = products.length > 0;
-    sectionCategorias.hidden = !showCategorias;
-    var catChips = $("chips-categorias");
-
-    // VDV-20260921-01 (Bloco 1) — taxonomia navegável em 2 níveis, derivada
-    // dos produtos (a taxonomia exportada é a fonte de verdade; nada
-    // hardcoded). Nível 1: só raízes (grupos) + "Toda a vitrine". Nível 2,
-    // só com raiz ativa E filhos diretos: "Tudo em <categoria>" + filhos.
-    // Trocar de raiz limpa obrigatoriamente o filho; "Toda a vitrine" limpa
-    // ambos (e a disponibilidade); "Tudo em <categoria>" limpa só o filho.
-    // Raiz nunca vira link: a navegação para a página estática (gate >= 5)
-    // mora no nível 2 como ação discreta — filtro e navegação não se
-    // misturam. Busca textual combina sem apagar o termo.
-    var selectedCategory = "";     // raiz ativa (slug do grupo)
-    var selectedSubcategory = "";  // filho ativo (slug da sub)
-    var AVAIL_FILTER = { value: "pronta_entrega", label: "⚡ Pronta entrega" };
-    var activeAvail = "";
-    function setChipPressed(chip) {
-      var slug = chip.getAttribute("data-slug");
-      var grp = chip.getAttribute("data-group");
-      var avail = chip.getAttribute("data-avail");
-      if (chip.hasAttribute("data-all")) {
-        chip.setAttribute("aria-pressed",
-          String(!selectedCategory && !selectedSubcategory));
-      } else if (slug) {
-        chip.setAttribute("aria-pressed", String(slug === selectedSubcategory));
-      } else if (grp) {
-        chip.setAttribute("aria-pressed",
-          String(grp === selectedCategory && !selectedSubcategory));
-      } else if (avail !== null) {
-        chip.setAttribute("aria-pressed", String(avail === activeAvail));
-      }
-    }
-    function syncChipStates() {
-      Array.prototype.forEach.call(catChips.children, function (row) {
-        Array.prototype.forEach.call(row.children, setChipPressed);
-      });
-    }
-    function renderCatBlock() {
-      catChips.innerHTML = "";
-      if (!showCategorias) return;
-      // Prompt mestre homepage (VDV-20261008-07, Etapa 3) — nível 1 volta a
-      // CHIPS COMPACTOS logo abaixo da busca (as portas de entrada da Fatia 54
-      // cedem: o mestre pede categorias leves e selecionáveis, não cartões).
-      // Segue FILTRO com os mesmos data-*, mesma toggle e mesmo ⚡ — só a
-      // apresentação muda; contagem fica no nível 2 (chips mais enxutos).
-      var row1 = document.createElement("div");
-      row1.className = "cat-row cat-row-l1";
-      var allChip = document.createElement("button");
-      allChip.type = "button";
-      allChip.className = "chip chip-group";
-      allChip.setAttribute("aria-pressed", "false");
-      allChip.setAttribute("data-all", "1");
-      allChip.textContent = "Toda a vitrine";
-      allChip.addEventListener("click", function () {
-        selectedCategory = "";
-        selectedSubcategory = "";
-        activeAvail = "";
-        renderCatBlock();
-        renderSearch();
-      });
-      row1.appendChild(allChip);
-      Object.keys(groups)
-        .map(function (k) { return groups[k]; })
-        .sort(function (a, b) { return b.n - a.n; })
-        .forEach(function (gr) {
-          var chip = document.createElement("button");
-          chip.type = "button";
-          chip.className = "chip";
-          chip.setAttribute("aria-pressed", "false");
-          chip.setAttribute("data-group", gr.slug);
-          chip.textContent = gr.name;
-          chip.addEventListener("click", function () {
-            selectedCategory = selectedCategory === gr.slug ? "" : gr.slug;
-            selectedSubcategory = "";
-            renderCatBlock();
-            renderSearch();
-          });
-          row1.appendChild(chip);
-        });
-      if (hasPronta) {
-        var availChip = document.createElement("button");
-        availChip.type = "button";
-        availChip.className = "chip";
-        availChip.setAttribute("aria-pressed", "false");
-        availChip.setAttribute("data-avail", AVAIL_FILTER.value);
-        availChip.textContent = AVAIL_FILTER.label;
-        availChip.addEventListener("click", function () {
-          activeAvail = activeAvail === AVAIL_FILTER.value ? "" : AVAIL_FILTER.value;
-          renderCatBlock();
-          renderSearch();
-        });
-        row1.appendChild(availChip);
-      }
-      catChips.appendChild(row1);
-      var current = selectedCategory ? groups[selectedCategory] : null;
-      if (!current) { syncChipStates(); return; }
-      var children = Object.keys(current.subs)
-        .map(function (k) { return current.subs[k]; })
-        .filter(function (s) { return s.slug !== current.slug; })
-        .sort(function (a, b) { return b.n - a.n; });
-      if (children.length) {
-        var row2 = document.createElement("div");
-        row2.className = "cat-row cat-row-l2";
-        var allIn = document.createElement("button");
-        allIn.type = "button";
-        allIn.className = "chip chip-group";
-        allIn.setAttribute("aria-pressed", "false");
-        allIn.setAttribute("data-group", current.slug);
-        allIn.textContent = "Tudo em " + current.name;
-        allIn.addEventListener("click", function () {
-          selectedSubcategory = "";
-          renderCatBlock();
-          renderSearch();
-        });
-        row2.appendChild(allIn);
-        children.forEach(function (s) {
-          var chip = document.createElement("button");
-          chip.type = "button";
-          chip.className = "chip";
-          chip.setAttribute("aria-pressed", "false");
-          chip.setAttribute("data-slug", s.slug);
-          chip.textContent = s.name + " " + s.n;
-          chip.addEventListener("click", function () {
-            selectedSubcategory = selectedSubcategory === s.slug ? "" : s.slug;
-            renderCatBlock();
-            renderSearch();
-          });
-          row2.appendChild(chip);
-        });
-        var page = pageBySlug[current.slug];
-        if (page) {
-          var pgLink = document.createElement("a");
-          pgLink.className = "chip chip-page";
-          pgLink.href = "categoria/" + encodeURIComponent(current.slug) + "/";
-          pgLink.textContent = "Página de " + current.name + " →";
-          pgLink.addEventListener("click", function () {
-            track("abrir_categoria", { categoria_slug: current.slug, event_category: "navegacao" });
-          });
-          row2.appendChild(pgLink);
-        }
-        catChips.appendChild(row2);
-      }
-      syncChipStates();
-    }
-    renderCatBlock();
-
-    // R4 — "Para você explorar": substitui o trilho de grupo da Fatia 32 e a
-    // rotação "Em exposição agora" (VDV-20260907-08). Cards não repetem os da
-    // faixa "Acabou de chegar" (invariante "sem duplicar card na tela").
-    var sectionExplorar = $("section-explorar");
-    var recentesIds = {};
-    // R4 — a dedupe do explorar usa os ids ROTACIONADOS (VDV-20261008-07):
-    // o que entrou no rodízio desta visita não repete no grid seguinte.
-    novidadesCards.forEach(function (p) { recentesIds[p.id] = true; });
-    // Fatia 56 (plano 17, mestre §27/§46/§47) — a SELEÇÃO do destaque diário
-    // (LCG intocado) sobe para que o grid de explorar possa deduplicar por ID
-    // real o que as thumbs do bloco exibem: produto em destaque não reaparece
-    // imediatamente no grid seguinte. A COMPOSIÇÃO do bloco continua no mesmo
-    // lugar da página (mais abaixo).
+    // Fatia 49 (mestre §23) / Fatia 56 — destaque editorial: seleção diária
+    // LCG intocada. Decisão 8 (espec 63): NÃO corta produto — o anunciante
+    // destacado também aparece na banda do grupo dele (fim do dedup).
     var sectionDestaque = $("section-destaque");
     var destaque = sectionDestaque ? pickDestaqueDiario(products) : null;
-    var usadosNoDestaque = {};
-    if (destaque && destaque.imgs.length) {
-      var idByThumb = {};
-      products.forEach(function (p) {
-        if (p.image_thumb && !idByThumb[p.image_thumb]) idByThumb[p.image_thumb] = p.id;
+
+    // Faixa de atalhos + bandas: só quando o catálogo sustenta (>= 1 banda).
+    function renderBandas(cat) {
+      var chipsEl = $("chips-atalhos");
+      var bandasEl = $("bandas");
+      if (!chipsEl || !bandasEl) return;
+      chipsEl.innerHTML = "";
+      bandasEl.innerHTML = "";
+      var list = cat.bands || [];
+      list.forEach(function (b) {
+        var atalho = document.createElement("a");
+        atalho.className = "chip";
+        atalho.href = "#banda-" + b.slug;  // chips-atalho apontam o universo
+        atalho.textContent = b.name + " · " + b.total;
+        atalho.addEventListener("click", function () {
+          track("abrir_categoria", { categoria_slug: b.slug, event_category: "navegacao" });
+        });
+        chipsEl.appendChild(atalho);
+        var sec = document.createElement("div");
+        sec.className = "banda";
+        sec.id = "banda-" + b.slug;
+        var h2 = document.createElement("h2");
+        h2.textContent = b.name;
+        sec.appendChild(h2);
+        var meta = document.createElement("p");
+        meta.className = "card-meta";
+        meta.textContent = b.total + (b.total === 1 ? " anúncio" : " anúncios") +
+          (b.slug === "sem_categoria" ? "" : " · ");
+        if (b.slug !== "sem_categoria") {
+          // "ver tudo" reusa a página estática da categoria (decisão 6 —
+          // página existe: banda >= 1 => grupo >= 1 => category_pages inclui).
+          var verTudo = document.createElement("a");
+          verTudo.href = "categoria/" + encodeURIComponent(b.slug) + "/";
+          verTudo.textContent = "ver tudo";
+          meta.appendChild(verTudo);
+        }
+        sec.appendChild(meta);
+        var grid = document.createElement("div");
+        grid.className = "grid";
+        (b.products || []).forEach(function (pid) {
+          var p = id2p[pid];
+          if (p) grid.appendChild(cardEl(p, { novo: true }));
+        });
+        sec.appendChild(grid);
+        bandasEl.appendChild(sec);
       });
-      destaque.imgs.forEach(function (src) {
-        if (idByThumb[src]) usadosNoDestaque[idByThumb[src]] = true;
-      });
+      var tem = list.length > 0;
+      sectionBandas.hidden = !tem;
+      atalhos.hidden = !tem;
     }
-    var excluidos = Object.assign({}, recentesIds, usadosNoDestaque);
-    var explorarCards = pickExplorar(products, excluidos, EXPLORAR_CAP);
-    // Fatia 56 (mestre §28/§29) — vizinhança do bloco de fornecedor: quando
-    // há alternativa elegível, os produtos do fornecedor destacado não ficam
-    // nas posições FINAIS do grid imediatamente antes do bloco (troca a dose
-    // final por fornecedores diferentes; preferência, não restrição).
-    if (destaque && explorarCards.length > 1) {
-      var corte = explorarCards.length;
-      while (corte > 0 &&
-             (explorarCards[corte - 1].supplier_slug || "") === destaque.slug) {
-        corte -= 1;
-      }
-      var doseDestaque = explorarCards.slice(corte);
-      var doseDiversa = explorarCards.slice(corte - doseDestaque.length, corte);
-      if (doseDestaque.length && doseDestaque.length <= corte) {
-        explorarCards = explorarCards
-          .slice(0, corte - doseDestaque.length)
-          .concat(doseDestaque, doseDiversa);
-      }
-    }
-    var showExplorar = explorarCards.length > 0;
-    sectionExplorar.hidden = !showExplorar;
-    if (showExplorar) fill($("grid-explorar"), explorarCards);
+    renderBandas(catalog);
 
     // VDV-20260907-06 — seção "Vitrines do VDV": um chip por fornecedor
     // (dedup por supplier_slug, primeiro display vence — mesmo critério do
@@ -1360,8 +1068,7 @@
     // Fatia 49 (mestre §23) — bloco editorial "Conheça esta vitrine" que quebra
     // a monotonia do catálogo e valoriza o anunciante: real por definição
     // (vitrine com produtos e foto no ar). Fatia 56: a seleção (LCG diário)
-    // aconteceu antes da montagem do explorar (mestre §46) — aqui fica só a
-    // composição do momento editorial.
+    // aconteceu acima — aqui fica só a composição do momento editorial.
     if (destaque) {
       var dEl = $("vitrine-destaque");
       dEl.innerHTML = "";
@@ -1428,11 +1135,10 @@
     }
 
     // R14 (VDV-20260925-01) — demandas publicadas no bot. Fatia 55 (plano 16,
-    // mestre §32): a Procura é DEMAUDA REAL — sai o card de foto (que nunca
-    // foi do produto; usava placeholder) e entra a LISTA EDITORIAL textual:
-    // dito do comprador como citação + contexto em linha. Fetch SEPARADO e
-    // best-effort — 404/erro deixa a seção oculta e NUNCA interfere na
-    // renderização dos produtos (independência do feed novo).
+    // mestre §32): a Procura é DEMANDA REAL — lista editorial textual: dito do
+    // comprador como citação + contexto em linha. Fetch SEPARADO e best-effort
+    // — 404/erro deixa a seção oculta e NUNCA interfere na renderização dos
+    // produtos (independência do feed novo).
     fetch(prefix + "data/procuras.json")
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(function (procurasCatalog) {
@@ -1455,9 +1161,8 @@
           var desc = String(pr.description || "");
           if (desc.length > 90) desc = desc.slice(0, 89) + "…";
           // VDV-20261016-04 — orçamento é opcional (entrada 0 no bot): sem
-          // price_max o segmento de preço some da linha (categoria · N un);
-          // com preço, exibição atual preservada (nunca preço fictício de
-          // valor zero).
+          // price_max o segmento de preço some da linha; com preço, exibição
+          // atual preservada (nunca preço fictício de valor zero).
           var preco = "";
           if (pr.price_max) {
             preco = pr.price_min
@@ -1470,7 +1175,6 @@
           // VDV-20261016-02 — miniatura de referência ao lado da citação:
           // thumb WebP priorizada e original como fallback (mesmo padrão de
           // cardMedia); sem foto → lista editorial textual da Fatia 55 intacta.
-          // Rótulo PROCURA distingue demanda de produto à venda.
           var pic = null;
           if (pr.image_thumb || pr.image) {
             pic = document.createElement("span");
@@ -1520,18 +1224,13 @@
       })
       .catch(function () { /* best-effort: seção de procuras fica oculta */ });
 
-    // R5 (VDV-20260923-01) — a grade completa "Explore a vitrine" saiu da
-    // Home: ver o catálogo inteiro (com busca + filtros) virou a página
-    // /explorar/, linkada no topo, no hero, no "Ver tudo" e no bottombar.
-
     var input = $("search");
     var clearBtn = $("clear-search");
 
     // Fatia 49 (mestre §13) — termos rápidos: atalhos derivados do catálogo
-    // real (subcategorias com >= 2 anúncios; "outro" sai da lista). A contagem
-    // vem da própria taxonomia exportada — nunca inventa popularidade.
-    // Atalho = termo na busca textual (a navegação por categoria fica no
-    // bloco de Categorias; aqui é entrada de busca).
+    // real (subcategorias com >= 2 anúncios; "outro" sai da lista). Atalho =
+    // termo na busca textual (a navegação por categoria são os chips-atalho
+    // das bandas; aqui é entrada de busca).
     var qt = $("quick-terms");
     if (qt) {
       var termos = {};
@@ -1569,116 +1268,84 @@
     }
 
     // Fatia 50 — sugestões na busca da Home: produto navega (com snapshot de
-    // retorno), categoria/grupo aplicam o filtro equivalente do bloco de
-    // Categorias (validado contra o catálogo — sugestão que não existe mais
-    // é ignorada, nunca filtro órfão).
+    // retorno). VDV-20261021-02: sugestão de categoria/grupo APONTA o
+    // universo — rola até a banda do grupo (o filtro mora no /explorar/,
+    // decisão 7; nunca filtro órfão na home).
     wireSugestoes(input, $("search-sg"), products, function (s) {
       if (s.kind === "produto") {
         saveHomeState();
         window.location.href = "produto/index.html?id=" + encodeURIComponent(s.p.id);
         return;
       }
-      if (s.kind === "grupo") {
-        selectedCategory = groups[s.slug] ? s.slug : "";
-      } else {
-        var gSel = groups[s.group];
-        if (!gSel || !gSel.subs[s.slug]) return;
-        selectedCategory = s.group;
+      var slugAlvo = s.kind === "grupo" ? s.slug : (s.group || "");
+      if (slugAlvo && document.getElementById("banda-" + slugAlvo)) {
+        saveHomeState();
+        window.location.hash = "banda-" + slugAlvo;
       }
-      selectedSubcategory = s.kind === "categoria" ? s.slug : "";
-      renderCatBlock();
-      renderSearch();
     });
 
     function setBrowseVisibility(searching) {
-      // VDV-20260916-05 — o bloco de categorias NÃO some durante a busca: os
-      // chips de filtro moram nele e o filtro ativo precisa continuar na tela
-      // (trocar/desmarcar sem limpar a busca inteira).
-      sectionCategorias.hidden = products.length === 0;
-      sectionRecent.hidden = searching || !showRecentStrip;
-      sectionExplorar.hidden = searching || !showExplorar;
+      // VDV-20261021-02 — durante a busca as faixas de entrada (atalhos e
+      // bandas) cedem o palco para os resultados; sem catálogo, vazio.
+      sectionBandas.hidden = searching || !bands.length;
+      atalhos.hidden = searching || !bands.length;
       sectionEmpty.hidden = searching || products.length > 0;
     }
 
     // Fatia 30: busca é evento de intenção — 1 evento por assinatura
-    // (termo+categoria+disponibilidade) mudada, não por tecla.
+    // (termo único — filtros de 2 níveis moram no /explorar/).
     var ultimaBuscaEnviada = "";
     function renderSearch() {
       var q = input.value.replace(/\s+/g, " ").trim().toLowerCase();
-      var cat = selectedSubcategory;
-      var grp = selectedCategory;
-      var avail = activeAvail;
-      var searching = q !== "" || cat !== "" || grp !== "" || avail !== "";
+      var searching = q !== "";
       results.hidden = !searching;
       clearBtn.hidden = !searching;
       setBrowseVisibility(searching);
       if (!searching) return;
       var found = products.filter(function (p) {
-        if (avail && p.availability !== "pronta_entrega") return false;
-        if (cat && p.category.slug !== cat) return false;
-        if (grp && (!p.category.group || p.category.group.slug !== grp)) return false;
-        if (!q) return true;
         var hay = (p.title + " " + p.description + " " + p.category.name + " " +
           p.city + " " + p.seller_name).toLowerCase();
         return q.split(" ").every(function (term) { return hay.indexOf(term) !== -1; });
       });
-      // VDV-20260921-01 (Bloco 1) — contexto pai › filho ativo + contagem.
-      var ctx = [];
-      if (grp) ctx.push(groups[grp] ? groups[grp].name : grp);
-      if (cat) {
-        var g = groups[grp];
-        ctx.push(g && g.subs[cat] ? g.subs[cat].name : cat);
-      }
       var contagem = found.length
         ? found.length + " oferta" + (found.length > 1 ? "s" : "") + " encontrada" + (found.length > 1 ? "s" : "")
         : "Nada encontrado — tente outro termo";
-      $("results-title").textContent = ctx.length
-        ? ctx.join(" › ") + " · " + contagem
-        : contagem;
+      $("results-title").textContent = contagem;
       fill($("results-grid"), found);
       // Bloco 5 (VDV-20260921-01) — CTA de Procura contextual, só quando a
       // busca não acha nada (link já emite procura_click no deep link).
       $("results-procura").hidden = found.length > 0;
-      var assinatura = q + "|" + cat + "|" + grp + "|" + avail;
-      if (assinatura !== ultimaBuscaEnviada) {
-        ultimaBuscaEnviada = assinatura;
-        telemetria("search", { category: cat || grp || null });
-        if (!found.length) telemetria("search_zero_result", { category: cat || grp || null });
+      if (q !== ultimaBuscaEnviada) {
+        ultimaBuscaEnviada = q;
+        telemetria("search", { category: null });
+        if (!found.length) telemetria("search_zero_result", { category: null });
       }
     }
 
     input.addEventListener("input", renderSearch);
     clearBtn.addEventListener("click", function () {
       input.value = "";
-      selectedSubcategory = "";
-      selectedCategory = "";
-      activeAvail = "";
-      renderCatBlock();
       results.hidden = true;
       clearBtn.hidden = true;
       setBrowseVisibility(false);
     });
 
     if (products.length === 0) {
-      sectionCategorias.hidden = true;
-      sectionRecent.hidden = true;
+      sectionBandas.hidden = true;
+      atalhos.hidden = true;
       sectionEmpty.hidden = false;
     }
 
     // VDV-20260909-01 — retorno ao feed com estado. Ao abrir um produto (ou
-    // navegar para /explorar/ e /favoritos/, R5), a Home guarda rolagem, busca
-    // e filtros em sessionStorage (escopo de aba). Ao voltar, o estado volta e
-    // o snapshot é limpo — restaura uma única vez, sem contaminar entrada
-    // direta/deep link.
+    // navegar para /explorar/ e /favoritos/), a Home guarda rolagem e termo
+    // de busca em sessionStorage (escopo de aba). Ao voltar, o estado volta
+    // e o snapshot é limpo — restaura uma única vez. VDV-20261021-02: sem
+    // estado de filtro na home (filtros moram no /explorar/).
     function saveHomeState() {
       try {
         sessionStorage.setItem(HOME_STATE_KEY, JSON.stringify({
           scrollY: window.scrollY,
-          q: input.value,
-          cat: selectedSubcategory,
-          grp: selectedCategory,
-          avail: activeAvail,
-          rot: rotSeed  // VDV-20261008-07 — a volta do produto não mexe na ordem
+          q: input.value
         }));
       } catch (e) { /* modo privado: sem snapshot, a Home abre do zero */ }
     }
@@ -1699,19 +1366,6 @@
         var snap = JSON.parse(raw);
         if (snap && typeof snap === "object") {
           input.value = typeof snap.q === "string" ? snap.q : "";
-          selectedCategory = typeof snap.grp === "string" ? snap.grp : "";
-          selectedSubcategory = typeof snap.cat === "string" ? snap.cat : "";
-          // VDV-20260921-01 (Bloco 1) — validação contra o catálogo atual:
-          // raiz que não existe mais some; filho sem raiz válida (ou filho
-          // que deixou de existir) nunca fica órfão.
-          if (selectedCategory && !groups[selectedCategory]) selectedCategory = "";
-          if (selectedSubcategory) {
-            var gs = groups[selectedCategory];
-            if (!gs || !gs.subs[selectedSubcategory] ||
-                selectedSubcategory === selectedCategory) selectedSubcategory = "";
-          }
-          activeAvail = snap.avail === AVAIL_FILTER.value ? snap.avail : "";
-          renderCatBlock();
           renderSearch();
           if (snap.scrollY) {
             requestAnimationFrame(function () { window.scrollTo(0, snap.scrollY); });
@@ -2912,8 +2566,7 @@
   function renderSkeletons(page) {
     var targets = [];
     if (page === "home") {
-      targets.push({ grid: "grid-recent", section: "section-novidades", n: NOVIDADES_CAP });
-      targets.push({ grid: "grid-explorar", section: "section-explorar", n: EXPLORAR_CAP });
+      targets.push({ grid: "bandas", section: "section-bandas", n: 8 });
     } else if (page === "explorar") {
       targets.push({ grid: "x-grid", n: 8 });
     } else if (page === "favoritos") {

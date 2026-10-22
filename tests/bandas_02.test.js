@@ -55,8 +55,8 @@ assert(/p\.is_new/.test(js), "3a. app.js lê p.is_new (selo por produto)");
 // 4. Chips-atalho = âncora para a banda (espec 63 decisão 7: filtros moram no
 //    /explorar/; a home aponta para o universo).
 assert(/#banda-/.test(js), "4. chips-atalho linkam a banda via #banda-<slug>");
-assert(/· /.test(js.match(/atalhos|Atalhos|atalho/)?.[0] || "· "), "4a. rótulo com separador");
-assert(/href="#banda-"/.test(js), "4b. href='#banda-' montado no app.js");
+assert(/b\.name \+ " · " \+ b\.total/.test(js), '4a. rótulo do chip: Nome · N formatado no renderer');
+assert(/atalho\.href = "#banda-"/.test(js), "4b. href='#banda-' montado no app.js");
 
 // 5. Fim do dedup destaque→feed (decisão 8): nada corta produto de banda.
 assert(
@@ -64,8 +64,11 @@ assert(
   "5. exclusões da home extintas — destaque TAMBÉM aparece na banda (sem dedup)"
 );
 
-// 6. Minificados regenerados junto (fio vivo).
-assert(jsMin.includes("renderBandas"), "6. vdv.min.js contém renderBandas");
-assert(/catalog\.bands/.test(jsMin), "6a. vdv.min.js contém catalog.bands");
+// 6. Minificados regenerados junto (fio vivo): strings que sobrevivem ao
+//    -m do terser (literais de propriedade/código, não nomes de função).
+assert(jsMin.includes("#banda-"), "6. vdv.min.js contém o contrato de bandas (#banda-)");
+assert(/is_new/.test(jsMin), "6a. vdv.min.js lê is_new (selo NOVO)");
+assert(/\.badge-novo/.test(cssMin), "6b. vdv.min.css contém .badge-novo");
+assert(/\.banda/.test(cssMin), "6c. vdv.min.css contém .banda");
 
 console.log("bandas_02: OK (home por intenção — VDV-20261021-02)");

@@ -107,7 +107,7 @@ assert(/(?:vdv\.min\.js|app\.js)\?v=[0-9]{8}-[0-9]+/.test(html), "8. JS com ?v= 
 
 // 9. VDV-20261006-01 — SEM selo "Saldo" nos cards (decisão do Alison: só a
 //    nota de condição na página do produto; o card não ganha sinal novo).
-const cardEl_src = js.match(/function cardEl\(p\) \{[\s\S]*?\n  \}/);
+const cardEl_src = js.match(/function cardEl\(p(?:,\s*opts\)) \{[\s\S]*?\n  \}/);
 const cardSignal_src = js.match(/function cardSignal\(p\) \{[\s\S]*?\n  \}/);
 assert(cardEl_src && cardSignal_src, "9. cardEl/cardSignal encontrados");
 assert(

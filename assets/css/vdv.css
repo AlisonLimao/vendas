@@ -278,15 +278,6 @@ a.chip { text-decoration: none; display: inline-block; }
   grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
 }
 
-/* R4 — "Acabou de chegar" em grade: no celular a faixa mostra 6 cards
- * (2 colunas × 3 fileiras) — os excedentes do cap 8 saem da tela via CSS
- * (o JS mantém o mesmo cap nos dois viewports; o corte é apresentação,
- * não seleção — o desktop vê os 8). */
-.grid-novidades > .card-wrap:nth-child(n+7) { display: none; }
-@media (min-width: 768px) {
-  .grid-novidades > .card-wrap:nth-child(n+7) { display: block; }
-}
-
 /* Card de vitrine (Home 2.0): card único 4:5 (VDV-20260923-01 R2, mestre
  * item 12): contêiner de imagem com proporção fixa 4:5 — o card nunca muda
  * de altura entre fotos de proporções diferentes. object-fit: cover é o
@@ -311,9 +302,26 @@ a.chip { text-decoration: none; display: inline-block; }
 .card {
   background: transparent; border: 0;
   border-radius: var(--r-2); overflow: hidden;
+  position: relative;
   display: flex; flex-direction: column; text-decoration: none; color: inherit;
   transition: transform .15s ease;
 }
+
+/* VDV-20261021-02 — bandas por categoria na home + selo NOVO (espec 63).
+   Selo: fundo dourado escuro sobre a media do card; contraste 7:1 (AA). */
+.banda {
+  border-top: 1px solid var(--line, #e5e2da);
+  margin-block: var(--s-6, 2rem) 0;
+  padding-block: var(--s-5, 1.5rem) 0;
+}
+.banda h2 { font-size: 1.25rem; margin-bottom: .75rem; }
+.card .badge-novo {
+  position: absolute; top: 10px; left: 10px; z-index: 2;
+  background: #c9a735; color: #1b1710;
+  font-size: .68rem; font-weight: 700; letter-spacing: .04em;
+  padding: 2px 6px; border-radius: 3px; text-transform: uppercase;
+}
+.chips-atalhos .chip, .chip[href^="#banda-"] { display: inline-block; }
 .card:hover { transform: translateY(-2px); }
 .card img {
   width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block;

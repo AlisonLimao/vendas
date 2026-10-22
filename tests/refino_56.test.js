@@ -1,14 +1,15 @@
-/* Fatia 56 (plano 17, mestre §13/§24/§26/§27/§46-§47/§65-§66): composição
- * comercial do exploração — TESTE FUNCIONAL real: extrai as funções de
- * seleção do app.js (pickExplorar + alternarFornecedoresDoBucket) e executa
- * contra pools sintéticos, garantindo:
- *   - nenhum produto duplicado na mesma composição (§77);
- *   - a seção nunca fica vazia quando o pool tem itens (§65);
- *   - fornecedor não domina grupo final quando há alternativas (§71);
- *   - sem novidades/dedupe contra o destaque (§46/§47 — por ID real);
- *   - bucket com 1 fornecedor só / < 3 itens = fallback ordem original;
- *   - determinismo: mesmas entradas → mesmas saídas (§61);
- *   - LCG do destaque diário continua funcionando (§27).
+/* Fatia 56 (plano 17, mestre §13/§24/§26/§27/§46-§47/§65-§66) — VDV-20261021-02:
+ * a COMPOSIÇÃO comercial da descoberta migrou para o EXPORTADOR (build_bands,
+ * plano 64/T3 — ordem do banco + rodízio entre anunciantes por hora). O front
+ * é renderer burro. Este teste cobre o que sobreviveu no lado JS:
+ *   - pickExplorar/alternarFornecedoresDoBucket/pickNovidades EXTINTOS
+ *     (feeds mistos saíram da home — bandas empilhadas herdam o lugar);
+ *   - exclusões da home (novidades/dedupe contra destaque) extintas — o
+ *     destaque NÃO corta banda (decisão 8 da espec 63, produto em ambos);
+ *   - LCG do destaque diário continua FUNCIONAL e estável no dia (§27,
+ *     executado em sandbox contra pool sintético);
+ *   - renderer das bandas: nada de seleção própria — consome catalog.bands
+ *     (rodízio/ordem provados na suíte Python do plano 64).
  * Node puro. Rodar: node tests/refino_56.test.js */
 "use strict";
 
@@ -18,87 +19,39 @@ const path = require("path");
 
 const root = path.join(__dirname, "..");
 const js = fs.readFileSync(path.join(root, "assets", "js", "app.js"), "utf8");
+const exporter = fs.readFileSync(
+  path.join(root, "..", "projeto_telegram", "scripts", "export_catalogo_web.py"),
+  "utf8"
+);
 
-// --- extrai as funções de seleção do app.js e executa-as em sandbox -------
+// --- 1. seleção própria extinta do front -----------------------------------
+["pickExplorar", "alternarFornecedoresDoBucket", "pickNovidades", "lcgRng"]
+  .forEach(function (fn) {
+    assert(!js.includes("function " + fn), "1. " + fn + " extinto do front (composição é do exportador)");
+  });
+
+// --- 2. renderer burro das bandas: consome catalog.bands, sem exclusão ---
+assert(/function renderBandas\(cat\)/.test(js), "2. renderBandas definido (renderer burro)");
+assert(/renderBandas\(catalog\)/.test(js), "2a. initHome chama renderBandas(catalog)");
+assert(!/usadosNoDestaque|recentesIds|excluidos/.test(js),
+  "2b. nenhuma exclusão de feed — destaque NÃO corta banda (decisão 8)");
+
+// --- 3. composição/rodízio moram no exportador (plano 64, T3) ----------------
+assert(/def build_bands\(/.test(exporter), "3. exportador: build_bands define as bandas");
+assert(/rotation = int\(now\.strftime\("%Y%m%d%H"\)\) % max\(1, len\(anunciantes\)\)/.test(exporter),
+  "3a. rodízio entre anunciantes por hora no exportador");
+assert(/group_order/.test(exporter), "3b. ordem fixa dos grupos vem do banco (fetch_group_order)");
+
+// --- 4. §27: LCG do destaque diário intocado — FUNCIONAL em sandbox ---------
 function extrair(nomeFn, proximaMarc) {
   const ini = js.indexOf(nomeFn);
   assert(ini !== -1, "função " + nomeFn + " definida no app.js");
-  const fim = proximaMarc !== null
-    ? js.indexOf(proximaMarc, ini)
-    : js.indexOf("\n  }\n", ini);
+  const fim = js.indexOf(proximaMarc, ini);
   assert(fim !== -1, "fim da função " + nomeFn);
-  const corpo = js.slice(ini, fim); // declaração (e aninhados) completos
-  return corpo;
+  return js.slice(ini, fim);
 }
-
-const pickCorpo = extrair("function alternarFornecedoresDoBucket", "  // Fatia 49 (mestre §23)");
-const pickExplorarSrc = extrair("function pickExplorar", "  // Fatia 49 (mestre §23)");
 const pickDestaqueSrc = extrair("function pickDestaqueDiario", "  // Fatia 50 (VDV-20261003-06");
 const dailySeedSrc = extrair("function dailySeed", "  function pickDestaqueDiario");
-
-const ctxFn = new Function(
-  "alternarFornecedoresDoBucket",
-  "dailySeed",
-  pickExplorarSrc + "\nreturn pickExplorar;"
-);
-const pickExplorar = ctxFn(
-  new Function("bucket", pickCorpo + "\nreturn alternarFornecedoresDoBucket(bucket);"),
-  new Function(dailySeedSrc + "\nreturn dailySeed;")
-);
-
-function mk(id, cat, sub, sup, thumb) {
-  return {
-    id: id,
-    category: { slug: sub, name: sub, group: { slug: cat, name: cat } },
-    supplier_slug: sup,
-    image_thumb: thumb || null
-  };
-}
-
-// 1. §13/§24: bucket com vário fornecedores ALTERNA — 4 primeiros nunca têm
-//    3+ do mesmo anunciante; produtos não se repetem; teto respeitado.
-const pool1 = [
-  mk("a1", "moda", "vestido", "loja-x"),
-  mk("a2", "moda", "vestido", "loja-x"),
-  mk("a3", "moda", "vestido", "loja-x"),
-  mk("a4", "moda", "vestido", "loja-y"),
-  mk("a5", "moda", "vestido", "loja-y"),
-  mk("a6", "moda", "vestido", "loja-z")
-];
-const mix = pickExplorar(pool1, {}, 4);
-assert(mix.length === 4, "1. composição de 4 no teto");
-assert(new Set(mix.map(function (p) { return p.id; })).size === 4,
-  "1a. nenhum produto duplicado");
-const primeiros3 = mix.slice(0, 3).filter(function (p) { return p.supplier_slug === "loja-x"; }).length;
-assert(primeiros3 <= 2, "1b. fornecedor não empilha 3 no primeiro grupo (alternância)");
-
-// 2. §65: seção NUNCA fica vazia — exclusão total excepto 1 item devolve-o.
-const umSo = pickExplorar([{ id: "unico", category: null, supplier_slug: "" }], {}, 4);
-assert(umSo.length === 1, "2. pool esvaziado ainda renderiza (nunca vazio)");
-
-// 3. §65/§66: bucket de fornecedor único fica como veio (fallback honesto).
-const umFornecedor = pickExplorar([
-  mk("b1", "fio", "lã", "única"),
-  mk("b2", "fio", "lã", "única")
-], {}, 8);
-assert(umFornecedor.length === 2 && umFornecedor[0].id === "b1" && umFornecedor[1].id === "b2",
-  "3. 1 fornecedor só = ordem original preservada");
-
-// 4. §46/§47: produto exibido nos thumbs do destaque NÃO entra no explorar
-//    (dedupe por ID real, não por nome).
-const pool2 = [
-  mk("d1", "moda", "top", "loja-x", "assets/p/d1.webp"),
-  mk("d2", "moda", "blusa", "loja-y", "assets/p/d2.webp")
-];
-const expl2 = pickExplorar(pool2, { d1: true }, 8);
-assert(expl2.length === 1 && expl2[0].id === "d2",
-  "4. exibido no destaque sai do grid seguinte (ID real)");
-
-// 5. §61: determinismo — mesmas entradas → mesma saída (sem refresh aleatório).
-assert(JSON.stringify(pickExplorar(pool1, {}, 4)) === JSON.stringify(mix),
-  "5. composição estável para entradas iguais");
-
-// 6. §27: LCG do destaque diário intocado — funciona e é estável no dia.
 const destaqueFn = new Function("dailySeed", pickDestaqueSrc + "\nreturn pickDestaqueDiario;");
 const pickDestaque = destaqueFn(new Function(dailySeedSrc + "\nreturn dailySeed;"));
 const cat = { products: [
@@ -109,14 +62,7 @@ const cat = { products: [
 const d1 = pickDestaque(cat.products);
 const d2 = pickDestaque(cat.products);
 assert(d1 && d1.slug === d2.slug && d1.imgs.length >= 1 && d1.imgs.length <= 3,
-  "6. rodízio diário estável e thumbs reais (qualquer fornecedor, cap 3)");
+  "4. rodízio diário estável e thumbs reais (qualquer fornecedor, cap 3)");
+assert(/1664525/.test(js), "4a. LCG (Numerical Recipes) preservado no destaque");
 
-// 7. assinaturas estruturais da fatia no app.js.
-assert(/buckets\.forEach\(function \(bucket\) \{[\s\S]{0,200}alternarFornecedoresDoBucket\(bucket\);/.test(js),
-  "7. buckets reordenados antes do round-robin de categoria");
-assert(/var excluidos = Object\.assign\(\{\}, recentesIds, usadosNoDestaque\);/.test(js),
-  "7a. exclusão junta novidades + destaque");
-assert(/doseDestaque.length <= corte/.test(js),
-  "7b. vizinhança: troca só com espaço garantido no prefixo");
-
-console.log("refino_56: todos os testes passaram ✔ (composição funcional, LCG intacto)");
+console.log("refino_56: OK (composição no exportador, LCG funcional, renderer burro — VDV-20261021-02)");
