@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T23:12:17Z",
+  "generated_at": "2026-10-22T00:17:10Z",
   "bot_username": "vitrine_vendasbot",
   "total": 24,
   "products": [
@@ -33,6 +33,7 @@
         "assets/products/5887be9e-b2a3-4bea-82f0-536fd67ac0e2-5.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": true,
       "image_thumb": "assets/products/thumb/5887be9e-b2a3-4bea-82f0-536fd67ac0e2.webp",
       "sale_unit": "duzia",
       "image_thumbs": [
@@ -81,6 +82,7 @@
         "assets/products/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2-4.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": true,
       "image_thumb": "assets/products/thumb/ec09b49f-3465-4ffe-ae72-ba4cb38bdad2.webp",
       "sale_unit": "duzia",
       "image_thumbs": [
@@ -127,6 +129,7 @@
         "assets/products/9d637742-af37-419b-9e16-727f5829591c-3.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": true,
       "image_thumb": "assets/products/thumb/9d637742-af37-419b-9e16-727f5829591c.webp",
       "sale_unit": "duzia",
       "image_thumbs": [
@@ -174,6 +177,7 @@
         "assets/products/01a1b322-fbe4-4b30-9539-55d3abe2824a-5.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": true,
       "image_thumb": "assets/products/thumb/01a1b322-fbe4-4b30-9539-55d3abe2824a.webp",
       "sale_unit": "duzia",
       "image_thumbs": [
@@ -223,6 +227,7 @@
         "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-5.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": true,
       "image_thumb": "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c.webp",
       "image_thumbs": [
         "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c.webp",
@@ -273,6 +278,7 @@
         "assets/products/b39c71aa-4170-4ad2-abf6-868815fa016d-2.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": true,
       "image_thumb": "assets/products/thumb/b39c71aa-4170-4ad2-abf6-868815fa016d.webp",
       "image_thumbs": [
         "assets/products/thumb/b39c71aa-4170-4ad2-abf6-868815fa016d.webp",
@@ -322,6 +328,7 @@
         "assets/products/756a65fa-5fed-4724-8010-81e08651ac46-5.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": true,
       "image_thumb": "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46.webp",
       "image_thumbs": [
         "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46.webp",
@@ -373,6 +380,7 @@
         "assets/products/4ed8873b-5fbd-49f2-be47-6c4ad559eb17-4.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": true,
       "image_thumb": "assets/products/thumb/4ed8873b-5fbd-49f2-be47-6c4ad559eb17.webp",
       "image_thumbs": [
         "assets/products/thumb/4ed8873b-5fbd-49f2-be47-6c4ad559eb17.webp",
@@ -421,6 +429,7 @@
         "assets/products/198739e2-ac9a-4694-bf81-55d5f56e4258-2.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": true,
       "image_thumb": "assets/products/thumb/198739e2-ac9a-4694-bf81-55d5f56e4258.webp",
       "image_thumbs": [
         "assets/products/thumb/198739e2-ac9a-4694-bf81-55d5f56e4258.webp",
@@ -465,6 +474,7 @@
         "assets/products/3a1b4dbc-93ca-4cce-be61-f8f171386141-4.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": false,
       "image_thumb": "assets/products/thumb/3a1b4dbc-93ca-4cce-be61-f8f171386141.webp",
       "image_thumbs": [
         "assets/products/thumb/3a1b4dbc-93ca-4cce-be61-f8f171386141.webp",
@@ -516,6 +526,7 @@
         "assets/products/9f22576b-b542-4666-a3be-6e70157c0817-5.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": false,
       "image_thumb": "assets/products/thumb/9f22576b-b542-4666-a3be-6e70157c0817.webp",
       "image_thumbs": [
         "assets/products/thumb/9f22576b-b542-4666-a3be-6e70157c0817.webp",
@@ -563,6 +574,7 @@
         "assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf-4.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": false,
       "image_thumb": "assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf.webp",
       "image_thumbs": [
         "assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf.webp",
@@ -608,6 +620,7 @@
         "assets/products/81980328-4254-44f2-9618-98d96a527fab-3.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": false,
       "image_thumb": "assets/products/thumb/81980328-4254-44f2-9618-98d96a527fab.webp",
       "image_thumbs": [
         "assets/products/thumb/81980328-4254-44f2-9618-98d96a527fab.webp",
@@ -650,6 +663,7 @@
         "assets/products/9cf95eef-d0de-4f0c-aae3-558b90f2c7ed.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": false,
       "image_thumb": "assets/products/thumb/9cf95eef-d0de-4f0c-aae3-558b90f2c7ed.webp",
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
@@ -688,6 +702,7 @@
         "assets/products/ca545589-f399-4e6b-a731-7f23be9c9f60-2.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": false,
       "image_thumb": "assets/products/thumb/ca545589-f399-4e6b-a731-7f23be9c9f60.webp",
       "image_thumbs": [
         "assets/products/thumb/ca545589-f399-4e6b-a731-7f23be9c9f60.webp",
@@ -729,6 +744,7 @@
         "assets/products/62d97044-ca8e-4308-93ec-c90ec92b1f38.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": false,
       "image_thumb": "assets/products/thumb/62d97044-ca8e-4308-93ec-c90ec92b1f38.webp",
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
@@ -766,6 +782,7 @@
         "assets/products/076e6574-11d7-46c0-ae33-2e783710f4f5.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": false,
       "image_thumb": "assets/products/thumb/076e6574-11d7-46c0-ae33-2e783710f4f5.webp",
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
@@ -806,6 +823,7 @@
         "assets/products/e7c24080-4de3-4117-9621-b67099e14e1a-4.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": false,
       "image_thumb": "assets/products/thumb/e7c24080-4de3-4117-9621-b67099e14e1a.webp",
       "image_thumbs": [
         "assets/products/thumb/e7c24080-4de3-4117-9621-b67099e14e1a.webp",
@@ -849,6 +867,7 @@
         "assets/products/7d97b507-44ca-4ed7-889e-0e6284c46644.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": false,
       "image_thumb": "assets/products/thumb/7d97b507-44ca-4ed7-889e-0e6284c46644.webp",
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
@@ -886,6 +905,7 @@
         "assets/products/615283d7-5961-4308-8310-732d2863aa1e.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": false,
       "image_thumb": "assets/products/thumb/615283d7-5961-4308-8310-732d2863aa1e.webp",
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
@@ -923,6 +943,7 @@
         "assets/products/7e23232c-1b55-40d7-a9e5-1b0efdb973f9.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": false,
       "image_thumb": "assets/products/thumb/7e23232c-1b55-40d7-a9e5-1b0efdb973f9.webp",
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
@@ -960,6 +981,7 @@
         "assets/products/37af510b-2728-4643-916a-7cca3d8d0735.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": false,
       "image_thumb": "assets/products/thumb/37af510b-2728-4643-916a-7cca3d8d0735.webp",
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
@@ -997,6 +1019,7 @@
         "assets/products/b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": false,
       "image_thumb": "assets/products/thumb/b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb.webp",
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
@@ -1034,6 +1057,7 @@
         "assets/products/541ff4f4-36ff-4257-985b-8813494c480e.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
+      "is_new": false,
       "image_thumb": "assets/products/thumb/541ff4f4-36ff-4257-985b-8813494c480e.webp",
       "offer_owner_name": "Sarah Tricô",
       "authorization_confirmed": true,
@@ -1046,7 +1070,66 @@
       }
     }
   ],
+  "bands": [
+    {
+      "slug": "moda_e_malharia",
+      "name": "Moda e Malharia",
+      "total": 12,
+      "products": [
+        "198739e2-ac9a-4694-bf81-55d5f56e4258",
+        "9cf95eef-d0de-4f0c-aae3-558b90f2c7ed",
+        "ca545589-f399-4e6b-a731-7f23be9c9f60",
+        "62d97044-ca8e-4308-93ec-c90ec92b1f38",
+        "076e6574-11d7-46c0-ae33-2e783710f4f5",
+        "e7c24080-4de3-4117-9621-b67099e14e1a",
+        "7d97b507-44ca-4ed7-889e-0e6284c46644",
+        "615283d7-5961-4308-8310-732d2863aa1e",
+        "7e23232c-1b55-40d7-a9e5-1b0efdb973f9",
+        "37af510b-2728-4643-916a-7cca3d8d0735",
+        "b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb",
+        "541ff4f4-36ff-4257-985b-8813494c480e"
+      ]
+    },
+    {
+      "slug": "saldos_e_ponta_de_estoque",
+      "name": "Saldos e ponta de estoque",
+      "total": 5,
+      "products": [
+        "cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c",
+        "b39c71aa-4170-4ad2-abf6-868815fa016d",
+        "756a65fa-5fed-4724-8010-81e08651ac46",
+        "4ed8873b-5fbd-49f2-be47-6c4ad559eb17",
+        "3a1b4dbc-93ca-4cce-be61-f8f171386141"
+      ]
+    },
+    {
+      "slug": "servicos",
+      "name": "Serviços",
+      "total": 4,
+      "products": [
+        "5887be9e-b2a3-4bea-82f0-536fd67ac0e2",
+        "ec09b49f-3465-4ffe-ae72-ba4cb38bdad2",
+        "9d637742-af37-419b-9e16-727f5829591c",
+        "01a1b322-fbe4-4b30-9539-55d3abe2824a"
+      ]
+    },
+    {
+      "slug": "impressao_3d",
+      "name": "Impressão 3D",
+      "total": 3,
+      "products": [
+        "9f22576b-b542-4666-a3be-6e70157c0817",
+        "c32621ec-0751-414f-a092-63d5a5c13bdf",
+        "81980328-4254-44f2-9618-98d96a527fab"
+      ]
+    }
+  ],
   "category_pages": [
+    {
+      "slug": "servicos",
+      "name": "Serviços",
+      "total": 4
+    },
     {
       "slug": "saldos_e_ponta_de_estoque",
       "name": "Saldos e ponta de estoque",
@@ -1056,6 +1139,11 @@
       "slug": "moda_e_malharia",
       "name": "Moda e Malharia",
       "total": 12
+    },
+    {
+      "slug": "impressao_3d",
+      "name": "Impressão 3D",
+      "total": 3
     }
   ]
 }
