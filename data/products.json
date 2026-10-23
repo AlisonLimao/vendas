@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-22T23:12:55Z",
+  "generated_at": "2026-10-23T11:16:02Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 24,
+  "total": 17,
   "products": [
     {
       "id": "5887be9e-b2a3-4bea-82f0-536fd67ac0e2",
@@ -268,7 +268,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 50,
-      "days_since_confirmation": 2,
+      "days_since_confirmation": 3,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
@@ -315,7 +315,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 3,
-      "days_since_confirmation": 2,
+      "days_since_confirmation": 3,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
@@ -497,55 +497,6 @@
       }
     },
     {
-      "id": "9f22576b-b542-4666-a3be-6e70157c0817",
-      "title": "Animais Aquáticos Articulados 3D – Axolote e Tubarões",
-      "description": "Animais articulados produzidos em impressão 3D, com movimentos flexíveis e acabamento detalhado. Modelos disponíveis de axolote e tubarões, em diferentes cores. Peças divertidas, colecionáveis e ideais para presente ou decoração. Valor: R$ 20,00 cada.",
-      "category": {
-        "slug": "impressao_3d",
-        "name": "Impressão 3D",
-        "group": {
-          "slug": "impressao_3d",
-          "name": "Impressão 3D"
-        }
-      },
-      "price": "20.00",
-      "minimum_order": 1,
-      "offer_type": "varejo",
-      "availability": "pronta_entrega",
-      "quantity": 10,
-      "days_since_confirmation": 13,
-      "seller_name": "Imprima 3D",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/9f22576b-b542-4666-a3be-6e70157c0817.jpg",
-      "images": [
-        "assets/products/9f22576b-b542-4666-a3be-6e70157c0817.jpg",
-        "assets/products/9f22576b-b542-4666-a3be-6e70157c0817-2.jpg",
-        "assets/products/9f22576b-b542-4666-a3be-6e70157c0817-3.jpg",
-        "assets/products/9f22576b-b542-4666-a3be-6e70157c0817-4.jpg",
-        "assets/products/9f22576b-b542-4666-a3be-6e70157c0817-5.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "is_new": false,
-      "image_thumb": "assets/products/thumb/9f22576b-b542-4666-a3be-6e70157c0817.webp",
-      "image_thumbs": [
-        "assets/products/thumb/9f22576b-b542-4666-a3be-6e70157c0817.webp",
-        "assets/products/thumb/9f22576b-b542-4666-a3be-6e70157c0817-2.webp",
-        "assets/products/thumb/9f22576b-b542-4666-a3be-6e70157c0817-3.webp",
-        "assets/products/thumb/9f22576b-b542-4666-a3be-6e70157c0817-4.webp",
-        "assets/products/thumb/9f22576b-b542-4666-a3be-6e70157c0817-5.webp"
-      ],
-      "offer_owner_name": "Imprima 3D",
-      "authorization_confirmed": true,
-      "supplier_slug": "imprima-3d",
-      "supplier_official": false,
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Imprima 3D",
-        "link": "https://wa.me/5535992031487?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Animais%20Aqu%C3%A1ticos%20Articulados%203D%20%E2%80%93%20Axolote%20e%20Tubar%C3%B5es%22%0APre%C3%A7o%3A%20R%24%2020%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/9f22576b-b542-4666-a3be-6e70157c0817/"
-      }
-    },
-    {
       "id": "c32621ec-0751-414f-a092-63d5a5c13bdf",
       "title": "Dragões Articulados 3D – Gamer e Floral",
       "description": "Dragões articulados produzidos em impressão 3D, com movimentos flexíveis e acabamento detalhado. Disponíveis em dois modelos: Gamer, nas cores branco, preto e azul, e Floral, nas cores branco e rosa. Peças decorativas e colecionáveis, ideais para presente ou decoração. Valor: R$ 40,00 cada.",
@@ -562,7 +513,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 11,
+      "days_since_confirmation": 12,
       "seller_name": "Imprima 3D",
       "city": "Monte Sião",
       "state": "MG",
@@ -840,253 +791,19 @@
         "nome": "Sarah Tricô",
         "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Conjunto%20Feminino%20em%20Tric%C3%B4%20Acr%C3%ADlico%20%E2%80%93%20Regata%20e%20Short%22%0APre%C3%A7o%3A%20R%24%2069%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/e7c24080-4de3-4117-9621-b67099e14e1a/"
       }
-    },
-    {
-      "id": "7d97b507-44ca-4ed7-889e-0e6284c46644",
-      "title": "Vestido Longo de Tricô Vazado com Decote V",
-      "description": "Vestido longo feminino em tricô vazado, com decote V, alças largas e diferentes desenhos rendados distribuídos ao longo da peça. A combinação de pontos cria textura e um visual elegante, leve e sofisticado. Possui forro para mais conforto e segurança no uso. Preço: R$ 85,90. No Pix: R$ 79,90 — 6,98% de desconto.",
-      "category": {
-        "slug": "vestido",
-        "name": "Vestido",
-        "group": {
-          "slug": "moda_e_malharia",
-          "name": "Moda e Malharia"
-        }
-      },
-      "price": "85.90",
-      "minimum_order": 6,
-      "offer_type": "atacado",
-      "availability": "sob_pedido",
-      "quantity": 20,
-      "days_since_confirmation": 13,
-      "seller_name": "Sarah Tricô",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/7d97b507-44ca-4ed7-889e-0e6284c46644.jpg",
-      "images": [
-        "assets/products/7d97b507-44ca-4ed7-889e-0e6284c46644.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "is_new": false,
-      "image_thumb": "assets/products/thumb/7d97b507-44ca-4ed7-889e-0e6284c46644.webp",
-      "offer_owner_name": "Sarah Tricô",
-      "authorization_confirmed": true,
-      "supplier_slug": "sarah-trico",
-      "supplier_official": false,
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20de%20Tric%C3%B4%20Vazado%20com%20Decote%20V%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/7d97b507-44ca-4ed7-889e-0e6284c46644/"
-      }
-    },
-    {
-      "id": "615283d7-5961-4308-8310-732d2863aa1e",
-      "title": "Vestido Longo de Alças com Decote V Rendado",
-      "description": "Vestido longo feminino de alças, com decote V e trabalho rendado ao longo da peça. A saia possui desenhos rendados amplos e barra levemente rodada, criando um visual leve, elegante e sofisticado. Possui forro para mais conforto e segurança. Preço: R$ 85,90. No Pix: R$ 79,90 — 6,98% de desconto.",
-      "category": {
-        "slug": "vestido",
-        "name": "Vestido",
-        "group": {
-          "slug": "moda_e_malharia",
-          "name": "Moda e Malharia"
-        }
-      },
-      "price": "85.90",
-      "minimum_order": 6,
-      "offer_type": "atacado",
-      "availability": "sob_pedido",
-      "quantity": 20,
-      "days_since_confirmation": 13,
-      "seller_name": "Sarah Tricô",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/615283d7-5961-4308-8310-732d2863aa1e.jpg",
-      "images": [
-        "assets/products/615283d7-5961-4308-8310-732d2863aa1e.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "is_new": false,
-      "image_thumb": "assets/products/thumb/615283d7-5961-4308-8310-732d2863aa1e.webp",
-      "offer_owner_name": "Sarah Tricô",
-      "authorization_confirmed": true,
-      "supplier_slug": "sarah-trico",
-      "supplier_official": false,
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20de%20Al%C3%A7as%20com%20Decote%20V%20Rendado%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/615283d7-5961-4308-8310-732d2863aa1e/"
-      }
-    },
-    {
-      "id": "7e23232c-1b55-40d7-a9e5-1b0efdb973f9",
-      "title": "Vestido Longo Tricô Vazado com Recortes Laterais",
-      "description": "Vestido longo feminino em tricô vazado, com alças largas, decote quadrado, recortes laterais na cintura e fenda lateral. O trabalho em pontos geométricos valoriza a peça e traz um visual moderno e elegante. Possui forro, oferecendo mais conforto e segurança no uso. Preço: R$ 85,90. No Pix: R$ 79,90 — 6,98% de desconto",
-      "category": {
-        "slug": "vestido",
-        "name": "Vestido",
-        "group": {
-          "slug": "moda_e_malharia",
-          "name": "Moda e Malharia"
-        }
-      },
-      "price": "85.90",
-      "minimum_order": 6,
-      "offer_type": "atacado",
-      "availability": "sob_pedido",
-      "quantity": 20,
-      "days_since_confirmation": 13,
-      "seller_name": "Sarah Tricô",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/7e23232c-1b55-40d7-a9e5-1b0efdb973f9.jpg",
-      "images": [
-        "assets/products/7e23232c-1b55-40d7-a9e5-1b0efdb973f9.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "is_new": false,
-      "image_thumb": "assets/products/thumb/7e23232c-1b55-40d7-a9e5-1b0efdb973f9.webp",
-      "offer_owner_name": "Sarah Tricô",
-      "authorization_confirmed": true,
-      "supplier_slug": "sarah-trico",
-      "supplier_official": false,
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20Tric%C3%B4%20Vazado%20com%20Recortes%20Laterais%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/7e23232c-1b55-40d7-a9e5-1b0efdb973f9/"
-      }
-    },
-    {
-      "id": "37af510b-2728-4643-916a-7cca3d8d0735",
-      "title": "Vestido Longo de Tricô Vazado Frente Única com Recortes Laterais",
-      "description": "Vestido longo feminino em tricô vazado, com modelagem frente única, recortes laterais na cintura e desenhos geométricos trabalhados ao longo da peça. Possui fenda lateral, trazendo um acabamento moderno e elegante ao modelo.\nPossui forro, trazendo mais conforto e segurança no uso.\nPreço: R$ 85,90\nPix: R$ 79,90 — 6,98% de desconto",
-      "category": {
-        "slug": "vestido",
-        "name": "Vestido",
-        "group": {
-          "slug": "moda_e_malharia",
-          "name": "Moda e Malharia"
-        }
-      },
-      "price": "85.90",
-      "minimum_order": 6,
-      "offer_type": "atacado",
-      "availability": "sob_pedido",
-      "quantity": 20,
-      "days_since_confirmation": 13,
-      "seller_name": "Sarah Tricô",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/37af510b-2728-4643-916a-7cca3d8d0735.jpg",
-      "images": [
-        "assets/products/37af510b-2728-4643-916a-7cca3d8d0735.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "is_new": false,
-      "image_thumb": "assets/products/thumb/37af510b-2728-4643-916a-7cca3d8d0735.webp",
-      "offer_owner_name": "Sarah Tricô",
-      "authorization_confirmed": true,
-      "supplier_slug": "sarah-trico",
-      "supplier_official": false,
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20de%20Tric%C3%B4%20Vazado%20Frente%20%C3%9Anica%20com%20Recortes%20Laterais%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/37af510b-2728-4643-916a-7cca3d8d0735/"
-      }
-    },
-    {
-      "id": "b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb",
-      "title": "Vestido Longo Feminino em Tricô Vazado Frente Única",
-      "description": "Vestido longo feminino em tricô vazado, com modelagem frente única, decote profundo e diferentes estruturas de pontos trabalhados ao longo da peça.\nPossui forro, trazendo mais conforto e segurança no uso.\nPreço: R$ 85,90\nPix: R$ 79,90 — 6,98% de desconto\nPedido mínimo: 6 peças.\nConsulte as cores disponíveis pelo WhatsApp ou Telegram.",
-      "category": {
-        "slug": "vestido",
-        "name": "Vestido",
-        "group": {
-          "slug": "moda_e_malharia",
-          "name": "Moda e Malharia"
-        }
-      },
-      "price": "85.90",
-      "minimum_order": 6,
-      "offer_type": "atacado",
-      "availability": "sob_pedido",
-      "quantity": 20,
-      "days_since_confirmation": 13,
-      "seller_name": "Sarah Tricô",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb.jpg",
-      "images": [
-        "assets/products/b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "is_new": false,
-      "image_thumb": "assets/products/thumb/b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb.webp",
-      "offer_owner_name": "Sarah Tricô",
-      "authorization_confirmed": true,
-      "supplier_slug": "sarah-trico",
-      "supplier_official": false,
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20Feminino%20em%20Tric%C3%B4%20Vazado%20Frente%20%C3%9Anica%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb/"
-      }
-    },
-    {
-      "id": "541ff4f4-36ff-4257-985b-8813494c480e",
-      "title": "Vestido Longo de Tricô Vazado com Alças Finas",
-      "description": "Vestido longo feminino em tricô vazado, com alças finas e diferentes estruturas de pontos trabalhados ao longo da peça.\nPossui forro, trazendo mais conforto e segurança no uso.\nPreço: R$ 85,90\nPix: R$ 79,90 — 6,98% de desconto.\nPedido mínimo: 6 peças\nConsulte as cores disponíveis pelo WhatsApp ou Telegram.",
-      "category": {
-        "slug": "vestido",
-        "name": "Vestido",
-        "group": {
-          "slug": "moda_e_malharia",
-          "name": "Moda e Malharia"
-        }
-      },
-      "price": "85.90",
-      "minimum_order": 6,
-      "offer_type": "atacado",
-      "availability": "sob_pedido",
-      "quantity": 20,
-      "days_since_confirmation": 13,
-      "seller_name": "Sarah Tricô",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/541ff4f4-36ff-4257-985b-8813494c480e.jpg",
-      "images": [
-        "assets/products/541ff4f4-36ff-4257-985b-8813494c480e.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "is_new": false,
-      "image_thumb": "assets/products/thumb/541ff4f4-36ff-4257-985b-8813494c480e.webp",
-      "offer_owner_name": "Sarah Tricô",
-      "authorization_confirmed": true,
-      "supplier_slug": "sarah-trico",
-      "supplier_official": false,
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20de%20Tric%C3%B4%20Vazado%20com%20Al%C3%A7as%20Finas%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/541ff4f4-36ff-4257-985b-8813494c480e/"
-      }
     }
   ],
   "bands": [
     {
       "slug": "moda_e_malharia",
       "name": "Moda e Malharia",
-      "total": 12,
+      "total": 6,
       "products": [
         "9cf95eef-d0de-4f0c-aae3-558b90f2c7ed",
         "ca545589-f399-4e6b-a731-7f23be9c9f60",
         "62d97044-ca8e-4308-93ec-c90ec92b1f38",
         "076e6574-11d7-46c0-ae33-2e783710f4f5",
         "e7c24080-4de3-4117-9621-b67099e14e1a",
-        "7d97b507-44ca-4ed7-889e-0e6284c46644",
-        "615283d7-5961-4308-8310-732d2863aa1e",
-        "7e23232c-1b55-40d7-a9e5-1b0efdb973f9",
-        "37af510b-2728-4643-916a-7cca3d8d0735",
-        "b6c788ca-0ef0-4647-9b4e-9ce81f12e1bb",
-        "541ff4f4-36ff-4257-985b-8813494c480e",
         "198739e2-ac9a-4694-bf81-55d5f56e4258"
       ]
     },
@@ -1116,9 +833,8 @@
     {
       "slug": "impressao_3d",
       "name": "Impressão 3D",
-      "total": 3,
+      "total": 2,
       "products": [
-        "9f22576b-b542-4666-a3be-6e70157c0817",
         "c32621ec-0751-414f-a092-63d5a5c13bdf",
         "81980328-4254-44f2-9618-98d96a527fab"
       ]
@@ -1138,12 +854,12 @@
     {
       "slug": "moda_e_malharia",
       "name": "Moda e Malharia",
-      "total": 12
+      "total": 6
     },
     {
       "slug": "impressao_3d",
       "name": "Impressão 3D",
-      "total": 3
+      "total": 2
     }
   ]
 }
