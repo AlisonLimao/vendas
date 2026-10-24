@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T11:16:36Z",
+  "generated_at": "2026-10-24T14:04:43Z",
   "bot_username": "vitrine_vendasbot",
   "total": 17,
   "products": [
@@ -560,7 +560,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 20,
-      "days_since_confirmation": 8,
+      "days_since_confirmation": 9,
       "seller_name": "Imprima 3D",
       "city": "Monte Sião",
       "state": "MG",
@@ -605,7 +605,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 3,
+      "days_since_confirmation": 4,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -643,7 +643,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 3,
+      "days_since_confirmation": 4,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -686,7 +686,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 8,
+      "days_since_confirmation": 9,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -724,7 +724,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 3,
+      "days_since_confirmation": 4,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -762,7 +762,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 8,
+      "days_since_confirmation": 9,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -799,12 +799,12 @@
       "name": "Moda e Malharia",
       "total": 6,
       "products": [
+        "198739e2-ac9a-4694-bf81-55d5f56e4258",
         "9cf95eef-d0de-4f0c-aae3-558b90f2c7ed",
         "ca545589-f399-4e6b-a731-7f23be9c9f60",
         "62d97044-ca8e-4308-93ec-c90ec92b1f38",
         "076e6574-11d7-46c0-ae33-2e783710f4f5",
-        "e7c24080-4de3-4117-9621-b67099e14e1a",
-        "198739e2-ac9a-4694-bf81-55d5f56e4258"
+        "e7c24080-4de3-4117-9621-b67099e14e1a"
       ]
     },
     {
