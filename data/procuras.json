@@ -1,27 +1,6 @@
 {
-  "generated_at": "2026-10-23T11:16:02Z",
+  "generated_at": "2026-10-24T11:16:36Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 1,
-  "procuras": [
-    {
-      "id": "b3936a11-68d2-4ff1-9438-f6aa52607988",
-      "description": "procuro pra aluguel stoll 502 7.2 ou 6.2",
-      "category": {
-        "slug": "maquinas_equipamentos",
-        "name": "Máquinas e Equipamentos"
-      },
-      "quantity": 1,
-      "deadline": "2026-10-30",
-      "accepts_similar": false,
-      "status": "active",
-      "published_at": "2026-10-16T18:39:47Z",
-      "expires_at": "2026-10-23T18:39:47Z",
-      "price_max": "10.00",
-      "image": "assets/procuras/b3936a11-68d2-4ff1-9438-f6aa52607988.jpg",
-      "image_thumb": "assets/procuras/thumb/b3936a11-68d2-4ff1-9438-f6aa52607988.webp",
-      "whatsapp": {
-        "link": "https://wa.me/5535991925662?text=Ol%C3%A1%21%20Vi%20a%20sua%20procura%20no%20VDV%20%28procuro%20pra%20aluguel%20stoll%20502%207.2%20ou%206.2%29%3A%20https%3A//vitrinedevenda.com.br/procura/b3936a11-68d2-4ff1-9438-f6aa52607988/"
-      }
-    }
-  ]
+  "total": 0,
+  "procuras": []
 }
