@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-24T14:04:43Z",
+  "generated_at": "2026-10-25T10:14:24Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 17,
+  "total": 16,
   "products": [
     {
       "id": "5887be9e-b2a3-4bea-82f0-536fd67ac0e2",
@@ -20,7 +20,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 2,
+      "days_since_confirmation": 3,
       "seller_name": "Quitanda Toninho e ana",
       "city": "Monte Sião",
       "state": "MG",
@@ -70,7 +70,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 2,
+      "days_since_confirmation": 3,
       "seller_name": "Quitanda Toninho e ana",
       "city": "Monte Sião",
       "state": "MG",
@@ -118,7 +118,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 2,
+      "days_since_confirmation": 3,
       "seller_name": "Quitanda Toninho e ana",
       "city": "Monte Sião",
       "state": "MG",
@@ -164,7 +164,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 2,
+      "days_since_confirmation": 3,
       "seller_name": "Quitanda Toninho e ana",
       "city": "Monte Sião",
       "state": "MG",
@@ -214,7 +214,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 20,
-      "days_since_confirmation": 3,
+      "days_since_confirmation": 4,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
@@ -268,7 +268,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 50,
-      "days_since_confirmation": 4,
+      "days_since_confirmation": 5,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
@@ -315,7 +315,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 3,
-      "days_since_confirmation": 4,
+      "days_since_confirmation": 5,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
@@ -368,7 +368,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 5,
-      "days_since_confirmation": 4,
+      "days_since_confirmation": 5,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
@@ -419,7 +419,7 @@
       "offer_type": "atacado",
       "availability": "pronta_entrega",
       "quantity": 200,
-      "days_since_confirmation": 4,
+      "days_since_confirmation": 5,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
@@ -462,7 +462,7 @@
       "offer_type": "atacado",
       "availability": "pronta_entrega",
       "quantity": 22,
-      "days_since_confirmation": 4,
+      "days_since_confirmation": 5,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
@@ -494,53 +494,6 @@
         "tipo": "whatsapp",
         "nome": "Ana Maria",
         "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Modal%20Canelado%20com%20Decote%20Quadrado%20e%20Bot%C3%B5es%22%0APre%C3%A7o%3A%20R%24%2015%2C00%20%28m%C3%ADn.%202%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/3a1b4dbc-93ca-4cce-be61-f8f171386141/"
-      }
-    },
-    {
-      "id": "c32621ec-0751-414f-a092-63d5a5c13bdf",
-      "title": "Dragões Articulados 3D – Gamer e Floral",
-      "description": "Dragões articulados produzidos em impressão 3D, com movimentos flexíveis e acabamento detalhado. Disponíveis em dois modelos: Gamer, nas cores branco, preto e azul, e Floral, nas cores branco e rosa. Peças decorativas e colecionáveis, ideais para presente ou decoração. Valor: R$ 40,00 cada.",
-      "category": {
-        "slug": "impressao_3d",
-        "name": "Impressão 3D",
-        "group": {
-          "slug": "impressao_3d",
-          "name": "Impressão 3D"
-        }
-      },
-      "price": "40.00",
-      "minimum_order": 1,
-      "offer_type": "varejo",
-      "availability": "pronta_entrega",
-      "quantity": 10,
-      "days_since_confirmation": 13,
-      "seller_name": "Imprima 3D",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf.jpg",
-      "images": [
-        "assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf.jpg",
-        "assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf-2.jpg",
-        "assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf-3.jpg",
-        "assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf-4.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "is_new": false,
-      "image_thumb": "assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf.webp",
-      "image_thumbs": [
-        "assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf.webp",
-        "assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf-2.webp",
-        "assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf-3.webp",
-        "assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf-4.webp"
-      ],
-      "offer_owner_name": "Imprima 3D",
-      "authorization_confirmed": true,
-      "supplier_slug": "imprima-3d",
-      "supplier_official": false,
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Imprima 3D",
-        "link": "https://wa.me/5535992031487?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Drag%C3%B5es%20Articulados%203D%20%E2%80%93%20Gamer%20e%20Floral%22%0APre%C3%A7o%3A%20R%24%2040%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/c32621ec-0751-414f-a092-63d5a5c13bdf/"
       }
     },
     {
@@ -833,9 +786,8 @@
     {
       "slug": "impressao_3d",
       "name": "Impressão 3D",
-      "total": 2,
+      "total": 1,
       "products": [
-        "c32621ec-0751-414f-a092-63d5a5c13bdf",
         "81980328-4254-44f2-9618-98d96a527fab"
       ]
     }
@@ -859,7 +811,7 @@
     {
       "slug": "impressao_3d",
       "name": "Impressão 3D",
-      "total": 2
+      "total": 1
     }
   ]
 }
