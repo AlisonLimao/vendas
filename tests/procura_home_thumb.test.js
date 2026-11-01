@@ -89,11 +89,22 @@ assert(minjs.includes("procura-thumb") && minjs.includes("data-fallback-src"),
   "15. min.js regenerado com o render novo");
 
 // 5. Catálogo: nada alterado — procuras.json segue com image/image_thumb.
+//    VDV-20261102: com 0 procuras ativas no ar (estado hoje), os campos só
+//    podem ser verificados quando EXISTE procura — a invariante "nada aparece
+//    se o catálogo não sustenta" também vale para o teste (os contêineres
+//    permanecem intactos; a render é coberta pelos asserts de código).
 const pr0 = procuras.procuras[0];
-assert(
-  "image" in pr0 && "image_thumb" in pr0 && "id" in pr0 && "description" in pr0,
-  "16. procuras.json intacto (campos consumidos)"
-);
+if (pr0) {
+  assert(
+    "image" in pr0 && "image_thumb" in pr0 && "id" in pr0 && "description" in pr0,
+    "16. procuras.json intacto (campos consumidos)"
+  );
+} else {
+  assert(
+    Array.isArray(procuras.procuras) && procuras.procuras.length === 0,
+    "16. procuras.json com lista vazia (nada consumido à força)"
+  );
+}
 assert(html.includes('<div class="procura-list" id="grid-procuras"></div>'),
   "17. contêiner da lista intacto");
 

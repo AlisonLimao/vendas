@@ -14,12 +14,21 @@ const fav = R("favoritos/index.html");
 const cfunc = R("como-funciona.html");
 const exporter = R("../projeto_telegram/scripts/export_catalogo_web.py");
 
-// 1. Mensagem central + benefícios factuais do mestre (item 28).
+// 1. Mensagem central + benefícios factuais — Onda 1 frente C (02/11):
+//    benefício-de-quem-anuncia, cada um verificável na página linkada.
 assert(/<h1>Sua vitrine dentro do VDV\.<\/h1>/.test(html), "1. mensagem central");
-for (const b of ["Produtos organizados", "Página própria de vitrine", "Presença em busca",
-                 "Presença em categorias", "Contato direto", "Compartilhamento", "WhatsApp"]) {
+for (const b of ["Vitrine própria na web", "Foto, preço, pedido mínimo e disponibilidade",
+                 "Contato direto no WhatsApp", "Link pronto para compartilhar",
+                 "Encontrado na busca e nas categorias", "Reivindicação da vitrine"]) {
   assert(html.includes(b), `1. benefício: ${b}`);
 }
+// Onda 1: benefício remete ao exemplo real (card logo abaixo) — NUNCA link
+// fixo de loja específica (vitrine pode sair do ar pela regra de elegibilidade
+// e virar 404). Slots do exportador presentes (números + exemplo).
+assert(/Veja um exemplo real abaixo/.test(html),
+  "1a. benefício remete ao exemplo real (sem link fixo de loja)");
+assert(/<!-- export:numeros -->/.test(html) && /<!-- export:exemplo -->/.test(html),
+  "1b. slots do exportador presentes (números + exemplo)");
 
 // 2. CTA "Começar a anunciar" — deep link ?start=vitrine (fluxo direto do bot,
 //    Fatia 28) com telemetria advertise_click; criação pelo bot declarada

@@ -11,6 +11,12 @@
   <meta name="description" content="Anuncie no VDV, a vitrine de vendas de Monte Sião: sua vitrine própria, presença em busca e categorias, contato direto com o comprador, compartilhamento e WhatsApp — sem taxa de plataforma.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://vitrinedevenda.com.br/anunciar.html">
+  <!-- LCP/CLS Onda 1 (medido 02/11): a lista de benefícios nova pinta na
+       primeira dobra com a fonte de fallback; Archivo (font-display: swap)
+       chegava depois e refluía o texto (CLS medido 0,21 → 0,004 na prova
+       A/B com slots vazios). O preload coloca o woff2 na 1ª janela de
+       carregamento, o 1º paint já sai em Archivo e o reflow some. -->
+  <link rel="preload" href="/assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="VDV — Vitrine de Vendas">
   <meta property="og:title" content="Anuncie no VDV — Sua vitrine dentro do VDV">
@@ -178,7 +184,7 @@
       });
     });
   </script>
-  <link rel="stylesheet" href="assets/css/vdv.min.css?v=20261021-1">
+  <link rel="stylesheet" href="assets/css/vdv.min.css?v=20261102-1">
 </head>
 <body data-page="institucional">
   <header class="topbar" id="top">
@@ -205,16 +211,36 @@
       <h1>Sua vitrine dentro do VDV.</h1>
       <p>O VDV organiza a vitrine de vendas de Monte Sião. Quem anuncia ganha um lugar próprio para mostrar o que vende — e o comprador fala direto com você, sem intermediário e sem taxa de plataforma.</p>
 
+      <!-- Slot de números: conteúdo do exportador (contagens do catálogo no
+           ar; com menos de 2 vitrines o slot fica vazio). Não editar entre
+           os marcadores. -->
+      <!-- export:numeros -->
+      <p class="ad-facts" id="anunciar-numeros">3 vitrines no ar · 13 anúncios no ar</p>
+<!-- /export:numeros -->
+
       <h2>O que você ganha</h2>
       <ul>
-        <li><strong>Produtos organizados</strong> — cada oferta com foto, preço, condições e disponibilidade confirmada.</li>
-        <li><strong>Página própria de vitrine</strong> — um endereço seu no VDV para compartilhar com quem quiser.</li>
-        <li><strong>Presença em busca</strong> — quem procura o que você vende encontra seu anúncio.</li>
-        <li><strong>Presença em categorias</strong> — seu produto aparece organizado na categoria certa.</li>
-        <li><strong>Contato direto</strong> — o interessado chega até você já com o anúncio aberto.</li>
-        <li><strong>Compartilhamento</strong> — sua vitrine e seus produtos com link pronto para WhatsApp.</li>
-        <li><strong>WhatsApp</strong> — opcional: publique um número de atendimento e o comprador fala com você por lá.</li>
+        <li><strong>Vitrine própria na web</strong> — nome, logo e cidade, com todos os seus anúncios ativos numa página só. Veja um exemplo real abaixo.</li>
+        <li><strong>Foto, preço, pedido mínimo e disponibilidade</strong> — o comprador vê suas condições antes de falar com você.</li>
+        <li><strong>Contato direto no WhatsApp</strong> — quando você publica seu número, quem interessa fala direto com você, sem intermediário.</li>
+        <li><strong>Link pronto para compartilhar</strong> — sua vitrine e cada produto com link para WhatsApp e Telegram.</li>
+        <li><strong>Encontrado na busca e nas categorias</strong> — quem procura o que você vende e quem navega a categoria certa chega ao seu anúncio.</li>
+        <li><strong>Reivindicação da vitrine</strong> — se seu anúncio foi publicado com ajuda da equipe, você pode reivindicar a vitrine pelo bot e administrar seu perfil.</li>
       </ul>
+
+      <!-- Slot da vitrine exemplo: conteúdo do exportador (vitrine elegível
+           real; sem vitrine elegível o slot fica vazio). Não editar entre
+           os marcadores. -->
+      <!-- export:exemplo -->
+      <a class="ad-example" id="anunciar-exemplo" href="fornecedor/quitanda-toninho-e-ana/">
+      <img class="ad-example-logo" src="assets/fornecedores/quitanda-toninho-e-ana.jpg" alt="">
+        <span class="ad-example-text">
+          <strong>Quitanda Toninho e ana</strong>
+          <span class="card-meta">Monte Sião/MG · 4 anúncios no ar</span>
+          <span class="ad-example-link">Ver a vitrine</span>
+        </span>
+      </a>
+<!-- /export:exemplo -->
 
       <h2>Como começa</h2>
       <ol>
@@ -236,7 +262,7 @@
     <p><a href="#" id="open_preferences_center">Preferências de cookies</a></p>
   </footer>
 
-  <script src="assets/js/vdv.min.js?v=20261021-1"></script>
+  <script src="assets/js/vdv.min.js?v=20261102-1"></script>
   <noscript>
     Gerenciamento de consentimento de cookies por <a href="https://www.termsfeed.com/">TermsFeed</a>.
   </noscript>
