@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T23:03:55Z",
+  "generated_at": "2026-11-01T23:30:51Z",
   "bot_username": "vitrine_vendasbot",
   "total": 13,
   "products": [
@@ -20,7 +20,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 10,
+      "days_since_confirmation": 11,
       "seller_name": "Quitanda Toninho e ana",
       "city": "Monte Sião",
       "state": "MG",
