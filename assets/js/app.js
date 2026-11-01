@@ -1037,31 +1037,100 @@
     }
     renderBandas(catalog);
 
-    // VDV-20260907-06 — seção "Vitrines do VDV": um chip por fornecedor
-    // (dedup por supplier_slug, primeiro display vence — mesmo critério do
-    // exportador). Some quando nenhum produto tem fornecedor resolvido.
+    // VDV-20261102-01 (Onda 1 — frente A, aprovado 02/11): a mesma seção, a
+    // MESMA seleção (dedupe "primeiro display vence" + CAP), apresentação em
+    // CARTÃO compacto: visual real (thumb do primeiro anúncio; error →
+    // iniciais, nunca imagem quebrada), nome, cidade, contagem "N anúncio(s)"
+    // e 1–3 rótulos de especialidade derivados APENAS das categorias dos
+    // anúncios (nunca "Sem categoria"). Nenhum campo novo do JSON.
     var sectionVitrines = $("section-vitrines");
     var seenSuppliers = {};
     var suppliers = [];
     products.forEach(function (p) {
-      if (!p.supplier_slug || seenSuppliers[p.supplier_slug]) return;
-      seenSuppliers[p.supplier_slug] = true;
-      suppliers.push({ slug: p.supplier_slug, name: p.offer_owner_name || p.seller_name });
+      var slug = p.supplier_slug;
+      if (!slug) return;
+      var entry = seenSuppliers[slug];
+      if (entry) {
+        entry.n += 1;
+      } else {
+        entry = {
+          slug: slug,
+          name: p.offer_owner_name || p.seller_name,
+          city: p.city,
+          state: p.state,
+          n: 0,
+          cat: [],
+          first: p,
+        };
+        seenSuppliers[slug] = entry;
+        suppliers.push(entry);
+      }
+      var esp = (p.category && (p.category.display_name || p.category.name)) || "";
+      if (esp && entry.cat.indexOf(esp) === -1 && entry.cat.length < 3) {
+        entry.cat.push(esp);
+      }
     });
     sectionVitrines.hidden = suppliers.length === 0;
     if (suppliers.length) {
-      var chips = $("chips-vitrines");
-      chips.innerHTML = "";
+      var grade = $("chips-vitrines");
+      grade.innerHTML = "";
       suppliers.slice(0, VITRINES_CAP).forEach(function (s) {
         var a = document.createElement("a");
-        a.className = "chip";
+        a.className = "card-vitrine";
         a.href = "fornecedor/" + encodeURIComponent(s.slug) + "/";
-        a.textContent = s.name;
+        var visual = document.createElement("span");
+        visual.className = "card-vitrine-visual";
+        var iniciais = document.createElement("span");
+        iniciais.className = "card-vitrine-initials";
+        var pedacos = (s.name || "").trim().split(/\s+/);
+        iniciais.textContent = pedacos
+          .slice(0, 2)
+          .map(function (t) {
+            return t.charAt(0).toUpperCase();
+          })
+          .join("");
+        var p0 = s.first;
+        var fotoRel = p0.image_thumb || p0.image || "";
+        if (fotoRel) {
+          var img = document.createElement("img");
+          img.className = "card-vitrine-logo";
+          img.src = fotoRel;
+          img.alt = "";
+          img.addEventListener("error", function () {
+            if (img.parentNode === visual) {
+              visual.replaceChild(iniciais, img);
+            }
+          });
+          visual.appendChild(img);
+        } else {
+          visual.appendChild(iniciais);
+        }
+        var txt = document.createElement("span");
+        txt.className = "card-vitrine-text";
+        var nomeEl = document.createElement("strong");
+        nomeEl.textContent = s.name;
+        txt.appendChild(nomeEl);
+        var meta = document.createElement("span");
+        meta.className = "card-vitrine-meta";
+        var partes = [];
+        var local = [s.city, s.state].filter(Boolean).join("/");
+        if (local) partes.push(local);
+        partes.push(s.n === 1 ? "1 anúncio" : s.n + " anúncios");
+        meta.textContent = partes.join(" · ");
+        txt.appendChild(meta);
+        if (s.cat.length) {
+          var spec = document.createElement("span");
+          spec.className = "card-vitrine-spec";
+          spec.textContent = s.cat.join(" · ");
+          txt.appendChild(spec);
+        }
+        a.appendChild(visual);
+        a.appendChild(txt);
         a.addEventListener("click", function () {
           track("abrir_vitrine", { fornecedor_slug: s.slug, event_category: "navegacao" });
           telemetria("supplier_view", { supplier: s.slug });
         });
-        chips.appendChild(a);
+        grade.appendChild(a);
       });
     }
 

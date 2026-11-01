@@ -895,6 +895,96 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
    Opcional — sem descrição, a regra não é usada. */
 .supplier-desc { margin: .35rem 0 0; color: var(--vdv-text-muted); }
 
+/* Onda 1 (02/11 — frente B, aprovado): header da vitrine em BLOCO — logo
+ * maior antes do nome, meta (local · contagem · atualização) junto ao nome.
+ * Substitui .supplier-head-row (10/10); sem logo, o bloco segue só com o
+ * nome. */
+.supplier-head {
+  display: flex; align-items: center; gap: var(--sp-4); flex-wrap: wrap;
+  margin: .35rem 0 .6rem;
+}
+.supplier-head .supplier-logo {
+  width: 5.6rem; height: 5.6rem; margin: 0;
+}
+.supplier-head-info { min-width: 0; }
+.supplier-head-info h1 { margin: 0 0 .2rem; }
+.supplier-head-info .card-meta { margin: 0; }
+
+/* Onda 1 (02/11 — frente B): condições comerciais DERIVADAS dos anúncios
+ * ativos (contagens por disponibilidade, pedido mínimo a partir de, nota de
+ * saldo). Só o que os anúncios no ar declaram; vitrine de 1 anúncio não
+ * ganha o bloco. */
+.supplier-cond {
+  margin: 1rem 0; padding: .9rem 1rem;
+  border-left: 3px solid var(--vdv-primary);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--vdv-surface); box-shadow: var(--shadow);
+}
+.supplier-cond .cond-list { margin: .35rem 0 0; padding: 0; list-style: none; }
+.supplier-cond .cond-list li {
+  margin: .25rem 0; font-size: .9rem; color: var(--vdv-text-muted);
+}
+
+/* Onda 1 (02/11 — frente C): anunciar.html — números fáticos + vitrine
+ * exemplo real (conteúdo do exportador, slots export:numeros/exemplo). */
+.ad-facts { color: var(--vdv-text-muted); font-size: .95rem; }
+.ad-example {
+  display: flex; align-items: center; gap: var(--sp-3);
+  text-decoration: none; color: var(--vdv-text);
+  padding: .8rem 1rem; margin: 1rem 0;
+  border: 1px solid var(--vdv-border); border-radius: var(--r-2);
+  background: var(--vdv-surface); box-shadow: var(--shadow);
+}
+.ad-example:hover { text-decoration: none; border-color: var(--vdv-accent); }
+.ad-example-text { display: flex; flex-direction: column; min-width: 0; }
+.ad-example-text strong { font-size: 1rem; }
+.ad-example-text .card-meta { margin: .15rem 0 0; }
+.ad-example-link { color: var(--vdv-accent); font-weight: 600; font-size: .88rem; }
+.ad-example-logo, .ad-example-img {
+  width: 4.4rem; height: 4.4rem; flex: 0 0 auto; object-fit: cover;
+  border-radius: var(--r-2); background: var(--vdv-bg);
+  border: 1px solid var(--vdv-border);
+}
+
+/* Onda 1 (02/11 — frente A): cartões de vitrine na Home — MESMA seleção dos
+ * chips antigos (dedupe "primeiro display vence", CAP 4, telemetria
+ * idêntica), apresentação em cartão compacto. Visual real = thumb do
+ * primeiro anúncio; iniciais apenas como fallback de imagem. */
+.mini-grid {
+  display: grid; gap: var(--sp-3);
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+}
+.card-vitrine {
+  display: flex; align-items: center; gap: var(--sp-3);
+  min-width: 0; text-decoration: none; color: var(--vdv-text);
+  padding: .8rem; border: 1px solid var(--vdv-border);
+  border-radius: var(--r-2); background: var(--vdv-surface);
+  box-shadow: var(--shadow);
+}
+.card-vitrine:hover { text-decoration: none; border-color: var(--vdv-accent); }
+.card-vitrine-visual { flex: 0 0 auto; width: 3.6rem; height: 3.6rem; }
+.card-vitrine-logo {
+  display: block; width: 100%; height: 100%; object-fit: cover;
+  border-radius: var(--r-2); background: var(--vdv-bg);
+  border: 1px solid var(--vdv-border);
+}
+.card-vitrine-initials {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 100%; border-radius: var(--r-2);
+  background: var(--vdv-bg); border: 1px solid var(--vdv-border);
+  color: var(--vdv-accent); font-weight: 700; font-size: 1.1rem;
+}
+.card-vitrine-text { display: flex; flex-direction: column; min-width: 0; }
+.card-vitrine-text strong {
+  font-weight: 600; color: var(--vdv-text);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.card-vitrine-meta { color: var(--vdv-text-muted); font-size: .82rem; }
+.card-vitrine-spec {
+  color: var(--vdv-accent); font-size: .8rem; font-weight: 600;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
 /* Topbar compacta em telas estreitas (página de produto tem 3 elementos). */
 @media (max-width: 560px) {
   .brand small { display: none; }
