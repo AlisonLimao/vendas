@@ -1,17 +1,22 @@
 # -*- coding: utf-8 -*-
 """Mandato A.1 (VDV-20261102) — patch em bytes do ``vdv.min.js``.
 
-Aplica no minificado as MESMAS mudanças semânticas do ``assets/app.js``
-(fonte), que é o que as páginas de produção carregam (``vdv.min.js?v=…``):
+Fonte ÚNICA da transformação: aplica sobre o min.js PRISTINE (e52c317, pré
+Mandato A.1) as mudanças semânticas do ``assets/js/app.js`` (fonte), que as
+páginas de produção carregam (``vdv.min.js?v=…``):
 
-1. Quantidade: só quando presente; unidade REAL quando informada
-   (vocabulário 0034); "un" apenas para o registro legado (quantidade sem
-   unidade); sem quantidade → segmento omitido (nunca "un" órfão).
-2. Selo ("procura-tag"): serviço → "Serviço", aluguel → "Aluguel";
-   compra e registro legado mantêm o selo atual ("Procura").
+1. Loc: cada segmento leva o SEU separador condicional — categoria SEM
+   "· " embutido; quantidade só quando presente (nunca "un" órfão /
+   segmento vazio); unidade REAL do vocabulário 0034 quando informada;
+   "un" fallback apenas para registro sem unidade; preço opcional como antes.
+2. Selo ("procura-tag") derivado de need_type: serviço → "Serviço",
+   aluguel → "Aluguel"; compra e registro legado mantêm "Procura".
+   ``var w`` é inicializada ANTES do ``if(l)`` — dentro do ramo o hoisting a
+   deixaria undefined no ramo textual (selo vazio; regressão vista no
+   render REAL do sandbox hm e corrigida na rodada 2).
 
 Cada trecho antigo DEVE ocorrer EXATAMENTE uma vez (aborta caso contrário).
-``--dry`` imprime os fragmentos sem aplicar. Validado com ``node --check``.
+``--dry`` imprime os fragmentos. Validado com ``node --check``.
 Página de detalhe da procura: gerada pelo exportador do backend (zero JS)
 — fora deste patch.
 """
@@ -26,47 +31,46 @@ MIN = pathlib.Path(__file__).resolve().parent.parent / "assets" / "js" / "vdv.mi
 # " “ "
 CURLY = "“"
 
-# Fragmento ORIGINAL do innerHTML (idêntico nos dois ramos; o ramo 2a começa
-# em "u.innerHTML=..." e o 2b em "}else t.innerHTML=...") até o fechamento de
-# string + _(a) + " ” </span>" + d — bordas completas.
-OLD_TAG_INNER = (
-    "<span class=\"procura-tag\">Procura</span>"
-    "<span class=\"procura-quote\">"
-    + CURLY
-    + "'+_(a)+\"”</span>\""
+# Edit 1 — quantidade/preço/separadores (loc da home)
+OLD_LOC = (
+    "var c=e.category&&e.category.name?_(e.category.name)+\" · \":\"\";"
+    "c+=_(e.quantity)+\" un\",i&&(c+=\" · \"+i);"
 )
-# Mesmo local com interpolado de w (strings 100% em aspas simples — balanceadas):
-NEW_TAG_INNER = (
-    "<span class=\"procura-tag\">"
-    "'+_(w)+'</span><span class=\"procura-quote\">"
-    + CURLY
-    + "'"
-    "+_(a)+\"”</span>\""
-)
-W_DEF = (
-    "var u=document.createElement(\"span\"),w=e.need_type===\"aluguel\""
-    "?\"Aluguel\":e.need_type===\"servico\"?\"Serviço\":\"Procura\";"
+NEW_LOC = (
+    "var c=e.category&&e.category.name?_(e.category.name):\"\";"
+    "null!=e.quantity&&(c+=(c?\" · \":\"\")+_(String(e.quantity))+\" \"+"
+    "(e.quantity_unit?_(e.quantity_unit):\"un\")),i&&(c+=(c?\" · \":\"\")+i);"
 )
 
-EDITS = [
-    # 1) quantidade + preço (ordem preservada: categoria · quantidade · preço)
-    (
-        "c+=_(e.quantity)+\" un\",i&&(c+=\" · \"+i);",
-        "null!=e.quantity&&(c+=_(String(e.quantity))+\" \"+"
-        "(e.quantity_unit?_(e.quantity_unit):\"un\")),i&&(c+=(c?\" · \":\"\")+i);",
-    ),
-    # 2a) selo no ramo com miniatura (define w UMA vez; escopo do forEach)
-    (
-        "var u=document.createElement(\"span\");u.className=\"procura-body\","
-        "u.innerHTML='" + OLD_TAG_INNER,
-        W_DEF + "u.className=\"procura-body\",u.innerHTML='" + NEW_TAG_INNER,
-    ),
-    # 2b) selo no ramo textual (mesma w)
-    (
-        "}else t.innerHTML='" + OLD_TAG_INNER,
-        "}else t.innerHTML='" + NEW_TAG_INNER,
-    ),
-]
+# Edit 2 — selo com hoisting seguro do w (definido no mesmo var de d, ANTES
+# do if(l)); innerHTML dos DOIS ramos interpola _(w) — strings single-quote
+# balanceadas.
+OLD_SELO = (
+    "var d='<span class=\"procura-loc\">'+_(c)+\"</span>\";"
+    "if(l){t.classList.add(\"procura-line--media\");"
+    "var u=document.createElement(\"span\");"
+    "u.className=\"procura-body\",u.innerHTML='"
+    "<span class=\"procura-tag\">Procura</span>"
+    "<span class=\"procura-quote\">" + CURLY + "'+_(a)+\"”</span>\"+d,"
+    "t.appendChild(l),t.appendChild(u)}"
+    "else t.innerHTML='<span class=\"procura-tag\">Procura</span>"
+    "<span class=\"procura-quote\">" + CURLY + "'+_(a)+\"”</span>\"+d;"
+)
+NEW_SELO = (
+    "var d='<span class=\"procura-loc\">'+_(c)+\"</span>\","
+    "w=e.need_type===\"aluguel\"?\"Aluguel\":e.need_type===\"servico\""
+    "?\"Serviço\":\"Procura\";"
+    "if(l){t.classList.add(\"procura-line--media\");"
+    "var u=document.createElement(\"span\");"
+    "u.className=\"procura-body\",u.innerHTML='"
+    "<span class=\"procura-tag\">'+_(w)+'</span>"
+    "<span class=\"procura-quote\">" + CURLY + "'+_(a)+\"”</span>\"+d,"
+    "t.appendChild(l),t.appendChild(u)}"
+    "else t.innerHTML='<span class=\"procura-tag\">'+_(w)+'</span>"
+    "<span class=\"procura-quote\">" + CURLY + "'+_(a)+\"”</span>\"+d;"
+)
+
+EDITS = [(OLD_LOC, NEW_LOC), (OLD_SELO, NEW_SELO)]
 
 
 def main() -> int:
@@ -93,7 +97,7 @@ def main() -> int:
         capture_output=True, text=True,
     )
     if chk.returncode != 0:
-        print("[min] node --check FALHOU no resultado:\n" + chk.stderr[:600])
+        print("[min] node --check FALHOU no resultado:\n" + (chk.stderr or "")[:600])
         return 1
     print(f"[min] OK — {len(EDITS)} trechos aplicados; node --check OK")
     return 0

@@ -1238,14 +1238,15 @@
               ? "R$ " + pr.price_min.replace(".", ",") + " – R$ " + pr.price_max.replace(".", ",")
               : "até R$ " + pr.price_max.replace(".", ",");
           }
-          var locTexto = pr.category && pr.category.name ? esc(pr.category.name) + " · " : "";
-          // Mandato A.1 (§2, VDV-20261102): quantidade com unidade REAL
-          // quando informada (vocabulário 0034 do bot); sem quantidade
-          // (serviço / registro antigo) o segmento SOME — nunca "un" órfão
-          // nem unidade fictícia; legado (quantidade sem unidade) mantém "un".
+          var locTexto = pr.category && pr.category.name ? esc(pr.category.name) : "";
+          // Mandato A.1 (§2, VDV-20261102): cada segmento leva o SEU separador
+          // (condicional) — sem quantidade (serviço / registro antigo) o
+          // segmento SOME e nada de "· " órfão fica da categoria; unidade
+          // REAL do vocabulário 0034 quando informada; "un" só como fallback
+          // do registro sem unidade; nunca unidade fictícia.
           if (pr.quantity != null) {
-            locTexto += esc(String(pr.quantity)) + " " +
-              (pr.quantity_unit ? esc(pr.quantity_unit) : "un");
+            locTexto += (locTexto ? " · " : "") + esc(String(pr.quantity)) +
+              " " + (pr.quantity_unit ? esc(pr.quantity_unit) : "un");
           }
           if (preco) locTexto += (locTexto ? " · " : "") + preco;
           // VDV-20261016-02 — miniatura de referência ao lado da citação:

@@ -87,6 +87,34 @@ assert(
   "6. nada de 'undefined un' / 'null un' literal no app.js"
 );
 
+/* 6a — SEPARADOR ÓRFÃO (§2, regressão de render REAL no sandbox hm):
+   sem quantity e sem preço, a linha loc não pode terminar em "· ".
+   O separador passa a ser condicional em TODOS os segmentos. */
+assert(
+  !/category\.name\) \+ " · "/.test(js),
+  "6a. app.js: separador ' · ' NÃO concatenado à categoria (só quando há segmento seguinte)"
+);
+assert(
+  /\(locTexto \? " · " : ""\) \+ esc\(String\(pr\.quantity\)\)/.test(js),
+  "6b. app.js: separador condicional antes da quantidade"
+);
+assert(
+  minjs.includes(
+    'var c=e.category&&e.category.name?_(e.category.name):"";null!=e.quantity&&(c+=(c?" · ":"")+_(String(e.quantity))'
+  ),
+  "6c. min.js: loc idêntico ao app.js (separadores todos condicionais)"
+);
+
+/* 6b — HOISTING DO SELO (§2, regressão de render REAL no sandbox hm):
+   no min.js o `var w` NÃO pode ser inicializado dentro do ramo `if(l){` —
+   hoisting deixaria `w` undefined no ramo textual e o selo sairia vazio. */
+assert(
+  minjs.includes(
+    '</span>",w=e.need_type==="aluguel"?"Aluguel":e.need_type==="servico"?"Serviço":"Procura";if(l){t.classList.add("procura-line--media");var u=document.createElement("span");u.className="procura-body"'
+  ),
+  "6d. min.js: w definida ANTES do if(l) (inicializada fora do ramo, hoisting real)"
+);
+
 /* 7 — ANÚNCIOS INTACTOS (§3): contrato de produto não tocou */
 assert(
   /i\.quantity\+" un em estoque"/.test(js) || /un em estoque/.test(js),
