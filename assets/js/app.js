@@ -985,6 +985,9 @@
     // destacado também aparece na banda do grupo dele (fim do dedup).
     var sectionDestaque = $("section-destaque");
     var destaque = sectionDestaque ? pickDestaqueDiario(products) : null;
+    // W1 (anti-CLS): o placeholder do destaque nasce visível — sem rodízio
+    // hoje, a seção volta a ficar escondida (nada de skeleton órfão).
+    if (sectionDestaque && !destaque) sectionDestaque.hidden = true;
 
     // Faixa de atalhos + bandas: só quando o catálogo sustenta (>= 1 banda).
     function renderBandas(cat) {
@@ -2648,10 +2651,12 @@
   // durante o fetch de products.json para evitar layout shift; nada de
   // spinner. Removido assim que o catálogo chega (ou falha).
   function renderSkeletons(page) {
+    // W1 (VDV-20261102) — a Home revela TODAS as seções dinâmicas com
+    // placeholders (renderHomeSkeletons); explorar/favoritos seguem o fluxo
+    // original de cards.
+    if (page === "home") { renderHomeSkeletons(); return; }
     var targets = [];
-    if (page === "home") {
-      targets.push({ grid: "bandas", section: "section-bandas", n: 8 });
-    } else if (page === "explorar") {
+    if (page === "explorar") {
       targets.push({ grid: "x-grid", n: 8 });
     } else if (page === "favoritos") {
       targets.push({ grid: "grid-favoritos", section: "section-favoritos", n: 8 });
@@ -2722,6 +2727,9 @@
       })
       .catch(function () {
         clearSkeletons();
+        // W1 (anti-CLS): no erro, as seções com placeholders voltam ao
+        // estado inicial (escondidas) — nada de seção fantasma no ar.
+        hidePlaceholderSections();
         var s = $("status");
         if (s) s.textContent =
           "Não foi possível carregar o catálogo agora. Recarregue a página em alguns instantes.";
@@ -2731,4 +2739,106 @@
         });
       });
   });
+
+  // ------------------------------------------------------------ anti-CLS W1
+  // W1 (VDV-20261102) — anti-CLS da Home: as seções dinâmicas (atalhos,
+  // bandas, destaque, vitrines) eram reveladas só quando o products.json
+  // chegava; o conteúdo inteiro abaixo do herói pulava no reflow pós-fetch.
+  // Agora elas nascem visíveis com placeholders do MESMO encaixe (sk-*) que
+  // são substituídos no primeiro render (os renderers zeram o innerHTML) —
+  // e a seção vazia continua escondida pelas regras de render já existentes
+  // (renderBandas / sectionVitrines.hidden / null-destaque). No erro do
+  // fetch, hidePlaceholderSections devolve ao estado inicial (nada vaza).
+  // (Bloco posicionado APÓS o registro do boot: as suítes que fatiam o
+  // corpo do initBottombar até o DOMContentLoaded continuam enxergando só
+  // o initBottombar; o DOMContentLoaded dispara depois de toda a avaliação.)
+  var HOME_SECTIONS = [
+    "atalhos-categorias", "section-bandas", "section-destaque", "section-vitrines"
+  ];
+  function hidePlaceholderSections() {
+    HOME_SECTIONS.forEach(function (id) {
+      var el = $(id);
+      if (el) el.hidden = true;
+    });
+  }
+  function renderHomeSkeletons() {
+    var atalhosSec = $("atalhos-categorias");
+    if (atalhosSec) {
+      atalhosSec.hidden = false;
+      var chipsSk = $("chips-atalhos");
+      if (chipsSk) {
+        chipsSk.innerHTML = "";
+        var fragC = document.createDocumentFragment();
+        for (var c = 0; c < 4; c++) {
+          var ch = document.createElement("span");
+          ch.className = "chip chip-skel";
+          ch.setAttribute("aria-hidden", "true");
+          fragC.appendChild(ch);
+        }
+        chipsSk.appendChild(fragC);
+      }
+    }
+    var dSec = $("section-destaque");
+    if (dSec) {
+      dSec.hidden = false;
+      var dSk = $("vitrine-destaque");
+      if (dSk) {
+        dSk.innerHTML = "";
+        var ph = document.createElement("div");
+        ph.className = "vd-photo sk-vd-photo";
+        ph.setAttribute("aria-hidden", "true");
+        ph.innerHTML =
+          '<span class="sk-vd-media"></span>' +
+          '<span class="sk-line sk-line-price"></span>' +
+          '<span class="sk-line sk-line-short"></span>';
+        dSk.appendChild(ph);
+      }
+    }
+    var vSec = $("section-vitrines");
+    if (vSec) {
+      vSec.hidden = false;
+      var gridSk = $("chips-vitrines");
+      if (gridSk) {
+        gridSk.innerHTML = "";
+        var fragV = document.createDocumentFragment();
+        for (var v = 0; v < 3; v++) {
+          var vs = document.createElement("span");
+          vs.className = "card-vitrine card-vitrine-skel";
+          vs.setAttribute("aria-hidden", "true");
+          vs.innerHTML =
+            '<span class="card-vitrine-visual"></span>' +
+            '<span class="card-vitrine-text">' +
+            '<span class="sk-line sk-line-title"></span>' +
+            '<span class="sk-line sk-line-short"></span>' +
+            "</span>";
+          fragV.appendChild(vs);
+        }
+        gridSk.appendChild(fragV);
+      }
+    }
+    // Cards das bandas — mesmo skeleton R12 de antes (VDV-20260924-01).
+    var bSec = $("section-bandas");
+    var bandasGrid = $("bandas");
+    if (bSec) bSec.hidden = false;
+    if (bandasGrid) {
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < 8; i++) {
+        var wrap = document.createElement("div");
+        wrap.className = "card-wrap";
+        var sk = document.createElement("div");
+        sk.className = "card card-skeleton";
+        sk.setAttribute("aria-hidden", "true");
+        sk.innerHTML =
+          '<div class="sk-media"></div>' +
+          '<div class="card-body">' +
+          '<div class="sk-line sk-line-price"></div>' +
+          '<div class="sk-line sk-line-title"></div>' +
+          '<div class="sk-line sk-line-short"></div>' +
+          "</div>";
+        wrap.appendChild(sk);
+        frag.appendChild(wrap);
+      }
+      bandasGrid.appendChild(frag);
+    }
+  }
 })();

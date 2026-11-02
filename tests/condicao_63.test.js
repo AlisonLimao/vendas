@@ -87,10 +87,9 @@ const paginas = [
   "../privacidade.html", "../explorar/index.html", "../favoritos/index.html",
   "../produto/index.html",
 ];
-const exporter = fs.readFileSync(
-  path.join(__dirname, "..", "..", "projeto_telegram", "scripts", "export_catalogo_web.py"),
-  "utf8"
-);
+const exporterPath = process.env.VDV_EXPORTER ||
+  path.join(__dirname, "..", "..", "projeto_telegram", "scripts", "export_catalogo_web.py");
+const exporter = fs.readFileSync(exporterPath, "utf8");
 // 7. Invariante (VDV-20261008-08): as páginas shell linkam EXATAMENTE o
 //    ?v= da CSS_VERSION do exportador — ao subir a versão num ciclo, os
 //    dois lados andam juntos (nada de snapshot quebrado a cada bump).

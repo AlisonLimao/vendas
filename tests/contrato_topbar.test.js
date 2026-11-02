@@ -135,7 +135,10 @@ assert(/class="back-link" [\s\S]{0,80}data-ga-origin="produto_voltar"/.test(js) 
 // Versão: invariância com a CSS_VERSION do exportador (mesma mecânica do
 // teste 7 do condicao_63 — VDV-20261008-08; nunca hard-code de ?v).
 var exportador = fs.readFileSync(
-  path.join(R, "..", "projeto_telegram", "scripts", "export_catalogo_web.py"),
+  // W1 (VDV-20261102): VDV_EXPORTER permite apontar o exportador de um
+  // worktree (bump conjunto do cache-bust); sem a variável — produção.
+  process.env.VDV_EXPORTER ||
+    path.join(R, "..", "projeto_telegram", "scripts", "export_catalogo_web.py"),
   "utf8"
 );
 var versao = (exportador.match(/CSS_VERSION = "([^"]+)"/) || [])[1];

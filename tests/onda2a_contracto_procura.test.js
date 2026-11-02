@@ -63,9 +63,15 @@ assert(
     /: "Procura"/.test(js),
   "3. selo deriva de need_type (aluguel → Aluguel, servico → Serviço, resto → Procura)"
 );
+// 3a (robustez — VDV-20261102/W1): o literal fixado antes ("w=e.need_type==...") prendia
+// dois artefatos do terser: o nome mangled da variável (w) e o estilo de comparação
+// (e.x==="y" vs "y"===e.x). Qualquer código novo desloca os dois — a guarda real é
+// o MAPEAMENTO completo presente no min; aceitam-se os dois estilos de compressão.
 assert(
-  minjs.includes('w=e.need_type==="aluguel"?"Aluguel":e.need_type==="servico"?"Serviço":"Procura"'),
-  "3a. vdv.min.js carrega o mesmo mapeamento do selo"
+  (/need_type\s*===?\s*"aluguel"\s*\?\s*"Aluguel"[^;]{0,60}"Serviço"/.test(minjs) ||
+    /"aluguel"\s*===?\s*\w\.need_type\s*\?\s*"Aluguel"[^;]{0,60}"Serviço"/.test(minjs)) &&
+    /"Procura"/.test(minjs),
+  "3a. vdv.min.js carrega o mesmo mapeamento do selo (independente de estilo do terser)"
 );
 
 /* 4 — SEM FOTO (§2.6, §2.7): guarda de imagem intacta (thumb OU original) */
@@ -106,13 +112,19 @@ assert(
 );
 
 /* 6b — HOISTING DO SELO (§2, regressão de render REAL no sandbox hm):
-   no min.js o `var w` NÃO pode ser inicializado dentro do ramo `if(l){` —
-   hoisting deixaria `w` undefined no ramo textual e o selo sairia vazio. */
+   no min.js o selo do tipo NÃO pode ser inicializado dentro do ramo `if(l){` —
+   6d (robustez — VDV-20261102/W1): antes fixava o literal mangled completo
+   (`w=e.need_type...`), que quebra com o rename/estilo do terser a cada mudança.
+   O invariante semântico: o mapeamento do selo aparece ANTES do `if` da linha
+   de mídia — e esse if existe imediatamente com classList.add(...--media). */
+var iNeed = minjs.indexOf("need_type");
+var iProc = iNeed === -1 ? -1 : minjs.indexOf('"Procura"', iNeed);
+var iMedia = minjs.indexOf('classList.add("procura-line--media")');
 assert(
-  minjs.includes(
-    '</span>",w=e.need_type==="aluguel"?"Aluguel":e.need_type==="servico"?"Serviço":"Procura";if(l){t.classList.add("procura-line--media");var u=document.createElement("span");u.className="procura-body"'
-  ),
-  "6d. min.js: w definida ANTES do if(l) (inicializada fora do ramo, hoisting real)"
+  iNeed !== -1 && iProc !== -1 && iMedia > iProc &&
+    /;if\([^)]*\)\{t\.classList\.add\("procura-line--media"\)/
+      .test(minjs.slice(iProc, iMedia + 40)),
+  "6d. min.js: selo definido ANTES do if de mídia (hoisting real, sem init dentro do ramo)"
 );
 
 /* 7 — ANÚNCIOS INTACTOS (§3): contrato de produto não tocou */

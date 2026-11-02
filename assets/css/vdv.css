@@ -93,6 +93,14 @@
   --bottombar-h: 4.2rem;
   --fs-caption: .75rem;
   --nav-gutter: 1rem;
+
+  /* W1 (VDV-20261102, onda de fundação) — tokens derivados para as próximas
+   * ondas (selos, respiros, estados): NENHUM token existente muda de valor. */
+  --vdv-primary-soft: #e3e9f6;  /* marinho ~8% sobre a superfície */
+  --vdv-accent-soft: #dbe7fd;   /* azul de destaque clarificado   */
+  --vdv-surface-2: #eef1f6;     /* superfície alternativa (faixas) */
+  --vdv-border-strong: #c3cad6; /* borda enfática (hover/ativo)    */
+  --vdv-cta-ink: #7c3a0c;       /* texto sobre o âmbar do CTA      */
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -108,6 +116,12 @@
     --vdv-primary-ink: #93c5fd;  /* preços/títulos em primary legíveis */
     --vdv-danger: #f87171;
     --vdv-success: #4ade80;
+    /* W1 (VDV-20261102) — espelhos escuros dos tokens derivados. */
+    --vdv-primary-soft: #1c2b4e;
+    --vdv-accent-soft: #1e345c;
+    --vdv-surface-2: #1b2540;
+    --vdv-border-strong: #3b4a72;
+    --vdv-cta-ink: #8a4d16;      /* levemente clarificado no escuro */
   }
 }
 * { box-sizing: border-box; }
@@ -438,10 +452,23 @@ a.chip { text-decoration: none; display: inline-block; }
 .sk-line-price { width: 45%; }
 .card-body .sk-line:first-child { margin-top: .6rem; }
 .card-body .sk-line:last-child { margin-bottom: .4rem; }
+/* W1 (VDV-20261102) — placeholders anti-CLS das seções da Home (mesma
+ * família sk-* dos cards R12, pulso herdado — ver app.js renderHomeSkeletons). */
+.chip-skel { width: 5.2rem; height: 1.55rem; display: inline-block; }
+.sk-vd-media {
+  display: block; width: 100%; aspect-ratio: 4 / 5;
+  background: var(--vdv-border); border-radius: var(--r-2);
+}
+.card-vitrine-skel { pointer-events: none; }
+.card-vitrine-skel .card-vitrine-visual { background: var(--vdv-border); border-radius: var(--r-1); }
 @media (prefers-reduced-motion: no-preference) {
   .sk-media, .sk-line { animation: sk-pulse 1.4s ease-in-out infinite; }
   .card-body .sk-line:nth-child(2) { animation-delay: .15s; }
   .card-body .sk-line:nth-child(3) { animation-delay: .3s; }
+  /* W1 (VDV-20261102) — placeholders das seções da Home pulsam como os cards. */
+  .chip-skel, .sk-vd-media, .card-vitrine-skel .card-vitrine-visual {
+    animation: sk-pulse 1.4s ease-in-out infinite;
+  }
   @keyframes sk-pulse { 50% { opacity: .55; } }
 }
 
@@ -1059,6 +1086,43 @@ footer a[data-deep-link="denuncia"] { color: var(--vdv-text-muted); }
    * (texto, depois botões) — nunca vira o cartão grande de antes. */
   .termsfeed-com---nb .cc-nb-main-container { padding: .5rem .75rem !important; }
   .termsfeed-com---nb .cc-nb-buttons-container { margin-left: 0; }
+  /* W1 (VDV-20261102) — compactação tipográfica no celular, CONTEÚDO LEGAL
+   * completo (nada escondido: a lista de propósitos permanece). */
+  .termsfeed-com---nb .cc-nb-text { font-size: .74rem !important; line-height: 1.35 !important; }
+  .termsfeed-com---nb .cc-nb-text-urls { font-size: .68rem !important; }
+  #termsfeed-com---nb .cc-nb-okagree,
+  #termsfeed-com---nb .cc-nb-reject,
+  #termsfeed-com---nb .cc-nb-changep {
+    font-size: .75rem !important;
+    padding: .35rem .7rem !important;
+  }
+}
+
+/* W1 (VDV-20261102) — apresentação clara identidade VDV (config ``palette``
+ * "light" nos 8 shells; os dark tokens redefinem a superfície no escuro, então
+ * o banner acompanha o tema automaticamente). A MECÂNICA de consentimento
+ * NÃO muda — só apresentação (regra do VDV-20260911-06 acima). id + classes
+ * vencem o <style> que a lib injeta no head DEPOIS deste arquivo. */
+#termsfeed-com---nb.termsfeed-com---palette-light,
+#termsfeed-com---nb.termsfeed-com---palette-light .cc-nb-main-container {
+  background: var(--vdv-surface) !important;
+  color: var(--vdv-text) !important;
+}
+#termsfeed-com---nb.termsfeed-com---palette-light .cc-nb-okagree {
+  background: var(--vdv-primary) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--vdv-primary) !important;
+}
+#termsfeed-com---nb.termsfeed-com---palette-light .cc-nb-reject {
+  background: transparent !important;
+  color: var(--vdv-text) !important;
+  border: 1px solid var(--vdv-border-strong) !important;
+}
+#termsfeed-com---nb.termsfeed-com---palette-light .cc-nb-changep {
+  background: transparent !important;
+  color: var(--vdv-text-muted) !important;
+  border: 0 !important;
+  text-decoration: underline;
 }
 
 /* ------------------------------------------------------------------ */
