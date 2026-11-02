@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T11:20:32Z",
+  "generated_at": "2026-11-02T13:34:18Z",
   "bot_username": "vitrine_vendasbot",
   "total": 13,
   "products": [
@@ -8,11 +8,11 @@
       "title": "Banana Ourinho R$ 5,00 a dúzia!",
       "description": "🍌 Pequena no tamanho e cheia de possibilidades para o dia a dia! Nossa banana Ourinho está disponível em diferentes pontos de maturação, das verdinhas às amarelinhas, para você escolher como prefere.\n\nE o melhor: aqui você ainda compra por dúzia!\n\nVenha conferir na Quitanda Toninho e Ana!",
       "category": {
-        "slug": "servicos",
-        "name": "Serviços",
+        "slug": "frutas_e_derivados",
+        "name": "Frutas e Derivados",
         "group": {
-          "slug": "servicos",
-          "name": "Serviços"
+          "slug": "frutas_e_derivados",
+          "name": "Frutas e Derivados"
         }
       },
       "price": "5.00",
@@ -58,11 +58,11 @@
       "title": "Banana Maçã R$ 5,00 a dúzia.",
       "description": "🍌 Banana-Maçã  R$ 6,00 a dúzia!\n\nSabor delicado, aroma característico e aquele gostinho especial da banana-maçã! Disponível ainda verdinha, ideal para levar para casa e acompanhar seu amadurecimento até o ponto de sua preferência.\n\nE o melhor: aqui você ainda compra por dúzia!\n\nVenha conferir na Quitanda Toninho e Ana!\n\n📍 Av. Guatemala, 149 — Jardim América, Monte Sião/MG.",
       "category": {
-        "slug": "servicos",
-        "name": "Serviços",
+        "slug": "frutas_e_derivados",
+        "name": "Frutas e Derivados",
         "group": {
-          "slug": "servicos",
-          "name": "Serviços"
+          "slug": "frutas_e_derivados",
+          "name": "Frutas e Derivados"
         }
       },
       "price": "6.00",
@@ -106,11 +106,11 @@
       "title": "Banana Prata Caipira R$ 5,00 a dúzia!",
       "description": "Bananas com diferentes pontos de maturação, das verdinhas às amarelinhas, para você escolher conforme sua preferência. Ideais para o consumo diário, lanches e receitas caseiras.\n\nE aqui a venda ainda é por dúzia!\n\nEncontre na Quitanda Toninho e Ana.\n\n📍 Av. Guatemala, 149 — Jardim América, Monte Sião/MG.",
       "category": {
-        "slug": "servicos",
-        "name": "Serviços",
+        "slug": "frutas_e_derivados",
+        "name": "Frutas e Derivados",
         "group": {
-          "slug": "servicos",
-          "name": "Serviços"
+          "slug": "frutas_e_derivados",
+          "name": "Frutas e Derivados"
         }
       },
       "price": "5.00",
@@ -152,11 +152,11 @@
       "title": "Banana nanica",
       "description": "🍌 Banana cultivada sem o uso de agrotóxicos!\n\nCultivada com cuidado e pensando no bem-estar da sua família, nossa banana leva sabor e qualidade para a sua mesa. E o melhor: aqui a venda ainda é por dúzia!\n\nVenha conferir de perto na Quitanda Toninho e Ana!\n\n📍 Av. Guatemala, 149 – Jardim América, Monte Sião/MG.",
       "category": {
-        "slug": "servicos",
-        "name": "Serviços",
+        "slug": "frutas_e_derivados",
+        "name": "Frutas e Derivados",
         "group": {
-          "slug": "servicos",
-          "name": "Serviços"
+          "slug": "frutas_e_derivados",
+          "name": "Frutas e Derivados"
         }
       },
       "price": "5.00",
@@ -513,7 +513,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 12,
+      "days_since_confirmation": 13,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -551,7 +551,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 12,
+      "days_since_confirmation": 13,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -594,7 +594,7 @@
       "offer_type": "atacado",
       "availability": "sob_pedido",
       "quantity": 20,
-      "days_since_confirmation": 12,
+      "days_since_confirmation": 13,
       "seller_name": "Sarah Tricô",
       "city": "Monte Sião",
       "state": "MG",
@@ -641,8 +641,8 @@
       ]
     },
     {
-      "slug": "servicos",
-      "name": "Serviços",
+      "slug": "frutas_e_derivados",
+      "name": "Frutas e Derivados",
       "total": 4,
       "products": [
         "5887be9e-b2a3-4bea-82f0-536fd67ac0e2",
@@ -654,8 +654,8 @@
   ],
   "category_pages": [
     {
-      "slug": "servicos",
-      "name": "Serviços",
+      "slug": "frutas_e_derivados",
+      "name": "Frutas e Derivados",
       "total": 4
     },
     {
