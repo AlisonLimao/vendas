@@ -47,10 +47,21 @@ assert(
   "5. variante de imagem separada da textual"
 );
 
-// 2. Identidade PROCURA nos dois variantes + telemetria preservada.
+// 2. Selo da demanda nos dois variantes — Mandato A.1 (VDV-20261102): o selo
+// passou a derivar de need_type (aluguel → Aluguel, servico → Serviço; compra
+// e registro legado mantêm "Procura"). Os dois variantes compartilham o
+// tagLabel único (usado 2x) — não há mais "Procura" fixo no fonte.
 assert(
-  (js.match(/'<span class="procura-tag">Procura<\/span>'/g) || []).length === 2,
-  "6. rótulo PROCURA no card com e sem foto"
+  /pr\.need_type === "aluguel" \? "Aluguel"[\s\S]*?pr\.need_type === "servico" \? "Serviço"[\s\S]*?: "Procura"/.test(js),
+  "6. selo deriva de need_type (contrato A.1)"
+);
+assert(
+  (js.match(/'<span class="procura-tag">' \+ esc\(tagLabel\) \+ "<\/span>"/g) || []).length === 2,
+  "6a. selo interpolado nos DOIS variantes (com e sem foto)"
+);
+assert(
+  !js.includes('<span class="procura-tag">Procura</span>'),
+  "6b. selo fixo 'Procura' não existe mais no fonte (dinâmico por tipo)"
 );
 assert(js.includes('track("abrir_procura"'), "7. abrir_procura preservado");
 assert(

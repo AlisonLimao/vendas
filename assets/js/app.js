@@ -1239,8 +1239,15 @@
               : "até R$ " + pr.price_max.replace(".", ",");
           }
           var locTexto = pr.category && pr.category.name ? esc(pr.category.name) + " · " : "";
-          locTexto += esc(pr.quantity) + " un";
-          if (preco) locTexto += " · " + preco;
+          // Mandato A.1 (§2, VDV-20261102): quantidade com unidade REAL
+          // quando informada (vocabulário 0034 do bot); sem quantidade
+          // (serviço / registro antigo) o segmento SOME — nunca "un" órfão
+          // nem unidade fictícia; legado (quantidade sem unidade) mantém "un".
+          if (pr.quantity != null) {
+            locTexto += esc(String(pr.quantity)) + " " +
+              (pr.quantity_unit ? esc(pr.quantity_unit) : "un");
+          }
+          if (preco) locTexto += (locTexto ? " · " : "") + preco;
           // VDV-20261016-02 — miniatura de referência ao lado da citação:
           // thumb WebP priorizada e original como fallback (mesmo padrão de
           // cardMedia); sem foto → lista editorial textual da Fatia 55 intacta.
@@ -1269,19 +1276,26 @@
           }
           var locHTML =
             '<span class="procura-loc">' + esc(locTexto) + "</span>";
+          // Mandato A.1 (§2): tipo da demanda no selo quando informado
+          // (serviço/aluguel distinguidos na lista); compra e registro
+          // legado mantêm o selo atual ("Procura").
+          var tagLabel =
+            pr.need_type === "aluguel" ? "Aluguel"
+            : pr.need_type === "servico" ? "Serviço"
+            : "Procura";
           if (pic) {
             a.classList.add("procura-line--media");
             var body = document.createElement("span");
             body.className = "procura-body";
             body.innerHTML =
-              '<span class="procura-tag">Procura</span>' +
+              '<span class="procura-tag">' + esc(tagLabel) + "</span>" +
               '<span class="procura-quote">“' + esc(desc) + "”</span>" +
               locHTML;
             a.appendChild(pic);
             a.appendChild(body);
           } else {
             a.innerHTML =
-              '<span class="procura-tag">Procura</span>' +
+              '<span class="procura-tag">' + esc(tagLabel) + "</span>" +
               '<span class="procura-quote">“' + esc(desc) + "”</span>" +
               locHTML;
           }
