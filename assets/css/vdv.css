@@ -375,15 +375,20 @@ a.chip { text-decoration: none; display: inline-block; }
   width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block;
   background: var(--vdv-bg); border-radius: 0; border: 0;
 }
+/* W2 — legibilidade dos dots sobre foto clara: scrim sobe .4→.55, o dot
+ * inativo .45→.55 com anel de contraste 1px (6px e is-on #fff mantidos;
+ * continua aria-hidden, sem toque). Referência ML/OLX: indicadores sempre
+ * visíveis sobre a foto. */
 .card-gal-dots {
   position: absolute; right: .5rem; bottom: .5rem; z-index: 2;
   display: flex; gap: .28rem; align-items: center;
   padding: .2rem .45rem; border-radius: var(--r-full);
-  background: rgba(15, 23, 42, .4); pointer-events: none;
+  background: rgba(15, 23, 42, .55); pointer-events: none;
 }
 .card-gal-dots i {
   width: 6px; height: 6px; border-radius: var(--r-full);
-  background: rgba(255, 255, 255, .45); transition: background .15s;
+  background: rgba(255, 255, 255, .55);
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, .3); transition: background .15s;
 }
 .card-gal-dots i.is-on { background: #fff; }
 /* VDV-20261010-03 — setas da galeria nos cards (desktop): MESMA galeria
@@ -413,9 +418,9 @@ a.chip { text-decoration: none; display: inline-block; }
   .card-gal-track { scroll-behavior: auto; }
 }
 .card-body { padding: .6rem .1rem 0; display: flex; flex-direction: column; gap: .24rem; flex: 1; }
-/* Redesign (10/10) — hierarquia do corpo: título NOME (peso 600, 2 linhas),
- * assinatura comercial discreta (fornecedor · cidade), preço GRANDE por
- * último (a decisão de preço vem depois de a foto convencer). */
+/* Fatia 52 (17/10) — hierarquia do corpo do card: foto no topo, PREÇO primeiro
+ * (a decisão comercial começa por ele), título NOME (peso 600, 2 linhas),
+ * assinatura comercial discreta (fornecedor · cidade), flags por último. */
 .card-title { font-size: .94rem; font-weight: 600; margin: 0; line-height: 1.28; letter-spacing: -.01em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .card-seller { font-size: .78rem; font-weight: 500; color: var(--vdv-text-muted); margin: 0; }
 /* VDV-20261008-07 (Etapa 5) — fornecedor + cidade na MESMA linha (o meta do
@@ -428,6 +433,15 @@ a.chip { text-decoration: none; display: inline-block; }
 .card-city { font-size: .78rem; font-weight: 400; color: var(--vdv-text-muted); }
 .card-seller[data-seller-href] { cursor: pointer; }
 .card-seller[data-seller-href]:hover { text-decoration: underline; }
+/* W2 (VDV-20261102) — fornecedor navegável é um span DENTRO do <a> do card
+ * (que tem overflow:hidden): a célula visual não pode ter padding/margin
+ * compensados grandes. A hit area cresce por pseudo absoluto (±.5rem H, ±.9rem
+ * V ≈ 44px): o overlap vertical recai no título/flags do MESMO link (mesma
+ * navegação, sem intenção perdida); a cidade adjacente é plain span → <a>. */
+.card-seller[data-seller-href] { position: relative; }
+.card-seller[data-seller-href]::after {
+  content: ""; position: absolute; inset: -.9rem -.5rem;
+}
 .card-price { font-size: 1.32rem; font-weight: 800; color: var(--vdv-primary-ink); margin: .1rem 0 0; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
 .card-price small { font-size: .62em; font-weight: 700; color: var(--vdv-text-muted); }
 .card-flags { display: flex; flex-wrap: wrap; gap: .3rem; align-items: center; margin: .05rem 0 0; min-height: 1.1rem; }
@@ -461,6 +475,16 @@ a.chip { text-decoration: none; display: inline-block; }
 }
 .card-vitrine-skel { pointer-events: none; }
 .card-vitrine-skel .card-vitrine-visual { background: var(--vdv-border); border-radius: var(--r-1); }
+/* W2 (VDV-20261102) — skeleton 1:1 das bandas: o placeholder imita a anatomia
+ * real do renderBandas (.banda com h2 + card-meta + .grid), então o fetch de
+ * products.json não shifta o h2/meta da banda (antes eram cards soltos).
+ * linha-banda-skel = h2 1.25rem; a linha do meta usa a sk-line padrão. */
+.banda-skel { pointer-events: none; }
+.banda-skel .banda-skel-h {
+  display: block; width: 42%; height: 1.25rem;
+  border-radius: var(--r-1);
+  background: var(--vdv-border);
+}
 @media (prefers-reduced-motion: no-preference) {
   .sk-media, .sk-line { animation: sk-pulse 1.4s ease-in-out infinite; }
   .card-body .sk-line:nth-child(2) { animation-delay: .15s; }
@@ -490,6 +514,15 @@ a.chip { text-decoration: none; display: inline-block; }
 }
 .card-like:active { transform: scale(1.12); }
 .card-like.is-liked { color: var(--vdv-like); border-color: var(--vdv-like); }
+/* W2 (VDV-20261102) — o coração VISUAL continua 2.1rem (33,6px), mas o alvo
+ * de toque real precisa dos 44px do --touch-min: ::after transparente
+ * expande o tap para ~47,6px sem desenhar nada (padrão hit-area pseudo).
+ * O <a> .card vive no .card-wrap SEM overflow:hidden, então o pseudo
+ * extrapola a borda do botão sem ser clipado. */
+.card-like::after {
+  content: ""; position: absolute; inset: -.4375rem;
+  border-radius: 50%;
+}
 
 /* Favoritar pela página do produto: botão discreto sob o preço, mesmo
  * padrão visual dos corações dos cards (estado compartilhado no

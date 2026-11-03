@@ -2816,27 +2816,52 @@
         gridSk.appendChild(fragV);
       }
     }
-    // Cards das bandas — mesmo skeleton R12 de antes (VDV-20260924-01).
+    // Bandas — skeleton 1:1 (W2, VDV-20261102): o placeholder imita a anatomia
+    // real do renderBandas (div.banda com h2 + p.card-meta + .grid de cards).
+    // Antes eram 8 card-wraps soltos direto em #bandas: o h2/meta reais
+    // apareceriam "do nada" quando o fetch chegasse (shift vertical). São 2
+    // bandas × 4 cards = os mesmos 8 cards de antes.
     var bSec = $("section-bandas");
     var bandasGrid = $("bandas");
     if (bSec) bSec.hidden = false;
     if (bandasGrid) {
       var frag = document.createDocumentFragment();
-      for (var i = 0; i < 8; i++) {
-        var wrap = document.createElement("div");
-        wrap.className = "card-wrap";
-        var sk = document.createElement("div");
-        sk.className = "card card-skeleton";
-        sk.setAttribute("aria-hidden", "true");
-        sk.innerHTML =
-          '<div class="sk-media"></div>' +
-          '<div class="card-body">' +
-          '<div class="sk-line sk-line-price"></div>' +
-          '<div class="sk-line sk-line-title"></div>' +
-          '<div class="sk-line sk-line-short"></div>' +
-          "</div>";
-        wrap.appendChild(sk);
-        frag.appendChild(wrap);
+      for (var bi = 0; bi < 2; bi++) {
+        var bSec2 = document.createElement("div");
+        bSec2.className = "banda banda-skel";
+        bSec2.setAttribute("aria-hidden", "true");
+        var hb = document.createElement("h2");
+        hb.appendChild(document.createElement("span"));
+        hb.firstChild.className = "sk-line banda-skel-h";
+        bSec2.appendChild(hb);
+        var metaSk = document.createElement("p");
+        metaSk.className = "card-meta";
+        var mSpan = document.createElement("span");
+        mSpan.className = "sk-line sk-line-short";
+        mSpan.style.width = "6.5rem";
+        metaSk.appendChild(mSpan);
+        metaSk.style.marginBottom = ".4rem";
+        var grid = document.createElement("div");
+        grid.className = "grid";
+        for (var i = 0; i < 4; i++) {
+          var wrap = document.createElement("div");
+          wrap.className = "card-wrap";
+          var sk = document.createElement("div");
+          sk.className = "card card-skeleton";
+          sk.setAttribute("aria-hidden", "true");
+          sk.innerHTML =
+            '<div class="sk-media"></div>' +
+            '<div class="card-body">' +
+            '<div class="sk-line sk-line-price"></div>' +
+            '<div class="sk-line sk-line-title"></div>' +
+            '<div class="sk-line sk-line-short"></div>' +
+            "</div>";
+          wrap.appendChild(sk);
+          grid.appendChild(wrap);
+        }
+        bSec2.appendChild(metaSk);
+        bSec2.appendChild(grid);
+        frag.appendChild(bSec2);
       }
       bandasGrid.appendChild(frag);
     }
