@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-03T00:18:39Z",
+  "generated_at": "2026-11-03T09:30:32Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 13,
+  "total": 9,
   "products": [
     {
       "id": "5887be9e-b2a3-4bea-82f0-536fd67ac0e2",
@@ -299,204 +299,6 @@
       }
     },
     {
-      "id": "756a65fa-5fed-4724-8010-81e08651ac46",
-      "title": "Saia Longa Feminina em Tricô com Detalhes Vazados",
-      "description": "Elegância e leveza em uma peça versátil! Saia longa em malha de tricô, com cós ajustado, detalhe franzido e caimento fluido que valoriza o movimento. O acabamento com desenhos vazados na barra traz um charme especial. Perfeita para combinar com regatas, blusas básicas ou croppeds, criando looks para passeios, viagens e ocasiões casuais. Últimas 3 peças disponíveis, saldo de estoque sem defeitos.",
-      "category": {
-        "slug": "saldo_sem_defeitos",
-        "name": "Saldo sem defeitos",
-        "group": {
-          "slug": "saldos_e_ponta_de_estoque",
-          "name": "Saldos e ponta de estoque"
-        }
-      },
-      "price": "20.00",
-      "minimum_order": 1,
-      "offer_type": "varejo",
-      "availability": "pronta_entrega",
-      "quantity": 3,
-      "days_since_confirmation": 13,
-      "seller_name": "Ana Maria",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/756a65fa-5fed-4724-8010-81e08651ac46.jpg",
-      "images": [
-        "assets/products/756a65fa-5fed-4724-8010-81e08651ac46.jpg",
-        "assets/products/756a65fa-5fed-4724-8010-81e08651ac46-2.jpg",
-        "assets/products/756a65fa-5fed-4724-8010-81e08651ac46-3.jpg",
-        "assets/products/756a65fa-5fed-4724-8010-81e08651ac46-4.jpg",
-        "assets/products/756a65fa-5fed-4724-8010-81e08651ac46-5.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "is_new": false,
-      "image_thumb": "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46.webp",
-      "image_thumbs": [
-        "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46.webp",
-        "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46-2.webp",
-        "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46-3.webp",
-        "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46-4.webp",
-        "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46-5.webp"
-      ],
-      "offer_owner_name": "Ana Maria",
-      "authorization_confirmed": true,
-      "condition": {
-        "subtype": "saldo_sem_defeitos",
-        "subtype_name": "Saldo sem defeitos"
-      },
-      "supplier_slug": "ana-maria-65dc1758",
-      "supplier_official": false,
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Ana Maria",
-        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Saia%20Longa%20Feminina%20em%20Tric%C3%B4%20com%20Detalhes%20Vazados%22%0APre%C3%A7o%3A%20R%24%2020%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/756a65fa-5fed-4724-8010-81e08651ac46/"
-      }
-    },
-    {
-      "id": "4ed8873b-5fbd-49f2-be47-6c4ad559eb17",
-      "title": "Blusa Feminina em Tricô Leve com Manga Japonesa",
-      "description": "Versátil e cheia de estilo, essa blusa em tricô apresenta textura mesclada, gola redonda e mangas japonesas que proporcionam um caimento natural e confortável. Sua modelagem permite combinações com jeans, calças de alfaiataria, shorts e saias. Ideal para o trabalho, passeios e momentos descontraídos, é uma peça prática para criar looks casuais, modernos e elegantes em diferentes ocasiões.",
-      "category": {
-        "slug": "saldo_sem_defeitos",
-        "name": "Saldo sem defeitos",
-        "group": {
-          "slug": "saldos_e_ponta_de_estoque",
-          "name": "Saldos e ponta de estoque"
-        }
-      },
-      "price": "12.00",
-      "minimum_order": 1,
-      "offer_type": "varejo",
-      "availability": "pronta_entrega",
-      "quantity": 5,
-      "days_since_confirmation": 14,
-      "seller_name": "Ana Maria",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/4ed8873b-5fbd-49f2-be47-6c4ad559eb17.jpg",
-      "images": [
-        "assets/products/4ed8873b-5fbd-49f2-be47-6c4ad559eb17.jpg",
-        "assets/products/4ed8873b-5fbd-49f2-be47-6c4ad559eb17-2.jpg",
-        "assets/products/4ed8873b-5fbd-49f2-be47-6c4ad559eb17-3.jpg",
-        "assets/products/4ed8873b-5fbd-49f2-be47-6c4ad559eb17-4.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "is_new": false,
-      "image_thumb": "assets/products/thumb/4ed8873b-5fbd-49f2-be47-6c4ad559eb17.webp",
-      "image_thumbs": [
-        "assets/products/thumb/4ed8873b-5fbd-49f2-be47-6c4ad559eb17.webp",
-        "assets/products/thumb/4ed8873b-5fbd-49f2-be47-6c4ad559eb17-2.webp",
-        "assets/products/thumb/4ed8873b-5fbd-49f2-be47-6c4ad559eb17-3.webp",
-        "assets/products/thumb/4ed8873b-5fbd-49f2-be47-6c4ad559eb17-4.webp"
-      ],
-      "offer_owner_name": "Ana Maria",
-      "authorization_confirmed": true,
-      "condition": {
-        "subtype": "saldo_sem_defeitos",
-        "subtype_name": "Saldo sem defeitos"
-      },
-      "supplier_slug": "ana-maria-65dc1758",
-      "supplier_official": false,
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Ana Maria",
-        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Tric%C3%B4%20Leve%20com%20Manga%20Japonesa%22%0APre%C3%A7o%3A%20R%24%2012%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/4ed8873b-5fbd-49f2-be47-6c4ad559eb17/"
-      }
-    },
-    {
-      "id": "198739e2-ac9a-4694-bf81-55d5f56e4258",
-      "title": "Vestido Saida de praia",
-      "description": "Tricô vazado em Formas geométricas com tamanho midi soltinho e despojado a combinação perfeita pra sua praia consulte cores e tamanhos \nMe chame no WhatsApp e tire suas dúvidas",
-      "category": {
-        "slug": "vestido",
-        "name": "Vestido",
-        "group": {
-          "slug": "moda_e_malharia",
-          "name": "Moda e Malharia"
-        }
-      },
-      "price": "20.00",
-      "minimum_order": 2,
-      "offer_type": "atacado",
-      "availability": "pronta_entrega",
-      "quantity": 200,
-      "days_since_confirmation": 14,
-      "seller_name": "Ana Maria",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/198739e2-ac9a-4694-bf81-55d5f56e4258.jpg",
-      "images": [
-        "assets/products/198739e2-ac9a-4694-bf81-55d5f56e4258.jpg",
-        "assets/products/198739e2-ac9a-4694-bf81-55d5f56e4258-2.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "is_new": false,
-      "image_thumb": "assets/products/thumb/198739e2-ac9a-4694-bf81-55d5f56e4258.webp",
-      "image_thumbs": [
-        "assets/products/thumb/198739e2-ac9a-4694-bf81-55d5f56e4258.webp",
-        "assets/products/thumb/198739e2-ac9a-4694-bf81-55d5f56e4258-2.webp"
-      ],
-      "offer_owner_name": "Ana Maria",
-      "authorization_confirmed": true,
-      "supplier_slug": "ana-maria-65dc1758",
-      "supplier_official": false,
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Ana Maria",
-        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Saida%20de%20praia%22%0APre%C3%A7o%3A%20R%24%2020%2C00%20%28m%C3%ADn.%202%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/198739e2-ac9a-4694-bf81-55d5f56e4258/"
-      }
-    },
-    {
-      "id": "3a1b4dbc-93ca-4cce-be61-f8f171386141",
-      "title": "Regata Feminina em Modal Canelado com Decote Quadrado e Botões",
-      "description": "Regata feminina em modal canelado, com decote quadrado, alças largas e botões frontais que valorizam a peça. Versátil para o dia a dia, passeios, cafés, encontros e ambientes de trabalho informais. Combine com jeans e tênis para um look casual, com saia e sandália para uma produção delicada ou com calça de alfaiataria e acessórios para um visual sofisticado.",
-      "category": {
-        "slug": "saldo_sem_defeitos",
-        "name": "Saldo sem defeitos",
-        "group": {
-          "slug": "saldos_e_ponta_de_estoque",
-          "name": "Saldos e ponta de estoque"
-        }
-      },
-      "price": "15.00",
-      "minimum_order": 2,
-      "offer_type": "atacado",
-      "availability": "pronta_entrega",
-      "quantity": 22,
-      "days_since_confirmation": 14,
-      "seller_name": "Ana Maria",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/3a1b4dbc-93ca-4cce-be61-f8f171386141.jpg",
-      "images": [
-        "assets/products/3a1b4dbc-93ca-4cce-be61-f8f171386141.jpg",
-        "assets/products/3a1b4dbc-93ca-4cce-be61-f8f171386141-2.jpg",
-        "assets/products/3a1b4dbc-93ca-4cce-be61-f8f171386141-3.jpg",
-        "assets/products/3a1b4dbc-93ca-4cce-be61-f8f171386141-4.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "is_new": false,
-      "image_thumb": "assets/products/thumb/3a1b4dbc-93ca-4cce-be61-f8f171386141.webp",
-      "image_thumbs": [
-        "assets/products/thumb/3a1b4dbc-93ca-4cce-be61-f8f171386141.webp",
-        "assets/products/thumb/3a1b4dbc-93ca-4cce-be61-f8f171386141-2.webp",
-        "assets/products/thumb/3a1b4dbc-93ca-4cce-be61-f8f171386141-3.webp",
-        "assets/products/thumb/3a1b4dbc-93ca-4cce-be61-f8f171386141-4.webp"
-      ],
-      "offer_owner_name": "Ana Maria",
-      "authorization_confirmed": true,
-      "condition": {
-        "subtype": "saldo_sem_defeitos",
-        "subtype_name": "Saldo sem defeitos"
-      },
-      "supplier_slug": "ana-maria-65dc1758",
-      "supplier_official": false,
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Ana Maria",
-        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Modal%20Canelado%20com%20Decote%20Quadrado%20e%20Bot%C3%B5es%22%0APre%C3%A7o%3A%20R%24%2015%2C00%20%28m%C3%ADn.%202%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/3a1b4dbc-93ca-4cce-be61-f8f171386141/"
-      }
-    },
-    {
       "id": "9cf95eef-d0de-4f0c-aae3-558b90f2c7ed",
       "title": "Blusa Feminina em Modal Trabalhado com Tranças e Relevos",
       "description": "Blusa feminina em modal, manga curta e gola redonda, com trabalho elaborado em pontos texturizados, tranças e pequenos relevos distribuídos pela peça. O acabamento canelado na gola, mangas e barra valoriza o caimento e deixa o modelo delicado e sofisticado. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
@@ -620,9 +422,8 @@
     {
       "slug": "moda_e_malharia",
       "name": "Moda e Malharia",
-      "total": 4,
+      "total": 3,
       "products": [
-        "198739e2-ac9a-4694-bf81-55d5f56e4258",
         "9cf95eef-d0de-4f0c-aae3-558b90f2c7ed",
         "ca545589-f399-4e6b-a731-7f23be9c9f60",
         "076e6574-11d7-46c0-ae33-2e783710f4f5"
@@ -631,13 +432,10 @@
     {
       "slug": "saldos_e_ponta_de_estoque",
       "name": "Saldos e ponta de estoque",
-      "total": 5,
+      "total": 2,
       "products": [
         "cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c",
-        "b39c71aa-4170-4ad2-abf6-868815fa016d",
-        "756a65fa-5fed-4724-8010-81e08651ac46",
-        "4ed8873b-5fbd-49f2-be47-6c4ad559eb17",
-        "3a1b4dbc-93ca-4cce-be61-f8f171386141"
+        "b39c71aa-4170-4ad2-abf6-868815fa016d"
       ]
     },
     {
@@ -661,12 +459,12 @@
     {
       "slug": "saldos_e_ponta_de_estoque",
       "name": "Saldos e ponta de estoque",
-      "total": 5
+      "total": 2
     },
     {
       "slug": "moda_e_malharia",
       "name": "Moda e Malharia",
-      "total": 4
+      "total": 3
     }
   ]
 }
