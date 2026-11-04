@@ -182,14 +182,16 @@ assert(
 
 /* ── W2-8 · Exportador/backend/URLs intocados nesta onda ─────────────────── */
 
-// A W2 não toca o exportador: o ?v= segue o do banco (b539698, 20261102-3);
-// o bump para -4 é ato de PUBLICAÇÃO da W2 (precedente fabd537).
-assert(
-  (!process.env.VDV_EXPORTER ||
-    fs.readFileSync(process.env.VDV_EXPORTER, "utf8").includes('CSS_VERSION = "20261102-3"')) &&
-    home.includes("v=20261102-3"),
-  "W2-8a. ?v= segue 20261102-3 durante o desenvolvimento (bump = ato de publicação)"
-);
+// Invariante SEMÂNTICO (lição W1: literal de versão quebra a cada bump): o
+// ?v= das shells segue o CSS_VERSION do exportador em TODAS as fases —
+// desenvolvimento (ambas iguais) e publicação (bump = ato de publicação,
+// sempre nas DUAS mãos juntas, precedente fabd537).
+if (process.env.VDV_EXPORTER) {
+  const m = fs.readFileSync(process.env.VDV_EXPORTER, "utf8")
+    .match(/CSS_VERSION\s*=\s*"([^"]+)"/);
+  assert(m && m[1] && home.includes(`v=${m[1]}`),
+    `W2-8a. ?v= das shells segue o CSS_VERSION do exportador (${m && m[1]}) — bump sempre nas duas mãos`);
+}
 
 console.log("OK — " + ok + " checks do contrato W2 (cartões e home)");
 process.exit(0);
