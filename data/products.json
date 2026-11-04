@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-03T09:30:32Z",
+  "generated_at": "2026-11-04T22:09:47Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 9,
+  "total": 5,
   "products": [
     {
       "id": "5887be9e-b2a3-4bea-82f0-536fd67ac0e2",
@@ -20,7 +20,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 12,
+      "days_since_confirmation": 13,
       "seller_name": "Quitanda Toninho e ana",
       "city": "Monte Sião",
       "state": "MG",
@@ -70,7 +70,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 12,
+      "days_since_confirmation": 13,
       "seller_name": "Quitanda Toninho e ana",
       "city": "Monte Sião",
       "state": "MG",
@@ -118,7 +118,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 12,
+      "days_since_confirmation": 13,
       "seller_name": "Quitanda Toninho e ana",
       "city": "Monte Sião",
       "state": "MG",
@@ -164,7 +164,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 12,
+      "days_since_confirmation": 14,
       "seller_name": "Quitanda Toninho e ana",
       "city": "Monte Sião",
       "state": "MG",
@@ -198,63 +198,9 @@
       }
     },
     {
-      "id": "cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c",
-      "title": "Regata Feminina em Ponto Fang – Saldo de Estoque",
-      "description": "Regata feminina em poliéster, produzida em ponto fang, com gola pronta de máquina e modelagem confortável. Saldo de estoque com 20 peças disponíveis, apresentando pequenos defeitos. Uma ótima oportunidade para quem procura peças de tricô com preço acessível, seja para uso próprio ou revenda. Ideal para quem busca economia e boas oportunidades de compra.",
-      "category": {
-        "slug": "saldo_com_defeitos",
-        "name": "Saldo com defeitos",
-        "group": {
-          "slug": "saldos_e_ponta_de_estoque",
-          "name": "Saldos e ponta de estoque"
-        }
-      },
-      "price": "15.00",
-      "minimum_order": 1,
-      "offer_type": "varejo",
-      "availability": "pronta_entrega",
-      "quantity": 20,
-      "days_since_confirmation": 13,
-      "seller_name": "Ana Maria",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c.jpg",
-      "images": [
-        "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c.jpg",
-        "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-2.jpg",
-        "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-3.jpg",
-        "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-4.jpg",
-        "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-5.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "is_new": false,
-      "image_thumb": "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c.webp",
-      "image_thumbs": [
-        "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c.webp",
-        "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-2.webp",
-        "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-3.webp",
-        "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-4.webp",
-        "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-5.webp"
-      ],
-      "offer_owner_name": "Ana Maria",
-      "authorization_confirmed": true,
-      "condition": {
-        "subtype": "saldo_com_defeitos",
-        "subtype_name": "Saldo com defeitos",
-        "note": "pontos catados, fio puxado"
-      },
-      "supplier_slug": "ana-maria-65dc1758",
-      "supplier_official": false,
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Ana Maria",
-        "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Ponto%20Fang%20%E2%80%93%20Saldo%20de%20Estoque%22%0APre%C3%A7o%3A%20R%24%2015%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c/"
-      }
-    },
-    {
-      "id": "b39c71aa-4170-4ad2-abf6-868815fa016d",
-      "title": "Blusa Feminina em Tricô Meia Malha com Estampa de Ursinho",
-      "description": "Estilo, conforto e personalidade em uma peça cheia de charme! Blusa feminina em tricô com textura canelada, mangas curtas, gola redonda e acabamento ajustado na barra. Disponível em duas versões com estampas de ursinho, que trazem um toque moderno e descontraído. Perfeita para combinar com jeans, shorts ou saias, criando looks casuais e estilosos para o dia a dia, passeios e momentos especiais. Modelos disponíveis em quantidade limitada!",
+      "id": "756a65fa-5fed-4724-8010-81e08651ac46",
+      "title": "Saia Longa Feminina em Tricô com Detalhes Vazados",
+      "description": "Elegância e leveza em uma peça versátil! Saia longa em malha de tricô, com cós ajustado, detalhe franzido e caimento fluido que valoriza o movimento. O acabamento com desenhos vazados na barra traz um charme especial. Perfeita para combinar com regatas, blusas básicas ou croppeds, criando looks para passeios, viagens e ocasiões casuais. Últimas 3 peças disponíveis, saldo de estoque sem defeitos.",
       "category": {
         "slug": "saldo_sem_defeitos",
         "name": "Saldo sem defeitos",
@@ -263,26 +209,32 @@
           "name": "Saldos e ponta de estoque"
         }
       },
-      "price": "15.00",
+      "price": "20.00",
       "minimum_order": 1,
       "offer_type": "varejo",
       "availability": "pronta_entrega",
-      "quantity": 50,
-      "days_since_confirmation": 13,
+      "quantity": 3,
+      "days_since_confirmation": 0,
       "seller_name": "Ana Maria",
       "city": "Monte Sião",
       "state": "MG",
-      "image": "assets/products/b39c71aa-4170-4ad2-abf6-868815fa016d.jpg",
+      "image": "assets/products/756a65fa-5fed-4724-8010-81e08651ac46.jpg",
       "images": [
-        "assets/products/b39c71aa-4170-4ad2-abf6-868815fa016d.jpg",
-        "assets/products/b39c71aa-4170-4ad2-abf6-868815fa016d-2.jpg"
+        "assets/products/756a65fa-5fed-4724-8010-81e08651ac46.jpg",
+        "assets/products/756a65fa-5fed-4724-8010-81e08651ac46-2.jpg",
+        "assets/products/756a65fa-5fed-4724-8010-81e08651ac46-3.jpg",
+        "assets/products/756a65fa-5fed-4724-8010-81e08651ac46-4.jpg",
+        "assets/products/756a65fa-5fed-4724-8010-81e08651ac46-5.jpg"
       ],
       "publication_mode": "assisted_for_third_party",
       "is_new": false,
-      "image_thumb": "assets/products/thumb/b39c71aa-4170-4ad2-abf6-868815fa016d.webp",
+      "image_thumb": "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46.webp",
       "image_thumbs": [
-        "assets/products/thumb/b39c71aa-4170-4ad2-abf6-868815fa016d.webp",
-        "assets/products/thumb/b39c71aa-4170-4ad2-abf6-868815fa016d-2.webp"
+        "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46.webp",
+        "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46-2.webp",
+        "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46-3.webp",
+        "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46-4.webp",
+        "assets/products/thumb/756a65fa-5fed-4724-8010-81e08651ac46-5.webp"
       ],
       "offer_owner_name": "Ana Maria",
       "authorization_confirmed": true,
@@ -295,147 +247,17 @@
       "commercial_contact": {
         "tipo": "whatsapp",
         "nome": "Ana Maria",
-        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Tric%C3%B4%20Meia%20Malha%20com%20Estampa%20de%20Ursinho%22%0APre%C3%A7o%3A%20R%24%2015%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/b39c71aa-4170-4ad2-abf6-868815fa016d/"
-      }
-    },
-    {
-      "id": "9cf95eef-d0de-4f0c-aae3-558b90f2c7ed",
-      "title": "Blusa Feminina em Modal Trabalhado com Tranças e Relevos",
-      "description": "Blusa feminina em modal, manga curta e gola redonda, com trabalho elaborado em pontos texturizados, tranças e pequenos relevos distribuídos pela peça. O acabamento canelado na gola, mangas e barra valoriza o caimento e deixa o modelo delicado e sofisticado. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
-      "category": {
-        "slug": "blusa",
-        "name": "Blusa",
-        "group": {
-          "slug": "moda_e_malharia",
-          "name": "Moda e Malharia"
-        }
-      },
-      "price": "41.90",
-      "minimum_order": 6,
-      "offer_type": "atacado",
-      "availability": "sob_pedido",
-      "quantity": 20,
-      "days_since_confirmation": 13,
-      "seller_name": "Sarah Tricô",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/9cf95eef-d0de-4f0c-aae3-558b90f2c7ed.jpg",
-      "images": [
-        "assets/products/9cf95eef-d0de-4f0c-aae3-558b90f2c7ed.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "is_new": false,
-      "image_thumb": "assets/products/thumb/9cf95eef-d0de-4f0c-aae3-558b90f2c7ed.webp",
-      "offer_owner_name": "Sarah Tricô",
-      "authorization_confirmed": true,
-      "supplier_slug": "sarah-trico",
-      "supplier_official": false,
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Trabalhado%20com%20Tran%C3%A7as%20e%20Relevos%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/9cf95eef-d0de-4f0c-aae3-558b90f2c7ed/"
-      }
-    },
-    {
-      "id": "ca545589-f399-4e6b-a731-7f23be9c9f60",
-      "title": "Blusa Feminina em Modal Listrada com Gola Polo",
-      "description": "Blusa feminina em modal com listras largas, manga curta e gola polo com decote em V. Possui acabamento canelado nas mangas e na barra, com visual moderno e elegante, fácil de combinar com jeans, alfaiataria e peças casuais. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram.",
-      "category": {
-        "slug": "blusa",
-        "name": "Blusa",
-        "group": {
-          "slug": "moda_e_malharia",
-          "name": "Moda e Malharia"
-        }
-      },
-      "price": "41.90",
-      "minimum_order": 6,
-      "offer_type": "atacado",
-      "availability": "sob_pedido",
-      "quantity": 20,
-      "days_since_confirmation": 13,
-      "seller_name": "Sarah Tricô",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/ca545589-f399-4e6b-a731-7f23be9c9f60.jpg",
-      "images": [
-        "assets/products/ca545589-f399-4e6b-a731-7f23be9c9f60.jpg",
-        "assets/products/ca545589-f399-4e6b-a731-7f23be9c9f60-2.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "is_new": false,
-      "image_thumb": "assets/products/thumb/ca545589-f399-4e6b-a731-7f23be9c9f60.webp",
-      "image_thumbs": [
-        "assets/products/thumb/ca545589-f399-4e6b-a731-7f23be9c9f60.webp",
-        "assets/products/thumb/ca545589-f399-4e6b-a731-7f23be9c9f60-2.webp"
-      ],
-      "offer_owner_name": "Sarah Tricô",
-      "authorization_confirmed": true,
-      "supplier_slug": "sarah-trico",
-      "supplier_official": false,
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Listrada%20com%20Gola%20Polo%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/ca545589-f399-4e6b-a731-7f23be9c9f60/"
-      }
-    },
-    {
-      "id": "076e6574-11d7-46c0-ae33-2e783710f4f5",
-      "title": "Blusa Feminina em Modal Jacquard Argyle",
-      "description": "Blusa feminina em modal jacquard, com desenho argyle, manga curta, gola redonda e acabamentos canelados na gola, mangas e barra. O jacquard cria o desenho diretamente na malha, trazendo um acabamento mais elaborado e sofisticado à peça. Preço: R$ 41,90. No Pix: R$ 37,90 — 9,55% de desconto. Consulte cores e disponibilidade pelo WhatsApp ou Telegram. Fornecedor.",
-      "category": {
-        "slug": "blusa",
-        "name": "Blusa",
-        "group": {
-          "slug": "moda_e_malharia",
-          "name": "Moda e Malharia"
-        }
-      },
-      "price": "41.90",
-      "minimum_order": 6,
-      "offer_type": "atacado",
-      "availability": "sob_pedido",
-      "quantity": 20,
-      "days_since_confirmation": 13,
-      "seller_name": "Sarah Tricô",
-      "city": "Monte Sião",
-      "state": "MG",
-      "image": "assets/products/076e6574-11d7-46c0-ae33-2e783710f4f5.jpg",
-      "images": [
-        "assets/products/076e6574-11d7-46c0-ae33-2e783710f4f5.jpg"
-      ],
-      "publication_mode": "assisted_for_third_party",
-      "is_new": false,
-      "image_thumb": "assets/products/thumb/076e6574-11d7-46c0-ae33-2e783710f4f5.webp",
-      "offer_owner_name": "Sarah Tricô",
-      "authorization_confirmed": true,
-      "supplier_slug": "sarah-trico",
-      "supplier_official": false,
-      "commercial_contact": {
-        "tipo": "whatsapp",
-        "nome": "Sarah Tricô",
-        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Modal%20Jacquard%20Argyle%22%0APre%C3%A7o%3A%20R%24%2041%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/076e6574-11d7-46c0-ae33-2e783710f4f5/"
+        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Saia%20Longa%20Feminina%20em%20Tric%C3%B4%20com%20Detalhes%20Vazados%22%0APre%C3%A7o%3A%20R%24%2020%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/756a65fa-5fed-4724-8010-81e08651ac46/"
       }
     }
   ],
   "bands": [
     {
-      "slug": "moda_e_malharia",
-      "name": "Moda e Malharia",
-      "total": 3,
-      "products": [
-        "9cf95eef-d0de-4f0c-aae3-558b90f2c7ed",
-        "ca545589-f399-4e6b-a731-7f23be9c9f60",
-        "076e6574-11d7-46c0-ae33-2e783710f4f5"
-      ]
-    },
-    {
       "slug": "saldos_e_ponta_de_estoque",
       "name": "Saldos e ponta de estoque",
-      "total": 2,
+      "total": 1,
       "products": [
-        "cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c",
-        "b39c71aa-4170-4ad2-abf6-868815fa016d"
+        "756a65fa-5fed-4724-8010-81e08651ac46"
       ]
     },
     {
@@ -459,12 +281,7 @@
     {
       "slug": "saldos_e_ponta_de_estoque",
       "name": "Saldos e ponta de estoque",
-      "total": 2
-    },
-    {
-      "slug": "moda_e_malharia",
-      "name": "Moda e Malharia",
-      "total": 3
+      "total": 1
     }
   ]
 }
