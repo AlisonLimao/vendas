@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-04T22:35:53Z",
+  "generated_at": "2026-11-04T22:48:14Z",
   "bot_username": "vitrine_vendasbot",
-  "total": 5,
+  "total": 10,
   "products": [
     {
       "id": "5887be9e-b2a3-4bea-82f0-536fd67ac0e2",
@@ -118,7 +118,7 @@
       "offer_type": "varejo",
       "availability": "pronta_entrega",
       "quantity": 10,
-      "days_since_confirmation": 13,
+      "days_since_confirmation": 14,
       "seller_name": "Quitanda Toninho e ana",
       "city": "Monte Sião",
       "state": "MG",
@@ -198,6 +198,107 @@
       }
     },
     {
+      "id": "cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c",
+      "title": "Regata Feminina em Ponto Fang – Saldo de Estoque",
+      "description": "Regata feminina em poliéster, produzida em ponto fang, com gola pronta de máquina e modelagem confortável. Saldo de estoque com 20 peças disponíveis, apresentando pequenos defeitos. Uma ótima oportunidade para quem procura peças de tricô com preço acessível, seja para uso próprio ou revenda. Ideal para quem busca economia e boas oportunidades de compra.",
+      "category": {
+        "slug": "saldo_com_defeitos",
+        "name": "Saldo com defeitos",
+        "group": {
+          "slug": "saldos_e_ponta_de_estoque",
+          "name": "Saldos e ponta de estoque"
+        }
+      },
+      "price": "15.00",
+      "minimum_order": 1,
+      "offer_type": "varejo",
+      "availability": "pronta_entrega",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Ana Maria",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c.jpg",
+      "images": [
+        "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c.jpg",
+        "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-2.jpg",
+        "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-3.jpg",
+        "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-4.jpg",
+        "assets/products/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-5.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "is_new": false,
+      "image_thumb": "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c.webp",
+      "image_thumbs": [
+        "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c.webp",
+        "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-2.webp",
+        "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-3.webp",
+        "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-4.webp",
+        "assets/products/thumb/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c-5.webp"
+      ],
+      "offer_owner_name": "Ana Maria",
+      "authorization_confirmed": true,
+      "condition": {
+        "subtype": "saldo_com_defeitos",
+        "subtype_name": "Saldo com defeitos",
+        "note": "pontos catados, fio puxado"
+      },
+      "supplier_slug": "ana-maria-65dc1758",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Ana Maria",
+        "link": "https://wa.me/5535992688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Regata%20Feminina%20em%20Ponto%20Fang%20%E2%80%93%20Saldo%20de%20Estoque%22%0APre%C3%A7o%3A%20R%24%2015%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c/"
+      }
+    },
+    {
+      "id": "b39c71aa-4170-4ad2-abf6-868815fa016d",
+      "title": "Blusa Feminina em Tricô Meia Malha com Estampa de Ursinho",
+      "description": "Estilo, conforto e personalidade em uma peça cheia de charme! Blusa feminina em tricô com textura canelada, mangas curtas, gola redonda e acabamento ajustado na barra. Disponível em duas versões com estampas de ursinho, que trazem um toque moderno e descontraído. Perfeita para combinar com jeans, shorts ou saias, criando looks casuais e estilosos para o dia a dia, passeios e momentos especiais. Modelos disponíveis em quantidade limitada!",
+      "category": {
+        "slug": "saldo_sem_defeitos",
+        "name": "Saldo sem defeitos",
+        "group": {
+          "slug": "saldos_e_ponta_de_estoque",
+          "name": "Saldos e ponta de estoque"
+        }
+      },
+      "price": "15.00",
+      "minimum_order": 1,
+      "offer_type": "varejo",
+      "availability": "pronta_entrega",
+      "quantity": 50,
+      "days_since_confirmation": 0,
+      "seller_name": "Ana Maria",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/b39c71aa-4170-4ad2-abf6-868815fa016d.jpg",
+      "images": [
+        "assets/products/b39c71aa-4170-4ad2-abf6-868815fa016d.jpg",
+        "assets/products/b39c71aa-4170-4ad2-abf6-868815fa016d-2.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "is_new": false,
+      "image_thumb": "assets/products/thumb/b39c71aa-4170-4ad2-abf6-868815fa016d.webp",
+      "image_thumbs": [
+        "assets/products/thumb/b39c71aa-4170-4ad2-abf6-868815fa016d.webp",
+        "assets/products/thumb/b39c71aa-4170-4ad2-abf6-868815fa016d-2.webp"
+      ],
+      "offer_owner_name": "Ana Maria",
+      "authorization_confirmed": true,
+      "condition": {
+        "subtype": "saldo_sem_defeitos",
+        "subtype_name": "Saldo sem defeitos"
+      },
+      "supplier_slug": "ana-maria-65dc1758",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Ana Maria",
+        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Blusa%20Feminina%20em%20Tric%C3%B4%20Meia%20Malha%20com%20Estampa%20de%20Ursinho%22%0APre%C3%A7o%3A%20R%24%2015%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/b39c71aa-4170-4ad2-abf6-868815fa016d/"
+      }
+    },
+    {
       "id": "756a65fa-5fed-4724-8010-81e08651ac46",
       "title": "Saia Longa Feminina em Tricô com Detalhes Vazados",
       "description": "Elegância e leveza em uma peça versátil! Saia longa em malha de tricô, com cós ajustado, detalhe franzido e caimento fluido que valoriza o movimento. O acabamento com desenhos vazados na barra traz um charme especial. Perfeita para combinar com regatas, blusas básicas ou croppeds, criando looks para passeios, viagens e ocasiões casuais. Últimas 3 peças disponíveis, saldo de estoque sem defeitos.",
@@ -249,14 +350,151 @@
         "nome": "Ana Maria",
         "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Saia%20Longa%20Feminina%20em%20Tric%C3%B4%20com%20Detalhes%20Vazados%22%0APre%C3%A7o%3A%20R%24%2020%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/756a65fa-5fed-4724-8010-81e08651ac46/"
       }
+    },
+    {
+      "id": "198739e2-ac9a-4694-bf81-55d5f56e4258",
+      "title": "Vestido Saida de praia",
+      "description": "Tricô vazado em Formas geométricas com tamanho midi soltinho e despojado a combinação perfeita pra sua praia consulte cores e tamanhos \nMe chame no WhatsApp e tire suas dúvidas",
+      "category": {
+        "slug": "vestido",
+        "name": "Vestido",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
+      },
+      "price": "20.00",
+      "minimum_order": 2,
+      "offer_type": "atacado",
+      "availability": "pronta_entrega",
+      "quantity": 200,
+      "days_since_confirmation": 0,
+      "seller_name": "Ana Maria",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/198739e2-ac9a-4694-bf81-55d5f56e4258.jpg",
+      "images": [
+        "assets/products/198739e2-ac9a-4694-bf81-55d5f56e4258.jpg",
+        "assets/products/198739e2-ac9a-4694-bf81-55d5f56e4258-2.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "is_new": false,
+      "image_thumb": "assets/products/thumb/198739e2-ac9a-4694-bf81-55d5f56e4258.webp",
+      "image_thumbs": [
+        "assets/products/thumb/198739e2-ac9a-4694-bf81-55d5f56e4258.webp",
+        "assets/products/thumb/198739e2-ac9a-4694-bf81-55d5f56e4258-2.webp"
+      ],
+      "offer_owner_name": "Ana Maria",
+      "authorization_confirmed": true,
+      "supplier_slug": "ana-maria-65dc1758",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Ana Maria",
+        "link": "https://wa.me/553592688524?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Saida%20de%20praia%22%0APre%C3%A7o%3A%20R%24%2020%2C00%20%28m%C3%ADn.%202%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/198739e2-ac9a-4694-bf81-55d5f56e4258/"
+      }
+    },
+    {
+      "id": "81980328-4254-44f2-9618-98d96a527fab",
+      "title": "Roldanas Redutoras de Atrito para Shima",
+      "description": "Roldanas redutoras de atrito desenvolvidas e comercializadas pela Imprima 3D. Reduzem a tensão nas antenas laterais, melhorando o desempenho da máquina e ajudando a diminuir perdas causadas pelo atrito. Produto testado em empresas de Monte Sião.\nPreço: R$ 70,00 cada guia | R$ 140,00 o par.",
+      "category": {
+        "slug": "impressao_3d",
+        "name": "Impressão 3D",
+        "group": {
+          "slug": "impressao_3d",
+          "name": "Impressão 3D"
+        }
+      },
+      "price": "140.00",
+      "minimum_order": 1,
+      "offer_type": "varejo",
+      "availability": "pronta_entrega",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Imprima 3D",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/81980328-4254-44f2-9618-98d96a527fab.jpg",
+      "images": [
+        "assets/products/81980328-4254-44f2-9618-98d96a527fab.jpg",
+        "assets/products/81980328-4254-44f2-9618-98d96a527fab-2.jpg",
+        "assets/products/81980328-4254-44f2-9618-98d96a527fab-3.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "is_new": false,
+      "image_thumb": "assets/products/thumb/81980328-4254-44f2-9618-98d96a527fab.webp",
+      "image_thumbs": [
+        "assets/products/thumb/81980328-4254-44f2-9618-98d96a527fab.webp",
+        "assets/products/thumb/81980328-4254-44f2-9618-98d96a527fab-2.webp",
+        "assets/products/thumb/81980328-4254-44f2-9618-98d96a527fab-3.webp"
+      ],
+      "offer_owner_name": "Imprima 3D",
+      "authorization_confirmed": true,
+      "supplier_slug": "imprima-3d",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Imprima 3D",
+        "link": "https://wa.me/5535992031487?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Roldanas%20Redutoras%20de%20Atrito%20para%20Shima%22%0APre%C3%A7o%3A%20R%24%20140%2C00%20%28m%C3%ADn.%201%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/81980328-4254-44f2-9618-98d96a527fab/"
+      }
+    },
+    {
+      "id": "7d97b507-44ca-4ed7-889e-0e6284c46644",
+      "title": "Vestido Longo de Tricô Vazado com Decote V",
+      "description": "Vestido longo feminino em tricô vazado, com decote V, alças largas e diferentes desenhos rendados distribuídos ao longo da peça. A combinação de pontos cria textura e um visual elegante, leve e sofisticado. Possui forro para mais conforto e segurança no uso. Preço: R$ 85,90. No Pix: R$ 79,90 — 6,98% de desconto.",
+      "category": {
+        "slug": "vestido",
+        "name": "Vestido",
+        "group": {
+          "slug": "moda_e_malharia",
+          "name": "Moda e Malharia"
+        }
+      },
+      "price": "85.90",
+      "minimum_order": 6,
+      "offer_type": "atacado",
+      "availability": "sob_pedido",
+      "quantity": 20,
+      "days_since_confirmation": 0,
+      "seller_name": "Sarah Tricô",
+      "city": "Monte Sião",
+      "state": "MG",
+      "image": "assets/products/7d97b507-44ca-4ed7-889e-0e6284c46644.jpg",
+      "images": [
+        "assets/products/7d97b507-44ca-4ed7-889e-0e6284c46644.jpg"
+      ],
+      "publication_mode": "assisted_for_third_party",
+      "is_new": false,
+      "image_thumb": "assets/products/thumb/7d97b507-44ca-4ed7-889e-0e6284c46644.webp",
+      "offer_owner_name": "Sarah Tricô",
+      "authorization_confirmed": true,
+      "supplier_slug": "sarah-trico",
+      "supplier_official": false,
+      "commercial_contact": {
+        "tipo": "whatsapp",
+        "nome": "Sarah Tricô",
+        "link": "https://wa.me/5535998246813?text=Ol%C3%A1%21%20Vim%20pela%20vitrine%20do%20VDV%20e%20tenho%20interesse%20neste%20produto%3A%0A%0A%22Vestido%20Longo%20de%20Tric%C3%B4%20Vazado%20com%20Decote%20V%22%0APre%C3%A7o%3A%20R%24%2085%2C90%20%28m%C3%ADn.%206%20un%29%0AVeja%20o%20modelo%3A%20https%3A//vitrinedevenda.com.br/produto/7d97b507-44ca-4ed7-889e-0e6284c46644/"
+      }
     }
   ],
   "bands": [
     {
+      "slug": "moda_e_malharia",
+      "name": "Moda e Malharia",
+      "total": 2,
+      "products": [
+        "198739e2-ac9a-4694-bf81-55d5f56e4258",
+        "7d97b507-44ca-4ed7-889e-0e6284c46644"
+      ]
+    },
+    {
       "slug": "saldos_e_ponta_de_estoque",
       "name": "Saldos e ponta de estoque",
-      "total": 1,
+      "total": 3,
       "products": [
+        "cca9f21a-b073-4c0e-aa98-b4f45d0e9f0c",
+        "b39c71aa-4170-4ad2-abf6-868815fa016d",
         "756a65fa-5fed-4724-8010-81e08651ac46"
       ]
     },
@@ -270,6 +508,14 @@
         "9d637742-af37-419b-9e16-727f5829591c",
         "01a1b322-fbe4-4b30-9539-55d3abe2824a"
       ]
+    },
+    {
+      "slug": "impressao_3d",
+      "name": "Impressão 3D",
+      "total": 1,
+      "products": [
+        "81980328-4254-44f2-9618-98d96a527fab"
+      ]
     }
   ],
   "category_pages": [
@@ -281,6 +527,16 @@
     {
       "slug": "saldos_e_ponta_de_estoque",
       "name": "Saldos e ponta de estoque",
+      "total": 3
+    },
+    {
+      "slug": "moda_e_malharia",
+      "name": "Moda e Malharia",
+      "total": 2
+    },
+    {
+      "slug": "impressao_3d",
+      "name": "Impressão 3D",
       "total": 1
     }
   ]
