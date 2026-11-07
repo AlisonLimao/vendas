@@ -1000,12 +1000,20 @@
       if (!chipsEl || !bandasEl) return;
       chipsEl.innerHTML = "";
       bandasEl.innerHTML = "";
+      // W9 — chip "Todas" ativo: leva ao /explorar/ (todo o catálogo, real).
+      var todas = document.createElement("a");
+      todas.className = "chip chip-todas is-active";
+      todas.href = "explorar/";
+      todas.textContent = "Todas";
+      chipsEl.appendChild(todas);
       var lcpUsado = false; // W6 (VDV-20261107): 1º card da 1ª banda = LCP
       var list = cat.bands || [];
       list.forEach(function (b) {
         var atalho = document.createElement("a");
         atalho.className = "chip";
-        atalho.href = "#banda-" + b.slug;  // chips-atalho apontam o universo
+        // W9 — chip de categoria leva à página REAL da categoria (explorar
+        // filtrado; decisões 6 — página existe: banda >= 1 => grupo >= 1).
+        atalho.href = "categoria/" + encodeURIComponent(b.slug) + "/";
         atalho.textContent = b.name + " · " + b.total;
         atalho.addEventListener("click", function () {
           track("abrir_categoria", { categoria_slug: b.slug, event_category: "navegacao" });
@@ -1125,7 +1133,10 @@
         var partes = [];
         var local = [s.city, s.state].filter(Boolean).join("/");
         if (local) partes.push(local);
-        partes.push(s.n === 1 ? "1 anúncio" : s.n + " anúncios");
+        // W9 — contagem real "no ar" (mandato: "N anúncios no ar") + convite
+        // explícito ao link (o card inteiro já é o link).
+        partes.push(s.n === 1 ? "1 anúncio no ar" : s.n + " anúncios no ar");
+        partes.push("ver vitrine");
         meta.textContent = partes.join(" · ");
         txt.appendChild(meta);
         if (s.cat.length) {

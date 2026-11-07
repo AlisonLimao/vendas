@@ -225,7 +225,7 @@
   </header>
 
   <main>
-    <section class="hero">
+    <section class="hero w9-hero">
       <div class="hero-copy">
         <!-- VDV-20260916-04 — apresentação ampla (VDV-20260916-01): o VDV é a
              vitrine da cidade (produtos, serviços e oportunidades), não só
@@ -257,29 +257,33 @@
           <ul id="search-sg" class="sg-list" role="listbox" hidden></ul>
           </div>
           <button class="btn search-btn" type="submit">Buscar</button>
-        </form>
-        <!-- Fatia 49 (VDV-20261003-05, mestre §13) — termos rápidos:
+        </form>        <!-- Fatia 49 (VDV-20261003-05, mestre §13) — termos rápidos:
              atalhos derivados do catálogo real (subcategorias com mais
              anúncios); preenchido pelo app.js, oculto sem dados. -->
         <p id="quick-terms" class="quick-terms" hidden></p>
       </div>
+      <!-- W9 — chips de categoria reais (com anúncios) DENTRO do herói, como
+           no desenho: linha com rolagem no celular, centralizados no desktop.
+           Chip "Todas" = /explorar/ (real); os demais apontam a página real
+           da categoria (explorar filtrado). Regras do exportador intocadas. -->
+      <section id="atalhos-categorias" hidden>
+        <div class="chips chips-hero" id="chips-atalhos"></div>
+      </section>
     </section>
 
     <p id="status" class="status" role="status"></p>
 
-    <!-- VDV-20261021-02 (espec 63) — home por INTENÇÃO: chips-atalho apontam
-         os universos (bandas empilhadas por categoria, logo abaixo); filtros de
-         2 níveis moram no /explorar/. Regras (ordem do banco, rodízio entre
-         anunciantes, selo NOVO) são todas do exportador — o JS é renderer burro. -->
-    <section id="atalhos-categorias" hidden>
-      <p class="card-meta">Categorias da vitrine</p>
-      <div class="chips" id="chips-atalhos"></div>
-    </section>
-
     <!-- VDV-20261021-02 — bandas empilhadas por categoria: toda oferta fica
          visível, na banda do grupo dela ("ver tudo" por banda usa a página
          estática; o feed completo continua no /explorar/). -->
+    <!-- W9 — produtos da home: cabeçalho do desenho ("Acabou de chegar" +
+         Ver tudo → /explorar/); as bandas reais por categoria seguem dentro,
+         nada removido. -->
     <section id="section-bandas" hidden>
+      <div class="bandas-head">
+        <h2>Acabou de chegar</h2>
+        <a class="bandas-more" href="explorar/">Ver tudo &rarr;</a>
+      </div>
       <div id="bandas"></div>
       <p class="rail-more"><a href="explorar/">Explorar a vitrine inteira &rarr;</a></p>
     </section>
@@ -366,20 +370,25 @@
          permanentemente navegável (#procura) continua no final. -->
     <section id="section-final">
       <h2>Encontre. Confira. Converse direto.</h2>
+
+      <!-- W9 — ordem do desenho: Procura (cartão cinza) → selos (2x2) →
+           faixa azul do Anunciar. No desktop procura e Anunciar ficam lado a
+           lado (grid-areas) e os selos em 4 colunas abaixo. Deep links e
+           ga-origins intocados. -->
+      <!-- R8 (VDV-20260923-01, mestre item 26) — o final explica o que é a
+           Procura ANTES de enviar para fora da página: a criação acontece no
+           bot, e o CTA deixa isso claro (deep link fica só no CTA). -->
+      <div class="finale-demand" id="procura">
+        <p><strong>Não encontrou o que precisava?</strong> Diga o que procura e deixe sua necessidade visível para fornecedores da região — a Procura é criada pelo bot do VDV.</p>
+        <a class="btn btn-ghost" data-deep-link="procura" data-ga-origin="cta_home_procura" href="https://t.me/vitrine_vendasbot?start=procura">Criar uma Procura</a>
+      </div>
+
       <ul class="finale-facts" aria-label="Por que confiar">
         <li>✓ Anunciante identificado</li>
         <li>✓ Disponibilidade informada pelo fornecedor</li>
         <li>✓ Negociação direta</li>
         <li>✓ Sem taxa de plataforma</li>
       </ul>
-
-      <!-- R8 (VDV-20260923-01, mestre item 26) — o final explica o que é a
-           Procura ANTES de enviar para fora da página: a criação acontece no
-           bot, e o CTA deixa isso claro (deep link fica só no CTA). -->
-      <div class="finale-demand" id="procura">
-        <p><strong>Não encontrou o que precisava?</strong> Diga o que procura e deixe sua necessidade visível para fornecedores da região — a Procura é criada pelo bot do VDV.</p>
-        <a class="btn btn-primary" data-deep-link="procura" data-ga-origin="cta_home_procura" href="https://t.me/vitrine_vendasbot?start=procura">Criar uma Procura</a>
-      </div>
 
       <div class="finale-sell">
         <!-- VDV-20260907-01 — promessa de demanda, não de exposição. -->

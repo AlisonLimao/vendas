@@ -52,11 +52,12 @@ assert(/\.badge-novo\s*\{/.test(cssMin), "2d. .badge-novo no vdv.min.css");
 assert(/catalog\.bands/.test(js), "3. app.js lê catalog.bands");
 assert(/p\.is_new/.test(js), "3a. app.js lê p.is_new (selo por produto)");
 
-// 4. Chips-atalho = âncora para a banda (espec 63 decisão 7: filtros moram no
-//    /explorar/; a home aponta para o universo).
-assert(/#banda-/.test(js), "4. chips-atalho linkam a banda via #banda-<slug>");
+// 4. Chips-atalho (atualização W9, VDV-20261107 — desenho "nova home"):
+//    "Todas" antecede os chips; cada chip leva à página REAL da categoria
+//    (explorar filtrado); rótulo "Nome · N" segue no renderer.
+assert(/"Todas"/.test(js), "4. chip Todas → /explorar/ (desenho W9)");
 assert(/b\.name \+ " · " \+ b\.total/.test(js), '4a. rótulo do chip: Nome · N formatado no renderer');
-assert(/atalho\.href = "#banda-"/.test(js), "4b. href='#banda-' montado no app.js");
+assert(/atalho\.href = "categoria\/" \+ encodeURIComponent\(b\.slug\) \+ "\/"/.test(js), "4b. href da página real da categoria montado no app.js");
 
 // 5. Fim do dedup destaque→feed (decisão 8): nada corta produto de banda.
 assert(
@@ -66,7 +67,7 @@ assert(
 
 // 6. Minificados regenerados junto (fio vivo): strings que sobrevivem ao
 //    -m do terser (literais de propriedade/código, não nomes de função).
-assert(jsMin.includes("#banda-"), "6. vdv.min.js contém o contrato de bandas (#banda-)");
+assert(jsMin.includes("Todas"), "6. vdv.min.js contém o contrato de chips (Todas + página da categoria — W9)");
 assert(/is_new/.test(jsMin), "6a. vdv.min.js lê is_new (selo NOVO)");
 assert(/\.badge-novo/.test(cssMin), "6b. vdv.min.css contém .badge-novo");
 assert(/\.banda/.test(cssMin), "6c. vdv.min.css contém .banda");

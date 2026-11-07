@@ -37,11 +37,11 @@ assert(js.includes("g.imgs.length < 3"), "3b. teto de fotos por vitrine");
 assert(/1664525/.test(js), "4. LCG do rodízio preservado");
 assert(/seed = \(seed \* 1664525 \+ 1013904223\) >>> 0;/.test(js), "4a. LCG completo");
 
-// 5. VDV-20261021-02 (espec 63, decisão 7): os chips da home são ÂNCORA
-//    para a banda (#banda-<slug>) — o filtro de 2 níveis mora no /explorar/.
+// 5. W9 (07/11/2026 — desenho "nova home"): os chips da home levam à página
+//    REAL da categoria (explorar filtrado) e "Todas" abre o /explorar/.
 //    Na home não existe filtro (nem data-group, nem navegação nova).
-assert(/atalho\.href = "#banda-"/.test(js),
-  "5. chip-atalho da home é âncora para a banda (#banda-)");
+assert(/atalho\.href = "categoria\/" \+ encodeURIComponent\(b\.slug\) \+ "\//.test(js),
+  "5. chip-atalho da home leva à página real da categoria (desenho W9)");
 assert(!/data-group/.test(js),
   "5a. nenhum filtro data-group na home (filtros moram no /explorar/)");
 assert(/"x-grupo"/.test(js) && /"x-sub"/.test(js),

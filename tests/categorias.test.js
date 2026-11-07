@@ -35,7 +35,7 @@ assert(
 // 2. Chips-atalho: âncora para a banda + estado inicial oculto.
 assert(/id="atalhos-categorias"[^>]*hidden/.test(html),
   "2. #atalhos-categorias nasce hidden (JS revela com dados)");
-assert(/#banda-/.test(js), "2a. chips apontam a banda (#banda-<slug>)");
+assert(/"Todas"/.test(js), "2a. chip Todas e página real da categoria (desenho W9)");
 assert(/· /.test(js), "2b. rótulo dos chips com contagem 'Nome · N'");
 
 // 3. Os filtros 2 níveis seguem vivos NO /explorar/.

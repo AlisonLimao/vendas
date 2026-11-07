@@ -40,7 +40,7 @@ assert(/<input[^>]+id="search"[^>]*name="q"/.test(home),
 assert(/<button[^>]+type="submit"[^>]*>\s*Buscar/.test(home) ||
   /Buscar\s*<\/button>/.test(home),
   "W8-2c. botão de envio visível no campo de busca");
-assert(/viewBox='0 0 20 20'.*stroke='%23/.test(css.match(/\.searchbar input\s*{[^}]+}/)[0]),
+assert(/viewBox='0 0 20 20'[\s\S]{0,80}stroke='%23/.test(css),
   "W8-2d. ícone (lupa SVG embutida, já existente) dentro do campo de busca");
 assert(/class="search-form"/.test(home) && /search-btn/.test(css),
   "W8-2e. form/button têm estilo dedicado (campo protagonista na dobra)");

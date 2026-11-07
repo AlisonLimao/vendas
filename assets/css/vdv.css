@@ -243,6 +243,133 @@ body[data-page="home"] main > section > h2::before {
  * compartilhamento (OG image). CTA "Anunciar" vive no header — o hero tem
  * UM convite só: buscar. */
 .hero { padding: .6rem 0 0; }
+
+/* ── W9 (VDV-20261107) — desenhao "nova home" ──────────────────────────────
+ * Tokens só para os azuis do desenho (o resto usa os tokens do projeto).
+ * Herói full-bleed dentro do main: margin-inline calc trick (sem mover a
+ * marcação); conteúdo volta ao alinhamento do main via padding simétrico. */
+:root {
+  --w9-hero: #1e3a8a;
+  --w9-cyan: #22d3ee;
+  --w9-cyan-ink: #082f49;
+  --w9-chip-bg: rgba(255, 255, 255, .14); /* branco translúcido sobre o azul */
+  --w9-chip-text: #e2e8f0;
+  --w9-card-alt: #f1f5f9;                 /* cartão cinza da Procura */
+  --w9-tag-bg: #e0f2fe;
+  --w9-tag-ink: #075985;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --w9-hero: #1e3a8a;
+    --w9-cyan: #22d3ee;
+    --w9-cyan-ink: #082f49;
+    --w9-chip-bg: rgba(15, 23, 42, .35);
+    --w9-chip-text: #e2e8f0;
+    --w9-card-alt: #16223a;
+    --w9-tag-bg: #0c4a6e;
+    --w9-tag-ink: #7dd3fc;
+  }
+}
+.hero.w9-hero {
+  background: var(--w9-hero, #1e3a8a);
+  color: #f1f5f9;
+  margin: 0 calc(50% - 50vw);
+  padding: 1.6rem calc(50vw - 50%) 1.3rem;
+  border-radius: 0;
+}
+.hero.w9-hero h1 { color: #fff; }
+.hero.w9-hero .hero-sub { color: #dbe7fd; }
+.hero.w9-hero .quick-terms { color: #dbe7fd; }
+/* busca protagonista: campo 52px no celular, 60px no desktop, botão ciano */
+.hero.w9-hero .search-form { max-width: 46rem; }
+.hero.w9-hero .searchbar input { padding: 1.05rem 1.2rem 1.05rem 2.9rem; }
+.hero.w9-hero .searchbar { margin-top: .35rem; }
+.hero.w9-hero .searchbar input::placeholder { color: #9fb4d8; }
+.hero.w9-hero .searchbar input:focus-visible + #search-sg { color: inherit; }
+/* chips: linha com rolagem horizontal no celular (44px), ativa "Todas" */
+.chips-hero {
+  flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  gap: .5rem; padding-bottom: .25rem;
+}
+.chips-hero::-webkit-scrollbar { display: none; }
+.chips-hero .chip {
+  flex: 0 0 auto; min-height: 2.75rem; display: inline-flex;
+  align-items: center; border-radius: var(--r-full);
+  background: var(--w9-chip-bg); border: 1px solid transparent;
+  color: var(--w9-chip-text);
+}
+.chips-hero .chip.is-active { background: #fff; color: var(--w9-hero); font-weight: 600; }
+@media (prefers-color-scheme: dark) {
+  .chips-hero .chip.is-active { background: #fff; color: var(--w9-hero); }
+}
+/* produtos: cabeçalho "Acabou de chegar" + Ver tudo */
+.bandas-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1rem; margin: 1.1rem 0 .3rem;
+}
+.bandas-head h2 { margin: 0; }
+.bandas-more { font-weight: 600; white-space: nowrap; }
+/* W9 — etiqueta de oferta com os tokens do desenho (#e0f2fe/#075985) */
+.badge-sale { background: var(--w9-tag-bg); color: var(--w9-tag-ink); }
+
+/* W9 — finalização: busca ciana vence o .btn base (dois seletores) e os
+ * termos rápidos ficam legíveis sobre o herói azul */
+.hero.w9-hero .qt-label { color: #e2e8f0; }
+.hero.w9-hero .qt-term { color: #bfdbfe; }
+.hero.w9-hero .qt-term + .qt-term::before { color: #6070a0; }
+
+/* Procura em cartão cinza-claro, raio 16, botão contorno (desenho) */
+.finale-demand {
+  background: var(--w9-card-alt); border-radius: 1rem; /* 16px */
+  padding: 1.1rem 1.2rem;
+}
+.finale-demand .btn { align-self: flex-start; }
+/* faixa azul do Anunciar com ação ciana */
+.finale-sell {
+  background: var(--w9-hero); color: #dbe7fd; border-radius: 1rem;
+  padding: 1.2rem;
+}
+.finale-sell h2, .finale-sell strong { color: #fff; }
+.finale-sell .btn-sell {
+  background: var(--w9-cyan); color: var(--w9-cyan-ink);
+  border-radius: var(--r-full); font-weight: 700;
+}
+/* selos 2x2 no celular */
+.finale-facts {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .55rem .9rem; margin: 0 .0 1rem; padding: 0; list-style: none;
+}
+/* seção final em grid-areas: Procura → selos → faixa azul (celular);
+   desktop: procura/anunciar lado a lado, selos em 4 colunas abaixo */
+#section-final { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+#section-final > h2 { grid-area: none; }
+#section-final > .finale-demand { order: 1; }
+#section-final > .finale-facts { order: 2; }
+#section-final > .finale-sell { order: 3; }
+/* W9 — finalização: busca ciana vence o .btn base (dois seletores) */
+.search-btn.search-btn {
+  background: var(--w9-cyan); color: var(--w9-cyan-ink); border: none;
+  border-radius: var(--r-full); font-weight: 700;
+}
+
+@media (min-width: 720px) {
+  .finale-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  #section-final {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+  #section-final > .finale-demand { order: 1; }
+  #section-final > .finale-sell { order: 2; }
+  #section-final > .finale-facts { order: 3; grid-column: 1 / -1; }
+  .hero.w9-hero { text-align: center; }
+  .hero.w9-hero h1 { font-size: 2.75rem; }        /* desenho: título 44px */
+  .hero.w9-hero .hero-sub { font-size: 1.125rem; } /* desenho: subtítulo 18px */
+  .hero.w9-hero .search-form { max-width: 47.5rem; margin-inline: auto; }
+  .hero.w9-hero .searchbar input { padding: 1.5rem 1.4rem 1.5rem 3.1rem; } /* 60px */
+  .hero.w9-hero .hero-sub { margin-inline: auto; }
+  .hero.w9-hero #atalhos-categorias, .hero.w9-hero .chips-hero { justify-content: center; }
+}
 /* Fatia 51 (plano 16, mestre §8/§10): hierarquia da primeira dobra —
  * h1 mais presente e a busca como A PORTA PRINCIPAL: altura confortável,
  * respiro à esquerda para o ícone, borda leve, fundo claro, foco elegante —
@@ -280,11 +407,9 @@ body[data-page="home"] main > section > h2::before {
 .search-btn {
   margin-top: .5rem; padding: 1rem 1.5rem; border-radius: var(--r-full);
   border: none; cursor: pointer; font-family: inherit; font-size: 1rem;
-  background: var(--vdv-accent); color: #fff; font-weight: 600;
+  background: var(--w9-cyan); color: var(--w9-cyan-ink); font-weight: 700;
 }
-@media (prefers-color-scheme: dark) {
-  .search-btn { color: var(--vdv-surface); } /* contraste dark: tinta da superfície sobre o accent */
-}
+.search-btn:focus-visible { outline: 2px solid var(--w9-cyan-ink); outline-offset: 2px; }
 
 .chips { display: flex; flex-wrap: wrap; gap: .45rem; margin: .55rem 0; }
 .chip {
