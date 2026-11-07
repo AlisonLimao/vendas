@@ -1502,20 +1502,25 @@
     }
 
     if (!product) {
-      status.textContent = "Produto não encontrado — pode ter sido pausado, " +
-        "expirado ou vendido. A reativação acontece no bot.";
-      var back = document.createElement("a");
-      back.className = "btn btn-primary btn-cta";
-      back.href = prefix + "index.html";
-      back.textContent = "Ver ofertas";
-      main.appendChild(back);
-      // R12 (VDV-20260924-01, mestre item 48/49) — estado com próximo
-      // caminho: além da volta à vitrine, caminho direto para Explorar.
-      var mais = document.createElement("a");
-      mais.className = "btn btn-ghost btn-cta";
-      mais.href = prefix + "explorar/";
-      mais.textContent = "Veja outros produtos desta vitrine";
-      main.appendChild(mais);
+      // W4 (VDV-20261107) — produto indisponível em CARTÃO (padrão .x-estado
+      // da W3): mensagem honesta + CTA Procura (deep link real) + os caminhos
+      // já existentes (Ver ofertas / Explorar). Nada de selo ou escassez.
+      status.hidden = true;
+      var box = document.createElement("section");
+      box.className = "x-estado";
+      box.setAttribute("aria-label", "Produto indisponível");
+      box.innerHTML =
+        '<span class="x-estado-ico" aria-hidden="true">🔎</span>' +
+        "<h2>Produto não encontrado</h2>" +
+        "<p>Pode ter sido pausado, expirado ou vendido. A reativação acontece no bot. " +
+        "Diga o que você procura e a procura chega até quem vende.</p>" +
+        '<div class="empty-actions">' +
+        '<a class="btn btn-primary" data-deep-link="procura" href="' +
+        esc(deepLink("procura")) + '">Criar uma Procura</a>' +
+        '<a class="btn btn-ghost" href="' + prefix + 'index.html">Ver ofertas</a>' +
+        '<a class="btn btn-ghost" href="' + prefix + 'explorar/">Veja outros produtos desta vitrine</a>' +
+        "</div>";
+      main.appendChild(box);
       document.title = "Produto não encontrado — VDV, Vitrine de Vendas";
       return;
     }
@@ -1592,6 +1597,12 @@
         }).join("") +
         "</div>" +
         '<span class="gallery-count" aria-hidden="true">1/' + photos.length + "</span>" +
+        // W4 (VDV-20261107) — dots legíveis (padrão W2: anel de contraste +
+        // ativo #fff), não-interativos; o gesto/botões continuam no track.
+        '<div class="gallery-dots" aria-hidden="true">' +
+        Array.prototype.map.call(photos, function (src, i) {
+          return "<i" + (i === 0 ? ' class="is-on"' : "") + "></i>";
+        }).join("") + "</div>" +
         '<button type="button" class="gallery-arrow gallery-arrow-prev" data-dir="prev" aria-label="Foto anterior">' +
         ICON_ARROW_PREV + "</button>" +
         '<button type="button" class="gallery-arrow gallery-arrow-next" data-dir="next" aria-label="Próxima foto">' +
@@ -1671,6 +1682,10 @@
       galeriaHtml +
       '<h1 class="prod-title">' + esc(product.title) + "</h1>" +
       '<p class="prod-price">' + fmtPrice(product) + "</p>" +
+      // W4 (VDV-20261107) — tipo de oferta logo após o preço (ordem de
+      // decisão: nome → preço → tipo → fornecedor/localização). Usa o
+      // typeLabel real (OFFER_TYPE_LABELS do catálogo) — nada inventado.
+      '<p class="prod-offer">' + esc(typeLabel) + "</p>" +
       // VDV-20261008-08 (correção Alison) — divulgação COMPACTA logo após o
       // preço (perto = a pessoa acha sem rolar): 2.6rem, Compartilhar
       // (#share-wa — 9ª: href = URL do próprio produto, NUNCA wa.me; o
@@ -1851,6 +1866,10 @@
         fotoSelecionada = i; // VDV-20260911-07: exibida = candidata ao share
         prepararFoto(); // foto do slide em fundo — clique abre o menu na hora
         if (counter) counter.textContent = (i + 1) + "/" + total;
+        // W4 — dots acompanham o slide (mesma sincronia das miniaturas).
+        Array.prototype.forEach.call(main.querySelectorAll(".gallery-dots i"), function (d, k) {
+          d.classList[i === k ? "add" : "remove"]("is-on");
+        });
         Array.prototype.forEach.call(main.querySelectorAll(".prod-thumb"), function (b, k) {
           b.classList[i === k ? "add" : "remove"]("is-active");
         });
@@ -2781,6 +2800,28 @@
             if (rt) {
               rt.addEventListener("click", function () { location.reload(); });
             }
+          }
+        }
+        if (page === "produto") {
+          // W4 (VDV-20261107) — erro de fetch do produto em cartão: retry +
+          // CTA Procura (deep link real), back-link preservado no topo.
+          var pm = $("produto-main");
+          if (pm) {
+            pm.innerHTML =
+              '<a class="back-link" href="' + prefix + '." data-ga-origin="produto_voltar">' +
+              "&larr; Voltar para a vitrine</a>" +
+              '<section class="x-estado" aria-label="Erro ao carregar o produto">' +
+              '<span class="x-estado-ico" aria-hidden="true">📡</span>' +
+              "<h2>Não foi possível carregar este produto</h2>" +
+              "<p>Verifique sua conexão e tente de novo em alguns instantes — ou diga " +
+              "o que você procura e a procura chega até quem vende.</p>" +
+              '<div class="empty-actions">' +
+              '<button type="button" class="btn btn-ghost" id="prod-retry">Tentar novamente</button>' +
+              '<a class="btn btn-primary" data-deep-link="procura" href="' +
+              esc(deepLink("procura")) + '">Criar uma Procura</a>' +
+              "</div></section>";
+            var pr = $("prod-retry");
+            if (pr) pr.addEventListener("click", function () { location.reload(); });
           }
         }
         if (s && !(page === "explorar" && xe && !xe.hidden)) {

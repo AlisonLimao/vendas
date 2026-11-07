@@ -59,13 +59,15 @@ assert(
 });
 
 // 3. Estado "Produto não encontrado" com próximo caminho (mestre item 48/49).
+//    W4 (VDV-20261107): o estado virou cartão .x-estado com CTA Procura; os
+//    caminhos R12 são invariantes SEMÂNTICOS (hrefs na montagem innerHTML).
 assert(js.includes("Veja outros produtos desta vitrine"), "3. copy do bloco item 49 no neutra dinâmico");
 assert(
-  /mais\.href = prefix \+ "explorar\/"/.test(js),
+  /prefix \+ 'explorar\//.test(js) || /mais\.href = prefix \+ "explorar\//.test(js),
   "3. neutra dinâmica linka /explorar/"
 );
 assert(
-  js.indexOf("btn-primary btn-cta") !== -1 && js.indexOf("btn-ghost btn-cta") !== -1,
+  js.includes("Ver ofertas") && js.includes("prefix + 'index.html"),
   "3. mantém o CTA de volta à vitrine e adiciona o caminho de explorar"
 );
 

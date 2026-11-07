@@ -1520,3 +1520,51 @@ body[data-page="explorar"] #clear-search[hidden] { display: none; }
 .x-estado h2 { margin: 0 0 .4rem; font-size: 1.15rem; }
 .x-estado p { margin: 0 auto; max-width: 34rem; color: var(--vdv-text-muted); }
 .x-estado .empty-actions { justify-content: center; }
+
+/* ---- W4 (VDV-20261107) — Detalhe do Produto -------------------------------
+ * Mudança visível ao abrir /produto/: dots legíveis na galeria (padrão W2),
+ * chip de tipo de oferta após o preço, fornecedor em cartão de confiança e
+ * sticky com alvo de toque do token W1. Galeria (swipe/setas/thumbs), canais
+ * de contato, share/divulgar e relacionados reais INTACTOS — só apresentação. */
+.gallery-dots {
+  position: absolute; left: 0; right: 0; bottom: .55rem; z-index: 2;
+  display: flex; justify-content: center; gap: 6px;
+  pointer-events: none; /* indicador, não botão — o gesto fica no track */
+}
+.gallery-dots i {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255, 255, 255, .75);
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, .35); /* anel: visível sobre foto clara */
+}
+.gallery-dots i.is-on { background: #fff; box-shadow: 0 0 0 1px rgba(15, 23, 42, .55); }
+
+/* Tipo de oferta (varejo/lote/peça única…): pill discreta na cor da marca,
+ * entre o preço e o bloco do fornecedor — informação real do catálogo. */
+.prod-offer {
+  display: inline-block; margin: .4rem 0 0;
+  padding: .28rem .8rem; border-radius: var(--r-full);
+  background: rgba(37, 99, 235, .10); color: var(--vdv-primary-ink);
+  font-size: .85rem; font-weight: 600;
+  text-transform: capitalize; /* o label do catálogo é minúsculo ("varejo") */
+}
+@media (prefers-color-scheme: dark) {
+  .prod-offer { background: rgba(37, 99, 235, .22); color: #93c5fd; }
+}
+
+/* Fornecedor como confiança: cartão de superfície (tokens W1), com o nome,
+ * a localização e o link da vitrine — o conjunto vira um bloco só. */
+body[data-page="produto"] .seller-card {
+  background: var(--vdv-surface);
+  border: 1px solid var(--vdv-border);
+  border-radius: var(--r-2);
+  padding: .9rem 1rem;
+}
+
+/* Título um pouco mais presente (hierarquia nome → preço). */
+body[data-page="produto"] .prod-title { font-size: 1.5rem; }
+
+/* Barra fixa mobile: CTA principal com o alvo de toque do token W1
+ * (a área segura inferior já é respeitada na regra base, preservada). */
+@media (max-width: 767px) {
+  .prod-sticky .sticky-cta { min-height: var(--touch-min); }
+}
