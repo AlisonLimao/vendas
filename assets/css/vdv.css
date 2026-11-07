@@ -1459,3 +1459,64 @@ a.chip-page {
   color: var(--vdv-text-muted);
   white-space: nowrap;
 }
+
+/* ---- W3 (VDV-20261107) — Busca e Exploração ------------------------------
+ * Mudança visível ao abrir /explorar/: busca mais presente (altura de toque
+ * do token W1 + superfície elevada), chips de categoria roláveis, filter-bar
+ * com alvos ≥44px e estados vazio/erro em cartão. TUDO escopado em
+ * body[data-page="explorar"] — home e favoritos não herdam nada daqui.
+ * Tokens W1 reutilizados (--touch-min, --vdv-surface, --r-2, --shadow-md);
+ * cards W2 intocados. */
+body[data-page="explorar"] .searchbar input {
+  min-height: var(--touch-min);
+  box-shadow: var(--shadow-md);
+  margin-top: .35rem;
+}
+body[data-page="explorar"] .searchbar input:focus {
+  box-shadow: var(--shadow-md);
+}
+body[data-page="explorar"] .filter-bar select {
+  min-height: var(--touch-min);
+}
+body[data-page="explorar"] .filter-bar .chip {
+  min-height: var(--touch-min);
+}
+/* "Limpar busca" sem busca ativa: o display:inline-block do .btn vencia o
+ * [hidden] do UA — o botão aparecia sempre. Regra escopada devolve o oculto. */
+body[data-page="explorar"] #clear-search[hidden] { display: none; }
+
+/* Chips de categoria: faixa rolável horizontal (padrão .cat-row do mobile),
+ * sem quebra de linha — um só gesto de deslize percorre os grupos. Vazio sem
+ * JS não ocupa espaço (o catálogo estático segue como fallback). */
+.x-cats:empty { display: none; }
+@media (max-width: 640px) {
+  .x-cats {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .x-cats::-webkit-scrollbar { display: none; }
+  .x-cats .chip { flex: 0 0 auto; min-height: var(--touch-min); }
+}
+@media (min-width: 641px) {
+  .x-cats { overflow-x: auto; }
+  .x-cats .chip { min-height: var(--touch-min); }
+}
+
+/* Estados vazio e de erro: cartão com superfície/raio dos tokens, ícone de
+ * contexto e as ações (Limpar/Tentar novamente + CTA Procura) no padrão
+ * .empty-actions já existente. */
+.x-estado {
+  background: var(--vdv-surface);
+  border: 1px solid var(--vdv-border);
+  border-radius: var(--r-2);
+  padding: var(--sp-4);
+  margin: 1rem 0;
+  text-align: center;
+}
+.x-estado[hidden] { display: none; }
+.x-estado-ico { display: block; font-size: 1.8rem; margin-bottom: .35rem; }
+.x-estado h2 { margin: 0 0 .4rem; font-size: 1.15rem; }
+.x-estado p { margin: 0 auto; max-width: 34rem; color: var(--vdv-text-muted); }
+.x-estado .empty-actions { justify-content: center; }

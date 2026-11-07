@@ -29,7 +29,10 @@ assert(!/data-deep-link="procura"/.test(html.split("searchbar")[0].split("hero")
 assert(/url\("data:image\/svg\+xml/.test(css), "3. ícone da busca embutido (zero rede)");
 assert(/2\.9rem/.test(css), "3a. área do ícone no padding esquerdo");
 assert(/\.searchbar input\s*\{[\s\S]{0,400}1rem/.test(css), "3b. altura confortável");
-assert(!/\.searchbar input\s*\{[^}]*box-shadow/.test(css), "3c. sem sombra administrativa");
+// 3c. invariante da HOME: a regra BASE .searchbar input segue sem sombra.
+//    W3 (VDV-20261107): a sombra nova existe só no seletor escopado
+//    body[data-page="explorar"] — o regex ancora na regra base (^ + /m).
+assert(!/^\.searchbar input\s*\{[^}]*box-shadow/m.test(css), "3c. sem sombra administrativa (regra base da home)");
 
 // 4. §11/§24: termos rápidos textuais (borda sumiu; separador entre opções).
 assert(/\.qt-term\s*\{[\s\S]{0,80}border:\s*0/.test(css), "4. atalho sem borda");

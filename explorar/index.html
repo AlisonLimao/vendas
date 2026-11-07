@@ -213,6 +213,12 @@
       </div>
     </form>
 
+    <!-- W3 (VDV-20261107) — chips de categoria: os grupos do catálogo viram
+         atalhos selecionáveis logo abaixo da busca (faixa rolável no mobile),
+         sincronizados com o select de categoria. Preenchido pelo JS a partir
+         do products.json; vazio sem JS (o catálogo estático segue abaixo). -->
+    <div class="cat-row x-cats" id="x-cats" role="group" aria-label="Categorias"></div>
+
     <div class="filter-bar">
       <select id="x-grupo" aria-label="Filtrar por categoria">
         <option value="">Todas as categorias</option>
@@ -299,12 +305,25 @@
          CSS (mesmos irmãos, regra do próprio bloco); sem JS ou com fetch
          quebrado, ela é o fallback completo. -->
 
-    <section id="x-zero" hidden>
+    <section class="x-estado" id="x-zero" hidden>
+      <span class="x-estado-ico" aria-hidden="true">🔎</span>
       <h2>Nada encontrado com esses filtros</h2>
       <p>Tente outro termo, limpe os filtros ou diga o que você precisa — a procura chega até quem vende.</p>
       <div class="empty-actions">
         <button type="button" class="btn btn-ghost" id="x-limpar">Limpar filtros</button>
         <a class="btn btn-primary" data-deep-link="procura" data-ga-origin="cta_explorar_zero_procura" href="https://t.me/vitrine_vendasbot?start=procura">Criar uma Procura</a>
+      </div>
+    </section>
+
+    <!-- W3 — estado de ERRO de fetch: retry + CTA Procura (o catálogo
+         estático acima continua como fallback navegável sem o JSON). -->
+    <section class="x-estado" id="x-erro" hidden>
+      <span class="x-estado-ico" aria-hidden="true">📡</span>
+      <h2>Não foi possível carregar o catálogo agora</h2>
+      <p>A lista estática acima continua disponível — ou tente de novo em alguns instantes. Se preferir, diga o que você precisa e a procura chega até quem vende.</p>
+      <div class="empty-actions">
+        <button type="button" class="btn btn-ghost" id="x-retry">Tentar novamente</button>
+        <a class="btn btn-primary" data-deep-link="procura" data-ga-origin="cta_explorar_erro_procura" href="https://t.me/vitrine_vendasbot?start=procura">Criar uma Procura</a>
       </div>
     </section>
 

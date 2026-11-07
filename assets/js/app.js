@@ -2159,6 +2159,7 @@
     var chipsEl = $("x-chips");
     var gridEl = $("x-grid");
     var zeroEl = $("x-zero");
+    var catsEl = $("x-cats");
 
     var AVAIL_FILTER = { value: "pronta_entrega", label: "⚡ Pronta entrega" };
     var q = "", grp = "", sub = "", tipo = "", avail = "";
@@ -2232,6 +2233,42 @@
     }
     fillGrupoOptions();
     fillSubOptions();
+
+    // W3 (VDV-20261107) — chips de categoria: os grupos do catálogo viram
+    // atalhos selecionáveis logo abaixo da busca (faixa rolável no mobile).
+    // Montados UMA vez; depois só o aria-pressed acompanha o estado (o foco
+    // do teclado não se perde a cada tecla da busca). O select de categoria
+    // segue como filtro de 2 níveis — o chip é o atalho do nível 1.
+    function renderCats() {
+      if (!catsEl) return;
+      if (!catsEl.__vdvMontado) {
+        catsEl.__vdvMontado = true;
+        var mk = function (slug, label) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "chip";
+          b.setAttribute("data-grp", slug);
+          b.textContent = label;
+          b.addEventListener("click", function () {
+            grp = slug;
+            sub = "";
+            syncControles();
+            aplicar();
+          });
+          catsEl.appendChild(b);
+        };
+        mk("", "Todas");
+        Object.keys(groups)
+          .map(function (k) { return groups[k]; })
+          .sort(function (a, b) { return b.n - a.n; })
+          .forEach(function (gr) { mk(gr.slug, gr.name + " (" + gr.n + ")"); });
+      }
+      var bs = catsEl.querySelectorAll("button[data-grp]");
+      for (var i = 0; i < bs.length; i++) {
+        bs[i].setAttribute("aria-pressed",
+          String(bs[i].getAttribute("data-grp") === grp));
+      }
+    }
 
     // Chips de filtros ativos, removíveis (um por filtro aplicado).
     function activeChips() {
@@ -2348,6 +2385,7 @@
       gridEl.hidden = found.length === 0;
       zeroEl.hidden = !(searching && found.length === 0);
       if (clearBtn) clearBtn.hidden = !searching;
+      renderCats();
 
       // Fatia 30 — busca é evento de intenção: 1 evento por assinatura mudada.
       var assinatura = q + "|" + sub + "|" + grp + "|" + tipo + "|" + avail;
@@ -2731,8 +2769,24 @@
         // estado inicial (escondidas) — nada de seção fantasma no ar.
         hidePlaceholderSections();
         var s = $("status");
-        if (s) s.textContent =
-          "Não foi possível carregar o catálogo agora. Recarregue a página em alguns instantes.";
+        if (page === "explorar") {
+          // W3 (VDV-20261107) — falha do fetch com caminho de saída: cartão
+          // de erro com retry + CTA Procura; a lista estática do explorar
+          // continua visível como fallback (sem mensagem duplicada no status).
+          var xe = $("x-erro");
+          if (xe) {
+            xe.hidden = false;
+            if (s) s.textContent = "";
+            var rt = $("x-retry");
+            if (rt) {
+              rt.addEventListener("click", function () { location.reload(); });
+            }
+          }
+        }
+        if (s && !(page === "explorar" && xe && !xe.hidden)) {
+          s.textContent =
+            "Não foi possível carregar o catálogo agora. Recarregue a página em alguns instantes.";
+        }
         ["section-novidades"].forEach(function (id) {
           var el = $(id);
           if (el) el.hidden = true;
