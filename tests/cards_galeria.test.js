@@ -39,7 +39,7 @@ assert(exporter.includes("card-gal-track") &&
   exporter.includes("card-gal-dots") &&
   exporter.includes("_card_gallery_html"),
   "1a. exportador: MESMA convenção de classes via helper único (_card_gallery_html)");
-assert(/a\.appendChild\(cardGallery\(p\)\)/.test(js),
+assert(/a\.appendChild\(cardGallery\(p, opts\)\)/.test(js),
   "1b. app.js: cardEl monta a galeria pelo MESMO componente (cardGallery)");
 
 // ── 2. CAMADA 0 (sem JS) — físico nativo, sem handler de touch ─────────────
@@ -85,8 +85,8 @@ assert(!/card-gal-track[^"\n]*"\s*\.(?:addEventListener|on)\(/.test(js),
   "5a. app.js: nenhum listener acoplado a um track individual dos cards");
 
 // ── 6. 1 FOTO → imagem única de sempre, zero controles (ambos os caminhos) ─
-assert(/photos\.length <= 1\) return cardMedia\(p\)/.test(js),
-  "6. app.js: card com 1 foto segue o caminho de sempre (sem track/dots)");
+assert(/photos\.length <= 1\) return cardMedia\(p, opts\)/.test(js),
+  "6. app.js: card com 1 foto segue o caminho de sempre (sem track/dots, opts)");
 
 // ── 7. PÁGINA DO PRODUTO — galeria individual intocada (regressão) ─────────
 assert(js.includes("gallery-track") &&

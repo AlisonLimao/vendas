@@ -663,10 +663,14 @@
     return ph;
   }
 
-  function cardMedia(p) {
+  function cardMedia(p, opts) {
+    opts = opts || {};
     if (!p.image) return cardImgPlaceholder();
     var img = document.createElement("img");
-    img.loading = "lazy";
+    // W6 (VDV-20261107): o card LCP (1º da 1ª banda da home) nasce SEM lazy
+    // e com fetchpriority=high; os demais continuam lazy (fora da dobra).
+    if (opts.lcp) img.setAttribute("fetchpriority", "high");
+    else img.loading = "lazy";
     img.src = prefix + p.image;
     img.alt = p.title;
     // R3 (VDV-20260923-01, mestre itens 12/41): card pequeno usa a thumbnail
@@ -722,7 +726,7 @@
         seller_name: p.seller_name
       });
     });
-    a.appendChild(cardGallery(p));
+    a.appendChild(cardGallery(p, opts));
     // VDV-20261021-02 (espec 63, decisão 4) — selo NOVO: só as bandas da
     // home passam opts.novo; a janela é do exportador (is_new, 7 dias).
     if (opts && opts.novo && p.is_new) {
@@ -813,10 +817,10 @@
    * rola). Extras nascem com data-img, sem <img> até a interação (hidratação
    * sob demanda); dots aria-hidden, não interativos. 1 foto → imagem de
    * sempre (cardMedia), zero controles. */
-  function cardGallery(p) {
+  function cardGallery(p, opts) {
     if (!p.image) return cardImgPlaceholder();
     var photos = Array.isArray(p.images) ? p.images : [];
-    if (photos.length <= 1) return cardMedia(p);
+    if (photos.length <= 1) return cardMedia(p, opts);
     var dest = destaquePara(p);
     var ordem = dest ? photos.slice(dest.k).concat(photos.slice(0, dest.k)) : photos;
     var gal = document.createElement("div");
@@ -832,7 +836,7 @@
       : Object.assign({}, p, { image: photos[0] });
     var slide0 = document.createElement("div");
     slide0.className = "card-gal-slide";
-    slide0.appendChild(cardMedia(principal));
+    slide0.appendChild(cardMedia(principal, opts));
     track.appendChild(slide0);
     Array.prototype.forEach.call(ordem.slice(1), function (src) {
       var slide = document.createElement("div");
@@ -996,6 +1000,7 @@
       if (!chipsEl || !bandasEl) return;
       chipsEl.innerHTML = "";
       bandasEl.innerHTML = "";
+      var lcpUsado = false; // W6 (VDV-20261107): 1º card da 1ª banda = LCP
       var list = cat.bands || [];
       list.forEach(function (b) {
         var atalho = document.createElement("a");
@@ -1027,9 +1032,11 @@
         sec.appendChild(meta);
         var grid = document.createElement("div");
         grid.className = "grid";
+        // W6: só o 1º card da 1ª banda é o LCP da home (fetchpriority=high).
         (b.products || []).forEach(function (pid) {
           var p = id2p[pid];
-          if (p) grid.appendChild(cardEl(p, { novo: true }));
+          if (p) grid.appendChild(cardEl(p, { novo: true, lcp: !lcpUsado }));
+          lcpUsado = true;
         });
         sec.appendChild(grid);
         bandasEl.appendChild(sec);
@@ -1596,8 +1603,15 @@
         Array.prototype.map.call(photos, function (src, i) {
           return '<div class="gallery-slide"><img class="prod-photo"' +
             (i === 0 ? ' id="prod-photo-main"' : "") +
-            ' width="640" height="640"' + (i > 0 ? ' loading="lazy"' : "") +
-            ' decoding="async" src="' + esc(prefix + src) + '" alt="' +
+            ' width="640" height="640"' +
+            (i === 0 ? ' fetchpriority="high" decoding="async"' : ' loading="lazy" decoding="async"') +
+            // W6 (VDV-20261107): foto principal no celular usa a thumb WebP
+            // (400w ≥ 92vw até 430px); desktop permanece com a original.
+            (i === 0 && product.image_thumb
+              ? ' srcset="' + esc(prefix + product.image_thumb) + ' 400w"' +
+                ' sizes="(max-width: 767px) 92vw, 640px"'
+              : "") +
+            ' src="' + esc(prefix + src) + '" alt="' +
             esc(product.title) + '"></div>';
         }).join("") +
         "</div>" +
@@ -1623,7 +1637,13 @@
     } else {
       galeriaHtml =
         '<img class="prod-photo" id="prod-photo-main" width="640" height="640"' +
-        ' decoding="async" src="' + esc(prefix + photos[0]) +
+        ' fetchpriority="high" decoding="async"' +
+        // W6 (VDV-20261107): srcset thumb também na foto única (fallback = original).
+        (product.image_thumb
+          ? ' srcset="' + esc(prefix + product.image_thumb) + ' 400w"' +
+            ' sizes="(max-width: 767px) 92vw, 640px"'
+          : "") +
+        ' src="' + esc(prefix + photos[0]) +
         '" alt="' + esc(product.title) + '">';
     }
     // Fatia 26: modo assistido com contato comercial do dono → canal único do
@@ -2774,6 +2794,14 @@
     initProcuraNav();
     var page = document.body.getAttribute("data-page");
     renderSkeletons(page);
+    // W6 (VDV-20261107) — explorar: reserva a altura dos chips de categoria
+    // ANTES do fetch (o render pós-fetch não desloca a filter-bar: CLS 0).
+    // Menor ajuste possível; sem fetch o espaço reserva é ~1 chip de altura.
+    if (page === "explorar") {
+      var xcats = $("x-cats");
+      // display:flex vence o .x-cats:empty{display:none} (declared later wins)
+      if (xcats) xcats.style.cssText = "display:flex;min-height:2.75rem";
+    }
     fetch(prefix + "data/products.json")
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(function (catalog) {

@@ -127,8 +127,8 @@ assert(
   "W2-4b. ordem do corpo no vdv.min.js (min regenerado não inverte)"
 );
 assert(
-  /a\.appendChild\(cardGallery\(p\)\)/.test(js) &&
-    js.indexOf("cardGallery(p)") < js.indexOf('class="card-price"'),
+  /a\.appendChild\(cardGallery\(p, opts\)\)/.test(js) &&
+    js.indexOf("cardGallery(p, opts)") < js.indexOf('class="card-price"'),
   "W2-4c. imagem antes de tudo (galeria anexada antes do corpo)"
 );
 

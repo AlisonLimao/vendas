@@ -54,7 +54,7 @@ assert(destaquePara({ images: ["a.jpg", "b.jpg"], image_thumbs: ["a.webp"] }) ==
 assert(/var dest = destaquePara\(p\);/.test(js), "3. cardGallery chama destaquePara");
 assert(/var ordem = dest \? photos\.slice\(dest\.k\)\.concat\(photos\.slice\(0, dest\.k\)\) : photos;/.test(js),
   "3. ordem = rotação (slice+concat) quando há pick, photos na ausência");
-assert(/cardMedia\(principal\)/.test(js), "3. slide 0 renderiza o principal (par escolhido)");
+assert(/cardMedia\(principal, opts\)/.test(js), "3. slide 0 renderiza o principal (par escolhido, opts)");
 assert(/ordem\.slice\(1\)/.test(js), "3. extras a partir de ordem (track inteiro, nada duplicado)");
 // dots: quantidade = comprimento da ordem (= photos.length)
 assert(/for \(var k = 0; k < ordem\.length; k\+\+\)/.test(js),
@@ -66,8 +66,8 @@ assert(/var principal = dest\s*\?\s*Object\.assign\(\{\}, p, \{\s*image: dest\.i
 // ---------- 4. fallback sem dest: comportamento de hoje ----------
 assert(/Object\.assign\(\{\}, p, \{ image: photos\[0\] \}\)/.test(js),
   "4. sem dest → principal é photos[0] (idêntico a hoje)");
-assert(/if \(photos\.length <= 1\) return cardMedia\(p\);/.test(js),
-  "4. foto única: caminho atual exato (cardMedia direto)");
+assert(/if \(photos\.length <= 1\) return cardMedia\(p, opts\);/.test(js),
+  "4. foto única: caminho atual exato (cardMedia direto, opts)");
 
 // ---------- 5. sem re-escolha pós-render e sem storage ----------
 const chamadas = (js.match(/destaquePara\(/g) || []).length;
