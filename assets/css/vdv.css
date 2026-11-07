@@ -323,8 +323,17 @@ body[data-page="home"] main > section > h2::before {
 .finale-demand {
   background: var(--w9-card-alt); border-radius: 1rem; /* 16px */
   padding: 1.1rem 1.2rem;
+  display: flex; flex-direction: column; gap: .7rem;
 }
-.finale-demand .btn { align-self: flex-start; }
+/* W9-fix (dono 07/11): o botão de Procura era engolido pelo track estreito
+ * (virava bolha quebrando em 3 linhas). Botão pílula inteira, linha única,
+ * alocado do jeito do desenho; cartões irmãos de mesma altura no desktop. */
+#section-final .finale-demand .btn {
+  align-self: flex-start; white-space: nowrap;
+  padding: .8rem 1.5rem;
+}
+#section-final .finale-sell p { color: #bfdbfe; }
+#section-final .finale-sell .btn-sell { padding: .85rem 1.4rem; white-space: nowrap; }
 /* faixa azul do Anunciar com ação ciana */
 .finale-sell {
   background: var(--w9-hero); color: #dbe7fd; border-radius: 1rem;
@@ -343,7 +352,11 @@ body[data-page="home"] main > section > h2::before {
 /* seção final em grid-areas: Procura → selos → faixa azul (celular);
    desktop: procura/anunciar lado a lado, selos em 4 colunas abaixo */
 #section-final { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
-#section-final > h2 { grid-area: none; }
+/* W9-fix 07/11: `grid-area: none` no h2 quebrava o grid inteiro no
+ * Chromium/Edge atual (templateColumns ignorado → filhos em colunas por
+ * conteúdo; card Procura espremido a 1 palavra por linha). Regra removida:
+ * o h2 auto-posiciona como primeiro item, que é exatamente o desenho. */
+#section-final > h2 { grid-column: 1 / -1; }
 #section-final > .finale-demand { order: 1; }
 #section-final > .finale-facts { order: 2; }
 #section-final > .finale-sell { order: 3; }
@@ -357,7 +370,7 @@ body[data-page="home"] main > section > h2::before {
   .finale-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   #section-final {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
+    align-items: stretch; /* W9-fix: cartões Procura/Anunciar de mesma altura */
   }
   #section-final > .finale-demand { order: 1; }
   #section-final > .finale-sell { order: 2; }
