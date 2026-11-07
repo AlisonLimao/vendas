@@ -69,8 +69,8 @@ assert(/\.trust-pill\s*\{/.test(css), "3f. .trust-pill preservada (página de pr
 assert(/1664525/.test(js), "4. LCG do rodízio intacto");
 assert(js.includes('track("abrir_procura"') || js.includes("abrir_procura"),
   "4a. sinais de navegação intactos");
-assert(html.match(/data-deep-link="procura"/g).length === 3,
-  "4b. exatamente 3 deep links de procura (final, zero-result, catálogo vazio)");
+assert(html.match(/data-deep-link="procura"/g).length === 4, // W5: + #procura-vazia
+  "4b. exatamente 4 deep links de procura (3 contextuais + vazio-W5 #procura-vazia)");
 assert(/scroll-padding-top/.test(css) && !/scroll-margin-top: 4rem/.test(css),
   "4c. âncoras com respiro da topbar (scroll-padding global)");
 assert(/#section-empty/.test(html) || /<section id="section-empty"/.test(html),

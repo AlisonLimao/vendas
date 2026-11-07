@@ -1568,3 +1568,30 @@ body[data-page="produto"] .prod-title { font-size: 1.5rem; }
 @media (max-width: 767px) {
   .prod-sticky .sticky-cta { min-height: var(--touch-min); }
 }
+
+/* /* W5 (VDV-20261107) — vitrine do fornecedor: cabeçalho em cartão, toque
+ * 44px nos links/botões de ação. Só apresentação — marcação gerada segue a
+ * mesma; contagem real vem do gerador (aviso de 1 linha no resumo). */
+body[data-page="fornecedor"] .supplier-head {
+  background: var(--vdv-surface);
+  border: 1px solid var(--vdv-border);
+  border-radius: var(--r-2);
+  padding: .9rem 1rem;
+}
+body[data-page="fornecedor"] .claim-link {
+  display: inline-flex; align-items: center;
+  min-height: var(--touch-min);
+}
+body[data-page="fornecedor"] .action-grid .btn {
+  min-height: var(--touch-min);
+}
+
+/* W5 (VDV-20261107) — barra fixa do produto × banner de consentimento: com o
+ * banner visível no celular, ele sobe ABOVE o sticky (altura ~4.4rem) em vez
+ * de cobrir o CTA. :has() sem fallback JS — em browsers antigos a colisão
+ * antiga persiste (menor ajuste possível, sem tocar a mecânica de consentimento). */
+@media (max-width: 767px) {
+  body:has(#termsfeed-com---nb):has(.prod-sticky) #termsfeed-com---nb {
+    bottom: calc(4.4rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}

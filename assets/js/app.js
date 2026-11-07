@@ -1219,6 +1219,11 @@
         var gridProcuras = $("grid-procuras");
         if (!sectionProcuras || !gridProcuras) return;
         sectionProcuras.hidden = procuras.length === 0;
+        // W5 (VDV-20261107) — estado vazio honesto: sem Procuras ativas, o
+        // cartão #procura-vazia explica o momento com CTA para criar a
+        // demanda (deep link preservado). Com Procuras, fica oculto.
+        var procuraVazio = $("procura-vazia");
+        if (procuraVazio) procuraVazio.hidden = procuras.length !== 0;
         // VDV-20261016-04 (Parte A): chegou a home com #procura (ex.: voltando
         // de uma página interna)? A seção só decide visível/oculta AQUI (após
         // o fetch) — é o momento de rolar para o destino correto.
@@ -1684,8 +1689,12 @@
       '<p class="prod-price">' + fmtPrice(product) + "</p>" +
       // W4 (VDV-20261107) — tipo de oferta logo após o preço (ordem de
       // decisão: nome → preço → tipo → fornecedor/localização). Usa o
-      // typeLabel real (OFFER_TYPE_LABELS do catálogo) — nada inventado.
-      '<p class="prod-offer">' + esc(typeLabel) + "</p>" +
+      // W5 (VDV-20261107): o tipo só vira chip quando o priceLine não o mostra
+      // junto ao preço (varejo/lote/item único já viram nota inline) — evita
+      // “· Varejo” duplicado. Atacado (default) só aparece no chip.
+      (offerType(product) === "atacado"
+        ? '<p class="prod-offer">' + esc(typeLabel) + "</p>"
+        : "") +
       // VDV-20261008-08 (correção Alison) — divulgação COMPACTA logo após o
       // preço (perto = a pessoa acha sem rolar): 2.6rem, Compartilhar
       // (#share-wa — 9ª: href = URL do próprio produto, NUNCA wa.me; o
@@ -2824,7 +2833,29 @@
             if (pr) pr.addEventListener("click", function () { location.reload(); });
           }
         }
-        if (s && !(page === "explorar" && xe && !xe.hidden)) {
+        if (page === "favoritos") {
+          // W5 (VDV-20261107) — erro de fetch em cartão, no padrão W3/W4:
+          // retry + CTA Explorar (a lista já vem do localStorage + catálogo,
+          // então o erro é do fetch — mensagem honesta e caminho de saída).
+          var fm = document.querySelector("main");
+          if (fm) {
+            fm.innerHTML =
+              '<h1>Meus favoritos</h1>' +
+              '<section class="x-estado" aria-label="Erro ao carregar os favoritos">' +
+              '<span class="x-estado-ico" aria-hidden="true">📡</span>' +
+              "<h2>Não foi possível carregar os favoritos</h2>" +
+              "<p>Seus salvos continuam neste navegador. Verifique a conexão e tente de novo.</p>" +
+              '<div class="empty-actions">' +
+              '<button type="button" class="btn btn-ghost" id="fav-retry">Tentar novamente</button>' +
+              '<a class="btn btn-primary" href="' + prefix + 'explorar/">Explorar a vitrine</a>' +
+              "</div></section>";
+            var fr = $("fav-retry");
+            if (fr) fr.addEventListener("click", function () { location.reload(); });
+            var fs = $("status");
+            if (fs) fs.textContent = "";
+          }
+        }
+        if (s && !(page === "explorar" && xe && !xe.hidden) && page !== "favoritos") {
           s.textContent =
             "Não foi possível carregar o catálogo agora. Recarregue a página em alguns instantes.";
         }

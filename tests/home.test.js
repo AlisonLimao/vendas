@@ -103,8 +103,8 @@ assert(
 //     para o bot fica só no CTA do bloco).
 assert(
   /<div class="finale-demand" id="procura">/.test(html) &&
-    html.match(/data-deep-link="procura"/g).length === 3,
-  "6b. demanda real no final integrado (id=procura); deep link nos 3 CTAs contextuais (final, zero-result, catálogo vazio)"
+    html.match(/data-deep-link="procura"/g).length === 4, // W5: + #procura-vazia
+  "6b. demanda real (id=procura); 4 deep links (final, zero-result, catálogo vazio, vazio-W5)"
 );
 assert(
   /<strong>Não encontrou o que precisava\?<\/strong>/.test(html) &&

@@ -282,8 +282,14 @@
     <section id="results" hidden>
       <h2 id="results-title">Resultado da busca</h2>
       <div id="results-grid" class="grid"></div>
-      <p id="results-procura" hidden>Diga o que você precisa e deixe a demanda chegar até quem vende.
-        <a class="btn btn-ghost" data-deep-link="procura" data-ga-origin="cta_zero_result_procura" href="https://t.me/vitrine_vendasbot?start=procura">Criar uma Procura</a></p>
+      <section class="x-estado" id="results-procura" hidden>
+        <span class="x-estado-ico" aria-hidden="true">💬</span>
+        <h2>Não achei o que você procura?</h2>
+        <p>Diga o que você precisa e deixe a demanda chegar até quem vende.</p>
+        <div class="empty-actions">
+          <a class="btn btn-primary" data-deep-link="procura" data-ga-origin="cta_zero_result_procura" href="https://t.me/vitrine_vendasbot?start=procura">Criar uma Procura</a>
+        </div>
+      </section>
       <button id="clear-search" class="btn btn-ghost" hidden>Limpar busca</button>
     </section>
 
@@ -315,6 +321,17 @@
     <section id="procuras" hidden>
       <h2>O que estão buscando</h2>
       <div class="procura-list" id="grid-procuras"></div>
+    </section>
+
+    <!-- W5 (VDV-20261107) — estado vazio honesto: sem Procuras ativas, a
+         seção fica oculta e este cartão explica o momento + CTA. -->
+    <section class="x-estado" id="procura-vazia" hidden>
+      <span class="x-estado-ico" aria-hidden="true">💬</span>
+      <h2>Nenhuma Procura ativa agora</h2>
+      <p>Quando alguém publicar uma demanda aqui na região, ela aparece nesta lista.</p>
+      <div class="empty-actions">
+        <a class="btn btn-primary" data-deep-link="procura" data-ga-origin="cta_empty_procura_w5" href="https://t.me/vitrine_vendasbot?start=procura">Criar uma Procura</a>
+      </div>
     </section>
 
     <!-- R5 (VDV-20260923-01, mestre itens 16-17) — as seções "Explore a
