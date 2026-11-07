@@ -240,17 +240,24 @@
              Chamada final do Alison 10/10 (VDV-20261010-04 §1): promete
              os 2 benefícios centrais (descobrir + falar direto), sem
              prometer volume que o catálogo não garante. -->
-        <h1>Descubra produtos. Fale direto com quem vende.</h1>
-        <p class="hero-sub">Produtos, serviços e oportunidades direto de quem está vendendo em Monte Sião e região.</p>
-        <div class="searchbar">
-          <input id="search" type="search" placeholder="Busque: blusa de inverno, mesa 3D..."
-                 autocomplete="off" aria-label="Buscar produto"
-                 role="combobox" aria-haspopup="listbox" aria-expanded="false"
-                 aria-controls="search-sg">
+        <h1>O que você está procurando?</h1>
+        <p class="hero-sub">Encontre produtos, fornecedores e oportunidades da sua região.</p>
+        <!-- W8 — a busca é a protagonista da primeira dobra: form GET nativo
+             para /explorar/ (mecanismo existente: input name=q + submit;
+             o JS mantém as sugestões e a busca in-place durante a digitação;
+             no envio o termo segue ao Explorar, que já lê ?q=). -->
+        <form id="search-form" class="search-form" action="explorar/" method="get">
+          <div class="searchbar">
+            <input id="search" name="q" type="search" placeholder="Busque: blusa de inverno, mesa 3D..."
+                   autocomplete="off" aria-label="Buscar produto"
+                   role="combobox" aria-haspopup="listbox" aria-expanded="false"
+                   aria-controls="search-sg">
           <!-- Fatia 50 (VDV-20261003-06, mestre §15) — sugestões durante a
                digitação (produtos/categorias do JSON já carregado). -->
           <ul id="search-sg" class="sg-list" role="listbox" hidden></ul>
-        </div>
+          </div>
+          <button class="btn search-btn" type="submit">Buscar</button>
+        </form>
         <!-- Fatia 49 (VDV-20261003-05, mestre §13) — termos rápidos:
              atalhos derivados do catálogo real (subcategorias com mais
              anúncios); preenchido pelo app.js, oculto sem dados. -->

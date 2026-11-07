@@ -268,6 +268,24 @@ body[data-page="home"] main > section > h2::before {
   border-color: transparent;
 }
 
+/* W8 — primeira dobra: a busca é a protagonista. O form (GET nativo para
+ * /explorar/) alinha campo + botão; o campo cresce no foco do celular e o
+ * botão usa o accent do tema (claro/escuro via tokens). */
+.search-form {
+  display: flex; gap: .55rem; align-items: flex-start;
+  margin: .25rem 0 .4rem;
+}
+.search-form .searchbar { flex: 1; min-width: 0; }
+.search-form .searchbar input { margin-top: 0; padding-block: 1rem; }
+.search-btn {
+  margin-top: .5rem; padding: 1rem 1.5rem; border-radius: var(--r-full);
+  border: none; cursor: pointer; font-family: inherit; font-size: 1rem;
+  background: var(--vdv-accent); color: #fff; font-weight: 600;
+}
+@media (prefers-color-scheme: dark) {
+  .search-btn { color: var(--vdv-surface); } /* contraste dark: tinta da superfície sobre o accent */
+}
+
 .chips { display: flex; flex-wrap: wrap; gap: .45rem; margin: .55rem 0; }
 .chip {
   border: 1px solid var(--vdv-border); border-radius: var(--r-full);

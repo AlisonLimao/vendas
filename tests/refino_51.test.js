@@ -10,12 +10,11 @@ const root = path.join(__dirname, "..");
 const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const css = fs.readFileSync(path.join(root, "assets", "css", "vdv.css"), "utf8");
 
-// 1. Copy do hero — Redesign 10/10 (VDV-20261010-04): título curto é o CONVITE
-//    à busca; chamada final do Alison ("Descubra produtos. Fale direto com
-//    quem vende." — os 2 benefícios centrais, sem prometer volume).
-assert(html.includes("Descubra produtos. Fale direto com quem vende."),
+// 1. Copy do hero — W8 (VDV-20261107, mandato do dono): a pergunta de busca
+//    é o convite da primeira dobra; o redesign 10/10 fica no histórico.
+assert(html.includes("O que você está procurando?"),
   "1. chamada do Alison (redesign)");
-assert(html.includes("Produtos, serviços e oportunidades direto de quem está vendendo em Monte Sião e região."),
+assert(html.includes("Encontre produtos, fornecedores e oportunidades da sua região."),
   "1a. sub do redesign");
 
 // 2. §9: CTA "Explorar ofertas" REMOVIDO (busca + grid já exercem a função).
