@@ -116,27 +116,6 @@ Guias 4 e 5: R$ 70,00 cada 140,0 o par | Guias 3 e 6: R$ 85,00 cada 170,00 o par
     
     <li>Categoria: Impressão 3D</li>
   </ul>
-  <section class="prod-related" aria-label="Continue explorando">
-    <h2>Continue explorando</h2>
-    <div class="grid">
-    <a class="card" href="../../produto/c32621ec-0751-414f-a092-63d5a5c13bdf/">
-      <div class="card-gal"><span class="card-gal-arrow card-gal-prev" role="button" tabindex="0" aria-label="Foto anterior">‹</span><span class="card-gal-arrow card-gal-next" role="button" tabindex="0" aria-label="Próxima foto">›</span><div class="card-gal-track" tabindex="0" role="group" aria-label="Fotos do produto — deslize"><div class="card-gal-slide"><img src="../../assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf.jpg" srcset="../../assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf.webp 400w" sizes="(max-width: 767px) 46vw, 276px" class="card-img-contain" decoding="async" alt="Dragões Articulados 3D – Gamer e Floral"></div><div class="card-gal-slide"><img src="../../assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf-2.jpg" srcset="../../assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf-2.webp 400w" sizes="(max-width: 767px) 46vw, 276px" class="card-img-contain" loading="lazy" decoding="async" alt=""></div><div class="card-gal-slide"><img src="../../assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf-3.jpg" srcset="../../assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf-3.webp 400w" sizes="(max-width: 767px) 46vw, 276px" class="card-img-contain" loading="lazy" decoding="async" alt=""></div><div class="card-gal-slide"><img src="../../assets/products/c32621ec-0751-414f-a092-63d5a5c13bdf-4.jpg" srcset="../../assets/products/thumb/c32621ec-0751-414f-a092-63d5a5c13bdf-4.webp 400w" sizes="(max-width: 767px) 46vw, 276px" class="card-img-contain" loading="lazy" decoding="async" alt=""></div></div><div class="card-gal-dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i></div></div>
-      <div class="card-body">
-        <h3 class="card-title">Dragões Articulados 3D – Gamer e Floral</h3>
-        <p class="card-meta">Pronta entrega</p>
-        <p class="card-price">R$ 40,00 <small>· Varejo</small></p>
-      </div>
-    </a>
-    <a class="card" href="../../produto/81980328-4254-44f2-9618-98d96a527fab/">
-      <div class="card-gal"><span class="card-gal-arrow card-gal-prev" role="button" tabindex="0" aria-label="Foto anterior">‹</span><span class="card-gal-arrow card-gal-next" role="button" tabindex="0" aria-label="Próxima foto">›</span><div class="card-gal-track" tabindex="0" role="group" aria-label="Fotos do produto — deslize"><div class="card-gal-slide"><img src="../../assets/products/81980328-4254-44f2-9618-98d96a527fab.jpg" srcset="../../assets/products/thumb/81980328-4254-44f2-9618-98d96a527fab.webp 400w" sizes="(max-width: 767px) 46vw, 276px" class="card-img-contain" decoding="async" alt="Roldanas Redutoras de Atrito para Shima"></div><div class="card-gal-slide"><img src="../../assets/products/81980328-4254-44f2-9618-98d96a527fab-2.jpg" srcset="../../assets/products/thumb/81980328-4254-44f2-9618-98d96a527fab-2.webp 400w" sizes="(max-width: 767px) 46vw, 276px" class="card-img-contain" loading="lazy" decoding="async" alt=""></div><div class="card-gal-slide"><img src="../../assets/products/81980328-4254-44f2-9618-98d96a527fab-3.jpg" srcset="../../assets/products/thumb/81980328-4254-44f2-9618-98d96a527fab-3.webp 400w" sizes="(max-width: 767px) 46vw, 276px" class="card-img-contain" loading="lazy" decoding="async" alt=""></div></div><div class="card-gal-dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div></div>
-      <div class="card-body">
-        <h3 class="card-title">Roldanas Redutoras de Atrito para Shima</h3>
-        <p class="card-meta">Pronta entrega</p>
-        <p class="card-price">R$ 140,00 <small>· Varejo</small></p>
-      </div>
-    </a>
-    </div>
-  </section>
   <p class="prod-more"><a href="../../categoria/impressao_3d/">Mais em Impressão 3D &rarr;</a></p>
   <p class="prod-more">
     <a href="../index.html?id=75fbc39b-b454-458c-bb19-a7f8b31cd040">Ver na vitrine interativa</a>
@@ -375,57 +354,6 @@ Guias 4 e 5: R$ 70,00 cada 140,0 o par | Guias 3 e 6: R$ 85,00 cada 170,00 o par
       }
     });
   }
-})();
-</script><script>
-(function () {
-  function galIndice(track) {
-    return Math.max(0, Math.min(track.children.length - 1,
-      Math.round(track.scrollLeft / Math.max(1, track.clientWidth))));
-  }
-  function pintarDots(track) {
-    var box = track.parentElement &&
-      track.parentElement.querySelector(".card-gal-dots");
-    if (!box) return;
-    var idx = galIndice(track);
-    Array.prototype.forEach.call(box.children, function (dot, k) {
-      dot.classList.toggle("is-on", k === idx);
-    });
-  }
-  function rolar(track, dir) {
-    if (!track || !track.children.length) return;
-    var largura = Math.max(1, track.clientWidth);
-    var alvo = Math.max(0, Math.min(
-      (track.children.length - 1) * largura,
-      track.scrollLeft + dir * largura
-    ));
-    track.scrollBy({ left: alvo - track.scrollLeft, behavior: "smooth" });
-    pintarDots(track);
-  }
-  document.addEventListener("scroll", function (ev) {
-    var t = ev.target;
-    if (t instanceof Element && t.classList.contains("card-gal-track")) {
-      pintarDots(t);
-    }
-  }, { capture: true, passive: true });
-  function noArquivo(ev) {
-    var t = ev.target;
-    if (!(t instanceof Element)) return false;
-    var s = t.closest(".card-gal-arrow");
-    if (!s) return false;
-    ev.stopPropagation();
-    ev.preventDefault();
-    var gal = s.closest(".card-gal");
-    if (gal) {
-      rolar(gal.querySelector(".card-gal-track"),
-        s.classList.contains("card-gal-prev") ? -1 : 1);
-    }
-    return true;
-  }
-  document.addEventListener("click", function (ev) { noArquivo(ev); }, true);
-  document.addEventListener("keydown", function (ev) {
-    if (ev.key !== "Enter" && ev.key !== " ") return;
-    noArquivo(ev);
-  }, true);
 })();
 </script><script>
 (function () {
